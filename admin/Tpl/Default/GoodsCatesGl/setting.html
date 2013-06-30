@@ -1,0 +1,152 @@
+<tagLib name="fanwe" />
+<include file="Public:header" />
+<div class="handle-btns">
+	<fanwe:linkBtn text="{$Think.lang.RETURN_CATEGORY_LIST}" href="{:U('GoodsCatesGl/index',array('cate_id'=>$_GET['cate_id'],'cate_name'=>$_GET['cate_name']))}" />
+</div>
+<form method='post' id="form" name="form" action="{:U(MODULE_NAME.'/insert')}">
+	<table cellpadding="4" cellspacing="0" border="0" class="table-form">
+		<tr>
+			<th width="230">{$Think.lang.CATE_NAME}</th>
+			<td>
+				<span>{$cate_info['cate_name']}({$type})</span>
+				<input type="hidden" name="cate_id" value="{$_GET['cate_id']}"/>
+				<input type="hidden" name="type" value="{$type}"/>
+			</td>
+		</tr>
+		<tr>
+			<th>&nbsp;</th>
+			<td>
+				<p>
+					如果选择上级分类，将取消他所有的子级分类。如果选择子分类，将取消他所属的上级分类。<br/>
+					每个{$type}分类只能关联一个分享分类，提交保存时，将清除此{$type}分类与其他分享分类的关联。
+				</p> 
+			</td>
+		</tr>
+		<tr>
+			<th style="text-align:center; vertical-align:top; padding-left:0;padding-right:0;">
+				<p style="padding:3px 0 10px 0">已关联{$type}分类(双击删除)</p>
+				<select multiple="multiple" id="cateSelect" style="width:220px;height:400px;" size="12">
+					<foreach name="select_list" item="cate">
+					<option value="{$cate.id}" parentID="{$cate.pid}">{$cate.name}</option>
+					</foreach>
+				</select>
+				<input type="hidden" name="cate_ids" value="{$vo.cate_ids}" id="cateIds" />
+			</th>
+			<td>
+				<p style="padding:0 0 7px 20px;">{$type}分类列表(双击选定关联)</p>
+				<div style="width:100%; overflow-x:auto; text-align:left;">
+					<table cellpadding="0" cellspacing="0" border="0" class="table-normal" align="left">
+						<tr id="cateBox">
+							<td>
+								<select multiple="multiple" id="taobao" style="height:400px;" class="cateSelect">
+									<foreach name="cate_list" item="cate">
+										<option value="{$cate['id']}">{$cate['name']}</option>
+									</foreach>
+								</select>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</td>
+		</tr>
+		<tr class="act">
+			<th>&nbsp;</th>
+			<td>
+				<input type="submit" class="submit_btn" value="{$Think.lang.SUBMIT}" />&nbsp;&nbsp;
+				<input type="reset" class="reset_btn" value="{$Think.lang.RESET}" />
+			</td>
+		</tr>
+	</table>
+</form>
+
+<script type="text/javascript">
+var EMPTY_USER = "{:getLang('EMPTY_USER','User')}";
+jQuery(function($){
+	$("#cateSelect").bind("dblclick",function(){
+		$("#cateSelect option:selected").remove();
+	});
+	
+	$("#form").submit(function(){
+		var ids = new Array();
+		$("#cateSelect option").each(function(){
+			ids.push($(this).val());
+		});
+		$("#cateIds").val(ids.join(","));
+	});
+	
+	$(".cateSelect").live('change',function(){
+		var obj = this;
+		var query = new Object();
+		query.id = this.value;
+		query.type = '{$type}';
+		
+		if(query.id == '')
+			return;
+		
+		if($("option:selected",this).attr('parentID'))
+		{
+			if(query.type == 'yiqifa' && $("option:selected",this).attr('parentID') != '')
+				return;
+		}
+					
+		$.ajax({
+			url: APP + '?' + VAR_MODULE + '=GoodsCatesGl&' + VAR_ACTION + '=getSelect',
+			type:"POST",
+			async:false,
+			cache: false,
+			data:query,
+			dataType:"text",
+			success: function(result){
+				$(obj).parent().nextAll().remove();
+				var html = '<td>'+ result +'</td>';
+				$("#cateBox").append(html);
+			}
+		});
+	});
+	
+	$(".cateSelect").live('dblclick',function(){
+		var pids = new Array();
+		var val = this.value;
+		$("#cateSelect option").each(function(){
+			if((',' + $(this).attr('parentIDs') + ',').indexOf(',' + val + ',') > -1)
+				$(this).remove();
+		});
+		
+		$(this).parent().nextAll().each(function(){
+			$("select option",this).each(function(){
+				$("#cateSelect option[value='"+ $(this).val() +"']").remove();
+			});
+		});
+		
+		$(this).parent().prevAll().each(function(){
+			$("select",this).each(function(){
+				pids.unshift($(this).val());
+				$("#cateSelect option[value='"+ $(this).val() +"']").remove();
+			});
+		});
+		
+		updateCateSelect(val,$('option:selected',this).text(),pids.join(","));
+	});
+});
+
+function updateCateSelect(id,name,pids)
+{
+	var is_add = true;
+	var coptions = $("#cateSelect option");
+	for (i = 0; i < coptions.length; i++) 
+	{
+		if ($(coptions[i]).attr("value") == id) 
+		{
+			is_add = false;
+			break;
+		}
+	}
+	
+	if(is_add)
+	{
+		var html = '<option parentIDs="'+ pids +'" value="'+ id +'">'+name+'</option>';
+		$("#cateSelect").prepend(html);
+	}
+}
+</script>
+<include file="Public:footer" />

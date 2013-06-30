@@ -1,0 +1,115 @@
+<div class="lb_hd">
+	<ul class="lb_tab">
+		<li class="c rt3" rel="default"><a href="javascript:;">我要分享</a></li>
+		<li class="rt3" rel="look"><a href="javascript:;">我要晒货</a></li>
+		<li class="rt3" rel="dapei"><a href="javascript:;">分享搭配</a></li>
+	</ul>
+	<a href="javascript:;" class="lb_close" onclick="$.Fast_Share_Close()"></a>
+</div>
+<div class="lb_bd" style="position:relative;">
+	<?php
+		Cache::getInstance()->loadCache('goods_color');
+		$cate_options = '';
+		FS('Share')->getShareCateOptions(0,$cate_options);
+	?>
+	<form method="post" id="FAST_SHARE_FORM">
+		<div id="FAST_SELECT_ALBUM" class="fast_select_album clearfix">
+			<div class="chose_album">
+				<a href="javascript:;" class="choose fl slide">选择{lang common/album}</a>
+				<i class="choose_r fl slide_r"></i>
+				<a class="cancel" href="javascript:;">取消</a>
+			</div>
+			<span class="fw_count">{sprintf char_check 140}</span>
+		</div>
+		<div class="fast_expands">
+			<div class="fl fast_expand">
+				<ul class="fast_image_box PUB_IMG">
+					<!--{if $type == 'goods'}-->
+					<li class="g_f PUB_SHARTE_IMAGE PUB_SHARTE_GOODS" title="{lang share_dragsort_tip}" type="goods" key="{$result['key']}">
+						<img src="{$goods['item']['pic_url']}" width="100" height="100" />
+						<img alt="" class="tag" src="./tpl/images/goods_tag.png">
+						<span>设置详细</span>
+						<input type="hidden" class="GOODS_INFO" name="goods[{$result['key']}]" value='{$result['info']}' />
+						<input type="hidden" class="GOODS_ITEM_TAG" name="goods_tags[{$result['key']}]" value="{$result['tags']}" />
+						<input type="hidden" class="share_sort" name="goods_sort[{$result['key']}]" value="" />
+					</li>
+					<!--{else}-->
+					<li class="p_f PUB_SHARTE_IMAGE PUB_SHARTE_PIC FAST_CURRENT_PHOTO" type="photo" title="{lang share_dragsort_tip}">
+						<img src="{$result['img']}" width="100" height="100" />
+						<span>设置详细</span>
+						<input type="hidden" class="PHOTO_INFO" name="pics[]" value='{$result['info']}' />
+						<input type="hidden" class="share_sort" name="pics_sort[]" value="" />
+					</li>
+					<!--{/if}-->
+                                        <!--{if $goods['imgs_html']}-->
+                                            <!--{loop $goods['imgs_html'] $img_html}-->
+                                                <!--{$img_html}-->
+                                            <!--{/loop}-->
+                                        <!--{/if}-->
+					<li class="PUB_LOOK_DAPEI PUB_LOOK_DAPEI_PHOTO fast_look_dapei" onclick="$.Pic_Add(this)"> <strong>添加图片</strong> </li>
+				</ul>
+				<div class="fast_goods_detailed PUB_GOODS_DETAILED" direction="r">
+					<div>
+						<label>宝贝价格：</label>
+						<span class="PGD_PRICE"></span>
+						<label style="margin:0 0 0 20px;" class="PGD_COMMISSION">可获积分：</label>
+						<span class="PGD_COMMISSION"></span> </div>
+					<div>
+						<label>宝贝分类：</label>
+						<select class="PGD_GOODSCATE">
+							<option value="0">请选择分类</option>
+							{$cate_options}
+						</select>
+						<span class="PGD_GOODSCATESTR"></span> </div>
+					<div style="margin:5px 0 0 0;">
+						<label>宝贝颜色：</label>
+						<!--{loop $_FANWE['cache']['goods_color'] $color}-->
+						<a class="colorblock" href="javascript:;" title="{$color['name']}" style="background:{if !empty($color['icon'])}url({getimg $color['icon'] 0 0}){else}{$color['color']}{/if};" colorID="{$color['id']}"><span></span></a>
+						<!--{/loop}-->	
+					</div>
+					<div style="margin:5px 0 0 0;">
+						<label>宝贝描述：</label>
+						<input type="text" class="textinput PGD_GOODSALT" style="width:167px;">
+					</div>
+					<a class="fgd_close PGD_CLOSE">关闭</a>
+				</div>
+				<div class="fast_photo_detailed PUB_PHOTO_DETAILED">
+					<div>
+						<label>图片描述：</label>
+					</div>
+					<div>
+						<textarea class="textarea PHD_PHOTOALT" style="width:228px; height:64px;"></textarea>
+					</div>
+					<a class="fhd_close PHD_CLOSE">关闭</a>
+				</div>
+			</div>
+			<input type="hidden" class="SHARE_TYPE" name="share_type" value="default"/>
+		</div>
+		<textarea name="content" class="PUB_TXT fast_content fl" length="140" position="0" isCN="1"></textarea>
+		<input type="button" class="fast_btn fl" value="发表" id="fastSharePubBtn"/>
+		<input type="hidden" name="albumid" class="PUB_ALBUM_ID" value="0" />
+		<input type="hidden" name="module" value="share" />
+		<input type="hidden" name="action" value="save" />
+		<!--{if $_FANWE['setting']['share_is_tag'] == 1}-->
+		<div class="fl fast_tags PUB_SHARE_TAG_BOX" style="display:none;">
+			<span class="fl tag_title">{lang tag}：</span>
+			<input type="text" class="fl tag_txt PUB_SHARE_TAG" name="tags" title="{sprintf share_tag_tip $_FANWE['setting']['share_tag_count']}" />
+			<ul></ul>
+		</div>
+		<!--{/if}-->
+		<div class="fast_ext">
+			<div class="fast_opt fl">
+				<a href="javascript:;" onclick="$.Show_Expression(this)" style="background-position:-2px -3px;" class="add_face">表情</a>
+				<a class="add_event" href="javascript:;" onclick="$.Event_Add(this)" style="background-position:-2px -97px;">话题</a>
+				<a class="add_at" href="javascript:;" onclick="$.At_Add(this)" style="background-position:-3px -615px;">朋友</a>
+			</div>
+			<div class="fast_out fr">
+				<input type="checkbox" checked="checked" name="pub_out_check" value="1">
+				<label for="pub_out_check">{lang sync}</label>
+				（<a href="{u settings/bind}" target="_blank">{lang settings}</a>）
+			</div>
+		</div>
+	</form>
+	<div class="clear"></div>
+	<div id="FAST_ALBUM" style="display:none;"><div style="padding:20px; text-align:center;"><img src="./tpl/images/loading.gif" /></div></div>
+</div>

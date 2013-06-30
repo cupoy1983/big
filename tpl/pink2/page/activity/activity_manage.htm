@@ -1,0 +1,206 @@
+<?php
+	$css_list[0]['url'][] = './tpl/css/tweetlist.css';
+	$css_list[0]['url'][] = './tpl/css/topic.css';
+?>
+<!--{template inc/header}-->
+<style type="text/css">
+.activity_head{width:900px; font-size:14px; color:#333; font-weight:bold; margin:30px 30px 0 30px; border-bottom:solid 5px #ccc; line-height:26px;}
+.activity_status{float:right; font-size:12px; font-weight:normal; color:#333;}
+.activity_status a{color:#333; padding:2px 3px 3px 3px;}
+.activity_status a.active{background:#333; color:#fff;}
+.activity_table{background:#ccc; width:900px; margin:10px 30px 30px 30px;}
+.activity_table th{background:#fff; text-align:center;vertical-align:middle;}
+.activity_table td{background:#fff; text-align:center;vertical-align:middle;}
+.activity_table td a.down{cursor:pointer; color:#369;}
+.activity_fields{width:890px; background:#ccc;}
+.activity_fields th{background:#f1f1f1; width:80px;}
+.activity_fields td{text-align:left; width:363px;}
+
+.activity_foot{padding-top:10px; padding-bottom:10px;}
+.activity_foot *{float:left;}
+.activity_foot label{line-height:24px; display:block;}
+.activity_foot .textinput{border:1px solid #C6C6C6;padding:3px 5px; line-height:normal; height:16px; resize:none; width:650px;}
+.activity_foot button{vertical-align:middle;overflow:hidden;margin-left:4px;padding:0 10px;height:24px;border:1px solid #999;background:#E5E5E5 url(./tpl/images/pn.png) repeat-x 0 0;cursor:pointer;box-shadow: 0 1px 0 #E5E5E5;}
+.activity_foot button.apn{border-color: #235994;background-color: #06C;background-position: 0 -48px;color: white;}
+</style>
+<div id="body" class="fm960">
+	<div class="piece1_hd"></div>
+	<div class="piece1_bd" style="background:#fff;">
+		<div class="activity_head">
+			<div class="activity_status">
+				<a href="{u activity/manage id=$activity['id']}"{if $status == 0} class="active"{/if}>全部</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{u activity/manage id=$activity['id'],status=1}"{if $status == 1} class="active"{/if}>等待审核</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{u activity/manage id=$activity['id'],status=2}"{if $status == 2} class="active"{/if}>允许参加</a>
+			</div>
+			<a href="{u activity/detail id=$activity['id']}">{$activity['title']}</a> ─ 报名者管理
+		</div>
+		<table border="0" cellpadding="4" cellspacing="1" class="activity_table">
+			<thead>
+				<tr>
+					<th width="30"><input type="checkbox" id="allSelect" /></th>
+					<th width="100">申请人</th>
+					<th>留言</th>
+					<th width="130">申请时间</th>
+					<th width="60">状态</th>
+					<th width="60">扩展项目</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!--{loop $apply_list $apply}-->
+				<tr>
+					<td><input type="checkbox" value="{$apply['id']}" /></td>
+					<td>{$apply['user_name']}</td>
+					<td style="text-align:left;">
+						<!--{if getStrLen($apply['content']) > 72}-->
+						<span>{cutstr $apply['content'] 62}&nbsp;&nbsp;</span><span style="display:none;">{$apply['content']}&nbsp;&nbsp;</span><a class="down contentdown">详细▼</a>
+						<!--{else}-->
+						{$apply['content']}
+						<!--{/if}-->
+					</td>
+					<td>{$apply['time']}</td>
+					<td>
+						<!--{if $apply['status'] == 0}-->
+						等待审核
+						<!--{else}-->
+						允许参加
+						<!--{/if}-->
+					</td>
+					<td>{if $apply['fields_data']}<a class="down fieldsdown">查看▼</a>{/if}</td>
+				</tr>
+				<!--{if $apply['fields_data']}-->
+				<tr style="display:none;">
+					<td colspan="6">
+						<table border="0" cellpadding="4" cellspacing="1" class="activity_fields">
+							<?php
+								$field_list = array_chunk($apply['fields_data'],2,true);
+							?>
+							<!--{loop $field_list $fields}-->
+							<tr>
+								<!--{eval $fcount = 0;}-->
+								<!--{loop $fields $field_name $field_val}-->
+								<th>{$field_name}</th>
+								<td>{$field_val}</td>
+								<!--{eval $fcount++;}-->
+								<!--{/loop}-->
+								<!--{if $fcount == 1}-->
+								<th>&nbsp;</th>
+								<td>&nbsp;</td>
+								<!--{/if}-->
+							</tr>
+							<!--{/loop}-->
+						</table>
+					</td>
+				</tr>
+				<!--{/if}-->
+				<!--{/loop}-->
+			</tbody>
+			<tfoot>
+				<td colspan="6" class="activity_foot">
+					<label>&nbsp;&nbsp;附言：</label>
+					<input type="text" id="activityMessage" class="textinput" maxlength="200" />
+					<button class="apn" onclick="activityManage(this,1);"><span>批准</span></button>
+					<button onclick="activityManage(this,-1);"><span>发通知</span></button>
+					<button onclick="activityManage(this,0);"><span>拒绝</span></button>
+				</td>
+			</tfoot>
+		</table>
+		<div class="pagination"> 
+			<!--{subtemplate inc/pages}-->
+		</div>
+	</div>
+	<div class="piece1_ft"></div>
+</div>
+<script type="text/javascript">
+jQuery(function($){
+	$(".contentdown").click(function(){
+		if($(this).html() == "详细▼")
+		{
+			$(this).prev().show();
+			$(this).prev().prev().hide();
+			$(this).html("隐藏▲");
+		}
+		else
+		{
+			$(this).prev().hide();
+			$(this).prev().prev().show();
+			$(this).html("详细▼");
+		}
+	});
+	
+	$("#allSelect").change(function(){
+		$(".activity_table tbody input").attr('checked',this.checked);
+	});
+	
+	$(".fieldsdown").click(function(){
+		if($(this).html() == "查看▼")
+		{
+			$(this).parent().parent().next().show();
+			$(this).html("隐藏▲");
+		}
+		else
+		{
+			$(this).parent().parent().next().hide();
+			$(this).html("查看▼");
+		}
+	});
+});
+
+function activityManage(obj,status)
+{
+	var ids = new Array();
+	var checkeds = $(".activity_table tbody input:checked");
+	if(checkeds.length == 0)
+	{
+		$.Show_MiNiTooltip($("#allSelect"),"ACTIVITY_SUBMIT_TIP","亲，请选择要操作的申请人哦！");
+		return false;	
+	}
+	
+	checkeds.each(function(){
+		ids.push(this.value);
+	});
+	ids = ids.join(',');
+	
+	var msg = $.trim($("#activityMessage").val());
+	if(status == -1)
+	{
+		if(msg == '')
+		{
+			$.Show_MiNiTooltip($("#activityMessage"),"ACTIVITY_SUBMIT_TIP","亲，发送通知需要填写通知内容哦！",false,1);
+			return false;
+		}
+	}
+	
+	$.Show_Btn_Loading(obj,true);
+	var query = new Object();
+	query.aid = {$activity['id']};
+	query.ids = ids;
+	query.status = status;
+	query.message = msg;
+	
+	$.ajax({
+		url: SITE_PATH+"services/service.php?m=activity&a=manage",
+		type: "POST",
+		data:query,
+		cache:false,
+		dataType: "json",
+		success:function(result){
+			$.Remove_Btn_Loading(obj);
+			if(result.status == 1)
+			{
+				$.Show_MiNiTooltip($(obj),"ACTIVITY_SUBMIT_TIP","操作成功！",false);
+				var fun = function(){
+					location.reload(true);
+				}
+				setTimeout(fun,1000);
+			}
+			else
+			{
+				$.Show_MiNiTooltip($(obj),"ACTIVITY_SUBMIT_TIP","亲，操作失败啦，请再提交一次！",false);
+			}
+		},
+		error:function(){
+			$.Remove_Btn_Loading(obj);
+			$.Show_MiNiTooltip($(obj),"ACTIVITY_SUBMIT_TIP","亲，操作失败啦，请再提交一次！",false);
+		}
+	});
+}
+</script>
+<!--{template inc/footer}-->

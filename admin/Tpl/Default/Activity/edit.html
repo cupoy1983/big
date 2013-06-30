@@ -1,0 +1,170 @@
+<tagLib name="fanwe" />
+<include file="Public:header" />
+<link href="__TMPL__Static/Js/DatePicker/jquery.ui.all.css" rel="stylesheet" />
+<script type="text/javascript" src="__TMPL__Static/Js/user.js"></script>
+<script type="text/javascript" src="__TMPL__Static/Js/jquery.ui.core.js"></script>
+<script type="text/javascript" src="__TMPL__Static/Js/DatePicker/jquery.ui.datepicker.js"></script>
+<div class="handle-btns">
+	<fanwe:linkBtn text="{$Think.lang.RETURN_LIST}" href="{:Cookie::get('returnUrl')}" />
+</div>
+<form method='post' id="form" name="form" action="{:U(MODULE_NAME.'/update')}">
+<table cellpadding="4" cellspacing="0" border="0" class="table-form">
+	<tr>
+		<th width="150">{$Think.lang.TITLE}</th>
+		<td><input type="text" class="textinput requireinput" name="title" value="{$vo.title}" size="68" /></td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.ACTIVITY_TIME}</th>
+		<td>
+			<input type="text" class="textinput" name="begin_time" id="beginTime" value="{$vo.begin_date}" style="width:100px;" readonly="readonly"/>
+			<label class="time_range" <if condition="$vo['end_time'] eq 0">style="display:none;"</if>>&nbsp;～&nbsp;</label>
+			<input type="text" class="textinput time_range" name="end_time" id="endTime" value="{$vo.end_date}" style="width:100px;<if condition="$vo['end_time'] eq 0">display:none;</if>" readonly="readonly"/>
+			&nbsp;&nbsp;
+			<label class="inputcheckbox"><input type="checkbox"<if condition="$vo['end_time'] gt 0">checked="checked"</if> value="1" name="time_range" id="timeRange" /><span>&nbsp;时间范围</span></label>
+		</td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.PLACE}</th>
+		<td><input type="text" class="textinput requireinput" name="place" value="{$vo.place}" size="68" /></td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.CID}</th>
+		<td>
+			<select name="cid">
+				<foreach name="cates" item="cate">
+				<option value="{$cate.id}" <if condition="$cate['id'] eq $vo['cid']">selected="selected"</if>>{$cate.name}</option>
+				</foreach>
+			</select>
+			&nbsp;&nbsp;
+			<span>{$Think.lang.PROVINCE}&nbsp;</span>
+			<select id="province" name="province">
+				<option value="0">选择城市</option>
+				<foreach name="citys" item="city">
+				<option value="{$city.id}" <if condition="$city['id'] eq $vo['province']">selected="selected"</if>>{$city.name}</option>
+				</foreach>
+			</select>
+			&nbsp;&nbsp;
+			<span>{$Think.lang.NUMBER}&nbsp;</span>
+			<input type="text" class="textinput" name="number" style="width:56px;" value="{$vo.number}"/>
+			<select name="gender">
+				<option value="0" <if condition="$vo['gender'] eq 0">selected="selected"</if>>不限</option>
+				<option value="1" <if condition="$vo['gender'] eq 1">selected="selected"</if>>男</option>
+				<option value="2" <if condition="$vo['gender'] eq 2">selected="selected"</if>>女</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.COST}</th>
+		<td>
+			<input type="text" class="textinput" name="cost" style="width:110px;" value="{$vo.cost}"/>
+			<span>&nbsp;元</span>
+			&nbsp;&nbsp;
+			<span>{$Think.lang.EXPIRATION_TIME}&nbsp;</span>
+			<input type="text" class="textinput" name="expiration_time" id="expirationTime" style="width:110px;" readonly="readonly" value="{$vo.expiration_date}"/>
+		</td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.FIELDS}</th>
+		<td>
+			<div>
+				<foreach name="activity_fields" item="field">
+				<label><input type="checkbox" value="{$field}" checked="checked" name="old_fields[]" /><span>&nbsp;{$field}</span></label>&nbsp;&nbsp;&nbsp;
+				</foreach>
+			</div><br/>
+			<textarea class="textinput areainput" rows="{$fields_count}" name="fields" style="height:auto;"></textarea>
+			<br/><br/><span>每行代表一个填写项目，最多共 10 项</span>
+		</td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.CONTENT}</th>
+		<td>
+			<textarea name="content" class="textinput areainput" rows="5">{$vo.share.content}</textarea>
+		</td>
+	</tr>
+	<tr class="act">
+		<th>&nbsp;</th>
+		<td>
+			<input type="hidden" name="id" value="{$vo.id}" />
+			<input type="submit" class="submit_btn" value="{$Think.lang.SUBMIT}" />&nbsp;&nbsp;
+			<input type="reset" class="reset_btn" value="{$Think.lang.RESET}" />
+		</td>
+	</tr>
+</table>
+</form>
+<script type="text/javascript">
+jQuery(function($){
+	var now = new Date();
+	<if condition="$vo['end_time'] eq 0">
+	$("#beginTime").datepicker({minDate:now});
+	<else/>
+	$("#beginTime").datepicker({showTimePanel:true});
+	$("#endTime").datepicker({showTimePanel:true,minDate:now});
+	</if>
+	$("#expirationTime").datepicker({showTimePanel:true,minDate:now});
+	$("#timeRange").change(function(){
+		$("#beginTime").datepicker("destroy");
+		if(this.checked)
+		{
+			$("#beginTime").val("");
+			$("#beginTime").datepicker({showTimePanel:true});
+			$("#endTime").datepicker({showTimePanel:true,minDate:now});
+			$(".time_range").show();
+		}
+		else
+		{
+			$("#beginTime").val("");
+			$("#beginTime").datepicker({minDate:now});
+			$("#endTime").datepicker("destroy");
+			$("#endTime").val("");
+			$(".time_range").hide();
+		}
+	});
+	
+	$("#form").submit(function(){
+		var title = $.trim(this.title.value);
+		var content = $.trim(this.content.value);
+		
+		if(title == '')
+		{
+			alert("标题不能为空！");
+			this.title.focus();
+			return false;
+		}
+		
+		if(content == '')
+		{
+			alert("内容不能为空！");
+			this.content.focus();
+			return false;
+		}
+		
+		var value = this.begin_time.value;
+		if(!$.checkRequire(value))
+		{
+			alert("你还没有选择活动时间！");
+			this.begin_time.focus();
+			return false;
+		}
+		
+		if($("#timeRange").attr("checked"))
+		{
+			value = this.end_time.value;
+			if(!$.checkRequire(value))
+			{
+				alert("你还没有选择活动结束时间！");
+				this.end_time.focus();
+				return false;
+			}
+		}
+		
+		value =this.place.value;
+		if(!$.checkRequire(value))
+		{
+			alert("你还没有输入活动地点！");
+			this.place.focus();
+			return false;
+		}
+	});
+});
+</script>
+<include file="Public:footer" />

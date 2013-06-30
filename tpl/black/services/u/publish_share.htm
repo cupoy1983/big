@@ -1,0 +1,218 @@
+<!--{if $type == 'activity'}-->
+<div class="fl pub_expand">
+	<p class="peph">
+		<label>标题：</label>
+		<input type="text" class="textinput pub_title" name="title" maxlength="80"/>
+		<span class="require">*</span>
+	</p>
+	<div class="pepl">
+		<p>
+			<label>活动时间：</label>
+			<input type="text" class="textinput" name="begin_time" id="beginTime" value="" style="width:100px;" readonly="readonly"/>
+			<label class="time_range" style="display:none;">&nbsp;～&nbsp;</label>
+			<input type="text" class="textinput time_range" name="end_time" id="endTime" value="" style="width:100px;display:none;" readonly="readonly"/>
+			<span class="require">*</span>
+		</p>
+		<p>
+			<label style="width:60px;*width:56px;">&nbsp;</label>
+			<label class="inputcheckbox"><input type="checkbox" value="1" name="time_range" id="timeRange"/><span>时间范围</span></label>
+		</p>
+		<p>
+			<label>活动地点：</label>
+			<input type="text" class="textinput" name="place" value="" style="width:230px;"/>
+			<span class="require">*</span>
+		</p>
+		<p>
+			<label>所在城市：</label>
+			<select id="province" name="province">
+				<option value="0">选择城市</option>
+			</select>
+		</p>
+		<p>
+			<label>活动类别：</label>
+			<select name="cid">
+				<!--{loop $_FANWE['cache']['activity_cate'] $cate}-->
+				<option value="{$cate['id']}">{$cate['name']}</option>
+				<!--{/loop}-->
+			</select>
+		</p>
+		<p>
+			<label>需要人数：</label>
+			<input type="text" class="textinput" name="number" style="width:56px;"/>
+			<select name="gender">
+				<option value="0">不限</option>
+				<option value="1">男</option>
+				<option value="2">女</option>
+			</select>
+		</p>
+	</div>
+	<div class="pepr">
+		<p>
+			<label>每人花销：</label>
+			<input type="text" class="textinput" name="cost" style="width:110px;"/>
+			<span>&nbsp;元</span>
+		</p>
+		<p>
+			<label>报名截止：</label>
+			<input type="text" class="textinput" name="expiration_time" id="expirationTime" style="width:110px;" readonly="readonly"/>
+		</p>
+		<p>
+			<label>必填资料项：(每行代表一个填写项目，最多 10 项)</label>
+		</p>
+		<p>
+			<textarea class="textarea" name="fields" style="width:305px; height:80px;">真实姓名
+			手机
+			QQ</textarea>
+		</p>
+	</div>
+</div>
+<script type="text/javascript">
+jQuery(function($){
+	$.Bind_Province("#province",0);
+	var now = new Date();
+	$("#beginTime").datepicker({minDate:now});
+	$("#expirationTime").datepicker({showTimePanel:true,minDate:now});
+	$("#timeRange").change(function(){
+		$("#beginTime").datepicker("destroy");
+		if(this.checked)
+		{
+			$("#beginTime").val("");
+			$("#beginTime").datepicker({showTimePanel:true});
+			$("#endTime").datepicker({showTimePanel:true,minDate:now});
+			$(".time_range").show();
+		}
+		else
+		{
+			$("#beginTime").val("");
+			$("#beginTime").datepicker({minDate:now});
+			$("#endTime").datepicker("destroy");
+			$("#endTime").val("");
+			$(".time_range").hide();
+		}
+	});
+});
+</script>
+<!--{elseif $type == 'vote'}-->
+<div class="fl pub_expand" rel="vote">
+	<p class="peph">
+		<label>标题：</label>
+		<input type="text" class="textinput pub_title" name="title" maxlength="80"/>
+		<span class="require">*</span>
+	</p>
+	<div class="pepl1">
+		<p>
+			<label>投票选项：</label>
+			<span>(至少2项,最多20项,每项最多20字)</span>
+			<a class="addoption" href="javascript:;">添加选项</a>
+		</p>
+		<p>
+			<input type="text" class="textinput VOTE_ITEM" name="vote_item[]" value="" style="width:380px;" maxlength="20"/>
+			<a class="deleteoption" href="javascript:;"></a>
+		</p>
+		<p>
+			<input type="text" class="textinput VOTE_ITEM" name="vote_item[]" value="" style="width:380px;" maxlength="20"/>
+			<a class="deleteoption" href="javascript:;"></a>
+		</p>
+	</div>
+	<div class="pepr1">
+		<p>
+			<label>单选/多选：</label>
+			<select name="multiple">
+				<option value="0">单选</option>
+				<option value="1">多选</option>
+			</select>
+		</p>
+		<p>
+			<label>截止时间：</label>
+			<input type="text" class="textinput" name="expiration_time" id="expirationTime" style="width:110px;" readonly="readonly"/>
+		</p>
+		<p>
+			<label>投票结果：</label>
+			<select name="visibility">
+				<option value="1">投票后可见</option>
+				<option value="0">任何人可见</option>
+			</select>
+		</p>
+	</div>
+</div>
+<script type="text/javascript">
+jQuery(function($){
+	var now = new Date();
+	$("#expirationTime").datepicker({showTimePanel:true,minDate:now});
+	
+	$(".deleteoption").live('click',function(){
+		if($(".VOTE_ITEM").length <= 2)
+		{
+			$.Show_MiNiTooltip($(this),"VOTE_MAX_COUNT_TIP","亲，至少要保留2个投票选项哦！");
+			return;
+		}
+		
+		$(this).parent().remove();
+	});
+	
+	$(".addoption").click(function(){
+		if($(".VOTE_ITEM").length >= 20)
+		{
+			$.Show_MiNiTooltip($(this),"VOTE_MAX_COUNT_TIP","亲，最多只能添加20个投票选项哦！");
+			return;
+		}
+		
+		var html='<p><input type="text" class="textinput VOTE_ITEM" name="vote_item[]" value="" style="width:380px;" maxlength="20"/><a class="deleteoption" href="javascript:;"></a></p>';
+		$(this).parent().parent().append(html);
+	});
+});
+</script>
+<!--{/if}-->
+<div class="fl pub_expand"{if $type != 'look' && $type != 'dapei'} style="display:none;"{/if}>
+	<ul class="pub_image_box PUB_IMG">
+		<!--{if $type == 'look'}-->
+		<li class="PUB_LOOK_DAPEI PUB_LOOK_DAPEI_GOODS pub_look_dapei" onclick="$.Goods_Add(this)">
+			<strong>添加宝贝</strong>
+		</li>
+		<li class="PUB_LOOK_DAPEI PUB_LOOK_DAPEI_PHOTO pub_look_dapei" onclick="$.Pic_Add(this)">
+			<strong>添加宝贝照片</strong>
+		</li>
+		<!--{elseif $type == 'dapei'}-->
+		<li class="PUB_LOOK_DAPEI PUB_LOOK_DAPEI_PHOTO pub_look_dapei" onclick="$.Pic_Add(this)">
+			<strong>添加搭配照片</strong>
+		</li>
+		<!--{/if}-->
+	</ul>
+	<div class="pub_goods_detailed PUB_GOODS_DETAILED" direction="r">
+		<div>
+			<label>宝贝价格：</label>
+			<span class="PGD_PRICE"></span>
+			<label style="margin:0 0 0 20px;" class="PGD_COMMISSION">可获积分：</label>
+			<span class="PGD_COMMISSION"></span>
+		</div>
+		<div>
+			<label>宝贝分类：</label>
+			<select class="PGD_GOODSCATE">
+				<option value="0">请选择分类</option>
+				{$cate_options}
+			</select>
+			<span class="PGD_GOODSCATESTR"></span>
+		</div>
+		<div style="margin:5px 0 0 0;">
+			<label>宝贝颜色：</label>
+			<!--{loop $_FANWE['cache']['goods_color'] $color}-->
+			<a class="colorblock" href="javascript:;" title="{$color['name']}" style="background:{if !empty($color['icon'])}url({getimg $color['icon'] 0 0}){else}{$color['color']}{/if};" colorID="{$color['id']}"><span></span></a>
+			<!--{/loop}-->
+		</div>
+		<div style="margin:5px 0 0 0;">
+			<label>宝贝描述：</label>
+			<input type="text" class="textinput PGD_GOODSALT" style="width:167px;"/>
+		</div>
+		<a class="pgd_close PGD_CLOSE">关闭</a>
+	</div>
+	<div class="pub_photo_detailed PUB_PHOTO_DETAILED">
+		<div>
+			<label>图片描述：</label>
+		</div>
+		<div>
+			<textarea class="textarea PHD_PHOTOALT" style="width:228px; height:64px;"></textarea>
+		</div>
+		<a class="phd_close PHD_CLOSE">关闭</a>
+	</div>
+</div>
+<input type="hidden" class="SHARE_TYPE" name="share_type" value="{$type}"/>

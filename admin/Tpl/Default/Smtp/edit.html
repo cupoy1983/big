@@ -1,0 +1,94 @@
+<tagLib name="fanwe" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Static/Js/user.js"></script>
+<div class="handle-btns">
+	<fanwe:linkBtn text="{$Think.lang.RETURN_LIST}" href="{:U(MODULE_NAME.'/index')}" />
+</div>
+<script type="text/javascript">
+	function sendDemo()
+	{
+		var form_param = $("#form").serialize();
+		$.ajax({
+		  url: APP+"?"+VAR_MODULE+"=Smtp&"+VAR_ACTION+"=sendDemo&"+form_param,
+		  cache: false,
+		  success:function(data)
+		  {
+			alert(data);
+		  }
+		}); 
+	}
+	
+</script>
+<form method='post' id="form" name="form" action="{:U(MODULE_NAME.'/update')}" enctype="multipart/form-data">
+<table cellpadding="10" cellspacing="0" border="0" class="table-form">
+	<tr>
+		<th width="150">邮件服务器：</th>
+		<td><input type="text" class="textinput" name="smtp_server" id="smtp_server" value="{$vo.smtp_server}" style="width:400px;" /></td>
+	</tr>
+        <tr>
+		<th width="150">邮件帐号：</th>
+		<td><input type="text" class="textinput" name="smtp_account" id="smtp_account" value="{$vo.smtp_account}" style="width:400px;" /></td>
+	</tr>
+        <tr>
+		<th width="150">邮件密码：</th>
+		<td><input type="text" class="textinput" name="smtp_password" id="smtp_password" value="{$vo.smtp_password}" style="width:400px;" /></td>
+	</tr>
+        <tr>
+		<th width="150">端口：</th>
+		<td><input type="text" class="textinput" name="smtp_port" id="smtp_port" value="{$vo.smtp_port}" style="width:400px;" /></td>
+	</tr>
+        <tr>
+		<th width="150">SMTP验证：</th>
+		<td><select name="smtp_auth">
+                        <option value="1" <if condition="$vo['smtp_auth'] eq 1" >selected="selected"</if> >验证</option>
+			<option value="0" <if condition="$vo['smtp_auth'] eq 0" >selected="selected"</if> >不验证</option>
+			
+		</select></td>
+	</tr>
+        <tr>
+		<th width="150">SSL加密连接：</th>
+		<td>
+                    <label>是：<input type="radio" name="is_ssl" value="1" onclick="checkSSL(this);" <if condition="$vo['is_ssl'] eq 1"> checked="checked" </if> /></label>
+                    <label>否：<input type="radio" name="is_ssl" value="0" onclick="checkSSL(this);" <if condition="$vo['is_ssl'] eq 0"> checked="checked" </if>/></label>
+                </td>
+	</tr>
+        <tr>
+		<th width="150">次数限制：</th>
+		<td><input type="text" class="textinput" name="batch_limit" id="batch_limit" value="{$vo.batch_limit}" style="width:400px;" />必填，为 0 则为不限制发送，多邮件服务器请设置具体限制</td>
+	</tr>
+        <tr>
+		<th width="150">已使用次数：</th>
+		<td><input type="text" class="textinput" name="batch_count" id="batch_count" value="{$vo.batch_count}" style="width:400px;" /></td>
+	</tr>
+        <tr>
+		<th width="150">自动清零：</th>
+		<td>
+                    <label>启用：<input type="radio" name="auto_reset" value="1" <if condition="$vo['auto_reset'] eq 1"> checked="checked" </if> /></label>
+		<label>禁用：<input type="radio" name="auto_reset" value="0"  <if condition="$vo['auto_reset'] eq 0"> checked="checked" </if> /></label>
+                </td>
+	</tr>
+        <tr>
+		<th width="150">状态：</th>
+		<td>
+                    <label>启用：<input type="radio" name="status" value="1" <if condition="$vo['status'] eq 1"> checked="checked" </if> /></label>
+		<label>禁用：<input type="radio" name="status" value="0" <if condition="$vo['status'] eq 0"> checked="checked" </if>  /></label>
+                </td>
+	</tr>
+        <tr>
+		<th width="150">发送测试邮件：</th>
+                <td>邮箱地址：<input type="text" name="mail_address" id="mail_address" value="{$vo.mail_address}" class="bLeft" /> <input type="button" value="发送测试邮件" onclick="sendDemo();" />
+	</td>
+	</tr>
+        
+	<tr class="act">
+		<th>&nbsp;</th>
+		<td>
+                    <input type="hidden" name="id" value="{$vo.id}" />
+			<input type="submit" class="submit_btn" value="{$Think.lang.SUBMIT}" />&nbsp;&nbsp;
+			<input type="reset" class="reset_btn" value="{$Think.lang.RESET}" />
+		</td>
+	</tr>
+</table>
+</form>
+
+<include file="Public:footer" />

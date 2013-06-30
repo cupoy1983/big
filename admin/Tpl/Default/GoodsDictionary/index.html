@@ -1,0 +1,33 @@
+<tagLib name="fanwe" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Static/Js/dataList.js"></script>
+<div class="handle-btns">
+	<fanwe:imageBtn id="addData" name="addData" value="{$Think.lang.ADD}" click="addData(this,'checkList')" />
+	<fanwe:imageBtn id="editData" name="editData" value="{$Think.lang.EDIT}" click="editData(this,'checkList')" />
+	<fanwe:imageBtn id="removeData" name="removeData" value="{$Think.lang.REMOVE}" click="removeData(this,'checkList')" />
+	<fanwe:linkBtn text="{$Think.lang.IMPORT}" href="{:U(MODULE_NAME.'/import')}" />
+	<fanwe:linkBtn text="{$Think.lang.EXPORT}" href="{:U(MODULE_NAME.'/export')}" />
+	<fanwe:linkBtn text="{$Think.lang.CATE_UPDATE}" href="{:U(MODULE_NAME.'/updateCache')}" />
+	<form action="__APP__">
+		<span>{$Think.lang.WORD}</span>
+		<input class="textinput" type="text" value="{$word}" name="word" size="12" />
+		<small></small>
+		<input class="submit_btn" type="submit" value="{$Think.lang.SEARCH}" />
+		<input type="hidden" name="{:c('VAR_MODULE')}" value="{$module_name}" />
+		<input type="hidden" name="{:c('VAR_ACTION')}" value="index" />
+	</form>
+</div>
+<div class="handle-btns" style="padding:10px; background:#fff; color:#f00; height:auto;">
+	{$Think.lang.CATE_UPDATE_TIP}
+</div>
+<fanwe:list 
+	id="checkList" 
+	style="list" 
+	name="item" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{$Think.lang.ID}|50,word:{$Think.lang.WORD}|~left:textEdit|id,rword:{$Think.lang.RWORD}|~left:textEdit|id,status|getStatusImg:{$Think.lang.STATUS}|50:toggleStatus|id" 
+	actionlist="editData:{$Think.lang.EDIT}:id,removeData:{$Think.lang.REMOVE}:id" action_width="80" />
+<div class="pager">{$page}</div>
+<include file="Public:footer" />

@@ -1,0 +1,57 @@
+<!--{template inc/header}-->
+<style type="text/css">
+.shou_box{padding:10px 20px;}
+.shou_box .sb_title{color: #666; font-size:24px; font-weight:normal; font-family:"微软雅黑", "黑体", "宋体";}
+.shou_box .sb_left{float:left; width:340px; text-align:center;}
+.shou_box .sbl_title{font-size:16px;}
+.sbl_btns{position:relative; width:180px; height:40px; margin:18px auto;}
+.shou_box .sblb_link{display:block; position:absolute; left:0; top:0; z-index:2; width:180px; height:40px; overflow:hidden; line-height:1000px; text-align:left; background:#fff; filter:alpha(opacity=1); -moz-opacity:0.01;  -khtml-opacity: 0.01;  opacity: 0.01;  }
+.shou_box .sblb_bg{display:block; width:180px; height:40px; text-align:center; line-height:40px;position:absolute;left:0; top:0; z-index:1; background:url({$_FANWE['site_url']}shou/add.jpg) no-repeat; font-weight:bold; color:#fff; font-size:16px;}
+.shou_box .sb_right{float:right; border-left:dashed 1px #ccc; padding:0 0 0 30px;}
+.shou_box .sbr_title{font-size:16px; font-weight:bold;}
+.shou_jiantou{position:absolute; top:0; z-index:10000000; display:none;}
+</style>
+<div class="blank12"></div>
+<div id="body" class="fm960">
+	<div class="piece1">
+		<div class="piece1_hd"></div>
+		<div class="piece1_bd clearfix">
+			<div class="shou_box">
+				<h3 class="sb_title">安装书签栏拾图工具</h3>
+				<div class="blank20"></div>
+				<div class="sb_left">
+					<div class="sbl_title">把这个拖到你的浏览器书签</div>
+					<div class="sbl_btns">
+						<a class="sblb_link" href="javascript:void((function(){var%20d=new%20Date();var%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','{$_FANWE['site_url']}shou/shou.js?t='+d.getTime());document.getElementsByTagName('head')[0].appendChild(e)})());">★ {$_FANWE['setting']['site_name']}</a>
+						<div class="sblb_bg">{$_FANWE['setting']['site_name']}拾图工具</div>
+					</div>
+					<div class="blank12"></div>
+					<div class="sbl_pic"><img src="{$_FANWE['site_url']}shou/shou.jpg" alt="{$_FANWE['setting']['site_name']}拾宝图工具"></div>
+				</div>
+				<div class="sb_right">
+					<div class="sbr_title">找不到书签栏</div><br/>
+					<img src="{$_FANWE['site_url']}shou/ie.jpg" width="520"/><br/><br/>
+					<img src="{$_FANWE['site_url']}shou/google.jpg" width="520"/><br/><br/>
+					<img src="{$_FANWE['site_url']}shou/firefox.jpg" width="520"/><br/><br/>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="piece1_ft"></div>
+	</div>
+</div>
+<div class="shou_jiantou"><img src="{$_FANWE['site_url']}shou/jt.gif" width="127" /></div>
+<script type="text/javascript">
+jQuery(function($){
+	$(".sblb_link").hover(function(){
+		var offset = $(this).offset();
+		var height = offset.top + $(this).height() / 2 + 10;
+		var left = offset.left + $(this).width();
+		$(".shou_jiantou").css({"left":left,"height":height}).show();
+		$(".shou_jiantou img").css({"height":height});
+	},function(){
+		$(".shou_jiantou").hide();
+	});
+});
+</script>
+<!--{template inc/footer}-->

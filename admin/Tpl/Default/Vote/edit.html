@@ -1,0 +1,137 @@
+<tagLib name="fanwe" />
+<include file="Public:header" />
+<link href="__TMPL__Static/Js/DatePicker/jquery.ui.all.css" rel="stylesheet" />
+<script type="text/javascript" src="__TMPL__Static/Js/user.js"></script>
+<script type="text/javascript" src="__TMPL__Static/Js/jquery.ui.core.js"></script>
+<script type="text/javascript" src="__TMPL__Static/Js/DatePicker/jquery.ui.datepicker.js"></script>
+<style type="text/css">
+#voteOptionsBox{width:480px; float:left;}
+#voteOptionsBox ul{float:left; width:480px; position:relative;}
+#voteOptionsBox ul li{margin:0 0 10px 0; float:left; width:480px;}
+#voteOptionsBox .empty{width:20px; height:20px; display:block; margin:1px 0 0 0;float:left;}
+#voteOptionsBox .deleteoption{width:20px; height:20px; display:block; background:url(__TMPL__Static/Images/op.png) no-repeat 0 0; margin:1px 0 0 0;float:left;}
+#voteOptionsBox .VOTE_ITEM{border:1px solid #C6C6C6;padding:2px 5px; line-height:normal; height:16px; resize:none; width:428px; float:left;}
+#voteOptionsBox .deleteoption:hover{background:url(__TMPL__Static/Images/op.png) no-repeat 0 -20px; margin:1px 0 0 0;}
+#voteOptionsBox .addoption{background:url(__TMPL__Static/Images/addoption.gif) no-repeat 0 0; width:71px; height:18px; display:block; text-indent:-80px; float:left; overflow:hidden;}
+#voteOptionsBox .updown{background:url(__TMPL__Static/Images/up_down.gif) no-repeat right 3px; width:20px; height:20px; display:block; float:left; overflow:hidden;}
+</style>
+<div class="handle-btns">
+	<fanwe:linkBtn text="{$Think.lang.RETURN_LIST}" href="{:Cookie::get('returnUrl')}" />
+</div>
+<form method='post' id="form" name="form" action="{:U(MODULE_NAME.'/update')}">
+<table cellpadding="4" cellspacing="0" border="0" class="table-form">
+	<tr>
+		<th width="150">{$Think.lang.TITLE}</th>
+		<td><input type="text" class="textinput requireinput" name="title" value="{$vo.title}" size="68" /></td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.MULTIPLE_FULL}</th>
+		<td>
+			<select name="multiple">
+				<option value="0" <if condition="$vo['multiple'] eq 0">selected="selected"</if>>{$Think.lang.MULTIPLE_0}</option>
+				<option value="1" <if condition="$vo['multiple'] eq 1">selected="selected"</if>>{$Think.lang.MULTIPLE_1}</option>
+			</select>
+			&nbsp;&nbsp;
+			<span>{$Think.lang.VISIBILITY_FULL}&nbsp;</span>
+			<select name="visibility">
+				<option value="1" <if condition="$vo['visibility'] eq 1">selected="selected"</if>>{$Think.lang.VISIBILITY_1}</option>
+				<option value="0" <if condition="$vo['visibility'] eq 0">selected="selected"</if>>{$Think.lang.VISIBILITY_0}</option>
+			</select>
+			&nbsp;&nbsp;
+			<span>{$Think.lang.EXPIRATION_TIME}&nbsp;</span>
+			<input type="text" class="textinput" id="expiration_time" readonly="readonly" name="expiration_time" value="{:toDate($vo['expiration_time'],'Y-m-d H:i')}" size="16" />
+		</td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.OPTIONS}</th>
+		<td>
+			<div id="voteOptionsBox">
+				<ul>
+					<foreach name="vote_options" item="option">
+					<li>
+						<input type="text" class="textinput VOTE_ITEM" name="vote_option[{$option.id}]" value="{$option.title}" maxlength="20"/>
+						<input type="hidden" name="vote_osort[{$option.id}]" />
+						<a class="empty" href="javascript:;"></a>
+						<a class="updown" href="javascript:;"></a>
+					</li>
+					</foreach>
+				</ul>
+				<a class="addoption" href="javascript:;">添加选项</a>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.CONTENT}</th>
+		<td>
+			<textarea name="content" class="textinput areainput" rows="5">{$vo.share.content}</textarea>
+		</td>
+	</tr>
+	<tr class="act">
+		<th>&nbsp;</th>
+		<td>
+			<input type="hidden" name="id" value="{$vo.id}" />
+			<input type="submit" class="submit_btn" value="{$Think.lang.SUBMIT}" />&nbsp;&nbsp;
+			<input type="reset" class="reset_btn" value="{$Think.lang.RESET}" />
+		</td>
+	</tr>
+</table>
+</form>
+<script type="text/javascript">
+jQuery(function($){
+	$("#expiration_time").datepicker({showTimePanel:true});
+	$("#form").submit(function(){
+		var title = $.trim(this.title.value);
+		var content = $.trim(this.content.value);
+		
+		if(title == '')
+		{
+			alert("标题不能为空！");
+			this.title.focus();
+			return false;
+		}
+		
+		if(content == '')
+		{
+			alert("内容不能为空！");
+			this.content.focus();
+			return false;
+		}
+		
+		var index = 1;
+		var bln = true;
+		$("#voteOptionsBox .VOTE_ITEM").each(function(){
+			if($.trim(this.value) == '')
+			{
+				alert("投票选项不能为空！");
+				this.focus();
+				bln = false;
+				return false;
+			}
+			$(this).next().val(index);
+			index++;
+		});
+		return bln;
+	});
+	
+	$("#voteOptionsBox .deleteoption").live('click',function(){
+		$(this).parent().remove();
+	});
+
+	$("#voteOptionsBox .addoption").click(function(){
+		if($("#voteOptionsBox .VOTE_ITEM").length >= 20)
+		{
+			alert("最多只能添加20个投票选项");
+			this.focus();
+			return;
+		}
+		
+		var html='<li><input type="text" class="textinput VOTE_ITEM" name="vote_item[]" value="" maxlength="20"/><input type="hidden" name="vote_sort[]" /><a class="deleteoption" href="javascript:;"></a><a class="updown" href="javascript:;"></a></li>';
+		$("#voteOptionsBox ul").append(html);
+		
+		$("#voteOptionsBox ul").sortable();
+	});
+	
+	$("#voteOptionsBox ul").sortable();
+});
+</script>
+<include file="Public:footer" />

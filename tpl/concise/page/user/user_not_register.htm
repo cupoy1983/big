@@ -1,0 +1,46 @@
+<?php
+$css_list[0]['url'] = './tpl/css/club.css';
+$js_list[0][] = './tpl/js/club.js';
+?>
+<!--{template inc/header}-->
+<div id="body" class="fm960">
+    <div id="content_body">
+        <div class="piece piece_w960">
+            <div class="piece_hd">
+                <b class="hl"></b>
+                <b class="hr"></b>
+            </div>
+            <div class="piece piece_w960">
+                <div class="piece_hd">
+                    <b class="hl"></b>
+                    <b class="hr"></b>
+                </div>
+                <div style="height:600px;" class="piece_bd clearfix">
+                    <div style="margin: 0 auto;width: 580px;font: 14px/1.6 Arial,sans-serif;font-size: 22px;" >
+                        <h1>{$_FANWE['setting']['close_register_desc']}
+                        <embed type="application/x-shockwave-flash" width="600" height="400"
+                            src="{$_FANWE['site_url']}public/swf/not_regiest.swf" wmode="transparent"
+                            quality="high" scale="noborder" flashvars="width=500&amp;height=400"
+                            allowscriptaccess="sameDomain" align="L"></embed>
+                        </h1>
+                       
+                        <p style="color: #333333;font-size: 14px;line-height:2;padding-top: 10px; float:left;">
+                            休息一下，玩玩这个游戏。<br>
+                            游戏玩法：将猫困在一个深色原点围成的圈子里面就算成功了。
+							<a style="color:#0099EE;font-size: 14px;line-height:2;" href="{u index/index}">返回 &gt;</a>
+						</p>
+                    </div>
+                </div>
+                <div class="piece_ft">
+                    <b class="fl"></b>
+                    <b class="fr"></b>
+                </div>
+            </div>
+            <div class="piece_ft">
+                <b class="fl"></b>
+                <b class="fr"></b>
+            </div>
+        </div>
+    </div>
+</div>
+<!--{template inc/footer}-->

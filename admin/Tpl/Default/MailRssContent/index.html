@@ -1,0 +1,26 @@
+<tagLib name="fanwe" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Static/Js/dataList.js"></script>
+<div class="handle-btns">
+	<fanwe:imageBtn id="addData" name="addData" value="{$Think.lang.ADD}" click="addData(this,'checkList')" />
+	<fanwe:imageBtn id="editData" name="editData" value="{$Think.lang.EDIT}" click="editData(this,'checkList','fid')" />
+	<fanwe:imageBtn id="removeData" name="removeData" value="{$Think.lang.REMOVE}" click="removeData(this,'checkList')" />
+        <if condition="$parent_id gt 0">
+		<fanwe:linkBtn text="{$Think.lang.RETURN_PREV}" href="{:U(MODULE_NAME.'/index',array('parent_id'=>$pp_id))}" />
+	</if>
+</div>
+
+<fanwe:list 
+	id="checkList" 
+        pk="id" 
+	name="content" 
+	style="list" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	child="true" 
+	show="id:{$Think.lang.ID}|8%,title:{$Think.lang.TITLE},cate_name:{$Think.lang.CATE_NAME}|~left,status|getStatusImg:{$Think.lang.STATUS}|50:toggleStatus|id" 
+	actionlist="id|getSendLinks,editData:{$Think.lang.EDIT}:id,removeData:{$Think.lang.REMOVE}:id" action_width="410" action_align="right"/>
+<div class="pager">{$page}</div>
+<include file="Public:footer" />
+

@@ -1,0 +1,1 @@
+var SETTING = {"share_goods_count":"3","share_pic_count":"3","share_tag_count":"10","share_is_tag":"1","share_is_cate":"0"};

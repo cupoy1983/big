@@ -1,0 +1,318 @@
+<?php
+	$css_list[0]['url'] = './tpl/css/exchange.css';
+	$css_list[1]['url'][] = './tpl/css/tweetlist.css';
+	$css_list[1]['url'][] = './tpl/css/topic.css';
+	$js_list[0] = './tpl/js/exchange.js';
+?>
+<!--{template inc/header}-->
+<div class="trial_box">
+	<div class="tb_left">
+		<div class="tbl_box">
+			<!--{if $info['begin_time'] > 0}-->
+			<div class="begin_bg"><span>{date $info['begin_time'] 'm月d号 H时i分'}开始</span><em></em></div>
+			<!--{/if}-->
+			<a class="pic" href="{$info['url']}" target="_blank"><img src="{getimgbyid $info['img_id'] 0 0}" width="315" height="220" /></a>
+			<div class="bewrite">
+				<h3 class="bw_tle"><a href="{$info['url']}" target="_blank">{$info['name']}</a></h3>
+				<p class="count">
+					<span>共&nbsp;</span><strong>{$info['stock']}</strong><span>&nbsp;份</span>
+					<!--{if $info['buy_count'] > 0}-->
+					<span>&nbsp;&nbsp;&nbsp;&nbsp;已兑&nbsp;</span><strong>{$info['buy_count']}</strong><span>&nbsp;份</span>
+					<!--{/if}-->
+					<!--{if $info['apply_type'] >0}-->
+					<span>&nbsp;&nbsp;&nbsp;&nbsp;积分&nbsp;</span><strong>{$info['integral']}</strong>
+					<!--{/if}-->
+					<!--{if $info['price'] > 0}-->
+					<span>&nbsp;&nbsp;&nbsp;&nbsp;价值&nbsp;</span><strong class="price">{$info['price_format']}</strong>
+					<!--{/if}-->
+				</p>
+				<!--{if $info['end_time'] > 0}-->
+				<p class="time END_TIME" end-date="{date $info['end_time'] 'r'}">
+					<span>剩余时间：</span>
+					<strong>0</strong><span>天</span>
+					<strong>0</strong><span>时</span>
+					<strong>0</strong><span>分</span>
+					<strong>0</strong><span>秒</span>
+				</p>
+				<!--{else}-->
+				<p class="time"></p>
+				<!--{/if}-->
+				<p class="GOODS_BTNS" url="{$info['url']}">
+					<!--{if $info['apply_type'] == 0}-->
+					<a class="trial_apply trialBtn" href="javascript:;" goodsID="{$info['id']}" goodsType="{$info['goods_type']}"></a>
+					<!--{elseif $info['apply_type'] == 1}-->
+					<a class="exchange_apply exchangeBtn" href="javascript:;" goodsID="{$info['id']}" goodsType="{$info['goods_type']}"></a>
+					<!--{elseif $info['apply_type'] == 2}-->
+					<a class="trial_btn trialBtn" href="javascript:;" goodsID="{$info['id']}" goodsType="{$info['goods_type']}"></a>
+					<a class="exchange_btn exchangeBtn" href="javascript:;" goodsID="{$info['id']}" goodsType="{$info['goods_type']}"></a>
+					<!--{/if}-->
+				</p>
+				<p><b>{$info['apply_count']}</b>人{if $info['apply_type'] == 0 || $info['apply_type'] == 2}申请{else}兑换{/if}</p>
+				<!-- Baidu Button BEGIN -->
+				<div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">   
+					<a class="bds_tsina"></a>
+					<a class="bds_tqq"></a>
+					<a class="bds_renren"></a>
+					<a class="bds_qzone"></a>
+					<span class="bds_more"></span>
+				</div>
+				<script type="text/javascript" id="bdshare_js" data="type=tools&mini=1" ></script> 
+				<script type="text/javascript" id="bdshell_js"></script> 
+				<script type="text/javascript">
+					//在这里定义bds_config
+					var bds_config = {"bdText":"{$info['name']}"};
+					bds_config.bdPic = "{$bu_share_img}";
+					document.getElementById('bdshell_js').src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+				</script>
+				<!-- Baidu Button END -->
+			</div>
+		</div>
+		<div class="tbl_box">
+			<div class="tblb_info">
+				<!--{if $info['apply_type'] == 0 || $info['apply_type'] == 2}-->
+				<div class="tblbi_title">活动简介</div>
+				<div class="tblbi_content">{$info['apply_content']}</div>
+				<!--{/if}-->
+				{$info['content']}
+			</div>
+		</div>
+		<div class="tbl_box">
+			<!--{if $info['apply_type'] == 0 || $info['apply_type'] == 2}-->
+			<div class="tblb_title">她们刚刚申请了试用</div>
+			<!--{else}-->
+			<div class="tblb_title">她们刚刚申请了兑换</div>
+			<!--{/if}-->
+			<div class="tblb_apply_box">
+				<!--{loop $apply_user $user}-->
+				<div class="tblbab_user">
+					<a href="{u u/index uid=$user['uid']}" class="tblbab_userimg GUID" target="_blank" uid="{$user['uid']}"><img src="{avatar $user['avatar'] m}"></a>
+					<a href="{u u/index uid=$user['uid']}" class="tblbab_username" target="_blank" uid="{$user['uid']}">{$user['user_name']}</a>
+				</div>
+				<!--{/loop}-->
+			</div>
+		</div>
+		<!--{if $info['apply_type'] == 0 || $info['apply_type'] == 2}-->
+		<div class="tbl_box">
+			<!--{template inc/share/exchange_publish}-->
+			<!-- 微博列表 -->
+			{$post_html}
+			<!-- 分页  -->
+		</div>
+		<!--{/if}-->
+	</div>
+	<div class="exchange_right">
+		<dl>
+			<dd class="content">
+				<!--{if $_FANWE['uid'] > 0}-->
+				<div class="er_info">
+					<span class="fl">&nbsp;&nbsp;当前积分：<b class="red">$_FANWE['user']['credits']</b></span>
+					<span class="fr"><a href="{u exchange/rule}" target="_blank">如何赚取积分？</a></span>
+				</div>
+				<div class="er_link">
+					<a href="{u u/exchange}"><img src="./tpl/images/exchange.jpg" /></a>
+				</div>
+				<!--{else}-->
+				<div class="er_link">
+					<a href="{u user/login}"><img src="./tpl/images/login.jpg" /></a>
+				</div>
+				<div class="er_rule"><a href="{u exchange/rule}" target="_blank">如何赚取积分？</a></div>
+				<!--{/if}-->
+			</dd>
+		</dl>
+		<div class="blank12"></div>
+		<dl>
+			<dt><strong>正在申请试用的MM</strong></dt>
+			<dd class="user-list">
+				<!--{if count($apply_list) > 0}-->
+				<ul>
+					<!--{loop $apply_list $order}-->
+					<li>
+						<a href="{u u/index uid=$order['uid']}" target="_blank" class="fl GUID" uid="{$order['uid']}"><img class="fl" src="{avatar $order['avatar'] s}"></a>
+						<p><span class="fr">{timelag $order['create_time']}</span><a href="{u u/index uid=$order['uid']}" target="_blank" class="uname GUID" uid="{$order['uid']}">{$order['user_name']}</a></p>
+						<p class="e_title"><a target="_blank" href="{u exchange/info id=$order['id']}" title="{$order['name']}">{cutstr $order['name'] 30}</a></p>
+					</li>
+					<!--{/loop}-->
+				</ul>
+				<!--{else}-->
+				<div class="empty">&nbsp;</div>
+				<!--{/if}-->
+			</dd>
+		</dl>
+		<div class="blank12"></div>
+		<dl>
+			<dt><strong>正在兑换的MM</strong></dt>
+			<dd class="user-list">
+				<!--{if count($order_list) > 0}-->
+				<ul>
+					<!--{loop $order_list $order}-->
+					<li>
+						<a href="{u u/index uid=$order['uid']}" target="_blank" class="fl GUID" uid="{$order['uid']}"><img class="fl" src="{avatar $order['avatar'] s}"></a>
+						<p><span class="fr">{timelag $order['create_time']}</span><a href="{u u/index uid=$order['uid']}" target="_blank" class="uname GUID" uid="{$order['uid']}">{$order['user_name']}</a></p>
+						<p class="e_title"><span>兑换了&nbsp;</span><a target="_blank" href="{u exchange/info id=$order['id']}" title="{$order['name']}">{cutstr $order['name'] 16}</a><span>&nbsp;<b>$order['data_num']</b>&nbsp;件</span></p>
+					</li>
+					<!--{/loop}-->
+				</ul>
+				<!--{else}-->
+				<div class="empty">&nbsp;</div>
+				<!--{/if}-->
+			</dd>
+		</dl>
+		<div class="blank12"></div>
+		<dl>
+			<dt><strong>积分TOP10</strong></dt>
+			<dd class="top">
+				<!--{if count($score_list) > 0}-->
+				<ul>
+					<!--{eval $index = 1;}-->
+					<!--{loop $score_list $score_item}-->
+					<li><span class="i{if $index < 4} t{/if}">{if $index < 10}0{/if}{$index}</span><span class="u">{getuser $score_item['uid'] 0}</span><span class="j">积分：$score_item[credits]</span></li>
+					<!--{eval $index++;}-->
+					<!--{/loop}-->
+				</ul>
+				<!--{else}-->
+				<div class="empty">&nbsp;</div>
+				<!--{/if}-->
+			</dd>
+		</dl>
+		<div class="blank12"></div>
+		<dl>
+			<dt><strong>兑换TOP10</strong></dt>
+			<dd class="top">
+				<!--{if count($exchange_list) > 0}-->
+				<ul>
+					<!--{eval $index = 1;}-->
+					<!--{loop $exchange_list $exchange_item}-->
+					<li><span class="i{if $index < 4} t{/if}">{if $index < 10}0{/if}{$index}</span><span class="u1">{getuser $exchange_item['uid'] 0}</span><span class="j j1">兑换了$exchange_item[sum_count]件礼品</span></li>
+					<!--{eval $index++;}-->
+					<!--{/loop}-->
+				</ul>
+				<!--{else}-->
+				<div class="empty">&nbsp;</div>
+				<!--{/if}-->
+			</dd>
+		</dl>
+	</div>
+	<div class="clear"></div>
+</div>
+<!--{if $info['apply_type'] == 1 || $info['apply_type'] == 2}-->
+<div id="consignee" style="display:none;">
+	<table border="0" cellpadding="0" cellspacing="1">
+		<tr>
+			<td class="l">详细地址：</td>
+			<td colspan="3"><input type="text" id="c-address" class="finput" style="width:454px;" value="$consignee[address]" /></td>
+		</tr>
+		<tr>
+			<td class="l">电子邮箱：</td>
+			<td><input type="text" id="c-email" class="finput" style="width:180px;" value="$consignee[email]"/></td>
+			<td class="l">邮政编码：</td>
+			<td><input type="text" id="c-zip" class="finput" style="width:180px;" value="$consignee[zip]"/></td>
+		</tr>
+		<tr>
+			<td class="l">手机号码：</td>
+			<td><input type="text" id="c-mobile-phone" class="finput" style="width:180px;" value="$consignee[mobile_phone]"/></td>
+			<td class="l">固定电话：</td>
+			<td><input type="text" id="c-fax-phone" class="finput" style="width:180px;" value="$consignee[fax_phone]"/></td>
+		</tr>
+		<tr>
+			<td class="l">传真号码：</td>
+			<td><input type="text" id="c-fix-phone" class="finput" style="width:180px;" value="$consignee[fix_phone]"/></td>
+			<td class="l">ＱＱ号码：</td>
+			<td><input type="text" id="c-qq" class="finput" style="width:180px;" value="$consignee[qq]"/></td>
+		</tr>
+		<tr>
+			<td class="l">备　　注：</td>
+			<td colspan="3"><textarea id="c-memo" class="finput" style="width:454px;" rows="2" tooltip="非必填选项,如填写你衣服或鞋子的尺寸等"></textarea></td>
+		</tr>
+		<tr>
+			<td class="l">&nbsp;</td>
+			<td colspan="3">
+				<a id="submitConsignee" href="javascript:;"><img src="./tpl/images/confirm_btn.png" /></a>
+			</td>
+		</tr>
+	</table>
+</div>
+<!--{/if}-->
+<!--{if $info['apply_type'] == 0 || $info['apply_type'] == 2}-->
+<div id="applySubmitBox" style="display:none;">
+	<table border="0" cellpadding="0" cellspacing="1">
+		<tr>
+			<th colspan="4">我们会优先选择有真人头像的姑娘获奖～</th>
+		</tr>
+		<!--{if $info['goods_type'] == 0}-->
+		<tr>
+			<td class="l">详细地址：</td>
+			<td colspan="3"><input type="text" id="c-address" class="finput" style="width:454px;" value="$consignee[address]" /></td>
+		</tr>
+		<tr>
+			<td class="l">电子邮箱：</td>
+			<td><input type="text" id="c-email" class="finput" style="width:180px;" value="$consignee[email]"/></td>
+			<td class="l">邮政编码：</td>
+			<td><input type="text" id="c-zip" class="finput" style="width:180px;" value="$consignee[zip]"/></td>
+		</tr>
+		<tr>
+			<td class="l">手机号码：</td>
+			<td><input type="text" id="c-mobile-phone" class="finput" style="width:180px;" value="$consignee[mobile_phone]"/></td>
+			<td class="l">固定电话：</td>
+			<td><input type="text" id="c-fax-phone" class="finput" style="width:180px;" value="$consignee[fax_phone]"/></td>
+		</tr>
+		<tr>
+			<td class="l">传真号码：</td>
+			<td><input type="text" id="c-fix-phone" class="finput" style="width:180px;" value="$consignee[fix_phone]"/></td>
+			<td class="l">ＱＱ号码：</td>
+			<td><input type="text" id="c-qq" class="finput" style="width:180px;" value="$consignee[qq]"/></td>
+		</tr>
+		<!--{/if}-->
+		<tr>
+			<td class="l">申请理由：</td>
+			<td colspan="3"><textarea id="c-reason" class="finput" style="width:454px;" rows="3"></textarea></td>
+		</tr>
+		<!--{if $info['goods_type'] == 0}-->
+		<tr>
+			<td class="l">备　　注：</td>
+			<td colspan="3"><textarea id="c-memo" class="finput" style="width:454px;" rows="2" tooltip="非必填选项,如填写你衣服或鞋子的尺寸等"></textarea></td>
+		</tr>
+		<!--{/if}-->
+		<tr>
+			<td class="l">&nbsp;</td>
+			<td colspan="3">
+				<a id="submitTrialAppay" href="javascript:;"><img src="./tpl/images/confirm_btn.png" /></a>
+			</td>
+		</tr>
+	</table>
+</div>
+<!--{/if}-->
+<script type="text/javascript" >
+jQuery(function(){
+	if($(".END_TIME").length > 0)
+		updateEndTime();
+});
+
+function updateEndTime()
+{
+	var date = new Date();
+	var time = date.getTime();
+	
+	$(".END_TIME").each(function(i){
+		var endDate =new Date(this.getAttribute("end-date"));
+		var endTime = endDate.getTime();
+		var lag = (endTime - time) / 1000;
+		if(lag > 0)
+		{
+			var second = Math.floor(lag % 60);     
+			var minite = Math.floor((lag / 60) % 60);
+			var hour = Math.floor((lag / 3600) % 24);
+			var day = Math.floor((lag / 3600) / 24);
+			$(this).html("<span>剩余时间：</span><strong>"+day+"</strong><span>天</span><strong>"+hour+"</strong><span>时</span><strong>"+minite+"</strong><span>分</span><strong>"+second+"</strong><span>秒</span>");
+		}
+		else
+		{
+			var parent = $(this).parent();
+			$(this).html("<span>剩余时间：</span><strong>已结束</strong>");
+			parent.html('<a class="detail_btn" href="'+parent.attr("url")+'" target="_blank"></a>');
+			
+		}
+	});
+	setTimeout("updateEndTime()",1000);
+}
+</script>
+<!--{template inc/footer}-->

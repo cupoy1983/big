@@ -1,0 +1,59 @@
+<!--{if count($list) > 0}-->
+<div class="goods_comment_hade">
+	<strong>商品评论</strong>($pager['total_count'])
+	<a href="javascript:;">显示</a>
+</div>
+<div id="GOODS_COMMENT_LIST_BOX" class="goods_comment_list hide">
+	<ul>
+		<!--{loop $list $comment}-->
+		<!--{if empty($comment['avatar'])}-->
+		<li class="noavatar">
+		<!--{else}-->
+		<li>
+			<img class="avt" src="{$comment['avatar']}" alt="{$comment['user_name']}"/>
+		<!--{/if}-->
+			<div>
+				<p class="p1">
+					<strong class="uname">{$comment['user_name']}</strong>
+					<span>&nbsp;&nbsp;&nbsp;&nbsp;{$comment['time']}</span>
+				</p>
+				<p class="p2">{anchor $comment['content']}</p>
+			</div>
+		</li>
+		<!--{/loop}-->
+	</ul>
+	<!--{if $pager['page_count'] > 1}-->
+	<div class="clear"></div>
+	<div class="pagination clearfix mt20">
+		<!--{subtemplate inc/pages}-->
+	</div>
+	<!--{/if}-->
+</div>
+<script type="text/javascript">
+jQuery(function($){
+	$(".goods_comment_hade a").click(function(){
+		if($(".goods_comment_list").hasClass("hide"))
+		{
+			$(this).html("隐藏");
+			$(".goods_comment_list").removeClass("hide");
+		}
+		else
+		{
+			$(this).html("显示");
+			$(".goods_comment_list").addClass("hide");
+		}
+	});
+	
+	GoodsCommentInit();
+});
+
+function GoodsCommentInit()
+{
+	$(".goods_comment_list .pagination a").click(function(){
+		var page = $(this).attr('page');
+		$.Get_Goods_Comment({$id},page,'#GOODS_COMMENT_LIST_BOX',GoodsCommentInit);
+		return false;
+	});
+}
+</script>
+<!--{/if}-->

@@ -1,0 +1,9 @@
+<li class="g_f PUB_SHARTE_IMAGE PUB_SHARTE_GOODS" title="{lang share_dragsort_tip}" type="goods" key="{$result['key']}">
+	<a class="del" href="javascript:;" onclick="$.Pub_Share_Img_Remove(this)"></a>
+	<img src="{$goods['item']['pic_url']}" width="100" height="100" />
+	<img alt="" class="tag" src="./tpl/images/goods_tag.png">
+	<span>设置详细</span>
+	<input type="hidden" class="GOODS_INFO" name="goods[{$result['key']}]" value='{$result['info']}' />
+	<input type="hidden" class="GOODS_ITEM_TAG" name="goods_tags[{$result['key']}]" value="{$result['tags']}" />
+	<input type="hidden" class="share_sort" name="goods_sort[{$result['key']}]" value="" />
+</li>

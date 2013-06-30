@@ -1,0 +1,80 @@
+<script type="text/javascript">
+var IndexFlashLength = 0;
+var IntvalIndexFlashTimeout = null;
+var IndexFlashTime = 5;
+var IndexNowRel = 1;
+function initIndexFlashAdv(obj){
+	IndexFlashLength = $("#"+obj+" #LIST li").length;
+	if(IndexFlashLength==0)
+		return ;
+	initChangeIndexAdv(obj);
+	initInvalTimeIndex(obj);
+}
+
+function initChangeIndexAdv(obj){
+	$("#"+obj+" #BTNS li").hover(function(){
+		clearTimeout(IntvalIndexFlashTimeout);
+		$("#"+obj+" #BTNS li").removeClass("cur");
+		$(this).addClass("cur");
+		var rel=$(this).attr("rel");
+		$("#"+obj+" #LIST li").each(function(){
+			if ($(this).attr("rel") == rel) {
+				$(this).show();
+			}
+			else 
+				$(this).hide();
+		});
+	},function(){
+		IndexNowRel = $(this).attr("rel");
+		initInvalTimeIndex(obj);
+	});
+}
+
+function initInvalTimeIndex(obj){
+	clearTimeout(IntvalIndexFlashTimeout);
+	IndexFlashLength = $("#"+obj+" #LIST li").length;
+	if(IndexNowRel >IndexFlashLength)
+		IndexNowRel = 1;
+	
+	$("#"+obj+" #LIST li").each(function(){
+		if ($(this).attr("rel") == IndexNowRel) {
+			$(this).show();
+		}
+		else 
+			$(this).hide();
+	});
+	
+	$("#"+obj+" #BTNS li").each(function(){
+		if ($(this).attr("rel") == IndexNowRel)
+			$(this).addClass("cur");
+		else
+			$(this).removeClass("cur");
+	});
+	IndexNowRel++;
+	IntvalIndexFlashTimeout = setTimeout("initInvalTimeIndex('"+obj+"')",IndexFlashTime*1000);
+}
+</script>
+<div class="wrapper index_flash mt20" id="INDEX_FLASH_BOX">
+	<ul class="box" id="LIST">
+		<!--{eval $idx = 1;}-->
+		<!--{loop $adv_list $adv}-->
+		<li rel="{$idx}" {if $idx > 1}style="display:none"{/if}>
+			<a class="img" href='{$adv['durl']}' target='_blank'><img scaleSrc="{$adv['code']}" src="./tpl/images/lazyload.gif" class="LOAD_SCALE_IMG" scaleType="3" scaleWidth="960" scaleHeight="239" /></a>
+			<!--<a class="go" href="{$adv['durl']}" target='_blank'>È¥¹ä¹ä</a>-->
+		</li>
+		<!--{eval $idx++;}-->
+		<!--{/loop}-->
+	</ul>
+	<ul class="btns" id="BTNS">
+		<!--{eval $idx = 1;}-->
+		<!--{loop $adv_list $adv}-->
+		<li rel="{$idx}" {if $idx == 1}class="cur"{/if}>
+			<a href="javascript:;">{$idx}</a>
+		</li>
+		<!--{eval $idx++;}-->
+		<!--{/loop}-->
+	</ul>
+</div>
+<script>
+	initIndexFlashAdv("INDEX_FLASH_BOX");
+</script>

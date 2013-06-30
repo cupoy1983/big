@@ -1,0 +1,22 @@
+<tagLib name="fanwe" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Static/Js/dataList.js"></script>
+<div class="handle-btns">
+	<fanwe:imageBtn id="addData" name="addData" value="{$Think.lang.ADD}" click="addData(this,'checkList')" />
+	<fanwe:imageBtn id="editData" name="editData" value="{$Think.lang.EDIT}" click="editData(this,'checkList','id')" />
+	<fanwe:imageBtn id="removeData" name="removeData" value="{$Think.lang.REMOVE}" click="removeData(this,'checkList')" />
+</div>
+
+<fanwe:list 
+	id="checkList" 
+	name="smtp" 
+	style="list" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	child="true" 
+	show="id:{$Think.lang.ID}|8%,smtp_server:邮件服务器,smtp_account:邮件帐号,batch_count:发送次数,batch_limit:次数限制,auto_reset|getStatusImg:自动清零" 
+	actionlist="editData:{$Think.lang.EDIT}:id,removeData:{$Think.lang.REMOVE}:id" /> 
+<div class="pager">{$page}</div>
+<include file="Public:footer" />
+

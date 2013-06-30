@@ -1,0 +1,31 @@
+<div id="zone_follow">
+	<div class="zf_t" style="height: 66px;">
+		<div class="zft_close" onclick="$.weeboxs.close()"></div>
+		<span class="zft_avatar"></span>
+		<p class="zft_nick">Hi, <b>{$_FANWE['user_name']}:</b></p>
+		<p class="zft_txt">关注一些你可能感兴趣的人～看看他们都在逛什么吧！</p>
+	</div>
+	<div class="clear"></div>
+	<ul class="zf_c">
+		<!--{loop $user_list $user}-->
+		<li>
+			<a class="zfc_avatar" href="{u u/index uid=$user['uid']}" target="_blank"><img src="{avatar $user['avatar'] m}"></a>
+			<input class="zfc_selbox" value="{$user['uid']}" type="checkbox" checked="checked" />
+			<p class="zfc_tle">
+				<a href="{u u/index uid=$user['uid']}" target="_blank">{$user['user_name']}</a>
+			</p>
+			<p><span class="zfc_similar">{cutstr $user['introduce'] 24}</span></p>
+			<p>
+				粉丝<a class="zfc_count" href="{u u/fans uid=$user['uid']}" target="_blank">{$user['fans']}</a>&nbsp;&nbsp;
+				分享<a class="zfc_count" href="{u u/index uid=$user['uid']}" target="_blank">{$user['shares']}</a>&nbsp;&nbsp;
+				宝贝<a class="zfc_count" href="{u u/bao uid=$user['uid']}" target="_blank">{$user['goods']}</a> 
+			</p>
+		</li>
+		<!--{/loop}-->
+	</ul>
+	<div class="clear"></div>
+	<div class="zf_b">
+		<label><input class="zfb_selectall" type="checkbox" checked="checked"><span>全选</span></label>
+		<a onclick="$.Zone_Follow_Submit(this);"><img src="./tpl/images/btn_follow.png" /></a>
+	</div>
+</div>

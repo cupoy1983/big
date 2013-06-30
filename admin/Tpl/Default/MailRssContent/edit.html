@@ -1,0 +1,49 @@
+<tagLib name="fanwe" />
+<include file="Public:header" />
+<div class="handle-btns">
+	<fanwe:linkBtn text="{$Think.lang.RETURN_LIST}" href="{:U(MODULE_NAME.'/index')}" />
+</div>
+<form method='post' id="form" name="form" action="{:U(MODULE_NAME.'/update')}" >
+<table cellpadding="4" cellspacing="0" border="0" class="table-form">
+	<tr>
+		<th width="180">{$Think.lang.TITLE}</th>
+		<td><input type="text" class="textinput requireinput" name="title" value="{$vo['title']}"/></td>
+	</tr>
+
+        <tr>
+		<th>{$Think.lang.CATE_ID}</th>
+		<td>
+			<fanwe:select id='cate_id' name='cate_id' first='{$Think.lang.ROOT_ID}' selected="vo['cate_id']" textfield='cate_name' valuefield='cate_id' options='cate_list' />
+		</td>
+	</tr>
+
+        <tr>
+		<th>{$Think.lang.SIDS}</th>
+		<td>
+			<textarea name="sids" class="textinput areainput" rows="3">{$vo['sids']}</textarea><br/>
+                    {$Think.lang.SIDS_MSG}
+		</td>
+	</tr>
+<tr>
+		<th>发送内容</th>
+		<td>
+			<label><input type="checkbox" name="is_html" value="1" <if condition="$vo['is_html'] eq 1">checked="checked"</if> /><span>{$Think.lang.IS_HTML}</span></label>&nbsp;&nbsp;（{$Think.lang.HTML_CONTENT_MSG}）
+		</td>
+	</tr>
+        <tr>
+		<th>{$Think.lang.HTML_CONTENT}</th>
+		<td>
+			<fanwe:editor id="USER_SORE_RULE" name="html_content" type="CKEDITOR" width="96%" height="130px" content="{$vo['html_content']}" />
+                </td>
+	</tr>
+	<tr class="act">
+		<th>&nbsp;</th>
+		<td>
+                    <input type="hidden" name="id" value="{$vo['id']}"/>
+			<input type="submit" class="submit_btn" value="{$Think.lang.SUBMIT}" />&nbsp;&nbsp;
+			<input type="reset" class="reset_btn" value="{$Think.lang.RESET}" />
+		</td>
+	</tr>
+</table>
+</form>
+<include file="Public:footer" />

@@ -1,0 +1,187 @@
+<?php
+	$css_list[0]['url'] = './tpl/css/topic.css';
+?>
+<!--{template inc/header}-->
+<script type="text/javascript" src="./public/js/jquery.datepicker.js"></script>
+<script type="text/javascript" src="./public/js/city.js"></script>
+<style type="text/css">
+#activity_form .textinput{border:1px solid #C6C6C6;padding:2px 5px; line-height:normal; height:16px; resize:none;}
+</style>
+<div id="body" class="fm960">
+	<div class="piece1_hd"></div>
+	<div style="background-color:#fff;" class="clearfix pt40 pb40">
+		<form id="activity_form" action="{u activity/update}" method="post">
+			<div id="topic_create">
+				<h2 class="h2title">编辑活动</h2>
+				<div id="topic_edit_box" class="pl40">
+					<div id="topic_con" class="fl">
+						<dl>
+							<dt style="width:70px; text-align:right;">标题</dt>
+							<dd style="width:500px;">
+								<input type="text" name="title"  class="text" value="{$activity['title']}" style="width:488px;" />
+							</dd>
+							<dt style="width:70px; text-align:right;">活动时间</dt>
+							<dd style="width:500px;">
+								<input type="text" class="textinput" name="begin_time" id="beginTime" value="{$activity['begin_date']}" style="width:100px;" readonly="readonly"/>
+								<label class="time_range"{if $activity['end_time'] == 0} style="display:none;"{/if}>&nbsp;～&nbsp;</label>
+								<input type="text" class="textinput time_range" name="end_time" id="endTime" value="{$activity['end_date']}" style="width:100px;{if $activity['end_time'] == 0}display:none;{/if}" readonly="readonly"/>
+								&nbsp;&nbsp;
+								<label class="inputcheckbox"><input type="checkbox"{if $activity['end_time'] > 0} checked="checked"{/if} value="1" name="time_range" id="timeRange" /><span>&nbsp;时间范围</span></label>
+							</dd>
+							<dt style="width:70px; text-align:right;">活动地点</dt>
+							<dd style="width:500px;">
+								<input type="text" name="place"  class="text" value="{$activity['place']}" style="width:488px;" />
+							</dd>
+							<dt style="width:70px; text-align:right;">活动类别</dt>
+							<dd style="width:500px;">
+								<select name="cid">
+									<!--{loop $_FANWE['cache']['activity_cate'] $cate}-->
+									<option value="{$cate['id']}"{if $cate['id'] == $activity['cid']} selected="selected"{/if}>{$cate['name']}</option>
+									<!--{/loop}-->
+								</select>
+								&nbsp;&nbsp;
+								<b style="font-size:14px; color:#333;">所在城市</b>
+								<select id="province" name="province">
+									<option value="0">选择城市</option>
+								</select>
+								&nbsp;&nbsp;
+								<b style="font-size:14px; color:#333;">需要人数</b>
+								<input type="text" class="textinput" name="number" style="width:56px;" value="{$activity['number']}"/>
+								<select name="gender">
+									<option value="0"{if $activity['gender'] == 0} selected="selected"{/if}>不限</option>
+									<option value="1"{if $activity['gender'] == 1} selected="selected"{/if}>男</option>
+									<option value="2"{if $activity['gender'] == 2} selected="selected"{/if}>女</option>
+								</select>
+							</dd>
+							<dt style="width:70px; text-align:right;">每人花销</dt>
+							<dd style="width:500px;">
+								<input type="text" class="textinput" name="cost" style="width:110px;" value="{$activity['cost']}"/>
+								<span>&nbsp;元</span>
+								&nbsp;&nbsp;
+								<b style="font-size:14px; color:#333;">报名截止</b>
+								<input type="text" class="textinput" name="expiration_time" id="expirationTime" style="width:110px;" readonly="readonly" value="{$activity['expiration_date']}"/>
+							</dd>
+							<dt style="width:70px; text-align:right;">资料项</dt>
+							<dd style="width:500px;">
+								<div>
+									<!--{loop $activity_fields $field}-->
+									<label><input type="checkbox" value="{$field}" checked="checked" name="old_fields[]" /><span>&nbsp;{$field}</span></label>&nbsp;&nbsp;&nbsp;
+									<!--{/loop}-->
+								</div>
+								<textarea cols="30" rows="{$fields_count}" name="fields" style="width:488px;height:auto;"></textarea>
+								<br/><span>每行代表一个填写项目，最多共 10 项</span>
+							</dd>
+							<dt style="width:70px; text-align:right;">内容</dt>
+							<dd style="width:500px;">
+								<textarea cols="30" rows="10" style="width:488px;" name="content" class="PUB_TXT" length="500" position="0" isCN="1">{$activity['share']['content']}</textarea>
+								<br/><span class="fw_count">{sprintf char_check 500}</span>
+							</dd>
+							<dt style="width:70px; text-align:right;"></dt>
+							<dd style="width:500px;">
+								<div class="pub_box" style="padding:0; margin:0;">
+									<div class="pub_opt fl">
+										<span class="fl">{lang add}：</span>
+										<a class="add_face fl" style="background-position:0 -2px;" href="javascript:;" onclick="$.Show_Expression(this)" w="tpk">{lang face}</a>
+										<a class="add_at fl" href="javascript:;" onclick="$.At_Add(this)" style="background-position:-87px -156px;">朋友</a>
+									</div>
+								</div>
+							</dd>
+						</dl>
+						<div class="clear"></div>
+						<div id="topic_new_toolbar">
+							<input type="hidden" name="id" value="{$activity['id']}" />
+							<input type="submit" class="green_button" value="编辑"/>
+							<a href="{u activity/detail id=$activity['id']}">{lang clear}</a>
+							<input name="rhash" value="<!--{dynamic getRHash}-->" type="hidden"/>
+							<input name="action" value="update" type="hidden"/>
+						</div>
+					</div>
+					<div id="topic_setting" class="fl">
+						
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="piece1_ft"></div>
+</div>
+<script type="text/javascript">
+jQuery(function($){
+	$.Bind_Province("#province",{$activity['province']});
+	var now = new Date();
+	<!--{if $activity['end_time'] == 0}-->
+	$("#beginTime").datepicker({minDate:now});
+	<!--{else}-->
+	$("#beginTime").datepicker({showTimePanel:true});
+	$("#endTime").datepicker({showTimePanel:true,minDate:now});
+	<!--{/if}-->
+	$("#expirationTime").datepicker({showTimePanel:true,minDate:now});
+	$("#timeRange").change(function(){
+		$("#beginTime").datepicker("destroy");
+		if(this.checked)
+		{
+			$("#beginTime").val("");
+			$("#beginTime").datepicker({showTimePanel:true});
+			$("#endTime").datepicker({showTimePanel:true,minDate:now});
+			$(".time_range").show();
+		}
+		else
+		{
+			$("#beginTime").val("");
+			$("#beginTime").datepicker({minDate:now});
+			$("#endTime").datepicker("destroy");
+			$("#endTime").val("");
+			$(".time_range").hide();
+		}
+	});
+	
+	$("#activity_form").submit(function(){
+		var title = $.trim(this.title.value);
+		var content = $.trim(this.content.value);
+		
+		if(title == '')
+		{
+			$.Show_MiNiTooltip($(this.title),"ACTIVITY_SUBMIT_TIP","亲，标题不能为空哦！",false,1);
+			this.title.focus();
+			return false;
+		}
+		
+		if(content == '')
+		{
+			$.Show_MiNiTooltip($(this.content),"ACTIVITY_SUBMIT_TIP","亲，内容不能为空哦！",false,1);
+			this.content.focus();
+			return false;
+		}
+		
+		var value = this.begin_time.value;
+		if(!$.checkRequire(value))
+		{
+			$.Show_MiNiTooltip($(this.begin_time),"ACTIVITY_SUBMIT_TIP","亲，你还没有选择活动时间哦！",false,1);	
+			this.begin_time.focus();
+			return false;
+		}
+		
+		if($("#timeRange").attr("checked"))
+		{
+			value = this.end_time.value;
+			if(!$.checkRequire(value))
+			{
+				$.Show_MiNiTooltip($(this.end_time),"ACTIVITY_SUBMIT_TIP","亲，你还没有选择活动结束时间哦！",false,1);	
+				this.end_time.focus();
+				return false;
+			}
+		}
+		
+		value =this.place.value;
+		if(!$.checkRequire(value))
+		{
+			$.Show_MiNiTooltip($(this.place),"ACTIVITY_SUBMIT_TIP","亲，你还没有输入活动地点哦！",false,1);	
+			this.place.focus();
+			return false;
+		}
+	});
+	
+	$.Pub_Count_Bind($("#activity_form .PUB_TXT").get(0));
+});
+</script>
+<!--{template inc/footer}-->

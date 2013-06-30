@@ -1,0 +1,51 @@
+<tagLib name="fanwe" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Static/Js/iColorPicker.js"></script>
+<div class="handle-btns">
+	<fanwe:linkBtn text="{$Think.lang.RETURN_LIST}" href="{:U(MODULE_NAME.'/index')}" />
+</div>
+<form method='post' id="form" name="form" action="{:U(MODULE_NAME.'/update')}" enctype="multipart/form-data">
+<table cellpadding="4" cellspacing="0" border="0" class="table-form">
+	<tr>
+		<th width="150">{$Think.lang.NAME}</th>
+		<td><input type="text" class="textinput" name="name" id="name" value="{$vo.name}" /></td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.COLOR}</th>
+		<td>
+			<input type="text" id="color" name="color" class="textinput" value="{$vo.color}" style="background:{$vo.color}" />
+			<img id="icp_color_COLOR" onclick="iColorShow('color','icp_color_COLOR');" src="__TMPL__Static/Images/color.png" style="margin:5px 0 0 0;cursor:pointer;" />
+		</td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.ICON}</th>
+		<td>
+			<input type="file" class="fileinput" name="icon" size="30" />
+			<if condition="$vo['icon'] neq ''">
+				<span>&nbsp;<a href="__ROOT__/{$vo.icon}" target="_blank" >{$Think.lang.VIEW}</a>
+				&nbsp;<a href="javascript:;" onclick="removeImg(this,{$vo['id']},'icon','GoodsColor');">{$Think.lang.REMOVE}</a></span>
+			</if>
+		</td>
+	</tr>
+	<tr>
+		<th>&nbsp;</th>
+		<td><p>{$Think.lang.ICON_TIPS}</p></td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.SORT}</th>
+		<td>
+			<input type="text" class="textinput" name="sort" id="sort" value="{$vo.sort}"  />
+		</td>
+	</tr>
+	<tr class="act">
+		<th>&nbsp;</th>
+		<td>
+			<input type="hidden" name="id" value="{$vo.id}" />
+			<input type="submit" class="submit_btn" value="{$Think.lang.SUBMIT}" />&nbsp;&nbsp;
+			<input type="reset" class="reset_btn" value="{$Think.lang.RESET}" />
+		</td>
+	</tr>
+</table>
+</form>
+
+<include file="Public:footer" />

@@ -1,0 +1,152 @@
+<?php
+	$css_list[0]['url'] = './tpl/css/topic.css';
+?>
+<!--{template inc/header}-->
+<script type="text/javascript" src="./public/js/jquery.datepicker.js"></script>
+<style type="text/css">
+#voteOptionsBox{background:#f1f1f1; padding:10px;}
+#voteOptionsBox ul{float:left; width:480px; position:relative;}
+#voteOptionsBox li{margin:0 0 10px 0; float:left; width:480px;}
+#voteOptionsBox .empty{width:20px; height:20px; display:block; margin:1px 0 0 0;float:left;}
+#voteOptionsBox .deleteoption{width:20px; height:20px; display:block; background:url(./tpl/images/user/op.png) no-repeat 0 0; margin:1px 0 0 0;float:left;}
+#voteOptionsBox .VOTE_ITEM{border:1px solid #C6C6C6;padding:2px 5px; line-height:normal; height:16px; resize:none; width:428px; float:left;}
+#voteOptionsBox .deleteoption:hover{background:url(./tpl/images/user/op.png) no-repeat 0 -20px; margin:1px 0 0 0;}
+#voteOptionsBox .addoption{background:url(./tpl/images/user/addoption.gif) no-repeat 0 0; width:71px; height:18px; display:block; text-indent:-80px; float:left; overflow:hidden;}
+#voteOptionsBox .updown{background:url(./tpl/images/up_down.gif) no-repeat right 3px; width:20px; height:20px; display:block; float:left; overflow:hidden;}
+</style>
+<div id="body" class="fm960">
+	<div class="piece1_hd"></div>
+	<div style="background-color:#fff;" class="clearfix pt40 pb40">
+		<form id="vote_form" action="{u vote/update}" method="post">
+			<div id="topic_create">
+				<h2 class="h2title">编辑投票</h2>
+				<div id="topic_edit_box" class="pl40">
+					<div id="topic_con" class="fl">
+						<dl>
+							<dt style="width:70px; text-align:right;">标题</dt>
+							<dd style="width:500px;">
+								<input type="text" name="title"  class="text" value="{$vote['title']}" style="width:488px;" />
+							</dd>
+							<dt style="width:70px; text-align:right;">单选/多选</dt>
+							<dd style="width:500px;">
+								<select name="multiple">
+									<option value="0"{if $vote['multiple'] == 0} selected="selected"{/if}>单选</option>
+									<option value="1"{if $vote['multiple'] == 1} selected="selected"{/if}>多选</option>
+								</select>
+								&nbsp;&nbsp;
+								<b style="font-size:14px; color:#333;">投票结果</b>
+								<select name="visibility">
+									<option value="1"{if $vote['visibility'] == 1} selected="selected"{/if}>投票后可见</option>
+									<option value="0"{if $vote['visibility'] == 0} selected="selected"{/if}>任何人可见</option>
+								</select>
+								&nbsp;&nbsp;
+								<b style="font-size:14px; color:#333;">截止时间</b>
+								<input type="text" style="border:#ccc solid 1px;width:110px; padding:1px; height:18px; line-height:18px;" name="expiration_time" id="expirationTime" readonly="readonly" value="{if $vote['expiration_time'] > 0}{date $vote['expiration_time'] 'Y-m-d H:i'}{/if}"/>
+							</dd>
+							<dt style="width:70px; text-align:right;">选项</dt>
+							<dd style="width:480px;" id="voteOptionsBox">
+								<ul>
+									<!--{loop $vote_options $option}-->
+									<li>
+										<input type="text" class="textinput VOTE_ITEM" name="vote_option[{$option['id']}]" value="{$option['title']}" maxlength="20"/>
+										<input type="hidden" name="vote_osort[{$option['id']}]" />
+										<a class="empty" href="javascript:;"></a>
+										<a class="updown" href="javascript:;"></a>
+									</li>
+									<!--{/loop}-->
+								</ul>
+								<a class="addoption" href="javascript:;">添加选项</a>
+							</dd>
+							<dt style="width:70px; text-align:right;">内容</dt>
+							<dd style="width:500px;">
+								<textarea cols="30" rows="10" style="width:488px;" name="content" class="PUB_TXT" length="500" position="0" isCN="1">{$vote['share']['content']}</textarea>
+								<br/><span class="fw_count">{sprintf char_check 500}</span>
+							</dd>
+							<dt style="width:70px; text-align:right;"></dt>
+							<dd style="width:500px;">
+								<div class="pub_box" style="padding:0; margin:0;">
+									<div class="pub_opt fl">
+										<span class="fl">{lang add}：</span>
+										<a class="add_face fl" style="background-position:0 -2px;" href="javascript:;" onclick="$.Show_Expression(this)" w="tpk">{lang face}</a>
+										<a class="add_at fl" href="javascript:;" onclick="$.At_Add(this)" style="background-position:-87px -156px;">朋友</a>
+									</div>
+								</div>
+							</dd>
+						</dl>
+						<div class="clear"></div>
+						<div id="topic_new_toolbar">
+							<input type="hidden" name="id" value="{$vote['id']}" />
+							<input type="submit" class="green_button" value="编辑"/>
+							<a href="{u vote/detail id=$vote['id']}">{lang clear}</a>
+							<input name="rhash" value="<!--{dynamic getRHash}-->" type="hidden"/>
+							<input name="action" value="update" type="hidden"/>
+						</div>
+					</div>
+					<div id="topic_setting" class="fl">
+						
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="piece1_ft"></div>
+</div>
+<script type="text/javascript">
+jQuery(function($){
+	$("#vote_form").submit(function(){
+		var title = $.trim(this.title.value);
+		var content = $.trim(this.content.value);
+		
+		if(title == '')
+		{
+			$.Show_MiNiTooltip($(this.title),"VOTE_SUBMIT_TIP","亲，标题不能为空哦！",false,1);
+			this.title.focus();
+			return false;
+		}
+		
+		if(content == '')
+		{
+			$.Show_MiNiTooltip($(this.content),"VOTE_SUBMIT_TIP","亲，内容不能为空哦！",false,1);
+			this.content.focus();
+			return false;
+		}
+		
+		var bln = true;
+		var index = 1;
+		$("#voteOptionsBox .VOTE_ITEM").each(function(){
+			if(!$.checkRequire(this.value))
+			{
+				$.Show_MiNiTooltip($(this),"VOTE_SUBMIT_TIP","亲，投票选项不能为空哦！",false,1);
+				this.focus();
+				bln = false;
+				return false;
+			}
+			$(this).next().val(index);
+			index++;
+		});
+		return bln;
+	});
+	
+	$.Pub_Count_Bind($("#vote_form .PUB_TXT").get(0));
+	$("#expirationTime").datepicker({showTimePanel:true});
+	
+	$("#voteOptionsBox .deleteoption").live('click',function(){
+		$(this).parent().remove();
+	});
+
+	$("#voteOptionsBox .addoption").click(function(){
+		if($("#voteOptionsBox .VOTE_ITEM").length >= 20)
+		{
+			$.Show_MiNiTooltip($(this),"VOTE_MAX_COUNT_TIP","亲，最多只能添加20个投票选项哦！");
+			return;
+		}
+		
+		var html='<li><input type="text" class="textinput VOTE_ITEM" name="vote_item[]" value="" maxlength="20"/><input type="hidden" name="vote_sort[]" /><a class="deleteoption" href="javascript:;"></a><a class="updown" href="javascript:;"></a></li>';
+		$("#voteOptionsBox ul").append(html);
+		$("#voteOptionsBox ul").sortable();
+	});
+	
+	$("#voteOptionsBox ul").sortable();
+});
+</script>
+<!--{template inc/footer}-->

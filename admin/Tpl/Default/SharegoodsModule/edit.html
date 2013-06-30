@@ -1,0 +1,154 @@
+<tagLib name="fanwe" />
+<include file="Public:header" />
+<div class="handle-btns">
+	<fanwe:linkBtn text="{$Think.lang.RETURN_LIST}" href="{:Cookie::get('returnUrl')}" />
+	<if condition="$vo['class'] eq 'yiqifa'">
+	<fanwe:linkBtn text="{$Think.lang.YIQIFA_SITES}" href="{:U('YiqifaShop/index')}" />
+	</if>
+</div>
+<form method='post' id="form" name="form" action="{:U(MODULE_NAME.'/update')}">
+<table cellpadding="4" cellspacing="0" border="0" class="table-form">
+	<?php
+		$langs = L();
+		$class_code = strtoupper($vo['class'].'_tips');
+		if(isset($langs[$class_code]))
+		{
+			echo '<tr><th width="150">&nbsp;</th><td><p>'.$langs[$class_code].'</p></td>';
+		}
+	?>
+	<tr>
+		<th width="150">{$Think.lang.CLASS}</th>
+		<td><p>{$vo.class}</p></td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.NAME}</th>
+		<td><input type="text" class="textinput requireinput" name="name" value="{$vo.name}" /></td>
+	</tr>
+	<if condition="$vo['class'] neq 'yiqifa'" >
+	<tr>
+		<th>{$Think.lang.DOMAIN}</th>
+		<td><input type="text" class="textinput" name="domain" value="{$vo.domain}" size="60" /></td>
+	</tr>
+	</if>
+	<tr>
+		<th>{$Think.lang.URL}</th>
+		<td><input type="text" class="textinput" name="url" value="{$vo.url}" size="60" /></td>
+	</tr>
+	<if condition="$vo['class'] eq 'taobao' ">
+	<tr>
+		<th>{$Think.lang.TAOBAO_APP_KEY}</th>
+		<td><input type="text" class="textinput" name="api_item[app_key]" value="{$vo.api_data.app_key}" size="60" /></td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.TAOBAO_APP_SECRET}</th>
+		<td><input type="text" class="textinput" name="api_item[app_secret]" value="{$vo.api_data.app_secret}" size="60" /></td>
+	</tr>
+	<?php
+		$is_tdj = $vo['api_data']['is_tdj'];
+	?>
+	<tr>
+		<th>{$Think.lang.TAOBAO_IS_TDJ}</th>
+		<td>
+			<label><input class="is_tdj" type="radio" name="api_item[is_tdj]" value="0" <if condition="$vo['api_data']['is_tdj'] eq 0">checked="checked"</if> /><span>{$Think.lang.NO}</span></label>&nbsp;
+			<label><input class="is_tdj" type="radio" name="api_item[is_tdj]" value="1" <if condition="$vo['api_data']['is_tdj'] eq 1">checked="checked"</if> /><span>{$Think.lang.YES}</span></label>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;{$Think.lang.TAOBAO_IS_TDJ_TIPS}</span>
+		</td>
+	</tr>
+	<tr>
+		<th><span class="taoke" <if condition='$is_tdj eq 1'>style="display:none;"</if>>{$Think.lang.TAOBAO_TK_PID}</span><span class="tdj" <if condition='$is_tdj eq 0'>style="display:none;"</if>>{$Think.lang.TAOBAO_TK_PID_1}</span></th>
+		<td><input type="text" class="textinput" name="api_item[tk_pid]" value="{$vo.api_data.tk_pid}" size="60" /></td>
+	</tr>
+	<tr class="taoke" <if condition='$is_tdj eq 1'>style="display:none;"</if>>
+		<th>&nbsp;</th>
+		<td><p>{$Think.lang.TAOBAO_TK_PID_TIPS}</p></td>
+	</tr>
+	<tr class="tdj" <if condition='$is_tdj eq 0'>style="display:none;"</if>>
+		<th>{$Think.lang.TAOBAO_RD}</th>
+		<td>
+			<label><input type="radio" name="api_item[rd]" value="1" <if condition="$vo['api_data']['rd'] eq 1">checked="checked"</if> /><span>{$Think.lang.TAOBAO_RD_1}</span></label>&nbsp;
+			<label><input type="radio" name="api_item[rd]" value="2" <if condition="$vo['api_data']['rd'] eq 2">checked="checked"</if> /><span>{$Think.lang.TAOBAO_RD_2}</span></label>
+		</td>
+	</tr>
+	<tr class="taoke" <if condition='$is_tdj eq 1'>style="display:none;"</if>>
+		<th>{$Think.lang.TAOBAO_SESSION_KEY}</th>
+		<td><input type="text" class="textinput" name="api_item[session_key]" value="{$vo.api_data.session_key}" size="60" /></td>
+	</tr>
+	<tr class="taoke" <if condition='$is_tdj eq 1'>style="display:none;"</if>>
+		<th>&nbsp;</th>
+		<td><p>{$Think.lang.TAOBAO_SESSION_KEY_TIPS}</p></td>
+	</tr>
+	<tr class="taoke" <if condition='$is_tdj eq 1'>style="display:none;"</if>>
+		<th>{$Think.lang.TAOBAO_EXPIRES_IN}</th>
+		<td><input type="text" class="textinput" name="api_item[expires_in]" value="{$vo.api_data.expires_in}" size="30" /></td>
+	</tr>
+	<tr class="taoke" <if condition='$is_tdj eq 1'>style="display:none;"</if>>
+		<th>&nbsp;</th>
+		<td><p>{$Think.lang.TAOBAO_EXPIRES_IN_TIPS}</p></td>
+	</tr>
+	<else/>
+	<foreach name="vo['api_data']" key="api_key" item="api_item">
+	<?php
+		$th = L($vo['class'].'_'.$api_key);
+		$tips = '';
+		$tips_code = strtoupper($vo['class'].'_'.$api_key.'_tips');
+		if(isset($langs[$tips_code]))
+		{
+			$tips = $langs[$tips_code];
+		}
+	?>
+	<tr>
+		<th>{$th}</th>
+		<td>
+			<if condition="$api_key eq 'expires_in'">
+				<input type="text" class="textinput" name="api_item[{$api_key}]" value="{:toDate($api_item)}" size="30"/>
+			<else/>
+				<input type="text" class="textinput" name="api_item[{$api_key}]" value="{$api_item}" size="30"/>
+			</if>
+			
+		</td>
+	</tr>
+	<if condition="$tips neq ''">
+	<tr>
+		<th>&nbsp;</th>
+		<td><p>{$tips}</p></td>
+	</tr>
+	</if>
+	</foreach>
+	</if>
+	<tr>
+		<th>{$Think.lang.SORT}</th>
+		<td>
+			<input type="text" class="textinput" name="sort" id="sort" value="{$vo.sort}"/>
+		</td>
+	</tr>
+	<tr class="act">
+		<th>&nbsp;</th>
+		<td>
+			<input type="hidden" name="id" value="{$vo.id}" />
+			<input type="submit" class="submit_btn" value="{$Think.lang.SUBMIT}" />&nbsp;&nbsp;
+			<input type="reset" class="reset_btn" value="{$Think.lang.RESET}" />
+		</td>
+	</tr>
+</table>
+</form>
+<script type="text/javascript">
+jQuery(function($){
+	$(".is_tdj").change(function(){
+		$(".taoke").hide();
+		$(".tdj").hide();
+		if(this.value == 1)
+			$(".tdj").show();
+		else
+			$(".taoke").show();
+	});
+});
+
+function replaceToggle(obj)
+{
+	if(obj.value == 2)
+		$("#replaceTr").show();
+	else
+		$("#replaceTr").hide();
+}
+</script>
+<include file="Public:footer" />

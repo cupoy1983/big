@@ -1,0 +1,395 @@
+<?php
+	$css_list[0]['url'][] = './tpl/css/tweetlist.css';
+	$css_list[0]['url'][] = './tpl/css/topic.css';
+?>
+<!--{template inc/header}-->
+<style type="text/css">
+.activity_box{float:left; width:100%;}
+.activity_img{float:left; width:300px; height:300px; overflow:hidden; position:relative;border:solid 1px #ccc; margin:0 0 0 20px;}
+.activity_img img{float:left;}
+.activity_img p{position:absolute; bottom:0; left:0; padding:10px; color:#fff; background:url(./tpl/images/book_p.png); width:280px; _background:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./tpl/images/book_p.png',sizingMethod='scale');}
+.activity_info{float:left; margin:0 0 0 20px; width:280px; font-size:14px;}
+.activity_info p{width:100%; margin:0 0 10px 0; float:left;}
+.activity_info p *{float:left;}
+.activity_info label{width:88px;}
+.activity_info strong{color:#333;}
+.activity_info b{color:#f30; font-size:24px; font-family:Arial, Helvetica, sans-serif; font-weight:normal;}
+.activity_info a{color:#369; text-decoration:none;}
+.activity_info div{width:100%; float:left;}
+.activity_info em{font-size:12px; color:#999; font-style:normal; clear:both; display:block; width:100%; padding:0 0 5px 0;}
+#lb_activity{padding:20px 20px 10px 20px; width:428px; overflow:hidden; position:relative;}
+#lb_activity p{width:100%; margin:0 0 10px 0; float:left;}
+#lb_activity p *{float:left;}
+#lb_activity p label{width:60px; overflow:hidden;line-height:22px; display:block;}
+#lb_activity p .textinput{border:1px solid #C6C6C6;padding:2px 5px; line-height:normal; height:16px; resize:none; width:338px;}
+#lb_activity p .textarea{border:1px solid #C6C6C6;padding:2px 5px; line-height:normal; resize:none; width:338px;}
+
+.uapager{float:right;height:23px; margin:0 10px 0 0;}
+.uapager a{background: url(./tpl/images/index_arrow.png) no-repeat;display:block;height: 23px;overflow:hidden;width:40px;float: left;}
+.uapager .uaplstop{background-position:0 bottom;}
+.uapager .uapright{width:39px;background-position:-40px top;}
+.uapager .uaprstop{background-position:-40px bottom;}
+</style>
+<div id="body" class="fm960">
+	<div class="piece1_hd"></div>
+	<div class="piece1_bd" style="background:#fff;">
+		<div id="content" class="fl">
+			<div class="piece2">
+				<div class="piece2_bd">
+					<div id="topic_head">
+						<div class="topic_info">
+							<!--{getuser $activity['uid'] 0 'm,64' ',u_name fl'}-->
+							<div>
+								<h1>{$activity['title']}</h1>
+								<br />
+								{lang thread_starter}：<!--{getuser $activity['uid'] 1 '' 'u_name'}--><br />
+								{lang create_yu}：<a href="{$activity['share']['url']}" target="_blank">{$activity['time']}</a> &nbsp;&nbsp;&nbsp;&nbsp;
+								<!--{if $activity['uid'] == $_FANWE['uid']}-->
+								<a href="{u activity/edit id=$activity['id']}">修改</a>&nbsp;|&nbsp;
+								<a class="del_topic" href="javascript:;" onclick="$.Remove_Activity({$activity['id']},this,deleteActivityResult);">删除</a>
+								<!--{/if}-->
+							</div><a name="activity_info" id="activity_info"></a>
+						</div>
+						<div class="activity_box">
+							<!--{if $activity['img']}-->
+							<?php $bu_share_img = getImgName($activity['img']['img'],0,0,0,1); ?>
+							<div class="activity_img">
+								<a class="add_to_album_btn" href="javascript:;" style="display: none;" onclick="$.Show_Rel_Album($activity['img']['id'],'photo');"></a>
+								<img original="{getimg $activity['img']['img'] 468 468}" src="./tpl/images/lazyload.gif" class="fl lazyload" scaleType="3" scaleWidth="300" scaleHeight="300" />
+								<!--{if !empty($activity['img']['alt'])}-->
+								<p>{$activity['img']['alt']}</p>
+								<!--{/if}-->
+							</div>
+							<!--{/if}-->
+							<div class="activity_info">
+								<p><label>活动类型：</label><strong>{$activity['cate_name']}</strong></p>
+								<!--{if $activity['end_time'] == 0}-->
+								<p><label>活动时间：</label><span>{$activity['begin_date']}</span></p>
+								<!--{else}-->
+								<p><label>开始时间：</label><span>{$activity['begin_date']}</span></p>
+								<p><label>结束时间：</label><span>{$activity['end_date']}</span></p>
+								<!--{/if}-->
+								<p><label>活动地点：</label><span>{$activity['city']}&nbsp;{$activity['place']}</span></p>
+								<!--{if $activity['cost'] > 0}-->
+								<p><label>每人花销：</label><span>{$activity['cost_format']}</span></p>
+								<!--{/if}-->
+								<p><label>性　　别：</label><span>{if $activity['gender'] == 0}不限{elseif $activity['gender'] == 1}男{else}女{/if}</span></p>
+								<p><label>已报名人数：</label><b id="applyNumber">{$activity['apply_number']}</b><span>&nbsp;人</span>{if $activity['uid'] == $_FANWE['uid']}<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span><a href="{u activity/manage id=$activity['id']}">管理</a><span>&nbsp;&nbsp;</span><a href="{u activity/export id=$activity['id']}" target="_blank">导出</a>{/if}</p>
+								<p><label>剩余名额：</label><span id="overNum">{$activity['over_num']}人</span></p>
+								<!--{if $activity['expiration_time'] > 0}-->
+								<p>
+									<label>报名截止：</label>
+									<span>{$activity['expiration_date']}</span>
+								</p>
+								<!--{/if}-->
+								<!--{if $_FANWE['uid'] == 0}-->
+								<div style="margin:10px 0 0 0;">
+									<a href="javascript:;" onclick="activityLogin()" class="fl"><img src="./tpl/images/login_btn.png" /></a>
+								</div>
+								<!--{elseif $apply_status == -1}-->
+								<!--{if $activity['expiration_time'] == 0 || $activity['expiration_time'] > TIME_UTC}-->
+								<div style="margin:10px 0 0 0;">
+									<a href="javascript:;" id="activityApply" name="activityApply" class="fl"><img src="./tpl/images/activity_apply.gif" class="fl" /></a>
+								</div>
+								<!--{/if}-->
+								<!--{else}-->
+								<div>
+									<!--{if $apply_status == 1}-->
+									<em>您已经参加了此活动</em>
+									<!--{else}-->
+									<em>您的加入申请已发出，请等待审批</em>
+									<!--{/if}-->
+									<!--{if $activity['expiration_time'] == 0 || $activity['expiration_time'] > TIME_UTC}-->
+									<a href="javascript:;" id="activityClear" class="fl"><img src="./tpl/images/activity_clear.gif" class="fl" /></a>
+									<!--{/if}-->
+								</div>
+								<!--{/if}-->
+							</div>
+							<div class="blank9"></div>
+						</div>
+						<pre class="topic_intro" style="padding:20px 20px 0 20px;">{anchor $activity['content']}</pre>
+						<div class="topitter" id="topitter_{$topic['share_id']}">
+							<div class="pics">
+								<!--{loop $activity['share']['imgs'] $img}-->
+								<div class="SHOW_BIG_PIC r3 img" w="tpc">
+									<a class="add_to_album_btn" href="javascript:;" style="display: none;" onclick="$.Show_Rel_Album($img['id'],'photo');"></a>
+									<div class="tlc">
+										<img original="{getimg $img['img'] 468 468}" src="./tpl/images/lazyload.gif" class="fl lazyload" scaleType="1" scaleWidth="468" scaleHeight="468" updateParentSize="1"/>
+										<!--{if !empty($img['alt'])}-->
+										<p>{$img['alt']}</p>
+										<!--{/if}-->
+									</div>
+								</div>
+								<!--{/loop}-->
+								<br class="clear">
+							</div>
+							<div class="wb_infobar">
+								<!-- Baidu Button BEGIN -->
+								<div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare" style="float:right; margin:-3px 0 0 10px;">   
+									<a class="bds_tsina"></a>
+									<a class="bds_tqq"></a>
+									<a class="bds_renren"></a>
+									<a class="bds_qzone"></a>
+									<span class="bds_more"></span>
+								</div>
+								<script type="text/javascript" id="bdshare_js" data="type=tools&mini=1" ></script> 
+								<script type="text/javascript" id="bdshell_js"></script> 
+								<script type="text/javascript">
+									//在这里定义bds_config
+									var bds_config = {"bdText":"<?php echo $activity['title'].' '.cutStr($activity['share_content'],240); ?>"};
+									<!--{if isset($bu_share_img)}-->
+									bds_config.bdPic = "{$bu_share_img}";
+									<!--{/if}-->
+									document.getElementById('bdshell_js').src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+								</script>
+								<!-- Baidu Button END -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="topic_body">
+				<div class="piece2 mt20">
+					<div id="topic_discussion_list" class="piece2_bd">
+						<!--{template inc/share/activity_publish}-->
+						<!-- 微博列表 -->
+						{$post_html}
+						<!-- 分页  -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="sidebar" class="fr">
+			<div class="piece3 mt20">
+				<div class="piece3_bd topic_detail_right">
+					<h2>
+						<!--{if $activity_users_pager['page_count'] > 1}-->
+						<div class="uapager">
+							<a class="uapleft uaplstop" href="javascript:;"></a>
+							<a class="uapright" href="javascript:;"></a>
+						</div>
+						<!--{/if}-->
+						参与活动的会员
+					</h2>
+					<ul class="other_best_list" id="activity_users_box">
+						<!--{loop $activity_users $uid}-->
+						<li>
+							<!--{getuser $uid 0 '' '' 'inc/getuser/follow_user'}-->
+						</li>
+						<!--{/loop}-->
+					</ul>
+				</div>
+			</div>
+			<div class="piece3 mt20">
+				<div class="piece3_bd topic_detail_right">
+					<h2>{$activity_user['short']}最近发表的活动</h2>
+					<ul class="other_topic_list">
+						<!--{loop $user_activitys $uactivity}-->
+						<li><a href="{$uactivity['url']}">{cutstr $uactivity['title'] 42}</a></li>
+						<!--{/loop}-->
+					</ul>
+				</div>
+			</div>
+			<div class="piece3 mt20">
+				<div class="piece3_bd topic_detail_right">
+					<h2>{$activity_user['short']}最近参与的活动</h2>
+					<ul class="other_topic_list">
+						<!--{loop $partici_activitys $uactivity}-->
+						<li><a href="{$uactivity['url']}">{cutstr $uactivity['title'] 42}</a></li>
+						<!--{/loop}-->
+					</ul>
+				</div>
+			</div>
+			<div class="piece3 mt20">
+				<div class="piece3_bd topic_detail_right">
+					<h2>热门活动榜</h2>
+					<ul class="other_topic_list">
+						<!--{loop $hot_activitys $uactivity}-->
+						<li><a href="{$uactivity['url']}">{cutstr $uactivity['title'] 42}</a></li>
+						<!--{/loop}-->
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="piece1_ft"></div>
+</div>
+<script type="text/javascript">
+jQuery(function($){
+<!--{if $activity_users_pager['page_count'] > 1}-->
+	$(".uapager .uapleft").click(function(){
+		if(activity_users_page > 1)
+		{
+			activity_users_page--;
+			getActivityUsers();
+		}
+	});
+	
+	$(".uapager .uapright").click(function(){
+		if(activity_users_page < activity_users_max_page)
+		{
+			activity_users_page++;
+			getActivityUsers();
+		}
+	});
+<!--{/if}-->	
+<!--{if $_FANWE['uid'] > 0 && $apply_status == -1 && ($activity['expiration_time'] == 0 || $activity['expiration_time'] > TIME_UTC)}-->
+	var applyHtml = '<div id="lb_activity"><form id="activityApplyForm">{loop $activity['fields'] $field}<p><label><span>{$field}</span><span style="color:#f00;">*</span></label><input class="textinput" name="fields[]" type="text" maxlength="80" /></p>{/loop}<p><label>留言：</label><textarea class="textarea" name="message" rows="3"></textarea></p><p><label>&nbsp;</label><span>留言最多200汉字</span></p><p><label>&nbsp;</label><a href="javascript:;"><img src="./tpl/images/confirm_btn.png" id="activityApplySubmit" onclick="Activity_Apply(this)"/></a></p></form><div class="clear"></div></div>';
+	
+	$("#activityApply").click(function(){
+		var closeFun = function(){
+			$.Remove_Btn_Loading($("#activityApplySubmit").get(0));
+		};
+		
+		$.weeboxs.open(applyHtml,{boxid:'ACTIVITY_APPLY_BOX',contentType:'text',title:'申请参加',draggable:false,modal:true,showButton:false,showHeader:true,width:496,position:{refele:this},onclose:closeFun});
+	});
+<!--{/if}-->
+
+<!--{if $_FANWE['uid'] > 0 && $apply_status > -1 && ($activity['expiration_time'] == 0 || $activity['expiration_time'] > TIME_UTC)}-->
+	var clearHtml = '<div id="lb_activity"><form id="activityClearForm"><p><label>留言：</label><textarea class="textarea" name="message" rows="3"></textarea></p><p><label>&nbsp;</label><span>留言最多200汉字</span></p><p><label>&nbsp;</label><a href="javascript:;"><img src="./tpl/images/confirm_btn.png" id="activityClearSubmit" onclick="Activity_Clear(this)"/></a></p></form><div class="clear"></div></div>';
+	
+	$("#activityClear").click(function(){
+		var closeFun = function(){
+			$.Remove_Btn_Loading($("#activityClearSubmit").get(0));
+		};
+		
+		$.weeboxs.open(clearHtml,{boxid:'ACTIVITY_CLEAR_BOX',contentType:'text',title:'取消参加',draggable:false,modal:true,showButton:false,showHeader:true,width:496,height:126,position:{refele:this},onclose:closeFun});
+	});
+<!--{/if}-->
+});
+<!--{if $_FANWE['uid'] > 0 && $apply_status > -1 && ($activity['expiration_time'] == 0 || $activity['expiration_time'] > TIME_UTC)}-->
+function Activity_Clear(obj)
+{
+	$.Show_Btn_Loading(obj,true);
+	var query = $("#activityClearForm").serialize();
+	$.ajax({
+		url: SITE_PATH+"services/service.php?m=activity&a=clear&aid={$activity['id']}",
+		type: "POST",
+		data:query,
+		cache:false,
+		dataType: "json",
+		success:function(result){
+			$.Remove_Btn_Loading(obj);
+			if(result.status == 1)
+			{
+				$.Show_MiNiTooltip($(obj),"ACTIVITY_SUBMIT_TIP","取消参加成功！",false,1,$("#ACTIVITY_CLEAR_BOX"));
+				var fun = function(){
+					location.reload(true);
+				}
+				setTimeout(fun,1000);
+			}
+			else
+			{
+				$.Show_MiNiTooltip($(obj),"ACTIVITY_SUBMIT_TIP","亲，取消参加失败啦，请再提交一次！",false,1,$("#ACTIVITY_CLEAR_BOX"));
+			}
+		},
+		error:function(){
+			$.Remove_Btn_Loading(obj);
+			$.Show_MiNiTooltip($(obj),"ACTIVITY_SUBMIT_TIP","亲，取消参加失败啦，请再提交一次！",false,1,$("#ACTIVITY_CLEAR_BOX"));
+		}
+	});
+}
+<!--{/if}-->
+<!--{if $_FANWE['uid'] > 0 && $apply_status == -1 && ($activity['expiration_time'] == 0 || $activity['expiration_time'] > TIME_UTC)}-->
+function Activity_Apply(obj)
+{
+	var bln = true;
+	$("#lb_activity .textinput").each(function(){
+		if($.trim(this.value) == "")
+		{
+			$.Show_MiNiTooltip($(this),"ACTIVITY_SUBMIT_TIP","亲，填写项不能为空哦！",false,1,$("#ACTIVITY_APPLY_BOX"));
+			bln = false;
+			return false;
+		}
+	});
+	
+	if(!bln)
+		return false;
+	
+	$.Show_Btn_Loading(obj,true);
+	var query = $("#activityApplyForm").serialize();
+	$.ajax({
+		url: SITE_PATH+"services/service.php?m=activity&a=apply&aid={$activity['id']}",
+		type: "POST",
+		data:query,
+		cache:false,
+		dataType: "json",
+		success:function(result){
+			$.Remove_Btn_Loading(obj);
+			if(result.status == 1)
+			{
+				$.Show_MiNiTooltip($(obj),"ACTIVITY_SUBMIT_TIP","提交申请成功！",false,1,$("#ACTIVITY_APPLY_BOX"));
+				var fun = function(){
+					location.reload(true);
+				}
+				setTimeout(fun,1000);
+			}
+			else
+			{
+				$.Show_MiNiTooltip($(obj),"ACTIVITY_SUBMIT_TIP","亲，提交申请失败啦，请再提交一次！",false,1,$("#ACTIVITY_APPLY_BOX"));
+			}
+		},
+		error:function(){
+			$.Remove_Btn_Loading(obj);
+			$.Show_MiNiTooltip($(obj),"ACTIVITY_SUBMIT_TIP","亲，提交申请失败啦，请再提交一次！",false,1,$("#ACTIVITY_APPLY_BOX"));
+		}
+	});
+}
+<!--{/if}-->
+<!--{if $_FANWE['uid'] == $activity['uid']}-->
+function deleteActivityResult(){
+	var fun = function(){
+		location.href = "{u u/index uid=$activity['uid']}";	
+	}
+	setTimeout(fun,1);
+}
+<!--{/if}-->
+<!--{if $activity_users_pager['page_count'] > 1}-->
+var activity_users_max_page = {$activity_users_pager['page_count']};
+var activity_users_page = 1;
+	
+function getActivityUsers()
+{
+	$.Show_Btn_Loading($(".uapager").get(0),true);
+	var query = new Object();
+	query.id = {$activity['id']};
+	query.page = activity_users_page;
+	
+	$.ajax({
+		url: SITE_PATH+"services/service.php?m=activity&a=users",
+		type: "POST",
+		data:query,
+		cache:false,
+		dataType: "json",
+		success:function(result){
+			$.Remove_Btn_Loading($(".uapager").get(0));
+			if(result.status == 1)
+			{
+				activity_users_max_page = result.page_count;
+				activity_users_page = result.page;
+				if(activity_users_max_page > 1)
+				{
+					$(".uapager").show();
+					if(activity_users_page == 1)
+					{
+						$(".uapager .uapleft").addClass("uaplstop");
+						$(".uapager .uapright").removeClass("uaprstop");
+					}
+					else
+					{
+						$(".uapager .uapleft").removeClass("uaplstop");
+						$(".uapager .uapright").addClass("uaprstop");
+					}
+				}
+				else
+				{
+					$(".uapager").hide();
+				}
+				$("#activity_users_box").html(result.html);
+			}
+		}
+	});
+}
+<!--{/if}-->
+</script>
+<!--{template inc/footer}-->

@@ -1,0 +1,26 @@
+<!--{if $share_detail['type'] == 'bar'}-->
+创建主题《<a target="_blank" title="{$share_detail['title']}" class="from" href="{u topic/detail tid=$share_detail['rec_id']}">{cutstr $share_detail['title'] 40}</a>》
+<!--{elseif $share_detail['type'] == 'bar_post'}-->
+回应主题《<a target="_blank" title="{$share_detail['title']}" class="from" href="{u topic/detail tid=$share_detail['rec_id']}">{cutstr $share_detail['title'] 40}</a>》
+<!--{elseif $share_detail['type'] == 'activity'}-->
+创建活动《<a target="_blank" title="{$share_detail['title']}" class="from" href="{u activity/detail id=$share_detail['rec_id']}">{cutstr $share_detail['title'] 40}</a>》
+<!--{elseif $share_detail['type'] == 'activity_post'}-->
+回应活动《<a target="_blank" title="{$share_detail['title']}" class="from" href="{u activity/detail id=$share_detail['rec_id']}">{cutstr $share_detail['title'] 40}</a>》
+<!--{elseif $share_detail['type'] == 'vote'}-->
+创建投票《<a target="_blank" title="{$share_detail['title']}" class="from" href="{u vote/detail id=$share_detail['rec_id']}">{cutstr $share_detail['title'] 40}</a>》
+<!--{elseif $share_detail['type'] == 'vote_post'}-->
+回应投票《<a target="_blank" title="{$share_detail['title']}" class="from" href="{u vote/detail id=$share_detail['rec_id']}">{cutstr $share_detail['title'] 40}</a>》
+<!--{elseif $share_detail['type'] == 'trial'}-->
+创建试用《<a target="_blank" title="{$share_detail['title']}" class="from" href="{u exchange/info id=$share_detail['rec_id']}">{cutstr $share_detail['title'] 40}</a>》
+<!--{elseif $share_detail['type'] == 'trial_apply'}-->
+申请试用《<a target="_blank" title="{$share_detail['title']}" class="from" href="{u exchange/info id=$share_detail['rec_id']}">{cutstr $share_detail['title'] 40}</a>》
+<!--{elseif $share_detail['type'] == 'trial_post'}-->
+试用报告《<a target="_blank" title="{$share_detail['title']}" class="from" href="{u exchange/info id=$share_detail['rec_id']}">{cutstr $share_detail['title'] 40}</a>》
+<!--{elseif $share_detail['type'] == 'album_best'}-->
+推荐{lang common/album}<a target="_blank" title="{$share_detail['title']}" href="{u album/show id=$share_detail['rec_id']}">《{cutstr $share_detail['title'] 40}》</a>
+<!--{elseif $share_detail['type'] == 'album_item'}-->
+加入{lang common/album}<a target="_blank" title="{$share_detail['title']}" href="{u album/show id=$share_detail['rec_id']}">《{cutstr $share_detail['title'] 40}》</a>
+<!--{if $share_detail['rec_uid'] > 0}-->
+收入自 @<!--{getuser $share_detail['rec_uid'] 0}-->
+<!--{/if}-->
+<!--{/if}-->

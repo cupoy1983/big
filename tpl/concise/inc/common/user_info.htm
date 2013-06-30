@@ -1,0 +1,28 @@
+<!--{if $_FANWE['uid'] > 0}-->
+<div class="user_info">
+	<div class="ui_user down_link" rel="ui_user"><a href="{u u/me}"><img src="{avatar $_FANWE['user']['avatar'] s}" height="20"><span>{cutstr $_FANWE['user_name'] 10}<small class="down">&nbsp;</small></span></a></div>
+	<div class="message down_link" rel="message"><a href="javascript:;">{if $_FANWE['user_notice']['all'] > 0}<span>{lang message_tip}({$_FANWE['user_notice']['all']})<small class="h">&nbsp;</small></span>{else}<span>{lang message_tip}<small class="down">&nbsp;</small></span>{/if}</a></div>
+	<dl class="down_dl" rel="ui_user" type="center" minwidth="90">
+		<dd><a href="{u u/album}">我的杂志</a></dd>
+		<dd><a href="{u u/fav uid=$_FANWE['uid']}">我喜欢的</a></dd>
+		<dd><a href="{u invite}" target="_blank">邀请朋友</a></dd>
+		<dd><a href="{u settings/personal}">设置账号</a></dd>
+		<dd><a href="{u user/logout}">退出</a></dd>
+	</dl>
+	<dl class="down_dl" rel="message" type="left">
+		<dd><a href="{u u/talk uid=$_FANWE['uid']}">我发表的</a></dd>
+		<dd><a href="{u u/comments uid=$_FANWE['uid']}">评论我的{if $_FANWE['user_notice'][3] >0}<span>({$_FANWE['user_notice'][3]})</span>{/if}</a></dd>
+		<dd><a href="{u u/fans uid=$_FANWE['uid']}">关注我的{if $_FANWE['user_notice'][1] >0}<span>({$_FANWE['user_notice'][1]})</span>{/if}</a></dd>
+		<dd><a href="{u u/atme uid=$_FANWE['uid']}">提到我的{if $_FANWE['user_notice'][4] >0}<span>({$_FANWE['user_notice'][4]})</span>{/if}</a></dd>
+		<dd><a href="{u u/atme uid=$_FANWE['uid'],type=faved}">喜欢我的{if $_FANWE['user_notice'][2] >0}<span>({$_FANWE['user_notice'][2]})</span>{/if}</a></dd>
+		<dd><a href="{u u/message uid=$_FANWE['uid']}">我的信件{if $_FANWE['user_notice'][5] >0}<span>({$_FANWE['user_notice'][5]})</span>{/if}</a></dd>
+		<dd><a href="{u u/notic uid=$_FANWE['uid']}">我的通知{if $_FANWE['user_notice'][6] >0}<span>({$_FANWE['user_notice'][6]})</span>{/if}</a></dd>
+		<dd><a href="{u u/sysmsg uid=$_FANWE['uid']}">系统消息{if $_FANWE['user_notice'][7] >0}<span>({$_FANWE['user_notice'][7]})</span>{/if}</a></dd>
+	</dl>
+</div>
+<!--{else}-->
+<div class="user_info">
+	<a href="{u user/login}">{lang login}</a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span><a href="{u user/register}">{lang register}</a>
+</div>
+<!--{/if}-->
+<div class="fast_share"><a href="javascript:;" onclick="$.Fast_Share();">分享</a></div>

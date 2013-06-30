@@ -1,0 +1,245 @@
+<?php
+	$css_list[0]['url'][] = './tpl/css/tweetlist.css';
+	$css_list[0]['url'][] = './tpl/css/topic.css';
+?>
+<!--{template inc/header}-->
+<style type="text/css">
+.vote_options{width:600px; clear:both; margin:0 0 0 15px;}
+.vote_options td{padding:4px 2px;vertical-align: middle;word-wrap: break-word;}
+.vote_options .votr{width:20px;}
+.vote_options .votr input{vertical-align:middle;margin:0 5px 1px 0;padding:0;}
+.vote_options .vott{width:auto;}
+.vote_options .vott label{cursor: pointer;}
+.vote_options .votb{width:100px;}
+.vote_options .vobg{height:16px;background: url(./tpl/images/vote_bg.png) 0 0 repeat-x;border-radius: 0 6px 6px 0;}
+.vote_options .vobr{height:16px;background: url(./tpl/images/vote_bg.png) 0 -16px repeat-x;border-radius: 0 6px 6px 0;}
+.vote_options em{font-style:normal; font-size:12px;}
+</style>
+<div id="body" class="fm960">
+	<div class="piece1_hd"></div>
+	<div class="piece1_bd" style="background:#fff;">
+		<div id="content" class="fl">
+			<div class="piece2">
+				<div class="piece2_bd">
+					<div id="topic_head">
+						<div class="topic_info">
+							<!--{getuser $vote['uid'] 0 'm,64' ',u_name fl'}-->
+							<div>
+								<h1>{$vote['title']}</h1>
+								<br />
+								{lang thread_starter}：<!--{getuser $vote['uid'] 1 '' 'u_name'}--><br />
+								{lang create_yu}：<a href="{$vote['share']['url']}" target="_blank">{$vote['time']}</a> 
+								<span style="padding: 0 10px;">共有 <em id="vote_users" style="font-style:normal;">{$vote['users']}</em> 人参与投票</span>
+								<!--{if $vote['uid'] == $_FANWE['uid']}-->
+								<a href="{u vote/edit id=$vote['id']}">修改</a>&nbsp;|&nbsp;
+								<a class="del_topic" href="javascript:;" onclick="$.Remove_Vote({$vote['id']},this,deleteVoteResult);">删除</a>
+								<!--{/if}-->
+							</div>
+						</div>
+						<pre class="topic_intro">{anchor $vote['content']}</pre>
+						<div class="vote_options" name="vote_options" id="vote_options">
+							<table summary="" border="0" cellspacing="0" cellpadding="0" width="100%">
+								<!--{eval $option_index = 1;}-->
+								<!--{loop $vote_options $option}-->
+								<tr>
+									<!--{if $_FANWE['uid'] > 0 && $user_is_vote}-->
+									<td class="votr">
+										<input type="{if $vote['multiple'] == 1}checkbox{else}radio{/if}" class="vote_option" id="option_{$option_index}" name="vote_options[]" value="{$option['id']}">
+									</td>
+									<!--{/if}-->
+									<td class="vott">
+										<label for="option_{$option_index}">{$option_index}. &nbsp;{$option['title']}</label>
+									</td>
+									<td class="votb"></td>
+								</tr>
+								<!--{if $vote['uid'] == $_FANWE['uid'] || !$user_is_vote || $vote['visibility'] == 0}-->
+								<tr>
+									<!--{if $_FANWE['uid'] > 0 && $user_is_vote}-->
+									<td>&nbsp;</td>
+									<!--{/if}-->
+									<td>
+										<div class="vobg">
+											<div class="vobr" style="width:{if $option['bate'] > 0}{$option['bate']}%{else}8px{/if}; background-color:#ED6697"></div>
+										</div>
+									</td>
+									<td>{$option['bate']}% <em style="color:#ED6697">({$option['num']})</em></td>
+								</tr>
+								<!--{/if}-->
+								<!--{eval $option_index++;}-->
+								<!--{/loop}-->
+								<tr>
+									<!--{if $_FANWE['uid'] > 0 && $user_is_vote}-->
+									<td>&nbsp;</td>
+									<!--{/if}-->
+									<td colspan="2">
+										<br/>
+										<!--{if $_FANWE['uid'] == 0}-->
+										<a href="javascript:;" onclick="voteLogin()" class="fl"><img src="./tpl/images/login_btn.png" /></a>&nbsp;&nbsp;<b style="line-height:26px;">距结束还有:{$vote['end_time']}</b>
+										<!--{elseif $user_is_vote}-->
+										<!--{if $vote['expiration_time'] > 0 && $vote['expiration_time'] < TIME_UTC}-->
+										<b>投票已经结束</b>
+										<!--{else}-->
+										<a href="javascript:;" id="votesubmit" class="fl"><img src="./tpl/images/confirm_btn.png" class="fl" /></a>{if $vote['expiration_time'] > 0}&nbsp;&nbsp;<b style="line-height:26px;">距结束还有:{$vote['end_time']}</b>{/if}
+										<!--{/if}-->
+										<!--{else}-->
+										<span>{if $vote['expiration_time'] > 0}投票已经结束{if $vote['expiration_time'] < TIME_UTC}{else}距结束还有：{$vote['end_time']}{/if}，{/if}您已经投过票，谢谢您的参与</span>
+										<!--{/if}-->
+								</td>
+								</tr>
+							</table>
+						</div>
+						<div class="topitter" id="topitter_{$topic['share_id']}">
+							<div class="pics">
+								<!--{loop $vote['share']['imgs'] $img}-->
+								<?php $bu_share_img = getImgName($img['img'],0,0,0,1); ?>
+								<div class="SHOW_BIG_PIC r3 img" w="tpc">
+									<a class="add_to_album_btn" href="javascript:;" style="display: none;" onclick="$.Show_Rel_Album($img['id'],'photo');"></a>
+									<div class="tlc">
+										<img original="{getimg $img['img'] 468 468}" src="./tpl/images/lazyload.gif" class="fl lazyload" scaleType="1" scaleWidth="468" scaleHeight="468" updateParentSize="1"/>
+										<!--{if !empty($img['alt'])}-->
+										<p>{$img['alt']}</p>
+										<!--{/if}-->
+									</div>
+								</div>
+								<!--{/loop}-->
+								<br class="clear">
+							</div>
+							<div class="wb_infobar">
+								<!-- Baidu Button BEGIN -->
+								<div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare" style="float:right; margin:-3px 0 0 10px;">   
+									<a class="bds_tsina"></a>
+									<a class="bds_tqq"></a>
+									<a class="bds_renren"></a>
+									<a class="bds_qzone"></a>
+									<span class="bds_more"></span>
+								</div>
+								<script type="text/javascript" id="bdshare_js" data="type=tools&mini=1" ></script> 
+								<script type="text/javascript" id="bdshell_js"></script> 
+								<script type="text/javascript">
+									//在这里定义bds_config
+									var bds_config = {"bdText":"<?php echo $vote['title'].' '.cutStr($vote['share_content'],240); ?>"};
+									<!--{if isset($bu_share_img)}-->
+									bds_config.bdPic = "{$bu_share_img}";
+									<!--{/if}-->
+									document.getElementById('bdshell_js').src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+								</script>
+								<!-- Baidu Button END -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="topic_body">
+				<div class="piece2 mt20">
+					<div id="topic_discussion_list" class="piece2_bd">
+						<!--{template inc/share/vote_publish}-->
+						<!-- 微博列表 -->
+						{$post_html}
+						<!-- 分页  -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="sidebar" class="fr">
+			<div class="piece3 mt20">
+				<div class="piece3_bd topic_detail_right">
+					<h2>最近参与投票的会员</h2>
+					<ul class="other_best_list" id="vote_users_box">
+						<!--{loop $vote_users $uid}-->
+						<li>
+							<!--{getuser $uid 0 '' '' 'inc/getuser/follow_user'}-->
+						</li>
+						<!--{/loop}-->
+					</ul>
+				</div>
+			</div>
+			<div class="piece3 mt20">
+				<div class="piece3_bd topic_detail_right">
+					<h2>{$vote_user['short']}最近发表的投票</h2>
+					<ul class="other_topic_list">
+						<!--{loop $user_votes $uvote}-->
+						<li><a href="{$uvote['url']}">{cutstr $uvote['title'] 42}</a></li>
+						<!--{/loop}-->
+					</ul>
+				</div>
+			</div>
+			<div class="piece3 mt20">
+				<div class="piece3_bd topic_detail_right">
+					<h2>{$vote_user['short']}最近参与的投票</h2>
+					<ul class="other_topic_list">
+						<!--{loop $partici_votes $uvote}-->
+						<li><a href="{$uvote['url']}">{cutstr $uvote['title'] 42}</a></li>
+						<!--{/loop}-->
+					</ul>
+				</div>
+			</div>
+			<div class="piece3 mt20">
+				<div class="piece3_bd topic_detail_right">
+					<h2>热门投票榜</h2>
+					<ul class="other_topic_list">
+						<!--{loop $hot_votes $uvote}-->
+						<li><a href="{$uvote['url']}">{cutstr $uvote['title'] 42}</a></li>
+						<!--{/loop}-->
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="piece1_ft"></div>
+</div>
+<script type="text/javascript">
+jQuery(function($){
+<!--{if $_FANWE['uid'] > 0 && $user_is_vote}-->
+	$("#votesubmit").click(function(){
+		var checks = $(".vote_option:checked");
+		if(checks.length == 0)
+		{
+			$.Show_MiNiTooltip($("#votesubmit"),"VOTE_SUBMIT_TIP","亲，请选择你要投票的选项哦！",false,1);	
+			return false;
+		}
+		var ids = new Array();
+		checks.each(function(){
+			ids.push(this.value);
+		});
+		
+		var thisobj = this;
+		$.Show_Btn_Loading(thisobj,true);
+		var query = new Object();
+		query.vid = {$vote['id']};
+		query.ids = ids.join(',');
+
+		$.ajax({
+			url: SITE_PATH+"services/service.php?m=vote&a=submitselect",
+			type: "POST",
+			data:query,
+			dataType: "json",
+			success: function(result){
+				$.Remove_Btn_Loading(thisobj);
+				if(result.status == 1)
+				{
+					$("#vote_users_box").html(result.userhtml);
+					$("#vote_options").html(result.html);
+					$("#vote_users").html(result.users);
+					$("#votepostbtn").show();
+					$("#votepostbtnno").hide();
+					$("#votepubext").show();
+				}
+				else
+				{
+					$.Show_MiNiTooltip($("#votesubmit"),"VOTE_SUBMIT_TIP","亲，投票失败了，请再重新提交一次吧！",false,1);	
+				}
+			}
+		});
+	});
+<!--{/if}-->
+});
+<!--{if $_FANWE['uid'] == $vote['uid']}-->
+function deleteVoteResult(){
+	var fun = function(){
+		location.href = "{u u/index uid=$vote['uid']}";	
+	}
+	setTimeout(fun,1);
+}
+<!--{/if}-->
+</script>
+<!--{template inc/footer}-->

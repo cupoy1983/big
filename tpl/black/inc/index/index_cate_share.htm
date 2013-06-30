@@ -1,0 +1,33 @@
+<!--{if $cate_list}-->
+<!--{loop $cate_list $citem}-->
+<div class="wrapper2 mt20 index_cate">
+	<h2>{$citem['cate']['short_name']}</h2>
+	<div class="ic_tags">
+		<!--{eval $tag_index =1;}-->
+		<!--{loop $citem['cate']['index_tags'] $tag}-->
+		<a target="_blank" href="{u book/cate sort=hot1,tag=$tag['url_tag'],cate=$citem['cate']['cate_code']}">{$tag['tag_name']}</a>
+		<!--{if $tag_index > 12}-->
+		<!--{eval break;}-->
+		<!--{/if}-->
+		<!--{eval $tag_index++;}-->
+		<!--{/loop}-->
+	</div>
+	<a class="more" href="{u book/cate cate=$citem['cate']['cate_code']}">更多精彩>></a>
+	<ul>
+		<!--{eval $cate_idx = 1;}-->
+		<!--{loop $citem['share_list'] $share}-->
+		<!--{if $cate_idx > 6}-->
+		<!--{eval break;}-->
+		<!--{/if}-->
+		<li>
+			<a class="img" href="{$share['url']}" >
+				<img class="lazyload" src="./tpl/images/lazyload.gif" original="{getimg $share['img'] 200 999}" scaleType="3" scaleWidth="150" scaleHeight="170" />
+				<span>{$share['name']}</span>
+			</a>
+		</li>
+		<!--{eval $cate_idx++;}-->
+		<!--{/loop}-->
+	</ul>
+</div>
+<!--{/loop}-->
+<!--{/if}-->

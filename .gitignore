@@ -1,0 +1,10 @@
+
+/public/data
+/public/records
+/public/upload
+/public/logs
+/.buildpath
+/.project
+/.settings
+/public/db.global.php
+/public/install.lock

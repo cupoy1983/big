@@ -1,0 +1,56 @@
+<tagLib name="fanwe" />
+<include file="Public:header" />
+<link href="__TMPL__Static/Js/DatePicker/jquery.ui.all.css" rel="stylesheet" />
+<script type="text/javascript" src="__TMPL__Static/Js/jquery.ui.core.js"></script>
+<script type="text/javascript" src="__TMPL__Static/Js/DatePicker/jquery.ui.datepicker.js"></script>
+<script type="text/javascript" src="__TMPL__Static/Js/dataList.js"></script>
+<div class="handle-btns">
+	<fanwe:imageBtn id="removeData" name="removeData" value="{$Think.lang.REMOVE}" click="removeData(this,'checkList')" />
+	<input class="textinput" type="text" value="" name="collect_time" id="collect_time" size="10" readonly="readonly" style="float:left;margin:5px 0 0 20px;" />
+	<fanwe:imageBtn id="collectData" name="collectData" value="获取报表" click="collectData()" />
+	<form action="__APP__">
+		<span>{$Think.lang.PAY_TIME}</span>
+		<input class="textinput" type="text" value="{$day_time}" name="day_time" readonly="readonly" id="day_time" size="10"/>
+		<small></small>
+		<span>{$Think.lang.OUTER_CODE}</span>
+		<input class="textinput" type="text" value="{$outer_code}" name="outer_code" size="10" />
+		<input class="submit_btn" type="submit" value="{$Think.lang.SEARCH}" />
+		<input type="hidden" name="{:c('VAR_MODULE')}" value="{$module_name}" />
+		<input type="hidden" name="{:c('VAR_ACTION')}" value="index" />
+	</form>
+</div>
+<fanwe:list 
+	id="checkList" 
+	style="list" 
+	name="type" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{$Think.lang.ID}|80,item_title:{$Think.lang.ITEM_TITLE}|~left,item_num:{$Think.lang.ITEM_NUM}|60,pay_price:{$Think.lang.PAY_PRICE}|60,real_pay_fee:{$Think.lang.REAL_PAY_FEE}|60,commission_rate:{$Think.lang.COMMISSION_RATE}|60,commission:{$Think.lang.COMMISSION}|60,outer_code:{$Think.lang.OUTER_CODE}|80,pay_time|toDate:{$Think.lang.PAY_TIME}|130" 
+	actionlist="removeData:{$Think.lang.REMOVE}:id" action_width="60" />
+<div class="pager">{$page}</div>
+<script type="text/javascript">
+jQuery(function($){
+	$("#day_time").datepicker();
+	var now = new Date();
+	now.setDate(now.getDate() - 1);
+	$("#collect_time").datepicker({maxDate:now});
+});
+
+function collectData()
+{
+	var date = $.trim($("#collect_time").val());
+	if(date == '')
+	{
+		alert("请选择时间");
+		$("#collect_time").focus();
+		return false;
+	}
+
+	var fun = function(){
+		location.href = APP + '?' + VAR_MODULE + '=TaobaokeReport&'+VAR_ACTION+'=collect&isInit=1&date='+date;
+	}
+	setTimeout(fun,10);
+}
+</script>
+<include file="Public:footer" />

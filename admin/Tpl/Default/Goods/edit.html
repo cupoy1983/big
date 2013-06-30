@@ -1,0 +1,107 @@
+<tagLib name="fanwe" />
+<include file="Public:header" />
+<load href="__TMPL__Static/Js/search.js" />
+<style type="text/css">
+.colorblock{width:16px; height:16px; display:block; margin:2px 5px 0 0; border:solid 1px #ccc; float:left;}
+.colorblockok span{width:16px; height:16px; display:block;background:url(__TMPL__Static/Images/color_ok.png) no-repeat center center; float:left;}
+.colorblockok:hover span{background:url(__TMPL__Static/Images/color_close.png) no-repeat center center;}
+</style>
+<div class="handle-btns">
+	<fanwe:linkBtn text="{$Think.lang.RETURN_LIST}" href="{:Cookie::get('returnUrl')}" />
+</div>
+<form method='post' id="form" name="form" action="{:U(MODULE_NAME.'/update')}" enctype="multipart/form-data">
+<table cellpadding="4" cellspacing="0" border="0" class="table-form">
+	<tr>
+		<th width="150">&nbsp;</th>
+		<td><p>{$Think.lang.UPDATE_TIPS}</p></td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.KEYID}</th>
+		<td><p>{$vo.keyid}</p></td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.NAME}</th>
+		<td><input type="text" class="textinput" name="name" id="name" value="{$vo.name}" style="width:400px;" /></td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.URL}</th>
+		<td>
+			<input type="text" class="textinput" name="url" id="url" value="{$vo.url}" style="width:400px;"  />
+		</td>
+	</tr>
+	<tr>
+		<th>商品图片</th>
+		<td>
+			<input type="file" class="fileinput" name="goods_img" size="30" />
+			<if condition="$vo['img_id'] gt 0">
+				<span>&nbsp;<a href="{:adminFormatImgById($vo['img_id'])}" target="_blank" >{$Think.lang.VIEW}</a>
+			</if>
+			
+		</td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.TAOKE_URL}</th>
+		<td>
+			<input type="text" class="textinput" name="taoke_url" id="taoke_url" value="{$vo.taoke_url}" style="width:400px;"  />
+		</td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.PRICE}</th>
+		<td>
+			<input type="text" class="textinput" name="price" id="price" value="{$vo.price}" />
+		</td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.CATE_NAME}</th>
+		<td>
+			<fanwe:select options="cate_list" name="cid" id="cid" textfield="cate_name" valuefield="cate_id" selected="vo['cid']"/>
+		</td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.COLOR}</th>
+		<td>
+			<foreach name="color_list" item="color">
+			<a class="colorblock <if condition="$color['id'] eq $vo['color']">colorblockok</if>" href="javascript:;" title="{$color.name}" style="background:<if condition="$color['icon'] neq ''">url(__ROOT__/{$color.icon})<else/>{$color.color}</if>;" colorID="{$color.id}"><span></span></a>
+			</foreach>
+			<input type="hidden" name="color" id="color" />
+		</td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.GOODS_SHOP}</th>
+		<td>
+			<input type="text" name="search_shop" id="shopKeyword" class="textinput" />&nbsp;
+			<input type="button" name="share_btn" class="formbutton" value="{$Think.lang.SEARCH}" onclick="searchShop('#shopSelect','#shopKeyword')" />&nbsp;
+			<select name="shop_id" id="shopSelect">
+				<option value="0">{$Think.lang.NO_SHOP}</option>
+				<if condition="$shop">
+					<option value="{$shop.shop_id}" selected="selected">{$shop.shop_name}</option>
+				</if>
+			</select>
+		</td>
+	</tr>
+	<tr class="act">
+		<th>&nbsp;</th>
+		<td>
+			<input type="hidden" name="id" value="{$vo.id}" />
+			<input type="submit" class="submit_btn" value="{$Think.lang.SUBMIT}" />&nbsp;&nbsp;
+			<input type="reset" class="reset_btn" value="{$Think.lang.RESET}" />
+		</td>
+	</tr>
+</table>
+</form>
+<script type="text/javascript">
+jQuery(function($){
+	$(".colorblock").click(function(){
+		$(this).siblings().removeClass('colorblockok');
+		$(this).toggleClass('colorblockok');
+	});
+	
+	$("#form").submit(function(){
+		if($(".colorblockok").length > 0)
+		{
+			$("#color").val($(".colorblockok").attr('colorID'));
+		}
+	});
+});
+</script>
+<include file="Public:footer" />

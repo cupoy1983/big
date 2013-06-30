@@ -1,0 +1,101 @@
+<tagLib name="fanwe" />
+<include file="Public:header" />
+<div class="handle-btns">
+	<fanwe:linkBtn text="{$Think.lang.RETURN_CATEGORY_LIST}" href="{:U('GoodsCatesGl/index',array('cate_id'=>$_GET['cate_id'],'cate_name'=>$_GET['cate_name']))}" />
+</div>
+<form method='post' id="form" name="form" action="{:U(MODULE_NAME.'/insert')}">
+	<table cellpadding="4" cellspacing="0" border="0" class="table-form">
+		<tr>
+			<th width="230">{$Think.lang.CATE_NAME}</th>
+			<td>
+				<span>{$cate_info['name']}({$type})</span>
+				<input type="hidden" name="cid" value="{$_GET['cid']}"/>
+				<input type="hidden" name="type" value="{$type}"/>
+			</td>
+		</tr>
+		<tr>
+			<th>&nbsp;</th>
+			<td>
+				<p>
+					每个{$type}店铺分类只能关联一个分享店铺分类，提交保存时，将清除此{$type}店铺分类与其他分享店铺分类的关联。
+				</p> 
+			</td>
+		</tr>
+		<tr>
+			<th style="text-align:center; vertical-align:top; padding-left:0;padding-right:0;">
+				<p style="padding:3px 0 10px 0">已关联{$type}店铺分类(双击删除)</p>
+				<select multiple="multiple" id="cateSelect" style="width:220px;height:400px;" size="12">
+					<foreach name="select_list" item="cate">
+					<option value="{$cate.sc_id}">{$cate.name}</option>
+					</foreach>
+				</select>
+				<input type="hidden" name="cate_ids" value="{$vo.cate_ids}" id="cateIds" />
+			</th>
+			<td>
+				<p style="padding:0 0 7px 20px;">{$type}店铺分类列表(双击选定关联)</p>
+				<div style="width:100%; overflow-x:auto; text-align:left;">
+					<table cellpadding="0" cellspacing="0" border="0" class="table-normal" align="left">
+						<tr id="cateBox">
+							<td>
+								<select multiple="multiple" id="taobao" style="height:400px;" class="cateSelect">
+									<foreach name="cate_list" item="cate">
+										<option value="{$cate['id']}">{$cate['name']}</option>
+									</foreach>
+								</select>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</td>
+		</tr>
+		<tr class="act">
+			<th>&nbsp;</th>
+			<td>
+				<input type="submit" class="submit_btn" value="{$Think.lang.SUBMIT}" />&nbsp;&nbsp;
+				<input type="reset" class="reset_btn" value="{$Think.lang.RESET}" />
+			</td>
+		</tr>
+	</table>
+</form>
+
+<script type="text/javascript">
+jQuery(function($){
+	$("#cateSelect").bind("dblclick",function(){
+		$("#cateSelect option:selected").remove();
+	});
+	
+	$("#form").submit(function(){
+		var ids = new Array();
+		$("#cateSelect option").each(function(){
+			ids.push($(this).val());
+		});
+		$("#cateIds").val(ids.join(","));
+	});
+	
+	$(".cateSelect").dblclick(function(){
+		var val = this.value;
+		updateCateSelect(val,$('option:selected',this).text());
+	});
+});
+
+function updateCateSelect(id,name)
+{
+	var is_add = true;
+	var coptions = $("#cateSelect option");
+	for (i = 0; i < coptions.length; i++) 
+	{
+		if ($(coptions[i]).attr("value") == id) 
+		{
+			is_add = false;
+			break;
+		}
+	}
+	
+	if(is_add)
+	{
+		var html = '<option value="'+ id +'">'+name+'</option>';
+		$("#cateSelect").prepend(html);
+	}
+}
+</script>
+<include file="Public:footer" />

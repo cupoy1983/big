@@ -1,0 +1,33 @@
+<script type="text/javascript">
+<?php
+if(!empty($_FANWE['authoritys']))
+{
+	$manages = array_keys($_FANWE['authoritys']);
+	$manages = implode(',',$manages);
+}
+
+$is_image_servers = 0;
+if(FS('Image')->getIsServer())
+	$is_image_servers = 1;
+	
+if(!empty($_FANWE['cookie']['show_zone_follow']))
+{
+	echo 'jQuery(function($){$.Show_Zone_Follow();});';
+	fSetCookie('show_zone_follow','');
+}
+?>
+var MANAGES = "{$manages}";
+var IS_IMAGE_SERVERS = {$is_image_servers};
+var SHARE_IMAGE_SAVE_TYPE = {$_FANWE['setting']['share_image_save_type']};
+var SHARE_PHOTO_MAX_SIZE = {$_FANWE['setting']['max_upload']};
+</script>
+<?php
+if(!empty($_FANWE['cookie']['dynamic_script']))
+{
+	echo stripslashes($_FANWE['cookie']['dynamic_script']);
+	fSetCookie('dynamic_script','');
+}
+?>
+<!--{loop $_FANWE['delay_scripts'] $delay_script}-->
+<script type="text/javascript" src="{$delay_script}" defer="true"></script>
+<!--{/loop}-->

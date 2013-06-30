@@ -1,0 +1,26 @@
+<table summary="" border="0" cellspacing="0" cellpadding="0" width="100%">
+	<!--{eval $option_index = 1;}-->
+	<!--{loop $vote_options $option}-->
+	<tr>
+		<td class="vott">
+			<label for="option_{$option_index}">{$option_index}. &nbsp;{$option['title']}</label>
+		</td>
+		<td class="votb"></td>
+	</tr>
+	<tr>
+		<td>
+			<div class="vobg">
+				<div class="vobr" style="width:{if $option['bate'] > 0}{$option['bate']}%{else}8px{/if}; background-color:#ED6697"></div>
+			</div>
+		</td>
+		<td>{$option['bate']}% <em style="color:#ED6697">({$option['num']})</em></td>
+	</tr>
+	<!--{eval $option_index++;}-->
+	<!--{/loop}-->
+	<tr>
+		<td colspan="2">
+			<br/>
+			<span>您已经投过票，谢谢您的参与</span>
+		</td>
+	</tr>
+</table>

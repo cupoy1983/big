@@ -1,0 +1,70 @@
+
+<style type="text/css">
+    .clear{ clear:both;}
+    .fl{ float:left;}
+    .fr{ float:right;}
+    a{ text-decoration:none;}
+    .auto{ width:716px; margin:0 auto;}
+    .bg_01{ background:#F1F1F1;}
+    .header p{ line-height:22px; text-align:center; padding:10px 0; font-size:14px;color:#848484;}
+    .header p a{ padding:0 10px; border-right:2px solid #848484; color:#F39518;}
+    .header p .this_a{ color:#848484;}
+    .header p .border_0{ border:0;}
+    .header p kbd a{ color:#426DAE; border:0;}
+    .header_black{background-color: #fff;height: 62px;padding-top: 5px;}
+
+
+    .header_black .logo{ width:296px; height:59px; float:left;}
+
+    .header .header_black  p{float:left; line-height:20px; text-align:left; }
+    .header_black img{ float:right;}
+    .header_black .logo img{ float:left;}
+    .prompt_bar{height: 41px;line-height: 36px;margin-bottom: 10px; margin-top:5px;border-bottom: 2px solid #DDD;}
+    .prompt_bar a{float: right;color: #525252;text-decoration: none;padding-right: 15px; font-size:14px;}
+    .prompt_bar span{ float: left;font-size: 16px;color: #525252;display: block;padding-left: 15px;}
+    .footer{color: #333;text-align: center;line-height: 25px; margin-top:10px; clear:both; padding-bottom:15px; font-size:14px;}
+    .footer a{ padding-left:15px;color:#0054A2;}
+    .footer .footer_mail{ color:#333; padding:0 15px 0 0; font-size:17px;}
+    .footer span{ font-size:16px;}
+
+    .content{ padding-left:7px;}
+    .show_box{ width:227px; background:white; border:1px solid #d1d4d4;margin-right:7px; float:left; margin-bottom:10px;}
+    .show_box p{padding: 5px;line-height: 23px; font-size:13px; border-top:1px dashed #d1d4d4;font-family:微软雅黑;height: 44px;overflow: hidden}
+    .goods_detail { height:30px; background:#f7f7f9; line-height:30px; padding:0 10px; border-top:1px solid #d1d4d4; font-family: Tahoma,Helvetica,arial,sans-serif;}
+    .goods_detail strong{ float:left; color:#666; font-size:14px;}
+    .goods_detail span{ float:right; color:#989a99; font-size:13px;}
+    .show_box img{ margin:5px;}
+
+    body{background:white;}  	
+</style>     
+
+
+<div class=" auto bg_01">
+    <div class="header">
+
+        <div class="header_black">
+            <div class="logo">
+                <a href="{$site_url}" target="_blank"><img src="{$data['logo']}"/></a>
+            </div>
+        </div>
+    </div>
+    <div class="prompt_bar">
+        <span>热门订阅推荐</span>
+        <a href="{u mailrss/index}" target="_blank">查看更多订阅>></a>
+    </div>
+    <div class="content">
+        <!--{loop $data['share_list']  $s_item}-->
+        <div class="show_box">
+            <a href="{u note/g sid=$s_item['share_id']}" target="_blank"><img src="{$site_url}{$s_item['imgs'][0]['img']}" height="266" width="217"/></a>
+            <p>{cutstr $s_item['content'] 100}</p>
+        </div>
+        <!--{/loop}-->
+
+    </div>
+    <div class="clear"></div>
+
+    
+
+
+</div>
+

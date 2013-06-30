@@ -1,0 +1,147 @@
+#content_body_wrap { width:715px; overflow:hidden;}
+#right_side { width:225px; overflow:hidden;}
+.piece { border-radius:10px; }
+.piece .piece_hd { border-radius:10px 10px 0 0;}
+.piece .piece_ft { border-radius:0 0 10px 10px; }
+.piece .piece_hd, .piece .piece_ft { height:10px; margin:0 10px\9; background-color:#fff; position:relative\9; font-size:0; }
+.piece .piece_hd b, .piece .piece_ft b { display:none; display:block\9; height:10px\9; width:10px\9; line-height:10px\9; overflow:hidden\9; font-size:0; }
+:root .piece .piece_hd, 
+:root .piece .piece_ft{margin:0 0\9;}
+:root .piece .piece_hd b, 
+:root .piece .piece_ft b{display:none\9;}
+.piece .piece_hd .hl { position:absolute\9; left:-10px\9; top:0\9; background:url(../images/piece_hd_left.png) no-repeat 0 0\9; _background-image:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/piece_hd_left.png', sizingMethod='scale');}
+.piece .piece_hd .hr { position:absolute\9; right:-10px\9; top:0\9; background:url(../images/piece_hd_right.png) no-repeat 0 0\9; _background-image:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/piece_hd_right.png', sizingMethod='scale');}
+.piece .piece_bd { background-color:#fff; zoom:1; position:relative;padding: 10px 20px 0 20px;}
+.piece .piece_bd .rss_cate_title{padding-bottom: 14px;}
+.piece .piece_bd:before, .piece .piece_bd:after { content:""; display:table; }
+.piece .piece_bd:after { clear:both; }
+.piece .piece_ft .fl { position:absolute\9; left:-10px\9; top:0\9; background:url(../images/piece_ft_left.png) no-repeat 0 0\9; _background-image:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/piece_ft_left.png', sizingMethod='scale');}
+.piece .piece_ft .fr { position:absolute\9; right:-10px\9; top:0\9; background:url(../images/piece_ft_right.png) no-repeat 0 0\9; _background-image:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/piece_ft_right.png', sizingMethod='scale');}
+.piece .piece_bd .h_detail{margin: 0 0 10px 65px;}
+.piece .piece_bd .h_detail p{
+    padding: 8px 0 5px 0;
+    line-height: 20px;
+    font-size: 14px;
+}
+.piece .piece_bd .h_left img{
+    height: 57px;
+}
+.rss_cate_list li{
+    float: left;
+    display: block;
+    width: 202px;
+    padding: 10px 0 10px 22px;
+}
+.rss_cate_list .cate_img{
+    padding: 0 10px 0 0;
+}
+.rss_cate_list .cr_i{
+    line-height: 42px;
+}
+.bd_content{
+    position: relative;
+    zoom: 0.9 9;
+    width: 600px;
+    height: 308px;
+    padding-top: 10px;
+    margin: 0 0 0 55px;
+    margin: 0 0 0 90px 9;
+    overflow: hidden;
+    border: 5px solid #DDD;
+}
+.bd_content .frame_box{
+    padding: 0 10px 0 10px;
+}
+.bd_content .fx_hd{
+    padding-bottom: 5px;
+    border-bottom: 1px solid #DDD;
+}
+.bd_content .fx_hd img{
+    height: 65px;
+}
+.bd_content .fx_con{
+    padding: 20px 10px 15px;
+    border-top-width: 0px;
+}
+.bd_content .left_img{
+    padding-left: 20px;
+}
+.bd_content .left_img img{
+    cursor: pointer;
+    width: 376px;
+}
+.bd_content .right_detail{
+    width: 216px;
+    padding-left: 10px;
+    line-height: 22px;
+    font-size: 14px;
+}
+
+.fx_mask{
+    background: url(https://res.mail.qq.com/zh_CN/htmledition/images/dy/yl_mask0b62bb.png);
+    width: 581px;
+    height: 89px;
+    position: relative;
+    top: -50px;
+    left: 70px;
+}
+.fx_mask .fx_subcon{
+    position: relative;
+    overflow: hidden;
+    zoom: 1;
+    margin: 0px 0 5px 35px;
+    height: 80px;
+    width: 536px;
+}
+.fx_subcon .fx_subing{
+    position: relative;
+    top: 30px;
+}
+.green_button{
+    border: 1px solid #488825;
+    -moz-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    width: 94px;
+    position: relative;
+    overflow: hidden;
+}
+.green_button input{
+    -moz-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    height: 24px;
+    cursor: pointer;
+    background: 
+    #62A026;
+    color: 
+    white;
+    font-weight: bold;
+    border: 0px;
+    font-size: 14px;
+    line-height: 23px;
+}
+.green_button span{
+    color: #A0A0A0;
+    font-size: 12px;
+    position: relative;
+    top: 6px;
+    left: 20px;
+}
+
+.piece_bd .rss_user_list li{
+    padding-top: 10px;
+}
+.piece_bd .rss_user_list li p a{
+    padding-right: 5px;
+}
+.piece_bd .rss_cate_title{
+    float: left;
+    color: #999;
+    margin-right: 20px;
+}
+.piece_bd  .c a{
+    color: black;
+}

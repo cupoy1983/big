@@ -1,0 +1,99 @@
+<tagLib name="fanwe" />
+<include file="Public:header" />
+<div class="tabs-title">
+	<?php $class = ' active'; ?>
+	<foreach name="seos" item="seo" key="key">
+	<div class="tt-item{$class}" rel="{$key}"><p><a href="javascript:;">{:L($key)}</a></p></div>
+	<?php $class = ''; ?>
+	</foreach>
+	<fanwe:linkBtn id="downRule" name="downRule" text="{$Think.lang.DOWN}" href="{:U(MODULE_NAME.'/down')}" css="float:right; margin-right:10px;" />
+</div>
+<div style="padding:10px; line-height:1.5em; clear:both;">
+	{$Think.lang.TIPS}
+</div>
+<form method='post' id="form" name="form" action="{:U(MODULE_NAME.'/update')}">
+<div class="tabs-body">
+	<?php $class = ' tabs-active'; ?>
+	<foreach name="seos" item="seo" key="seo_key">
+	<table cellpadding="4" cellspacing="0" border="0" class="table-form tabs-item{$class}" style="table-layout:auto;" rel="{$seo_key}">
+		<tr>
+			<th colspan="2" style="background:#9CB8CC; color:#fff; font-size:12px; text-align:left; padding:8px 0;"><strong>&nbsp;{:L($seo_key)}{$Think.lang.GREWRITE}</strong></th>
+		</tr>
+		<tr>
+			<th width="120">{$Think.lang.GREWRITE}</th>
+			<td><input type="text" name="seo[{$seo_key}][module]" class="textinput GREWRITE" rel="{$seo_key}" value="{$seo.rewrite}" style="width:100px;" />&nbsp;{:sprintf(L($seo_key.'_GREWRITE'),$site_url)}</td>
+		</tr>
+		<foreach name="seo.list" item="item">
+		<tr>
+			<th colspan="2" style="background:#9CB8CC; color:#fff; font-size:12px; text-align:left; padding:8px 0;"><strong>&nbsp;{$item.name}</strong></th>
+		</tr>
+		<?php $tips = L($item['key'].'_TIPS'); ?>
+		<if condition="$tips neq ''">
+		<tr>
+			<th>&nbsp;</th>
+			<td>{$tips}</td>
+		</tr>
+		</if>
+		<tr>
+			<th>{$Think.lang.TITLE}</th>
+			<td><textarea name="seo[{$seo_key}][{$item['key']}][title]" class="textinput areainput" rows="5">{$item.title}</textarea></td>
+		</tr>
+		<tr>
+			<th>{$Think.lang.KEYWORDS}</th>
+			<td><textarea name="seo[{$seo_key}][{$item['key']}][keywords]" class="textinput areainput" rows="5">{$item.keywords}</textarea></td>
+		</tr>
+		<tr>
+			<th>{$Think.lang.DESCRIPTION}</th>
+			<td><textarea name="seo[{$seo_key}][{$item['key']}][description]" class="textinput areainput" rows="5">{$item.description}</textarea></td>
+		</tr>
+		<tr>
+			<th>&nbsp;</th>
+			<td>{:sprintf(L($item['key'].'_REWRITE'),$site_url)}</td>
+		</tr>
+		<tr>
+			<th>{$Think.lang.REWRITE}</th>
+			<td>
+				<span class="ACTION_REWRITE" rel="{$seo_key}">{$seo.rewrite}</span>
+				<if condition="$item['rewrite_type'] eq 0">
+				<span>/</span><span>{$item.rewrite_action}</span>
+				<elseif condition="$item['rewrite_type'] eq 1"/>
+				<span>/</span><input type="text" name="seo[{$seo_key}][{$item['key']}][action]" class="textinput PAGE_ACTION_INPUT" rel="{$item['key']}_REWRITE" value="{$item.rewrite_action}" style="width:100px;" />
+				</if>
+				<span>{$item.rewrite_args}</span>
+				&nbsp;&nbsp;=&nbsp;&nbsp; {$site_url}<span class="ACTION_REWRITE" rel="{$seo_key}">{$seo.rewrite}</span><span class="PAGE_ACTION {$item['key']}_REWRITE" rel="{$seo_key}">{$item.rewrite_str}</span><span>{$item.rewrite_args}</span>
+			</td>
+		</tr>
+		</foreach>
+	</table>
+	<?php $class = ''; ?>
+	</foreach>
+</div>
+<table cellpadding="4" cellspacing="0" border="0" class="table-form" style="border-top:none;">
+	<tr class="act">
+		<th width="120">&nbsp;</th>
+		<td>
+			<input type="submit" class="submit_btn" value="{$Think.lang.SUBMIT}" />&nbsp;&nbsp;
+			<input type="reset" class="reset_btn" value="{$Think.lang.RESET}" />
+		</td>
+	</tr>
+</table>
+</form>
+<script type="text/javascript">
+jQuery(function($){
+	$(".GREWRITE").blur(function(){
+		var module = this.value;
+		var rel = $(this).attr('rel');
+		$('.ACTION_REWRITE[rel="'+ rel +'"]').html(module);
+	});
+	
+	$(".PAGE_ACTION_INPUT").blur(function(){
+		var action = $.trim(this.value);
+		if(action != '')
+			action = '/' + action;
+		
+		var rel = $(this).attr('rel');
+		$('.'+ rel).html(action);
+	});
+});
+</script>
+<include file="Public:footer" />

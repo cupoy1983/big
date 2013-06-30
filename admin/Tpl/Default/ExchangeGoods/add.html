@@ -1,0 +1,208 @@
+<tagLib name="fanwe" />
+<include file="Public:header" />
+<link href="__TMPL__Static/Js/DatePicker/jquery.ui.all.css" rel="stylesheet" />
+<script type="text/javascript" src="__TMPL__Static/Js/user.js"></script>
+<script type="text/javascript" src="__TMPL__Static/Js/dataList.js"></script>
+<script type="text/javascript" src="__TMPL__Static/Js/jquery.ui.core.js"></script>
+<script type="text/javascript" src="__TMPL__Static/Js/DatePicker/jquery.ui.datepicker.js"></script>
+<div class="handle-btns">
+	<fanwe:linkBtn text="{$Think.lang.RETURN_LIST}" href="{:U(MODULE_NAME.'/index')}" />
+</div>
+<form method='post' id="form" name="form" action="{:U(MODULE_NAME.'/insert')}" enctype="multipart/form-data">
+<table cellpadding="4" cellspacing="0" border="0" class="table-form">
+	<tr>
+		<th width="150">{$Think.lang.NAME}</th>
+		<td><input type="text" class="textinput requireinput" name="name" value="" size="80"/></td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.GOODS_TYPE}</th>
+		<td>
+			<select name="goods_type">
+				<option value="0">{$Think.lang.GOODS_TYPE_0}</option>
+				<option value="1">{$Think.lang.GOODS_TYPE_1}</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.IMG}</th>
+		<td>
+			<input type="file" class="fileinput" name="img" size="30" />
+		</td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.APPLY_TYPE}</th>
+		<td>
+			<select name="apply_type" id="apply_type">
+				<option value="0">{$Think.lang.APPLY_TYPE_0}</option>
+				<option value="1">{$Think.lang.APPLY_TYPE_1}</option>
+				<option value="2">{$Think.lang.APPLY_TYPE_2}</option>
+			</select>
+		</td>
+	</tr>
+	<tr class="trial">
+		<th>{$Think.lang.UID}</th>
+		<td>
+			<select name="uid" id="userSelect">
+				<option value="">{:getLang('SEARCH_USER','User')}</option>
+			</select>&nbsp;
+			<input type="text" class="textinput" size="8" id="userName" />&nbsp;
+			<input class="submit_btn" type="button" value="{$Think.lang.SEARCH}" onclick="searchUser('#userSelect','#userName');" />
+		</td>
+	</tr>
+	<tr class="integral" style="display:none;">
+		<th>{$Think.lang.INTEGRAL}</th>
+		<td>
+			<input type="text" class="textinput" name="integral" value="0" />
+		</td>
+	</tr>
+	<tr class="integral" style="display:none;">
+		<th>{$Think.lang.USER_NUM}</th>
+		<td>
+			<input type="text" class="textinput" name="user_num" value="1" />
+		</td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.STOCK}</th>
+		<td>
+			<input type="text" class="textinput" name="stock" value="1" />
+		</td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.PRICE}</th>
+		<td>
+			<input type="text" class="textinput" name="price" value="0" />
+		</td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.IS_BEST}</th>
+		<td>
+			<label><input type="radio" name="is_best" value="1">{$Think.lang.YES}</label>
+			<label><input type="radio" name="is_best" value="0" checked="checked">{$Think.lang.NO}</label>
+		</td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.BEGIN_TIME}</th>
+		<td>
+			<input class="textinput" type="text" name="begin_time" id="begin_time" size="16" />
+		</td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.END_TIME}</th>
+		<td>
+			<input class="textinput" type="text" name="end_time" id="end_time" size="16" />
+		</td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.SORT}</th>
+		<td>
+			<input type="text" class="textinput" name="sort" size="10" value="100" />
+		</td>
+	</tr>
+	<tr class="trial">
+		<th>{$Think.lang.APPLY_CONTENT}</th>
+		<td>
+			<textarea name="apply_content" class="textinput areainput" rows="3"></textarea>
+		</td>
+	</tr>
+	<tr>
+		<th><span class="trial">{$Think.lang.CONTENT}</span><span class="integral_one" style="display:none;">{$Think.lang.GOODS_CONTENT}</span></th>
+		<td>
+			<fanwe:editor id="content" name="content" type="CKEDITOR" width="96%" height="130px" />
+		</td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.SEO_TITLE}</th>
+		<td><input type="text" class="textinput" name="seo_title" value="" size="80" /></td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.SEO_KEYWORDS}</th>
+		<td>
+			<textarea name="seo_keywords" class="textinput areainput" rows="3"></textarea>
+		</td>
+	</tr>
+	<tr>
+		<th>{$Think.lang.SEO_DESC}</th>
+		<td>
+			<textarea name="seo_description" class="textinput areainput" rows="3"></textarea>
+		</td>
+	</tr>
+	<tr class="act">
+		<th>&nbsp;</th>
+		<td>
+			<input type="submit" class="submit_btn" value="{$Think.lang.SUBMIT}" />&nbsp;&nbsp;
+			<input type="reset" class="reset_btn" value="{$Think.lang.RESET}" />
+		</td>
+	</tr>
+</table>
+</form>
+<script type="text/javascript">
+jQuery(function($){
+	$("#begin_time").datepicker({showTimePanel:true});
+	$("#end_time").datepicker({showTimePanel:true});
+	$("#apply_type").change(function(){
+		$(".trial").show();
+		$(".integral").show();
+		$(".integral_one").hide();
+		
+		if(this.value == 0)
+		{
+			$(".integral").hide();
+			$(".integral_one").hide();
+		}
+		else if(this.value == 1)
+		{
+			$(".trial").hide();
+			$(".integral_one").show();
+		}
+	});
+	
+	$("#form").submit(function(){
+		var val = $.trim(this.name.value);
+		if(val == '')
+		{
+			alert("请输入商品名称");
+			this.name.focus();
+			return false;
+		}
+		
+		val = this.img.value;
+		if(val == '')
+		{
+			alert("请选择图片");
+			this.img.focus();
+			return false;
+		}
+		
+		if(this.apply_type.value != 1)
+		{
+			val = parseInt(this.uid.value);
+			if(isNaN(val) || val == 0)
+			{
+				alert("请选择发布人");
+				this.uid.focus();
+				return false;
+			}
+		}
+		
+		val = parseInt(this.stock.value);
+		if(isNaN(val) || val < 1)
+		{
+			alert("库存不能小于1");
+			this.stock.focus();
+			return false;
+		}
+		
+		if(this.apply_type.value > 0)
+		{
+			val = parseInt(this.user_num.value);
+			if(isNaN(val) || val < 1)
+			{
+				alert("每人限兑不能小于1");
+				this.user_num.focus();
+				return false;
+			}
+		}
+	});
+});
+</script>
+<include file="Public:footer" />

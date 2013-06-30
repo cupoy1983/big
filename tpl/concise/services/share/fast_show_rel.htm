@@ -1,0 +1,74 @@
+<?php
+	Cache::getInstance()->loadCache('goods_color');
+	$cate_options = '';
+	FS('Share')->getShareCateOptions(0,$cate_options);
+?>
+<div class="fl fast_expand">
+	<ul class="fast_image_box PUB_IMG">
+		<!--{if $type == 'goods'}-->
+		<li class="g_f PUB_SHARTE_IMAGE PUB_SHARTE_GOODS" title="{lang share_dragsort_tip}" type="goods" key="{$result['key']}">
+			<img src="{$goods['item']['pic_url']}" width="100" height="100" />
+			<img alt="" class="tag" src="./tpl/images/goods_tag.png">
+			<span>设置详细</span>
+			<input type="hidden" class="GOODS_INFO" name="goods[{$result['key']}]" value='{$result['info']}' />
+			<input type="hidden" class="GOODS_ITEM_TAG" name="goods_tags[{$result['key']}]" value="{$result['tags']}" />
+			<input type="hidden" class="share_sort" name="goods_sort[{$result['key']}]" value="" />
+		</li>
+		<!--{else}-->
+		<li class="p_f PUB_SHARTE_IMAGE PUB_SHARTE_PIC FAST_CURRENT_PHOTO" type="photo" title="{lang share_dragsort_tip}">
+			<img src="{$result['img']}" width="100" height="100" />
+			<span>设置详细</span>
+			<input type="hidden" class="PHOTO_INFO" name="pics[]" value='{$result['info']}' />
+			<input type="hidden" class="share_sort" name="pics_sort[]" value="" />
+		</li>
+		<!--{if $rel == 'look' || $rel == 'dapei'}-->
+		<li class="PUB_LOOK_DAPEI PUB_LOOK_DAPEI_GOODS fast_look_dapei" onclick="$.Goods_Add(this)">
+			<strong>添加宝贝</strong>
+		</li>
+		<!--{/if}-->
+		<!--{/if}-->
+                <!--{if $goods['imgs_html']}-->
+                                            <!--{loop $goods['imgs_html'] $img_html}-->
+                                                <!--{$img_html}-->
+                                            <!--{/loop}-->
+                                        <!--{/if}-->
+		<li class="PUB_LOOK_DAPEI PUB_LOOK_DAPEI_PHOTO fast_look_dapei" onclick="$.Pic_Add(this)"> <strong>添加图片</strong> </li>
+	</ul>
+	<div class="fast_goods_detailed PUB_GOODS_DETAILED" direction="r">
+		<div>
+			<label>宝贝价格：</label>
+			<span class="PGD_PRICE"></span>
+			<label style="margin:0 0 0 20px;" class="PGD_COMMISSION">可获积分：</label>
+			<span class="PGD_COMMISSION"></span>
+		</div>
+		<div>
+			<label>宝贝分类：</label>
+			<select class="PGD_GOODSCATE">
+				<option value="0">请选择分类</option>
+				{$cate_options}
+			</select>
+			<span class="PGD_GOODSCATESTR"></span>
+		</div>
+		<div style="margin:5px 0 0 0;">
+			<label>宝贝颜色：</label>
+			<!--{loop $_FANWE['cache']['goods_color'] $color}-->
+			<a class="colorblock" href="javascript:;" title="{$color['name']}" style="background:{if !empty($color['icon'])}url({getimg $color['icon'] 0 0}){else}{$color['color']}{/if};" colorID="{$color['id']}"><span></span></a>
+			<!--{/loop}-->	
+		</div>
+		<div style="margin:5px 0 0 0;">
+			<label>宝贝描述：</label>
+			<input type="text" class="textinput PGD_GOODSALT" style="width:167px;">
+		</div>
+		<a class="fgd_close PGD_CLOSE">关闭</a>
+	</div>
+	<div class="fast_photo_detailed PUB_PHOTO_DETAILED">
+		<div>
+			<label>图片描述：</label>
+		</div>
+		<div>
+			<textarea class="textarea PHD_PHOTOALT" style="width:228px; height:64px;"></textarea>
+		</div>
+		<a class="fhd_close PHD_CLOSE">关闭</a>
+	</div>
+</div>
+<input type="hidden" class="SHARE_TYPE" name="share_type" value="{$rel}"/>

@@ -1,0 +1,34 @@
+<?php
+	$css_list[0]['url'] = './tpl/css/loginreg.css';
+	$js_list[0] = './tpl/js/loginreg.js';
+?>
+<!--{template inc/header}-->
+<div id="body" class="fm960">
+	<div class="piece1">
+		<div class="piece1_hd"></div>
+		<div class="piece1_bd clearfix">
+			<div id="content" style="width:960px;">
+				<div id="get_password_box" class="fl">
+					<p>
+						<span>取消订阅</span><br />
+					</p>
+			
+					<div>
+                                            <p><em color="red">已取消</em>，您的订阅的</p>
+                                            <br/>
+                                            <p>
+                                                <img src="{$rss_cate['list'][0]['cate_logo']}" />
+                                            </p>
+
+                                             <p><a href="{u mailrss/index}" style="">查看其他订阅</a>，可能有你喜欢的 o(∩_∩)o</p>
+						
+                                                
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="piece1_ft"></div>
+	</div>
+</div>
+<!--{template inc/footer}-->

@@ -1,0 +1,118 @@
+.trial_box{width:960px; margin:0 auto;}
+.tb_left{float:left; width:706px;}
+.tbl_box{float:left;background-color:#fff;box-shadow:0 1px 3px rgba(34, 25, 25, 0.2);-webkit-box-shadow:rgba(34, 25, 25, 0.2) 0px 1px 3px;-webkit-border-radius:4px;border-radius:4px;border:1px solid #ddd\9;margin-top:14px;padding:13px;position:relative;width:680px;}
+
+.tbln_ico{background:url(../images/exchange/notice.png) no-repeat;left:-3px;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src ='../images/exchange/notice.png', sizingMethod='scale');height:81px;width:82px;position:absolute;top:-2px;}
+.tblb_ico{background:url(../images/exchange/best.png) no-repeat;left:-3px;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src ='../images/exchange/best.png', sizingMethod='scale');height:81px;width:82px;position:absolute;top:-2px;}
+
+.tbl_recommend ul{float:left; width:680px;}
+.tbl_recommend ul li{float:left;overflow:hidden;padding:0 5px;width:330px;}
+.tbl_recommend ul li a.img{width:128px; float:left;}
+.tbl_recommend ul li a img{width:128px; float:left;}
+.tbl_recommend ul li p,
+.tbl_recommend ul li h3{margin-left:145px;}
+.tbl_recommend ul li h3{color:#f69;font-size:16px;height:50px;line-height:25px;overflow:hidden;width:180px;}
+.tbl_recommend ul li .price{color:#999;line-height:20px;}
+.tbl_recommend ul li .price strong{color:#666;}
+.tbl_recommend ul li .begin{background:url(../images/exchange/btns.png) no-repeat 0 -95px;color:#f69;font-size:16px;font-weight:bold;text-align:center;height:37px;line-height:35px;margin-top:10px;width:122px; display:block;margin-left:145px;}
+.tbl_recommend ul li.jg{width:680px; padding:0; height:0px; border-top:dashed 1px #ccc; margin:10px 0; overflow:hidden;}
+
+.tbl_box .begin_bg{height:30px;color:#fff;font-size:14px;font-weight:bold;text-align:center;line-height:28px;padding-right:10px;position:absolute;left:-3px;top:5px;}
+.tbl_box .begin_bg span{display:block; height:30px; float:left; padding:0 5px 0 10px; line-height:28px;background:url('../images/exchange/time.png') no-repeat;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/exchange/time.png', sizingMethod='scale');}
+.tbl_box .begin_bg em{display:block; float:left; height:30px; width:11px;background:url('../images/exchange/time_r.png') no-repeat;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/exchange/time_r.png', sizingMethod='scale');}
+.tbl_box .pic{float:left;height:220px;width:315px;overflow:hidden;}
+.tbl_box .bewrite{float:right;width:350px;}
+.tbl_box .bewrite p{overflow:hidden;width:100%;}
+.tbl_box .bewrite .bw_tle{color:#f69;font-size:20px;line-height:32px;overflow:hidden;}
+.tbl_box .bewrite .bw_tle a{color: #F69;}
+.tbl_box .bewrite .count{line-height:32px;}
+.tbl_box .bewrite .count span{float:left;}
+.tbl_box .bewrite .count strong{float:left;color: #F69; font-size:20px; font-family:Arial;}
+.tbl_box .bewrite .count .price{text-decoration: line-through;}
+.tbl_box #bdshare{position:absolute; bottom:10px; right:10px; z-index:1;}
+
+.tbl_box .bewrite .time{line-height:32px;}
+.tbl_box .bewrite .time span{float:left;padding-right:4px;}
+.tbl_box .bewrite .time strong{float:left;padding-right:4px;font-size: 20px; color:#666; font-family:Arial;}
+.tbl_box .bewrite p b{font-weight: bold;color: #F69; font-size:14px;font-family:Arial;}
+.tbl_box .bewrite .face{margin-top:8px;}
+.tbl_box .bewrite .face a{margin-right:2px;height:28px;width:28px;overflow:hidden;}
+.tbl_box .bewrite .face a img{height:28px;width:28px;}
+
+.tblb_info{padding:10px; font-size:14px;line-height:1.5em;}
+.tblbi_title{font-size:16px; font-weight:bold;}
+.tblbi_content{padding:10px 0; }
+.tblb_info a{color:#F69;}
+
+.tblb_title{font-size: 16px;font-weight: bold; color:#666;}
+.tblb_apply_box{border: 1px solid #DDD;height: 198px;overflow-y: scroll;margin-top: 8px;}
+.tblb_apply_box .tblbab_user{float:left;display: inline;margin: 8px 10px 0 8px;height: 74px;width: 48px;}
+.tblb_apply_box .tblbab_userimg{width: 48px;height: 48px;display: block;vertical-align: bottom;}
+.tblb_apply_box .tblbab_userimg img{width:48px; height:48px;}
+.tblb_apply_box .tblbab_username{display: block;width: 48px;height: 26px;line-height: 26px;text-align: center;white-space: nowrap;overflow: hidden;}
+
+.trial_apply,
+.exchange_apply,
+.detail_btn{background:url(../images/exchange/btns.gif) no-repeat;display:block;height:44px;margin-top:10px;margin-bottom:16px;overflow:hidden;width:173px;}
+.trial_apply{background-position:0 -46px;}
+.exchange_apply{background-position:0 -141px;}
+.trial_btn{background:url(../images/exchange/trial.png) no-repeat;display:block;height:44px;margin-top:10px;margin-bottom:16px;overflow:hidden;width:139px; float:left;}
+.exchange_btn{background:url(../images/exchange/exchange.png) no-repeat;display:block;height:44px;margin-top:10px;margin-bottom:16px;overflow:hidden;width:138px; float:left;}
+
+.exchange_right{float:right;width:238px; margin:14px 0 0 0;}
+.exchange_right dl{float:left; width:238px; background:#fff; *border:1px solid #ddd;
+box-shadow:0 1px 3px rgba(34, 25, 25, 0.2); -webkit-box-shadow:rgba(34, 25, 25, 0.2) 0px 1px 3px; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px;}
+.exchange_right dl dt{background:url(../images/b20.gif) repeat-x 0 0; height:30px; overflow:hidden;border-bottom:1px solid #D5D5D5; line-height:34px; float:left; width:100%;}
+.exchange_right dl dt strong{float:left; padding:0 0 0 8px; font-size:14px; color:#333;}
+.exchange_right dl dd{float:left; width:100%;}
+.exchange_right dl dd .empty{padding:20px; font-size:14px; color:#C00;}
+.exchange_right dl dd.content{line-height:1.5em; padding:10px; width:226px;}
+
+.exchange_right dl dd.text-list ul{float:left; padding:2px 10px 8px 10px;}
+.exchange_right dl dd.text-list ul li{float:left;line-height:18px; border-bottom:dashed 1px #eee; width:212px; padding:6px 3px;}
+.exchange_right dl dd.text-list ul li span a{color:#F30; font-family:Arial;}
+
+.exchange_right dl dd.top ul{float:left; padding:2px 8px 8px 8px;}
+.exchange_right dl dd.top ul li{float:left;line-height:18px; border-bottom:dashed 1px #eee; width:216px; padding:6px 3px;}
+.exchange_right dl dd.top ul li span{float:left; display:block;font-family:Arial; height:18px; line-height:18px;}
+.exchange_right dl dd.top ul li span.i{font-weight:bold; font-size:16px;width:28px;}
+.exchange_right dl dd.top ul li span.t{color:#F30;}
+.exchange_right dl dd.top ul li span.u{width:80px; overflow:hidden; margin:0 10px 0 0; display:block;}
+.exchange_right dl dd.top ul li span.j{width:75px; background:url(../images/money.jpg) no-repeat 0 -11px; padding:0 0 0 13px;}
+.exchange_right dl dd.top ul li span.u1{width:90px;}
+.exchange_right dl dd.top ul li span.j1{width:80px;}
+
+.exchange_right dl dd.user-list ul{float:left; padding:2px 8px 8px 8px;}
+.exchange_right dl dd.user-list ul li {border-bottom: 1px dashed #DDD;line-height:16px;overflow: hidden;width: 100%;width:216px; padding:10px 3px;}
+.exchange_right dl dd.user-list ul li p {height: 16px;float: right;overflow: hidden;width: 180px;color:#999;}
+.exchange_right dl dd.user-list ul li p a.uname{color:#F69; float:left;}
+.exchange_right dl dd.user-list ul li .e_title{color: #999;}
+.exchange_right dl dd.user-list ul li .e_title a{color:#666;}
+.exchange_right dl dd.user-list ul li .e_title b{color:#F30; font-family:Arial;}
+
+.er_link{padding:6px; text-align:center;}
+.er_rule{padding:6px; text-align:center;}
+.er_info{float:left; padding:10px 0; width:100%;}
+
+#consignee{}
+#consignee table{background:#ccc;}
+#consignee td{padding:6px; background:#fff;}
+#consignee td.l{background:#f6f6f6; padding-right:0;  white-space:nowrap; word-wrap:normal; word-break:normal;}
+#consignee .finput{border:1px solid #c8c8c8; padding:4px;}
+
+#applySubmitBox{}
+#applySubmitBox table{background:#ccc;}
+#applySubmitBox td{padding:6px; background:#fff;}
+#applySubmitBox th{background: lightYellow;line-height: 18px;padding: 5px 10px;}
+#applySubmitBox td.l{background:#f6f6f6; padding-right:0;  white-space:nowrap; word-wrap:normal; word-break:normal;}
+#applySubmitBox .finput{border:1px solid #c8c8c8; padding:4px;}
+
+.pub_box{margin-top:0;}
+.pub_box .pub_edit{width:660px; padding:0 10px 10px;}
+.pub_box .pub_txt {width:593px;}
+.pub_box .tag_txt{width:592px;}
+.pub_expand{width:656px;}
+.pub_expand .pub_image_box{width:650px;padding:0 0 6px 6px;}
+.pub_expand .pub_image_box li{width:100px; height:100px;margin:6px 6px 0 0;}
+.pub_expand .pub_image_box li img{width:100px; height:100px;}
+.pub_expand .pub_image_box li span{width:100px;}

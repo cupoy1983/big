@@ -1,0 +1,168 @@
+<tagLib name="fanwe" />
+<include file="Public:header" />
+<div class="tabs-title">
+	<div class="tt-item active" rel="1"><p><a href="javascript:;">{$Think.lang.TAB_1}</a></p></div>
+	<form action="__APP__" id="form" name="form" style="float:left; padding:4px 0 0 0;">
+		<select name="type" id="catesType" style="float:left; margin:3px 6px 0 6px;">
+			<foreach name="types" item="type_item">
+			<option value="{$type_item.class}" <if condition="$type eq $type_item['class']">selected="selected"</if> >{$type_item.name}</option>
+			</foreach>
+		</select>
+		<fanwe:imageBtn id="collectCate" name="collectCate" value="{$Think.lang.UPDATE_CATE}" click="collectCateHandler();"/>
+		<input type="hidden" name="{:c('VAR_MODULE')}" value="{$module_name}" />
+		<input type="hidden" name="{:c('VAR_ACTION')}" value="index" />
+	</form>
+</div>
+<form method='post' id="form1" name="form1" action="{:U(MODULE_NAME.'/update')}">
+<div class="tabs-body">
+	<table cellpadding="4" cellspacing="0" border="0" class="table-form tabs-item tabs-active" rel="1">
+		<tr>
+			<th width="230">&nbsp;</th>
+			<td>
+				<p>
+					如果选择上级分类，将取消他所有的子级分类。如果选择子分类，将取消他所属的上级分类。
+				</p> 
+			</td>
+		</tr>
+		<tr>
+			<th style="text-align:center; vertical-align:top; padding-left:0;padding-right:0;">
+				<p style="padding:3px 0 10px 0">已禁止{$type}分类(双击删除)</p>
+				<select multiple="multiple" id="cateSelect" style="width:220px;height:400px;" size="12">
+					<foreach name="select_list" item="cate">
+					<option value="{$cate.id}" parentID="{$cate.pid}" parentIDs="{$cate.pids}">{$cate.name}</option>
+					</foreach>
+				</select>
+				<input type="hidden" name="catesjson" value="" id="catesJson" />
+			</th>
+			<td>
+				<p style="padding:0 0 7px 20px;">{$type}分类列表(双击选定关联)</p>
+				<div style="width:100%; overflow-x:auto; text-align:left;">
+					<table cellpadding="0" cellspacing="0" border="0" class="table-normal" align="left">
+						<tr id="cateBox">
+							<td>
+								<select multiple="multiple" style="height:400px;" class="cateSelect">
+									<foreach name="cate_list" item="cate">
+										<option value="{$cate['id']}" parentID="{$cate['pid']}">{$cate['name']}</option>
+									</foreach>
+								</select>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+<table cellpadding="4" cellspacing="0" border="0" class="table-form" style="border-top:none;">
+	<tr class="act">
+		<th width="120">&nbsp;</th>
+		<td>
+			<input type="submit" class="submit_btn" value="{$Think.lang.SUBMIT}" />&nbsp;&nbsp;
+			<input type="reset" class="reset_btn" value="{$Think.lang.RESET}" />
+			<input type="hidden" name="type" value="{$type}" />
+		</td>
+	</tr>
+</table>
+</form>
+<script type="text/javascript">
+jQuery(function($){
+	$("#catesType").change(function(){
+		$("#form").submit();
+	});
+	
+	$("#cateSelect").bind("dblclick",function(){
+		$("#cateSelect option:selected").remove();
+	});
+	
+	$("#form1").submit(function(){
+		var json = new Array();
+		$("#cateSelect option").each(function(){
+			json.push({"id":$(this).val(),"pid":$(this).attr('parentID')});
+		});
+		$("#catesJson").val(JSON.stringify(json));
+	});
+	
+	$(".cateSelect").live('change',function(){
+		var obj = this;
+		var query = new Object();
+		query.id = this.value;
+		query.type = '{$type}';
+		
+		if(query.id == '')
+			return;
+		
+		if(query.type == 'yiqifa' && $("option:selected",this).attr('parentID') != '')
+			return;
+					
+		$.ajax({
+			url: APP + '?' + VAR_MODULE + '=GoodsCatesGl&' + VAR_ACTION + '=getSelect',
+			type:"POST",
+			async:false,
+			cache: false,
+			data:query,
+			dataType:"text",
+			success: function(result){
+				$(obj).parent().nextAll().remove();
+				var html = '<td>'+ result +'</td>';
+				$("#cateBox").append(html);
+			}
+		});
+	});
+	
+	$(".cateSelect").live('dblclick',function(){
+		var pids = new Array();
+		var val = this.value;
+		$("#cateSelect option").each(function(){
+			if((',' + $(this).attr('parentIDs') + ',').indexOf(',' + val + ',') > -1)
+				$(this).remove();
+		});
+		
+		$(this).parent().nextAll().each(function(){
+			$("select option",this).each(function(){
+				$("#cateSelect option[value='"+ $(this).val() +"']").remove();
+			});
+		});
+		
+		$(this).parent().prevAll().each(function(){
+			$("select",this).each(function(){
+				pids.unshift($(this).val());
+				$("#cateSelect option[value='"+ $(this).val() +"']").remove();
+			});
+		});
+		
+		updateCateSelect(val,$('option:selected',this).text(),$('option:selected',this).attr('parentID'),pids.join(","));
+	});
+	
+	$("#cateSelect").bind("dblclick",function(){
+		$("#cateSelect option:selected").remove();
+	});
+});
+
+function collectCateHandler()
+{
+	setTimeout(function(){
+		location.href="{$collect_url}";
+	},1);
+}
+
+function updateCateSelect(id,name,pid,pids)
+{
+	var is_add = true;
+	var coptions = $("#cateSelect option");
+	for (i = 0; i < coptions.length; i++) 
+	{
+		if ($(coptions[i]).attr("value") == id) 
+		{
+			is_add = false;
+			break;
+		}
+	}
+	
+	if(is_add)
+	{
+		var html = '<option parentID="'+ pid +'" parentIDs="'+ pids +'" value="'+ id +'">'+name+'</option>';
+		$("#cateSelect").prepend(html);
+	}
+}
+</script>
+<include file="Public:footer" />

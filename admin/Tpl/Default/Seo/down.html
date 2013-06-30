@@ -1,0 +1,28 @@
+<tagLib name="fanwe" />
+<include file="Public:header" />
+<form method='post' id="form" name="form" action="{:U(MODULE_NAME.'/update')}">
+<table cellpadding="4" cellspacing="0" border="0" class="table-form">
+	<tr>
+		<th width="80"><fanwe:linkBtn id="downRule" name="downRule" text="{$Think.lang.DOWN1}" href="{:U(MODULE_NAME.'/downrule',array('type'=>'iis6'))}" target="_blank" css="float:right; margin-right:8px;" /></th>
+		<td>{$Think.lang.RULE_IIS6_2}</td>
+	</tr>
+	<tr>
+		<th><fanwe:linkBtn id="downRule" name="downRule" text="{$Think.lang.DOWN1}" href="{:U(MODULE_NAME.'/downrule',array('type'=>'htaccess'))}" target="_blank" css="float:right; margin-right:8px;" /></th>
+		<td>{$Think.lang.RULE_IIS6_3}</td>
+	</tr>
+	<tr>
+		<th><fanwe:linkBtn id="downRule" name="downRule" text="{$Think.lang.DOWN1}" href="{:U(MODULE_NAME.'/downrule',array('type'=>'iis7'))}" target="_blank" css="float:right; margin-right:8px;" /></th>
+		<td>{$Think.lang.RULE_IIS7}</td>
+	</tr>
+	<tr>
+		<th><fanwe:linkBtn id="downRule" name="downRule" text="{$Think.lang.DOWN1}" href="{:U(MODULE_NAME.'/downrule',array('type'=>'htaccess'))}" target="_blank" css="float:right; margin-right:8px;" /></th>
+		<td>{$Think.lang.RULE_APACHE}</td>
+	</tr>
+	<tr>
+		<th><fanwe:linkBtn id="downRule" name="downRule" text="{$Think.lang.DOWN1}" href="{:U(MODULE_NAME.'/downrule',array('type'=>'nginx'))}" target="_blank" css="float:right; margin-right:8px;" /></th>
+		<td>{$Think.lang.RULE_NGINX}</td>
+	</tr>
+</table>
+</form>
+
+<include file="Public:footer" />

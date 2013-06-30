@@ -1,0 +1,34 @@
+{$activity['cate_name']}：{$activity['title']}
+<!--{echo "\n";}-->
+<!--{if $activity['end_time'] == 0}-->
+活动时间：{$activity['begin_date']}
+<!--{else}-->
+开始时间：{$activity['begin_date']}
+<!--{echo "\n";}-->
+结束时间：{$activity['end_date']}
+<!--{/if}-->
+<!--{echo "\n";}-->
+活动地点：{$activity['city']} {$activity['place']}
+<!--{echo "\n";}-->
+<!--{if $activity['cost'] > 0}-->
+每人花销：{$activity['cost']}元
+<!--{echo "\n";}-->
+<!--{/if}-->
+性　　别：{if $activity['gender'] == 0}不限{elseif $activity['gender'] == 1}男{else}女{/if}
+<!--{echo "\n";}-->
+已报名人数：{$activity['apply_number']}人
+<!--{echo "\n";}-->
+<!--{if $activity['expiration_time'] > 0}-->
+报名截止：{$activity['expiration_date']}
+<!--{echo "\n";}-->
+<!--{/if}-->
+<!--{echo "\n";}-->
+活动内容：{anchor $activity['content']}
+<!--{echo "\n";}-->
+<!--{echo "\n";}-->
+申请人,留言,申请时间,状态{$field_names}
+<!--{echo "\n";}-->
+<!--{loop $apply_list $apply}-->
+{$apply['user_name']},{$apply['content']},{$apply['time']},<!--{if $apply['status'] == 0}-->等待审核<!--{else}-->允许参加<!--{/if}-->$apply['field_values']
+<!--{echo "\n";}-->
+<!--{/loop}-->

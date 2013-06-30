@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+	<!--{echo formatPageSeo()}-->
+	<link rel="icon" href="{$_FANWE['site_root']}favicon.ico" type="image/x-icon" />
+	<script type="text/javascript" src="./public/js/jquery.js"></script>
+	<?php
+		$default_js[] = './public/js/jquery.cookie.js';
+        $default_js[] = './public/js/jquery.easing.js';
+		$default_js[] = './public/js/jquery.lazyload.js';
+		$default_js[] = './public/js/base.js';
+	?>
+	<script type="text/javascript" src="{script $default_js}"></script>
+	<?php
+		$current_css[] = './tpl/css/base.css';
+		$current_css[] = './tpl/css/lightbox.css';
+		$current_css[] = './public/js/jqueryui/jquery.ui.css';
+	?>
+	<link rel="stylesheet" type="text/css" href="{css $current_css}" media="all"/>
+	<!--{loop $css_list $css}-->
+	<link rel="stylesheet" type="text/css" href="{css $css['url']}"{if !empty($css['media'])} media="{$css['media']}"{/if} />
+	<!--{/loop}-->
+	<script type="text/javascript">
+		var SITE_PATH = '$_FANWE[site_root]';
+		var SITE_URL = '$_FANWE[site_url]';
+		var TPL_PATH = '{TPL_PATH}';
+		var PUBLIC_PATH	 = '{PUBLIC_PATH}';
+		var MODULE_NAME	 = '{MODULE_NAME}';
+		var ACTION_NAME	 = '{ACTION_NAME}';
+		var COOKIE_PRE = "$_FANWE['config']['cookie']['cookie_pre']";
+		var HEADER_TOP_HEIGHT = 39;
+		<!--{dynamic dynamicScript}-->
+	</script>
+	<!--{if isset($_FANWE['cache']['business']['taobao'])}-->
+	<!--{if $_FANWE['cache']['business']['taobao']['is_tdj'] == 0}-->
+	<script src="http://a.tbcdn.cn/apps/top/x/sdk.js?appkey={$_FANWE['cache']['business']['taobao']['app_key']}"></script>
+	<style>
+		#top-xdr{position:absolute;top:-2000;left:-2000;};
+	</style>
+	<!--{else}-->
+	<script type="text/javascript">
+		(function(win,doc){
+			var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0];
+			if (!win.alimamatk_show) {
+				s.charset = 'utf-8';
+				s.async = true;
+				s.src = "http://a.alimama.cn/tkapi.js";
+				s.kslite = "";
+				h.insertBefore(s, h.firstChild);
+			}
+			var o = {
+				pid: "{$_FANWE['cache']['business']['taobao']['tk_pid']}",
+				appkey:"{$_FANWE['cache']['business']['taobao']['app_key']}"
+			}
+			win.alimamatk_onload = win.alimamatk_onload || [];
+			win.alimamatk_onload.push(o);
+		})(window,document);
+	</script>
+	<!--{/if}-->
+	<!--{/if}-->
+</head>
+<body>
+	<div id="header" class="HEADER_TOP_SCROLL<!--{dynamic headClass}-->">
+	 <div style="width:960px;margin-left: auto;margin-right: auto">
+		<a class="logo" href="{u index}"><img src="{$_FANWE['site_root']}{$_FANWE['setting']['site_logo']}" height="25" /></a>
+		<div class="head_nav">
+			<div class="hn_item"><a href="{u index}"{if MODULE_NAME == 'Index'} class="c"{/if}><span>{lang page_index}</span></a></div>
+			<?php
+				$g_r_cate = $_FANWE['cache']['goods_category']['root'];
+				$g_r_cate = &$_FANWE['cache']['goods_category']['all'][$g_r_cate];
+			?>
+			<div class="hn_item down_link" rel="hn_cates"><a href="{u book/shopping}"{if MODULE_NAME == 'Book' || MODULE_NAME == 'Look' || MODULE_NAME == 'Dapei'} class="c"{/if}><span>{$g_r_cate['cate_name']}<small class="down">&nbsp;</small></span></a></div>
+			<div class="hn_item"><a href="{u album}"{if MODULE_NAME == 'Album'} class="c"{/if}><span>{lang common/album}</span></a></div>
+			<div class="hn_item down_link" rel="hn_shops"><a href="{u shop}"{if MODULE_NAME == 'Shop'} class="c"{/if}><span>{lang common/nav_shop}<small class="down">&nbsp;</small></span></a></div>
+			<dl class="down_dl" rel="hn_cates" type="center" left="6">
+				<!--{loop $_FANWE['cache']['goods_category']['index'] $h_i_cate}-->
+				<!--{eval $h_i_cate = $_FANWE['cache']['goods_category']['all'][$h_i_cate];}-->
+				<dd><a href="{u book/cate cate=$h_i_cate['cate_code']}">{$h_i_cate['cate_name']}</a></dd>
+				<!--{/loop}-->
+				<dd class="dl_line"></dd>
+				<dd><a href="{u look/index}">{lang look}</a></dd>
+				<dd><a href="{u dapei/index}">{lang dapei}</a></dd>
+			</dl>
+			<dl class="down_dl" rel="hn_shops" type="center" left="6">
+				<dd><a href="{u exchange}">{lang common/nav_exchange}</a></dd>
+				<dd><a href="{u group/index}">{lang group}</a></dd>
+				<dd><a href="{u daren/index}">{lang daren}</a></dd>
+				<dd><a href="{u mailrss/index}">{lang common/mailrss}</a></dd>
+			</dl>
+		</div>
+		<div class="head_user">
+			<!--{dynamic getUserInfo}-->
+			<div class="mobile_down">
+				<strong>下载客户端</strong>
+				<a class="iphone_down" href="{$_FANWE['setting']['app_down_url']}" target="_blank" title="iPhone客户端">iphone客户端</a>
+				<a class="android_down" href="{$_FANWE['setting']['apk_down_url']}" target="_blank" title="Android客户端">Andioid客户端</a>
+			</div>
+			<form action="{u search}" method="get">
+				<input type="text" name="keyword" class="search_txt" value="" tooltip="{lang search_share}"/>
+				<input type="submit" value="搜索" class="search_btn" />
+			</form>
+		</div>
+		<script type="text/javascript">
+		var HEADER_DOWNS = new Object();
+		var HEADER_DOWNS_TIMEOUT;
+		var USER_DL_TIMEOUT,USER_DL_W = 0,USER_DL_H = 0,UMSG_DL_TIMEOUT,UMSG_DL_W = 0,UMSG_DL_H = 0,UMSG_DL_L = 0;
+		jQuery(function($){
+			$("#header .down_link").hover(function(){
+				$("#header .down_link").removeClass('down_hover');
+				$("#header .down_dl").hide();
+				clearTimeout(HEADER_DOWNS_TIMEOUT);
+				$(this).addClass('down_hover');
+				var rel = $(this).attr('rel');
+				var dl = $(".down_dl[rel='"+rel+"']");
+				var type = dl.attr('type');
+				dl.css({"visibility":"hidden","display":"block"});
+				if(!HEADER_DOWNS[rel])
+				{
+					HEADER_DOWNS[rel] = new Object();
+					HEADER_DOWNS[rel].w = 0;
+					HEADER_DOWNS[rel].h = 0;
+					HEADER_DOWNS[rel].l = 0;
+					HEADER_DOWNS[rel].t = 33;
+				}
+				
+				if(HEADER_DOWNS[rel].w == 0)
+				{
+					HEADER_DOWNS[rel].w = dl.width();
+					if(($(this).width() > HEADER_DOWNS[rel].w) || type == 'center')
+						HEADER_DOWNS[rel].w = $(this).width() - 1;
+					
+					var minwidth = parseInt(dl.attr('minwidth'));
+					if(!isNaN(minwidth) && minwidth > 0 && HEADER_DOWNS[rel].w < minwidth)
+					{
+						HEADER_DOWNS[rel].w = minwidth;
+					}
+				}
+				
+				if(HEADER_DOWNS[rel].h == 0)
+					HEADER_DOWNS[rel].h = dl.height();
+					
+					
+				if(HEADER_DOWNS[rel].l == 0)
+				{
+					var left = parseInt(dl.attr('left'));
+					if(isNaN(left))
+						left = 0;
+						
+					switch(type)
+					{
+						case 'center':
+							HEADER_DOWNS[rel].l = $(this).position().left + ($(this).width() - HEADER_DOWNS[rel].w) / 2 + left;
+						break;
+						
+						case 'left':
+							HEADER_DOWNS[rel].l = $(this).position().left + $(this).width() - HEADER_DOWNS[rel].w - 1 + left;
+							HEADER_DOWNS[rel].t = 34;
+						break;
+						
+						case 'right':
+							HEADER_DOWNS[rel].l = $(this).position().left + left;
+							HEADER_DOWNS[rel].t = 34;
+						break;
+					}
+				}
+				
+				dl.css({"height":"0","width":HEADER_DOWNS[rel].w,"left":HEADER_DOWNS[rel].l,"top":HEADER_DOWNS[rel].t,"visibility":"visible"});
+				dl.animate({height:HEADER_DOWNS[rel].h},{easing:"easeInQuad",queue:false,duration:100});
+			},function(){
+				var fun = function(){
+					$("#header .down_link").removeClass('down_hover');
+					$("#header .down_dl").hide();
+				};
+				HEADER_DOWNS_TIMEOUT = setTimeout(fun,500);
+			});
+			
+			$("#header .down_dl").hover(function(){
+				clearTimeout(HEADER_DOWNS_TIMEOUT);
+			},function(){
+				$("#header .down_link").removeClass('down_hover');
+				$("#header .down_dl").hide();
+			});
+		});
+		</script>
+		</div>
+		<div class="clear"></div>
+		<!--{dynamic getLoginScroll}-->
+	</div>
+	<center>{advlayout name='头部广告位'}</center>

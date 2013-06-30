@@ -1,0 +1,25 @@
+<!--{if count($list) > 0}-->
+<ul>
+	<!--{loop $list $comment}-->
+	<!--{if empty($comment['avatar'])}-->
+	<li class="noavatar">
+	<!--{else}-->
+	<li>
+		<img class="avt" src="{$comment['avatar']}" alt="{$comment['user_name']}"/>
+	<!--{/if}-->
+		<div>
+			<p class="p1">
+				<strong class="uname">{$comment['user_name']}</strong>
+				<span>&nbsp;&nbsp;&nbsp;&nbsp;{$comment['time']}</span>
+			</p>
+			<p class="p2">{anchor $comment['content']}</p>
+		</div>
+	</li>
+	<!--{/loop}-->
+</ul>
+<!--{if $pager['page_count'] > 1}-->
+<div class="pagination clearfix mt20">
+	<!--{subtemplate inc/pages}-->
+</div>
+<!--{/if}-->
+<!--{/if}-->

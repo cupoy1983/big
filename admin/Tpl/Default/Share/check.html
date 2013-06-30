@@ -1,0 +1,85 @@
+<tagLib name="fanwe" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Static/Js/dataList.js"></script>
+<script type="text/javascript" src="__TMPL__Static/Js/shareList.js"></script>
+<div class="handle-btns">
+	<fanwe:imageBtn id="editShare" name="editShare" value="{$Think.lang.EDIT}" click="editData(this,'checkList','share_id')" />
+	<fanwe:imageBtn id="removeShare" name="removeShare" value="{$Think.lang.REMOVE}" click="removeData(this,'checkList')" />
+	<fanwe:imageBtn id="ToExamineSelect" name="ToExamineSelect" value="{$Think.lang.TO_EXAMINE_SELECT}" click="ToExamineSelectData(this,'checkList')" />
+	<fanwe:imageBtn id="BatchDelete" name="BatchDelete" value="{$Think.lang.BATCH_DELETE}" click="BatchDelete()" />
+	<form action="__APP__">
+		<span>{$Think.lang.USER_NAME}</span>
+		<input class="textinput" type="text" value="{$uname}" name="uname" id="user_name" size="8" />
+		<input class="submit_btn" type="submit" value="{$Think.lang.SEARCH}" />
+		<input type="hidden" name="{:c('VAR_MODULE')}" value="{$module_name}" />
+		<input type="hidden" name="{:c('VAR_ACTION')}" value="check" />
+	</form>
+</div>
+<table id="checkList" class="table-list list" cellpadding="0" cellspacing="0" border="0">
+    <thead>
+        <tr>
+            <th width="26" class="first"><input type="checkbox" onclick="checkAll('checkList')"></th>
+            <th width="80"><a href="javascript:sortBy('share_id','','check')">{$Think.lang.ID}</a></th>
+            <th width="80">{$Think.lang.SHARE_CATEGORY}</th>
+			<th width="100">{$Think.lang.USER_NAME}</th>
+			<th width="80">{$Think.lang.COLOR}</th>
+            <th width="130">{$Think.lang.CREATE_TIME}</th>
+			<th>{$Think.lang.SHARE_TAGS}</th>
+            <th width="70">{$Think.lang.SHARE_TYPE}</th>
+            <th width="70">{$Think.lang.SHARE_DATA}</th>
+            <th width="40">{$Think.lang.STATUS}</th>
+            <th width="80">{$Think.lang.HANDLE}</th>
+        </tr>
+    </thead>
+	<?php
+		$index = -1;
+	?>
+    <tbody>
+		<foreach name="list" item="item">
+		<?php
+			$index++;
+			$row_count = ' rowspan="2"';
+			if($index % 2 == 0)
+				$tr_class = ' class="tr'.$item['share_id'].'"';
+			else
+				$tr_class = ' class="tr'.$item['share_id'].' even"';
+			
+			$item['tags'] = '';
+			if(isset($item['cache_data']['tags']) && isset($item['cache_data']['tags']['user']))
+			{
+				$item['tags'] = array();
+				foreach($item['cache_data']['tags']['user'] as $tag)
+				{
+					$item['tags'][] = $tag['tag_name'];
+				}
+				$item['tags'] = implode("，",$item['tags']);
+			}
+		?>
+        <tr{$tr_class}>
+            <td class="first"{$row_count}><input type="checkbox" name="key" value="{$item.share_id}"></td>
+            <td {$row_count}>{$item.share_id}</td>
+            <td>{$item.cate_name}</td>
+            <td>{$item.user_name}</td>
+			<td>{$item.color_name}</td>
+            <td>{:toDate($item['create_time'])}</td>
+			<td style="text-align:left;">{$item.tags}</td>
+			<td>{:getTypeName($item['type'])}</td>
+			<td>{:getShareData($item['share_data'])}</td>
+			<td><span class="pointer" module="Share" href="javascript:;" onclick="toggleStatus(this,'{$item.share_id}','status')">{:getStatusImg($item['status'])}</span></td>
+			<td{$row_count}>
+				<a href="javascript:;" onclick="editData(this,'{$item.share_id}','share_id')">{$Think.lang.EDIT}</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="removeData(this,'{$item.share_id}','share_id')">{$Think.lang.REMOVE}</a>
+			</td>
+        </tr>
+		<tr{$tr_class} align="left">
+			<td colspan="3" class="torder">
+				<foreach name="item['cache_data']['imgs']['all']" item="img">
+				<a href="{:adminFormatImgById($img['img_id'])}" target="_blank"><img class="imgTooltip" title="<img src='{:adminFormatImgById($img['img_id'])}' height='200' />" src="{:adminFormatImgById($img['img_id'],100,100)}" height="30" style="border:solid 1px #ccc;" /></a>
+				</foreach>
+			</td>
+			<td colspan="5" class="torder">{$Think.lang.SHARE_CONTENT}：{$item.content}</td>
+		</tr>
+		</foreach>
+    </tbody>
+</table>
+<div class="pager">{$page}</div>
+<include file="Public:footer" />
