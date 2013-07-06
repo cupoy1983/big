@@ -55,6 +55,9 @@ if($goods['comment_collect_time'] < $today_time){
 					$item['content'] = preg_replace("/[\r\n]/",'',$rate['rateContent']);
 					$item['content'] = FS('Goods')->generateGoodsName($item['content']);
 					$item['create_time'] = str2Time(str_replace('.','-',$rate['rateDate']));
+					if(!checkContent($item['content'])){
+						continue;
+					}
 					if(!empty($temp_content)){
 						$temp_content .= "\n".serialize($item);
 					}else{
@@ -90,10 +93,14 @@ if($goods['comment_collect_time'] < $today_time){
 							$item['content'] = preg_replace("/[\r\n]/",'',$rate['rateContent']);
 							$item['content'] = FS('Goods')->generateGoodsName($item['content']);
 							$item['create_time'] = str2Time(str_replace('.','-',$rate['rateDate']));
-							if(!empty($temp_content))
+							if(!checkContent($item['content'])){
+								continue;
+							}
+							if(!empty($temp_content)){
 								$temp_content .= "\n".serialize($item);
-							else
+							}else{
 								$temp_content .= serialize($item);
+							}
 						}
 					}
 				}
