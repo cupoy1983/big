@@ -5,7 +5,32 @@
 	<fanwe:imageBtn id="editData" name="editData" value="{$Think.lang.EDIT}" click="editData(this,'checkList')" />
 	<fanwe:imageBtn id="removeGoods" name="removeGoods" value="{$Think.lang.REMOVE}" click="removeGoods(this,'checkList')" />
 	<fanwe:imageBtn id="disableGoods" name="disableGoods" value="{$Think.lang.DISABLE}" click="disableGoods(this,'checkList')" />
-	<form action="__APP__">
+	<fanwe:imageBtn id="J_Like" name="addLike" value="喜欢" />
+	<script type="text/javascript">
+	$(document).ready(function(){
+		
+		$("#J_Like").click(function(){
+			var ids = new Array();
+			$("#checkList input:checked[name='key']").each(function(){
+				ids.push($(this).val());
+			}); 
+			ids = ids.join(',');
+			url = $("#J_Form").attr("action") + "?a=addLike&m=Goods&id=" +ids;
+			$.ajax({            
+				type:"post",
+				url:url,
+				error:function(request) {      // 设置表单提交出错
+					alert("表单提交出错，请稍候再试.....");
+				},
+				success:function(data) {
+					alert("成功！");
+				}            
+			});       
+		});
+	});
+	
+	</script>
+	<form id="J_Form" action="__APP__">
 		<span>{$Think.lang.KEYID}</span>
 		<input class="textinput" type="text" value="{$keyid}" name="keyid" size="10" />
 		<small></small>

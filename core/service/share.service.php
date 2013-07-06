@@ -1120,11 +1120,6 @@ class ShareService
 			if($update_user_cache && ($share['type'] == 'album' || $share['type'] == 'album_item'))
 				FS('Album')->setUserCache($share['uid']);
 			
-			if($share['type'] == 'fav')
-			{
-				FDB::delete('fav_me','share_id = '.$share_id);
-			}
-			
 			if($share['comment_count'] > 0)
 			{
 				FDB::delete('share_comment','share_id = '.$share_id);
@@ -1168,7 +1163,7 @@ class ShareService
 				goods = goods - '.$goods_count.',
 				collects = collects - '.$collect_count.' WHERE uid = '.$share['uid'],'SILENT');
 
-			ShareService::deleteShareCache();
+			ShareService::deleteShareCache($share_id);
 			
 			if(isset($cache_data['imgs']['all']))
 			{
@@ -1180,7 +1175,7 @@ class ShareService
 		}
 	}
 
-	public function deleteShareCache()
+	public function deleteShareCache($share_id)
 	{
 		$key = getDirsById($share_id);
 		clearCacheDir('share/'.$key);
@@ -2514,7 +2509,7 @@ class ShareService
 			$data = array();
 			$data['content'] = 	$post['content'];
 			$data['share_id'] = $share['share_id'];
-			$parent_comment_id = ShareService::saveComment($data);
+			$parent_comment_id = ShareService::saveComment($data, $share);
 		}
 
 		//评论给原创分享
@@ -2524,7 +2519,7 @@ class ShareService
 			$data = array();
 			$data['content'] = 	$post['content'];
 			$data['share_id'] = $base_id;
-			$base_comment_id = ShareService::saveComment($data);
+			$base_comment_id = ShareService::saveComment($data,$share);
 		}
 
 		return array(
@@ -2574,16 +2569,6 @@ class ShareService
 		
 		//添加关注消息提示
 		FS("User")->setUserTips($share['uid'],2);
-		$favshare = ShareService::save($data);
-		if($favshare['status'])
-		{
-			$data = array();
-			$data['share_id'] = $favshare['share_id'];
-			$data['uid'] = $share['uid'];
-			$data['parent_id'] = $share['share_id'];
-			$data['cuid'] = $_FANWE['uid'];
-			FDB::insert('fav_me',$data);
-		}
 	}
 
 	/**
@@ -2847,13 +2832,13 @@ class ShareService
 	/**
 	 * 保存分享的评论
 	 * @param array $post 提交的数据
+	 * @param array $share 提交评论的分享
 	 * @return int 评论编号
 	 */
-	public function saveComment($post)
+	public function saveComment($post, $share)
 	{
 		global $_FANWE;
 		$share_id = intval($post['share_id']);
-		$share = ShareService::getShareById($share_id);
 		$data = array();
 		$data['content'] = 	htmlspecialchars(trim($post['content']));
 		$data['uid'] = $_FANWE['uid'];

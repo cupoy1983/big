@@ -29,7 +29,7 @@ if($check_result['error_code'] == 1)
 	outputJson($result);
 }
 
-$comment_id = FS('Share')->saveComment($_FANWE['request']);
+$comment_id = FS('Share')->saveComment($_FANWE['request'], $share);
 //FS("User")->updateUserScore($_FANWE['uid'],'share','comments',$_FANWE['request']['content'],$comment_id);
 
 $comment = FS('Share')->getShareComment($comment_id);

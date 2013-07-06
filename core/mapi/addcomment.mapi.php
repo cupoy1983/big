@@ -39,7 +39,7 @@ class addcommentMapi
 			m_display($root);
 		}
 
-		$comment_id = FS('Share')->saveComment($_FANWE['requestData']);
+		$comment_id = FS('Share')->saveComment($_FANWE['requestData'], $share);
 		$comment = FS('Share')->getShareComment($comment_id);
 		$comment['time'] = getBeforeTimelag($comment['create_time']);
 		$parses = m_express($item['content']);

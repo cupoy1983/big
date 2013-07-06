@@ -30,6 +30,11 @@ class GoodsService
 		return $list[$id];
 	}
 	
+	public function getShareGoodsByShareId($shareId){
+		$shareGoods = FDB::fetchFirst('SELECT * FROM '.FDB::table('share_goods').' WHERE share_id = '.$shareId);
+		return $shareGoods;
+	}
+	
 	public function getCommentList($id,$page = 1)
 	{
 		$id = (int)$id;

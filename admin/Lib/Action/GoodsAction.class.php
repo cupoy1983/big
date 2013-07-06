@@ -569,7 +569,57 @@ class GoodsAction extends CommonAction
 		$_SESSION['goods_update_setting'] = array();
 		echoFlush('<script type="text/javascript">showmessage(\''.L('UPDATE_TIPS_2').'\',3);</script>');
 	}
+	
+	/**
+	 * 刷喜欢 added by frankie
+	 */
+	public function addLike(){
+		vendor("common");
+		$key = $_REQUEST['id'];
+		$res = null;
+		if(!empty($key)){
+			$ids = explode(",", $key);
+			$res = FDB::query("SELECT share_id, uid FROM ".FDB::table('share_goods')." WHERE goods_id IN (".implode(',',$ids).")");
+		}else{
+			$res = FDB::query("SELECT share_id, uid FROM ".FDB::table('share')." where share_data = 'goods' order by rand() limit 50 ");
+		}
+	
+		while($share = FDB::fetch($res)){
+			$shareId = $share['share_id'];
+			//设定评论人uid
+			$limit = rand(1, 10);
+			$users = FDB::query("select uid from ".FDB::table("user")." where gid =8 ORDER BY rand() LIMIT ". $limit);
+			while($u = FDB::fetch($users)){
+				$uid= $u['uid'];
+				if($share['uid'] == $uid){
+					continue;
+				}elseif(FS('Share')->getIsCollectByUid($shareId,$uid)){
+					continue;
+				}else{
+					$data = array();
+					$data['uid'] = $share['uid'];
+					$data['c_uid'] = $uid;
+					$data['share_id'] = $shareId;
+					$data['create_time'] = TIME_UTC;
+					FDB::insert('user_collect',$data);
+					FDB::insert('share_collect1',array('share_id'=>$shareId),false,true);
+					FDB::insert('share_collect7',array('share_id'=>$shareId),false,true);
+						
+					//分享被喜欢数加1
+					FS('Share')->updateShareCollectTable($shareId);
+						
+					//分享会员被喜欢数加1
+					FDB::query('UPDATE '.FDB::table('user_count').' SET collects = collects + 1 WHERE uid = '.$share['uid']);
+						
+				}
+			}
+			FS('Share')->updateShareCache($shareId,'collects');
+		}
+	
+		return;
+	}
 }
+
 
 function getGoodsNameLink($name,$link)
 {

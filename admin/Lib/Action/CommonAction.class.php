@@ -325,7 +325,7 @@ class CommonAction extends Action
 			Cookie::set ( '_currentUrl_', U($this->getActionName() . "/index"));
 			Cookie::set ($returnUrl, U($this->getActionName() . "/index"));
 		}
-		return;
+		return $voList;
 	}
 
 	function insert() {

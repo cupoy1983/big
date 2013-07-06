@@ -185,7 +185,8 @@ class NoteModule
 				$current_type = 'other';
 			break;
 		}
-		
+		//获取goods_id和share_id供评论采集使用
+		$goodShare = $current_obj['goods_id'].'||'.$current_obj['share_id'];
 		include template('page/note/note_index');
 		display();
 	}

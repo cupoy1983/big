@@ -48,51 +48,45 @@ class ShareCommentAction extends CommonAction{
         return;
         
     }
-    public function removeComment()
-	{
-		//删除指定记录
+    
+    public function removeComment(){
+    	Vendor("common");
+    	//删除指定记录
 		$result = array('isErr'=>0,'content'=>'');
 		$id = $_REQUEST['id'];
-		if(!empty($id))
-		{
-			$model = M('ShareComment');
-			$pk = 'comment_id';
-			$condition = array ($pk => array ('in', explode ( ',', $id ) ) );
-                        
-			if(false !== $model->where($condition)->delete())
-			{
-                                Vendor("common");
-                                $id_arr = explode(',',$id);
-                                //排重
-                                $un_id = array_unique($id_arr);
-                                foreach($un_id as $c_id){
-                                    $share_id = $model->where( $pk.' = '. $c_id)->getField('share_id');
-                                    $count = $model->where( 'share_id ='. $share_id)->count();
-                                    $key = getDirsById($share_id);
-                                    clearCacheDir('share/'.$key.'/commentlist');
-                                    D('Share')->where("share_id = '$share_id'")->setDec('comment_count',$count);
-                                    FS('Share')->updateShareCache($share_id,'comments');
-                                }
+		if(!empty($id)){
+			$res = FDB::query("SELECT comment_id, share_id FROM ".FDB::table('share_comment')." WHERE comment_id IN (".$id.")");
+			while($c = FDB::fetch($res)){
+				$commentId = $c['comment_id'];
+				$shareId = $c['share_id'];
 				
-				$this->saveLog(1,$id);
+				$model = M('ShareComment');
+				$pk = 'comment_id';
+				
+				if(false !== $model->where($pk.' = '. $commentId)->delete()){
+					D('CommentMe')->where($pk.' = '. $commentId)->delete();
+					$count = $model->where( 'share_id ='. $shareId)->count();
+					$key = getDirsById($shareId);
+					clearCacheDir('share/'.$key.'/commentlist');
+					D('Share')->where("share_id = '$shareId'")->setField('comment_count',$count);
+					FS('Share')->updateShareCache($shareId,'comments');
+				}else{
+					$this->saveLog(0,$id);
+					$result['isErr'] = 1;
+					$result['content'] = L('REMOVE_ERROR');
+					die(json_encode($result));
+				}
 			}
-			else
-			{
-				$this->saveLog(0,$id);
-				$result['isErr'] = 1;
-				$result['content'] = L('REMOVE_ERROR');
-			}
-		}
-		else
-		{
+			$this->saveLog(1,$id);
+		}else{
 			$result['isErr'] = 1;
 			$result['content'] = L('ACCESS_DENIED');
 		}
 
 		die(json_encode($result));
 	}
-        public function editComment()
-	{
+        
+	public function editComment(){
 		$model = D('ShareComment');
 		Cookie::set ( '_currentUrl_',NULL );
 		$id = $_REQUEST [$model->getPk ()];
@@ -101,8 +95,8 @@ class ShareCommentAction extends CommonAction{
 		$this->assign ( 'vo', $vo );
 		$this->display ();
 	}
-        public function updateComment()
-	{
+	
+    public function updateComment(){
 		$model = D('ShareComment');
 		if (false === $data = $model->create ()) {
 			$this->error ( $model->getError () );

@@ -118,6 +118,11 @@ function FU($type,$args = array(),$is_full = false)
 	global $_FANWE;
 	static $is_rewrite = NULL,$site_url = NULL,$url_lists = array(),$url_flists = array(),$seo_modules = NULL;
 	
+	$apps = explode('/',$type);
+	$module = $apps[0];
+	$action = isset($apps[1]) ? $apps[1] : 'index';
+	$type = $module.'/'.$action;
+	
     if ($is_rewrite === NULL)
         $is_rewrite = intval($_FANWE['setting']['url_model']);
 
@@ -132,6 +137,7 @@ function FU($type,$args = array(),$is_full = false)
         $seo_modules = $_FANWE['cache']['seos'];
 	}
 	
+	
 	$depr = '/';
 
 	$url = $site_url;
@@ -140,11 +146,6 @@ function FU($type,$args = array(),$is_full = false)
 		$url = $_FANWE['site_url'];
 		$site_url = $_FANWE['site_url'];
 	}
-
-	$apps = explode('/',$type);
-	$module = $apps[0];
-	$action = isset($apps[1]) ? $apps[1] : 'index';
-	$type = $module.'/'.$action;
 
 	$url_key = $type.'_'.md5(http_build_query($args));
 	if($is_full)
@@ -207,25 +208,28 @@ function FU($type,$args = array(),$is_full = false)
 				switch($action)
 				{
 					case 'index':
+						$depr = '-';
 						$params = array('sort'=>'','page' => 0);
-						$search = array('/index','sort/','page/');
+						$search = array('-index','sort-','page-');
 						$replace = array('','','');
 					break;
 					
 					case 'category':
+						$depr = '-';
 						$action = $seo_modules[$module][$action]['action'];
-						$params = array('id'=>0,'sort'=>'','page' => 0);
-						$search = array('id/','sort/','page/');
-						$replace = array('c','','');
+						$params = array('sort'=>'','id'=>0,'page' => 0);
+						$search = array('sort-','id-','page-');
+						$replace = array('','','');
 					break;
 					
 					case 'show':
-						$action = $seo_modules[$module][$action]['action'];
+						$depr = '-';
+						$action = '';
 						$args['aid'] = $args['id'];
 						unset($args['id']);
-						$params = array('aid'=>0,'sid'=>0,'type' => 0,'page' => 0);
-						$search = array('aid/','sid/','type/','page/');
-						$replace = array('a','s','t','');
+						$params = array('aid'=>0);
+						$search = array('aid');
+						$replace = array('detail');
 					break;
 		
 					case 'edit':

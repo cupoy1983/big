@@ -8,3 +8,4 @@
 /.settings
 /public/db.global.php
 /public/install.lock
+/public/yun/UpYun.php
