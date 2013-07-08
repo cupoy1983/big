@@ -1,62 +1,43 @@
 <!--{if $_FANWE['uid'] > 0}-->
-<div class="fr" style="margin-top:20px">
-	<div class="fast_share" style="float:left;margin:13px 10px 0 0;"><a href="javascript:;" onclick="$.Fast_Share();">分享</a></div>
-	<div class="my_btn">
-		<a href="{u u/me}" class="mb_bd{if $_FANWE['user']['gender'] == 1} b{/if}">
-			<img class="mb_avt" src="{avatar $_FANWE['user']['avatar'] s}" height="24">
-			<span class="mb_name{if $_FANWE['user']['gender'] == 1} bc{else} gc{/if}">{$_FANWE['user_name']}</span>
-		</a>
-		<span class="mb_rb">
-			<a class="myalbum" href="{u u/album}">{lang common/album}</a>
-			<a href="{u u/fav uid=$_FANWE['uid']}" class="myfavs">{lang fav}</a>
-		</span>
+<div class="user_info">
+	<div class="ui_user">
+		<em class="xs"></em>
+		<a href="{u u/book}">{$_FANWE['user_name']}</a>
+		<dl class="user_dl" style="display:none;position:absolute;">
+			<dd><a href="{u u/album}">我的杂志</a></dd>
+			<dd><a href="{u u/me}" class="message{if $_FANWE['user_notice']['all'] > 0} h{/if}">我的消息{if $_FANWE['user_notice']['all'] > 0}({$_FANWE['user_notice']['all']}){/if}</a></dd>
+			<dd><a href="{u u/fav uid=$_FANWE['uid']}">我喜欢的</a></dd>
+			<dd><a href="{u invite}" target="_blank">招收徒弟</a></dd>
+			<dd><a href="{u settings/personal}">设置账号</a></dd>
+			<dd><a href="{u user/logout}">退出</a></dd>
+		</dl>
 	</div>
-	<div class="my_shotcuts">
-		<a href="{u settings/personal}" class="setting">{lang settings}</a>
-		<a href="javascript:;" class="message{if $_FANWE['user_notice']['all'] > 0} h{/if}">{lang message_tip}{if $_FANWE['user_notice']['all'] > 0}({$_FANWE['user_notice']['all']}){/if}</a>
-		<a href="{u invite}" class="setting">邀请</a>
-		<a href="{u user/logout}" >{lang logout}</a>
-	</div>
-    <div class="notice_menu_box fl">
-        <ul id="notice_menu" class="s_m">
-            <li>
-				<a href="{u u/talk uid=$_FANWE['uid']}">我发表的</a>
-            </li>
-            <li>
-            	<a href="{u u/comments uid=$_FANWE['uid']}">评论我的{if $_FANWE['user_notice'][3] >0}<span>({$_FANWE['user_notice'][3]})</span>{/if}</a>
-            </li>
-            <li>
-            	<a href="{u u/fans uid=$_FANWE['uid']}">关注我的{if $_FANWE['user_notice'][1] >0}<span>({$_FANWE['user_notice'][1]})</span>{/if}</a>
-            </li>
-			<li>
-            	<a href="{u u/atme uid=$_FANWE['uid']}">提到我的{if $_FANWE['user_notice'][4] >0}<span>({$_FANWE['user_notice'][4]})</span>{/if}</a>
-            </li>
-            <li>
-            	<a href="{u u/atme uid=$_FANWE['uid'],type=faved}">喜欢我的{if $_FANWE['user_notice'][2] >0}<span>({$_FANWE['user_notice'][2]})</span>{/if}</a>
-            </li>
-            <li>
-            	<a href="{u u/message uid=$_FANWE['uid']}">我的信件{if $_FANWE['user_notice'][5] >0}<span>({$_FANWE['user_notice'][5]})</span>{/if}</a>
-            </li>
-			<li>
-            	<a href="{u u/notic uid=$_FANWE['uid']}">我的通知{if $_FANWE['user_notice'][6] >0}<span>({$_FANWE['user_notice'][6]})</span>{/if}</a>
-            </li>
-            <li><a href="{u u/sysmsg uid=$_FANWE['uid']}">系统消息{if $_FANWE['user_notice'][7] >0}<span>({$_FANWE['user_notice'][7]})</span>{/if}</a></li>
-        </ul>
-	</div>
+	<a href="{u u/book}" class="user_img"><img src="{avatar $_FANWE['user']['avatar'] m}" height="48" width="48"></a>
+	<div class="clr"></div>
 </div>
+<script type="text/javascript">
+//用户信息下拉框js
+var f = jQuery('.ui_user');
+var menu = jQuery('.user_dl');
+f.hover(function(e) {
+	e.preventDefault();
+	e.stopPropagation();
+	// button actived
+	jQuery(this).toggleClass('login_widget_show');
+	// login in widget show up
+	menu.show();
+},
+function(e) {
+	e.preventDefault();
+	e.stopPropagation();
+	// button actived
+	jQuery(this).toggleClass('login_widget_show');
+	// login in widget show up
+	menu.hide();
+});
+</script>
 <!--{else}-->
-<ul class="l">
-	<li class="o_l">
-		<span><img class="fl" src="./tpl/images/icon_sina.png"><a class="fl" href="{$_FANWE[site_root]}login.php?mod=sina">{lang signsina}</a></span>
-		<span><img class="fl" src="./tpl/images/icon_qq_qq.png"><a class="fl" href="{$_FANWE[site_root]}login.php?mod=qq">{lang signqq}</a></span>
-		<span><img class="fl" src="./tpl/images/tao.png"><a class="fl" href="{$_FANWE[site_root]}login.php?mod=taobao">{lang signtaobao}</a></span>
-        <span><img class="fl" src="./tpl/images/icon_qq.png"><a class="fl" href="{$_FANWE[site_root]}login.php?mod=tqq">{lang signtqq}</a></span>
-	</li>
-	<li class="f">
-		<a href="{u user/login}">{lang login}</a>
-	</li>
-	<li class="login">
-		<a href="{u user/register}" target="_blank">{lang register}</a>
-	</li>
-</ul>
+<div class="to_login">
+	<a href="{u user/login}">{lang login}</a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span><a href="{u user/register}">{lang register}</a>
+</div>
 <!--{/if}-->

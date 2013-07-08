@@ -8,9 +8,9 @@
 	<script type="text/javascript" src="./public/js/jquery.js"></script>
 	<?php
 		$default_js[] = './public/js/jquery.cookie.js';
-                $default_js[] = './public/js/jquery.easing.js';
+        $default_js[] = './public/js/jquery.easing.js';
 		$default_js[] = './public/js/jquery.lazyload.js';
-                $default_js[] = './public/js/base.js';
+		$default_js[] = './public/js/base.js';
 	?>
 	<script type="text/javascript" src="{script $default_js}"></script>
 	<?php
@@ -34,7 +34,7 @@
 		var MODULE_NAME	 = '{MODULE_NAME}';
 		var ACTION_NAME	 = '{ACTION_NAME}';
 		var COOKIE_PRE = "$_FANWE['config']['cookie']['cookie_pre']";
-		var HEADER_TOP_HEIGHT = 85;
+		var HEADER_TOP_HEIGHT = 39;
 		<!--{dynamic dynamicScript}-->
 	</script>
 	<!--{if isset($_FANWE['cache']['business']['taobao'])}-->
@@ -64,44 +64,367 @@
 	</script>
 	<!--{/if}-->
 	<!--{/if}-->
+
+<style>
+	<!--
+body{
+		padding:0;
+		margin:0;
+		width:auto;
+		min-width:980px;
+}
+#header{
+		background:url("/tpl/pink2/images/top_bg.jpg");
+		height: 50px;
+    	width: 100%;
+    	z-index: 999;
+}
+#header .beta {
+    background: url("/tpl/pink2/images/pub_top.jpg") no-repeat scroll -200px -140px transparent;
+    float: left;
+    height: 50px;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    width: 50px;
+}
+#header .xs{
+    background: url("/tpl/pink2/images/tips.png") no-repeat scroll 0 0 transparent;
+    float: right;
+    height: 4px;
+    margin-right: 1px;
+    margin-top: 25px;
+    overflow: hidden;
+    width: 7px;
+}
+.top {
+    display: block;
+    height: 50px;
+    margin: 0 auto;
+    width: 980px;
+}
+#header .logo {
+    background: url("/tpl/pink2/images/pub_top.jpg") no-repeat scroll 0 0 transparent;
+    float: left;
+    height: 30px;
+    margin-top: 11px;
+	margin-left:20px;
+    overflow: hidden;
+    width: 125px;
+}
+#header .bar{
+	float: left;
+    height: 50px;
+	padding-left:60px;
+    position: relative;
+}
+.bar .nav{
+	float: left;
+    height: 50px;
+    line-height: 50px;
+    width: 525px;
+}
+.bar .nav a{
+	color:#FFFFFF;
+	font-family: "微软雅黑";
+    font-size: 16px;
+}
+.nav dt{
+    cursor: pointer;
+    display: inline;
+    float: left;
+    font-size: 16px;
+    height: 50px;
+    margin-left: 8px;
+    margin-right: 8px;
+    position: relative;
+    text-align: center;
+    width: 85px;
+}
+
+/* 副标题下拉 */
+.nav dt.son{
+	text-align: center;
+    cursor: pointer;
+    display: inline;
+    float: left;
+    font-size: 16px;
+    height: 50px;
+    margin-left: 8px;
+    margin-right: 8px;
+    position: relative;
+    width: 85px;
+}
+.nav .drop_son {
+    display: none;
+    left: 0;
+    position: absolute;
+    top: 45px;
+    width: 85px;
+    z-index: 300;
+
+	background-color: #F6F4F3;
+    border-radius:  0 3px 3px 3px;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.15), 1px 0 0 rgba(0, 0, 0, 0.26) inset, -1px 0 0 rgba(0, 0, 0, 0.26) inset, 0 -1px 0 rgba(0, 0, 0, 0.3) inset;
+    padding: 5px 0px;
+}
+.nav .drop_son a {
+    background: none repeat scroll 0 0 #F6F4F3;
+    color: #5A8625;
+    display: block;
+    font-size: 12px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    width: 100%;
+}
+.nav .drop_son a span {
+    display: block;
+    margin: 0px auto;
+    text-align: left;
+    width: 60px;
+}
+.nav .son_show{
+	background-color: #F6F4F3;
+	background-image:none;
+ 	border-radius: 3px 3px 0 0 ;
+    box-shadow:  0 1px 0 rgba(255, 255, 255, 0.9) inset, 1px 0 0 rgba(0, 0, 0, 0.26) inset, -1px 0 0 rgba(0, 0, 0, 0.26) inset, 0 -1px 0 rgba(0, 0, 0, 0.3);
+    margin-left: 0;
+    margin-right: 0;
+}
+.nav .son_show a{
+	color: #333333;
+}
+
+/* 头部搜索框 */
+.nav .drop_so{
+	background-color: #F6F4F3;
+    border-radius: 0 3px 3px 3px;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.15), 1px 0 0 rgba(0, 0, 0, 0.26) inset, -1px 0 0 rgba(0, 0, 0, 0.26) inset, 0 -1px 0 rgba(0, 0, 0, 0.3) inset;
+    left: 0;
+    padding: 5px 0;
+    position: absolute;
+    top: 50px;
+    width: 350px;
+    z-index: 300;
+	display:none;
+}
+.nav .drop_so .hot {
+    color: #5A8625;
+    display: block;
+    font-size: 12px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+	padding-left:10px;
+}
+.drop_so .sbar_type_td {
+    background: url("/tpl/pink2/images/search.png") no-repeat scroll 2px -190px transparent;
+    margin:0 0 0 15px;
+    width: 52px;
+}
+.drop_so #sbar_type{
+	display: block;
+	height:40px;
+    padding-left: 10px;
+    text-align: left;
+}
+.drop_so #sbar_type_menu{
+	top: 45px;
+	left: 8px;
+}
+.drop_so #sbar_type_menu a{
+	color:#999999;
+	height:30px;
+	line-height:30px;
+}
+.drop_so #sbar_type_menu li{
+}
+.drop_so .sbar_btn_td {
+    background: url("/tpl/pink2/images/search.png") no-repeat scroll 8px -150px transparent;
+    margin-top:10px;
+    width: 38px;
+}
+.drop_so #sbar_btn{
+	background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    box-shadow: none;
+	height:35px;
+	width:35px;
+	margin: 0;
+    padding: 0;
+}
+.drop_so .sbar_txt_td{
+	margin:10px 0 0 2px;
+}
+.drop_so #sbar_txt{
+	height: 24px;
+    width: 200px;
+}
+.drop_so .sbar_hot_td{
+	height:30px;
+	line-height:30px;
+	margin:6px 0 0 18px;
+}
+.nav #so-widget{
+    height: 50px;
+    line-height: 45px;
+    width: 63px;
+}
+.nav .so-widget-show{
+	background-color: #F6F4F3;
+    background-image: none;
+    border-radius: 3px 3px 0 0;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset, 1px 0 0 rgba(0, 0, 0, 0.26) inset, -1px 0 0 rgba(0, 0, 0, 0.26) inset, 0 -1px 0 rgba(0, 0, 0, 0.3);
+    margin-left: 8px;
+    margin-right: 8px;
+}
+.nav .so-widget-show a{
+	color:#333333;
+}
+
+/* 头部登陆框 */
+#header .login_info{
+	display: inline;
+    float: right;
+    height: 12px;
+    margin-left: 15px;
+    padding-top: 1px;
+    width: 225px;
+}
+.login_info .ui_user{
+	cursor: pointer;
+    display: inline;
+	float:left;
+    font-size: 16px;
+    height: 50px;
+	line-height:50px;
+    position: relative;
+    text-align: center;
+    width: 125px;
+}
+.login_info .ui_user a{
+	color:#FFFFFF;
+}
+.login_info .user_dl{
+	background-color: #F6F4F3;
+    border-radius: 0 3px 3px 3px;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.15), 1px 0 0 rgba(0, 0, 0, 0.26) inset, -1px 0 0 rgba(0, 0, 0, 0.26) inset, 0 -1px 0 rgba(0, 0, 0, 0.3) inset;
+    display: none;
+    left: 0px;
+    padding-left: 35px;
+    position: absolute;
+    top: 50px;
+    width: 135px;
+    z-index: 300;
+	text-align: left;
+}
+.login_info .user_dl dd{
+	line-height:32px;
+}
+.login_info .login_widget_show{
+	background-color: #F6F4F3;
+    background-image: none;
+    border-radius: 3px 3px 0 0;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset, 1px 0 0 rgba(0, 0, 0, 0.26) inset, -1px 0 0 rgba(0, 0, 0, 0.26) inset, 0 -1px 0 rgba(0, 0, 0, 0.3);
+    margin-left: 0;
+    margin-right: 0;
+}
+.login_info .login_widget_show a{
+	color:#333333;
+}
+.login_info .user_img{
+	padding-left:10px;
+	float:left;
+}
+.login_info .user_img img{
+	-moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-color: #F2F2F2 #CDCDCD #CDCDCD #F2F2F2;
+    border-image: none;
+    border-radius: 5px 5px 5px 5px;
+    border-style: none;
+    border-width: 0;
+    height: 48px;
+    padding: 0;
+    width: 48px;
+}
+.login_info .to_login{
+	padding-left:50px;
+	font-size: 16px; 
+	line-height: 50px;
+}
+.login_info .to_login a{
+	color:#FFFFFF;
+}
+	-->
+	</style>
+
 </head>
 <body>
-	<div id="head">
-		<div id="info_bar">
-			<div class="fm960">
-				<div class="fl">
-					<a href="{u index}"><img class="logo fl" src="{$_FANWE['site_root']}{$_FANWE['setting']['site_logo']}" /></a>
-				</div>
+	<div id="header">
+		<div class="beta" style="color:white"></div>
+		<div class="top">
+			<h1 class="logo"><a href="http://dadongjie.com/"></a></h1>
+			<div class="bar">
+					<dl class="nav">
+						<dt class="son">
+							<a href="/album">杂志铺</a>
+						</dt>
+						<dt class="noBack"><a class="yh_hover" href="/Experience">讨论吧</a></dt>
+						<dt class="noBack"><a class="yh_hover" href="/Activity">积分区</a></dt>
+						<dt class="noBack"><a class="yh_hover" href="javascript:;" onclick="$.Fast_Share();">我要分享</a></dt>
+						<dt class="search_li">
+							<em class="xs"></em>
+							<a href="/App" id="so-widget">搜索</a>
+							<div class="drop_so">
+								<div id="sbar" class="{if $_G['setting']['srchhotkeywords'] && count($_G['setting']['srchhotkeywords']) > 5}sbar_narrow {/if}cl">
+									<form id="sbar_form" action="{u search}" method="post">
+										<input type="text" name="keyword" class="search_txt" value="" tooltip="{lang search_share}"/>
+										<input type="submit" value="搜索" class="search_btn" />
+									</form>
+								</div>
+								<ul id="sbar_type_menu" class="p_pop" style="display: none;"><!--{echo implode('', $slist);}--></ul>
+								<script type="text/javascript">
+									initSearchmenu('sbar', '$searchparams[url]');
+								</script>
+							</div>
+						</dt>
+					</dl>
+			</div>
+			<div class="login_info">
 				<!--{dynamic getUserInfo}-->
 			</div>
 		</div>
+		<div class="clear"></div>
 	</div>
-	<div id="nav_bar" class="HEADER_TOP_SCROLL" style="width:100%">
-		<div class="fm960">
-			<ul class="fl">
-				<li class="f"><a href="{u index}"{if MODULE_NAME == 'Index'} class="c"{/if}>{lang page_index}</a></li>
-				<?php
-					$g_r_cate = $_FANWE['cache']['goods_category']['root'];
-					$g_r_cate = &$_FANWE['cache']['goods_category']['all'][$g_r_cate];
-				?>
-				<li><a href="{u book/shopping}"{if MODULE_NAME == 'Book'} class="c"{/if}>{$g_r_cate['cate_name']}</a></li>
-				<li><a href="{u album}"{if MODULE_NAME == 'Album'} class="c"{/if}>{lang common/album}</a></li>
-				<li><a href="{u look/index}"{if MODULE_NAME == 'Look'} class="c"{/if}>{lang look}</a></li>
-				<li><a href="{u dapei/index}"{if MODULE_NAME == 'Dapei'} class="c"{/if}>{lang dapei}</a></li>
-				<li><a href="{u group/index}"{if MODULE_NAME == 'Group' || MODULE_NAME == 'Topic'} class="c"{/if}>{lang group}</a></li>
-				<li><a href="{u daren/index}"{if MODULE_NAME == 'Daren'} class="c"{/if}>{lang daren}</a></li>
-				<li><a href="{u shop}"{if MODULE_NAME == 'Shop'} class="c"{/if}>{lang common/nav_shop}</a></li>
-				<li><a href="{u exchange}"{if MODULE_NAME == 'Exchange'} class="c"{/if}>{lang common/nav_exchange}</a></li>
-				<li><a href="{u mailrss/index}"{if MODULE_NAME == 'MailRss'} class="c"{/if}>{lang common/mailrss}</a></li>
-			</ul>	   
-			<div class="fr top_search r5">			
-				<form action="{u search}" method="get">
-					<input type="text" name="keyword" class="ts_txt" value="" tooltip="{lang search_share}"/>
-					<input type="submit" value=" " class="ts_btn" />
-				</form>
-			</div>
-			
-		</div>
-	</div>
-	<div style="margin:0 auto;width:960px">{advlayout name='头部广告位'}</div>
-	<div id="body_wrap">
+	
+	<script type="text/javascript">
+//定义搜索框js变量
+var searchDD = jQuery('.drop_so');
+var search = jQuery('#so-widget');
+
+//搜索菜单弹出框js
+search.click(function(e) {
+	e.preventDefault();
+	e.stopPropagation();
+	//操作so-widget
+	jQuery(this).closest('.search_li').toggleClass('so-widget-show');
+	searchDD.toggle();
+});
+jQuery(document).click(function(e) {
+	var target = jQuery(e.target);
+	
+	if(!target.closest('.search_li').length && searchDD.css('display')=="block"){
+		search.closest('.search_li').removeClass('so-widget-show');
+		searchDD.hide();
+	}
+});
+
+</script>
+	
+	<center>{advlayout name='头部广告位'}</center>

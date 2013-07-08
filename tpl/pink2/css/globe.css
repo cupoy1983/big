@@ -148,8 +148,8 @@ body { font-size: 12px;color:#2a2a2a; background:url(../images/body_bg.png) 0 12
 _vertical-align:-1px; padding:0; margin:0 2px 0 5px; *margin:0;
 }
 .ts_type label { font-size:12px; color:#fff; }
-.fast_share
-.fast_share{float: left;width: 59px;height: 26px;margin: 7px 0 0 20px;}
+
+.fast_share{width: 59px;height: 26px;}
 .fast_share a{display: block;background: url(../images/fast_share.gif) no-repeat 0 0;height: 26px;text-indent: -80px;overflow: hidden;}
 
 .mobile_down strong {
