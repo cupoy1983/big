@@ -40,6 +40,7 @@ RewriteRule ^u/(\d+)$  u\.php\?action=index&uid=$1 [QSA,L]
 
 RewriteRule ^me$  u\.php\?action=me [QSA,L]
 RewriteRule ^u/me/(\d+)$  u\.php\?action=me&page=$1 [QSA,L]
+RewriteRule ^me/(\d+)$  u\.php\?action=me&page=$1 [QSA,L]
 
 #小组主题模块
 RewriteRule ^group/create$  group\.php\?action=create [QSA,L]
