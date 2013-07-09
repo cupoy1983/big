@@ -1,9 +1,9 @@
 <!--{if $_FANWE['uid'] > 0}-->
 <div class="user_info">
-	<div class="ui_user">
+	<div class="ui_user" style="z-index:888; ">
 		<em class="xs"></em>
 		<a href="{u u/book}">{$_FANWE['user_name']}</a>
-		<dl class="user_dl" style="display:none;position:absolute;">
+        <dl class="user_dl" style="display:none;position:absolute;*border:1px solid #B5B4B3; *border-top:0px;">
 			<dd><a href="{u u/album}">我的杂志</a></dd>
 			<dd><a href="{u u/me}" class="message{if $_FANWE['user_notice']['all'] > 0} h{/if}">我的消息{if $_FANWE['user_notice']['all'] > 0}({$_FANWE['user_notice']['all']}){/if}</a></dd>
 			<dd><a href="{u u/fav uid=$_FANWE['uid']}">我喜欢的</a></dd>
