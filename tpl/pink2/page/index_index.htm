@@ -1,5 +1,4 @@
 <?php
-	$css_list[0]['url'] = './tpl/css/welcome.css';
 	$js_list[0] = './public/js/jquery.galleryview-1.1.js';
 	$js_list[1] = './public/js/jquery.timers-1.1.2.js';
 ?>
@@ -8,18 +7,18 @@
 	<div id="slide"> 
   <!-- 代码 开始 -->
   <div id="photos" class="galleryview" style=" background: border:1px solid #000">
-    <div class="panel"> <img src="/images/slide1.jpg" width="990" height="400" /> </div>
-    <div class="panel"> <img src="/images/slide4.jpg" width="990" height="400" /> </div>
-    <div class="panel"> <img src="/images/slide5.jpg" width="990" height="400" /> </div>
-    <div class="panel"> <img src="/images/slide6.jpg" width="990" height="400" /> </div>
-    <div class="panel"> <img src="/images/slide6.jpg" width="990" height="400" /> </div>
+    <div class="panel"> <img src="/images/slide1.jpg" width="970" height="300" /> </div>
+    <div class="panel"> <img src="/images/slide4.jpg" width="970" height="300" /> </div>
+    <div class="panel"> <img src="/images/slide5.jpg" width="970" height="300" /> </div>
+    <div class="panel"> <img src="/images/slide6.jpg" width="970" height="300" /> </div>
+    <div class="panel"> <img src="/images/slide6.jpg" width="970" height="300" /> </div>
     <div >
       <ul class="filmstrip" >
-        <li><img src="/images/slide1.jpg" width="198" height="45" /></li>
-        <li><img src="/images/slide4.jpg" width="198" height="45" /></li>
-        <li><img src="/images/slide5.jpg" width="198" height="45" /></li>
-        <li><img src="/images/slide6.jpg" width="198" height="45" /></li>
-        <li><img src="/images/slide6.jpg" width="198" height="45" /></li>
+        <li><img src="/images/slide1.jpg" width="150" height="47" /></li>
+        <li><img src="/images/slide4.jpg" width="150" height="47" /></li>
+        <li><img src="/images/slide5.jpg" width="150" height="47" /></li>
+        <li><img src="/images/slide6.jpg" width="150" height="47" /></li>
+        <li><img src="/images/slide6.jpg" width="150" height="47" /></li>
       </ul>
     </div>
   </div>
@@ -38,7 +37,7 @@
           <a href="{$album['url']}">{$album['title']}</a>
         </ul>
         <ul class="content">
-          <li><a href="{$album['url']}"><img scaleSrc="{getimg $album['img']['img'] 468 468}" scaleType="3" scaleWidth="160" scaleHeight="160" src="./tpl/images/lazyload.gif" class="LOAD_SCALE_IMG" width="160" height="160"></a></li>
+          <li><a href="{$album['url']}"><img scaleSrc="{getimg $album['img']['img'] 468 468}" scaleType="3" scaleWidth="160" scaleHeight="160" src="./tpl/images/lazyload.gif" class="LOAD_SCALE_IMG"></a></li>
           <li class="c2">
             <p>小站简介</p>
             <p class="p2">{$album['content']}</p>
@@ -47,7 +46,6 @@
             	<!--{getuser $album['uid'] 0 's,20' 'abl_uimg'}-->
 				<!--{getuser $album['uid'] 0 '' 'abl_uname'}-->
 			</p>
-
           </li>
         </ul>
       </div>
@@ -61,10 +59,10 @@
 <script type="text/javascript"> 
 	$(document).ready(function(){
 		$('#photos').galleryView({
-			panel_width: 990,
-			panel_height: 400,
-			frame_width:198,
-			frame_height: 45
+			panel_width: 970,
+			panel_height: 300,
+			frame_width:150,
+			frame_height: 47
 		});
 	});
 </script>
