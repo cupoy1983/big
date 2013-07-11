@@ -295,7 +295,7 @@
 			});
 			$('.strip_wrapper',j_gallery).css({
 				'position':'absolute',
-				'top':'350px',
+				'top':'248px',
 				'left':((gallery_width-wrapper_width)/2)+'px',
 				'width':wrapper_width+'px',
 				'height':(opts.frame_height+frame_margin_top+(opts.show_captions?frame_caption_size:frame_margin_top))+'px',

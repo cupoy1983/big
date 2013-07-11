@@ -2,7 +2,7 @@
 .t_l li.mobi { background:url(../images/mobile_20110104.png) top right no-repeat; }
 .t_l li.favt { background:url(../images/star_20110104.png) top right no-repeat; }
 .t_l li.best { background:url(../images/bestans_20110104.png) top right no-repeat; }
-.t_l .t_f { padding:15px 10px 15px 20px; border-bottom:1px solid #ebede3; }
+.t_l .t_f { padding:15px 10px 15px 10px; border-bottom:1px solid #ebede3; }
 .t_l .t_tag { float:right; }
 .t_l .t_tag .t { color:#999; float:left; }
 .t_tag .t_t { display:inline-block; height:17px; background:url(../images/tweet_tag.png) 0 0 no-repeat; vertical-align:-4px; *vertical-align:-1px;

@@ -1,0 +1,66 @@
+<script type="text/javascript" src="./tpl/js/share_list.js"></script>
+<div>
+	<ul class="t_l share_detail_list" id="SHARE_DETAIL_LiST">
+		<!--{loop $share_list $share_item}-->
+		<li class="t_f" id="SHARE_LIST_{$share_item['pid']}" postID="{$share_item['pid']}">
+	        <div class="hd">
+				<!--{getuser $share_item['uid'] 0 'm,48' ',avt icard r5 lazyload'}-->
+				<div class="addfo">
+					<!--{getfollow $share_item['uid'] inc/getfollow/share_list}-->
+				</div>
+			</div>
+			<div class="tk">
+				<div class="inf">
+					<!--{getuser $share_item['uid'] 1 '' 'icard n gc'}-->
+					<span>{$share_item['time']}</span>
+				</div>
+				<p class="sms">$share_item['content']</p>
+				
+				<div class="tl">
+				<!--{if $_FANWE['uid'] == $share_item['uid']}-->
+					<a w="f" href="javascript:;" class="mg SHARE_MANAGE">管理</a>
+				<!--{/if}-->
+				</div>
+				<!--{if $_FANWE['uid'] == $share_item['uid']}-->
+				<ul class="t_m_l_h SHARE_MANAGE_LIST">
+					<li><a class="del" onclick="deletePost($share_item['pid'])" href="javascript:void(0);">删除</a></li>
+				</ul>
+				<!--{/if}-->
+				
+			</div>
+		</li>
+		<!--{/loop}-->
+	</ul>
+	<div class="pagination"> 
+		<!--{subtemplate inc/pages}--> 
+	</div>
+</div>
+<script type="text/javascript">
+function ShareListUpdateUserFollow(obj,result){
+	if(result.status == 1){
+		$(obj).before('<img src="./tpl/images/add_fo_ok.png" class="fo_ok">');
+		$(obj).remove();
+	}
+}
+function deletePost(pid){
+	var ok = confirm("您确定要删除吗?");
+	if (ok == true){
+		var query = new Object();
+		query.pid = pid;
+		$.ajax({
+			url:"/manage/manage.php?m=topic&a=post_delete",
+			type: "POST",
+			data:query,
+			cache:false,
+			dataType: "json",
+			async:false, 
+			success:function(result){
+				if(result.status == 1){
+					var share_item = $('#SHARE_LIST_'+pid);
+					share_item.slideUp("slow");
+				}
+			}
+		});
+	} 
+} 
+</script>

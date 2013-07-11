@@ -1,0 +1,26 @@
+<li class="t_f" shareID="{$post_item['pid']}" id="SHARE_LIST_{$post_item['pid']}">
+	<div class="hd">
+		<!--{getuser $post_item['uid'] 0 'm,48' ',avt icard r5'}-->
+		<div class="addfo">
+			<!--{getfollow $post_item['uid'] inc/getfollow/share_list}-->
+		</div>
+	</div>
+	<div class="tk">
+		<div class="inf">
+			<!--{getuser $post_item['uid'] 1 '' 'icard n gc'}-->
+			<span>{$post_item['time']}</span>
+		</div>
+		<p class="sms">$post_item['content']</p>
+		
+		<div class="tl">
+			<!--{if $_FANWE['uid'] == $post_item['uid']}-->
+			<a w="f" href="javascript:;" class="mg SHARE_MANAGE">管理</a>
+			<!--{/if}-->
+		</div>
+		<!--{if $_FANWE['uid'] == $post_item['uid']}-->
+		<ul class="t_m_l_h SHARE_MANAGE_LIST">
+			<li><a class="del" onclick="deletePost($post_item['pid'])" href="javascript:void(0);">删除</a></li>
+		</ul>
+		<!--{/if}-->
+	</div>
+</li>

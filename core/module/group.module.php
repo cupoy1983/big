@@ -126,20 +126,15 @@ class GroupModule
 		$topic_list = array();
 
 		$sql = 'SELECT ft.fid,ft.tid,ft.title,ft.create_time,ft.lastpost,ft.lastposter,
-			ft.uid,ft.post_count,ft.share_id,s.cache_data,ft.is_top,ft.is_best
-			FROM '.FDB::table('forum_thread').' AS ft
-			INNER JOIN '.FDB::table('share').' AS s ON s.share_id = ft.share_id 
-			'.$where.$order.' LIMIT '.$pager['limit'];
+			ft.uid,ft.post_count,ft.share_id,ft.is_top,ft.is_best
+			FROM '.FDB::table('forum_thread').' AS ft '	.$where.$order.' LIMIT '.$pager['limit'];
 		$res = FDB::query($sql);
 		while($data = FDB::fetch($res))
 		{
-			$data['cache_data'] = fStripslashes(unserialize($data['cache_data']));
 			$data['time'] = getBeforeTimelag($data['create_time']);
 			$data['last_time'] = getBeforeTimelag($data['lastpost']);
 			$data['url'] = FU('topic/detail',array('tid'=>$data['tid']));
-			FS('Share')->shareImageFormat($data,3);
-			unset($data['cache_data']);
-			$topic_list[$data['share_id']] = $data;
+			$topic_list[$data['tid']] = $data;
 		}
 		include template('page/group/group_detail');
 		display();

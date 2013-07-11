@@ -55,7 +55,7 @@ class ShareService
 	{
 		//创建分享数据
 		global $_FANWE;
-		$share_content = htmlspecialchars(ltrim($post['content']));
+		$share_content = ltrim(strip_tags($post['content']));
 		$share_data = array();
 		$share_data['content'] = $share_content;
 		$share_data['uid'] = intval($_FANWE['uid']);
@@ -2466,7 +2466,7 @@ class ShareService
 				$base_id = 0;
 		}
 
-		$rec_id = $share['rec_id'];
+		$tid = $share['rec_id'];
 
 		if($share['type'] == 'bar' || $share['type'] == 'bar_post')
 			$type = 'bar_post';
@@ -2493,10 +2493,10 @@ class ShareService
 
 		$is_no_post = isset($post['is_no_post']) ? intval($post['is_no_post']) : 0;
 		$share_id = $relay_share['share_id'];
-		if($rec_id > 0 && $is_no_post == 0)
+	if($tid > 0 && $is_no_post == 0)
 		{
 			if($type == 'bar_post')
-				FS('Topic')->saveTopicPost($rec_id,$content,$share_id);
+				FS('Topic')->saveTopicPost($tid, $content);
 		}
 
 		$is_comment_parent = isset($post['is_comment_parent']) ? intval($post['is_comment_parent']) : 0;

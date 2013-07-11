@@ -2,6 +2,8 @@
 	$css_list[0]['url'] = './tpl/css/topic.css';
 ?>
 <!--{template inc/header}-->
+<script src="/public/ueditor/ueditor.config.js"></script>
+<script src="/public/ueditor/ueditor.all.min.js"></script>
 <div id="body" class="fm960">
 	<!--{if $group_detail}-->
 	<div class="bar_title">
@@ -36,7 +38,11 @@
 							</dd>
 							<dt>{lang topic_content}</dt>
 							<dd>
-								<textarea cols="30" rows="10" name="content" class="PUB_TXT" position="0">{$topic_detail['content']}</textarea>
+								<script type="text/javascript">
+									var content = $("#ueditor").val();
+									UE.getEditor('ueditor').setContent(content);
+    							</script>
+								<textarea id="ueditor" name="content">{$topic_detail['content']}</textarea>
 							</dd>
 						</dl>
 						<div class="clear"></div>

@@ -9,7 +9,7 @@ h2 a, h2 { font-size:14px; color:#333; padding-left:3px; font-weight:normal; }
 #topic_edit_box { margin-top:30px; }
 #topic_edit_box dt { float:left; display:inline; margin-right:10px; _margin-right:0; width:38px; line-height:30px; text-align:center; font-size:14px; color:#333; font-weight:bold; clear:both; }
 #topic_edit_box dd { float:left; width:530px; line-height:30px; }
-#topic_edit_box dd .text { height:28px; line-height:28px; width:530px; padding:0 5px; margin:0; border:1px solid #82af00; }
+#topic_edit_box dd .text { height:28px; line-height:28px; width:800px; padding:0 5px; margin:0; border:1px solid #82af00; }
 #topic_edit_box dd textarea { width:530px; height:200px; border:1px solid #82af00; padding:0 5px; margin:0; overflow:auto; }
 #topic_edit_box dd .radio { margin-top:-1px; vertical-align:middle; margin-right:2px; }
 #topic_edit_box dd label { line-height:28px; vertical-align:middle; }
@@ -36,9 +36,9 @@ _padding-top:2px; line-height:16px; background:url(../images/adds.png) no-repeat
 #topic_con { width:580px; margin:0 10px; }
 #topic_con .pub_shop .shop_info { width:370px; }
 #topic_con .pub_shop .shop_bar .rstar { height:15px; line-height:15px; }
-.pub_box { clear:both; margin-top:20px; }
-.pub_box .pub_tit { color:#FF579A; font-size:14px; font-weight:bold; line-height:36px; }
-.pub_box .pub_edit { clear:both; width:590px; padding:0 20px 10px; background-color:#f1f1f1; position:relative; zoom:1; }
+.pub_box { clear:both; margin-top:5px; }
+.pub_tit { color:#FF579A; font-size:14px; font-weight:bold; line-height:36px; }
+.pub_box .pub_edit { clear:both; width:900px; padding:0 20px 10px; background-color:#f1f1f1; position:relative; zoom:1; }
 .pub_box .pub_txt { padding:2px 5px; border:1px solid #ccc; width:523px; height:72px; clear:both; overflow:hidden; background-color:#FFF; }
 .pub_box .pub_btn { width:54px; height:78px; background-color:#f69; border:none; color:#fff; font-size:14px; font-weight:bold; cursor:pointer;}
 .pub_box .pub_loading{background:url(../images/pub_loading.gif) no-repeat center center #F69;}
@@ -88,17 +88,17 @@ line-height:24px; }
 .t_l .q .pic img { width:50px; height:50px; }
 .t_l .q .pic .tag { width:15px; height:12px; }
 #topic_head { margin-top:10px; }
-#topic_head .topic_info { height:auto; padding:16px; overflow:hidden; zoom:1; }
+#topic_head .topic_info { height:auto; padding:15px 50px 15px 20px; overflow:hidden; zoom:1; }
 #topic_head .topic_info .fl { margin:5px 15px 0 5px; width:65px; height:65px; }
 #topic_head .topic_info h1 { font-size:20px; color:#000; margin:0; display:inline; line-height:200%; }
 #topic_head .topic_info div { color:#666; line-height:150%; float:left; display:inline; margin-top:-5px; width:480px; _width:470px; margin-bottom:15px; }
 #topic_head .topic_info a { color:#E71F8D; }
 #topic_head .topic_info a:hover { color:#fff; background-color:#E71F8D; }
 #topic_head .topic_info .tool { color:#09e; padding:0 5px; }
-#topic_head .topic_intro { font-size:14px; line-height:160%; padding:5px 50px 15px 20px; white-space:pre-line; clear:both; }
+#topic_head .topic_intro { font-size:14px; line-height:160%; padding:5px 50px 15px 50px; white-space:pre-line; clear:both; overflow:hidden;}
 #topic_head .topic_intro a { color:#09e; }
 #topic_head .topic_intro a:hover { color:#fff; background-color:#09e; }
-.topitter { padding:17px 20px 17px 20px; clear:both; }
+.topitter { padding:0 50px; clear:both; }
 .topitter .pics { position:relative; padding-top:7px; font-size:0; margin-right:-3px; width:474px; }
 .topitter .pics div.img { border:1px solid #dadada; overflow:hidden; padding:3px; margin:0 0 15px 0; position:relative; background-color:#FFF; }
 .topitter .pics .tlc { text-align:center; }
@@ -189,7 +189,7 @@ line-height:24px; }
 .bar_show li { float:left; width:130px; line-height:200%; }
 .bar_show li a { font-size:14px; color:#09e; }
 .bar_show li a:hover { color:#fff; background-color:#09e; }
-.follow_info { height:30px; line-height:30px; border-top:1px solid #ccc; padding-top:10px; margin:0 15px 0 0;}
+.follow_info { height:30px; line-height:30px; padding-top:10px; margin:0 15px 0 0;}
 .follow_info .fo_num { font-size:14px; color:#09e; text-decoration:underline; }
 .follow_info .fo_st { vertical-align:middle; margin:0 0 0 4px; }
 .topic_list_sidebar { padding:0 10px; }

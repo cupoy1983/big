@@ -25,9 +25,6 @@ if (count($share_ids) > 0) {
             case 'bar':
                 FS("Topic")->deleteTopic($item['rec_id']);
                 break;
-            case 'bar_post':
-                FS("Topic")->deletePost($share_id);
-                break;
             case 'ershou':
                 FS("Second")->deleteGoods($item['rec_id']);
                 break;

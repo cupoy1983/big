@@ -31,9 +31,6 @@ class ShareModel extends CommonModel
 				case 'bar':
 					FS("Topic")->deleteTopic($item['rec_id']);
 				break;
-				case 'bar_post':
-					FS("Topic")->deletePost($share_id);
-				break;
 				case 'album':
 					FS('Album')->deleteAlbum($item['rec_id']);
 				break;

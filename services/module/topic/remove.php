@@ -1,13 +1,7 @@
 <?php
 $tid = (int)$_FANWE['request']['tid'];
-if(!$tid)
-	exit;
 
-if($_FANWE['uid'] == 0)
-	exit;
-
-$topic = FS("Topic")->getTopicById($tid);
-if(empty($topic))
+if($_FANWE['uid'] == 0 || !$tid)
 	exit;
 
 $is_group_admin = 0;

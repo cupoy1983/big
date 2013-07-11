@@ -18,7 +18,7 @@ class TopicModule
 		$group_detail = FS('Group')->getGroupById($forum_id);
 		
 		$_FANWE['PAGE_SEO_SELF'] = $topic;
-		$_FANWE['PAGE_SEO_SELF']['content'] = cutStr($topic['content'],80,'');
+		$_FANWE['PAGE_SEO_SELF']['content'] = cutStr(strip_tags($topic['content']),80,'');
 		$_FANWE['PAGE_SEO_SELF']['user_name'] = $topic_user['name'];
 		$_FANWE['PAGE_SEO_SELF']['group_name'] = $group_detail['name'];
 		$_FANWE['PAGE_SEO_SELF']['group_tags'] = $group_detail['tags'];
@@ -63,9 +63,8 @@ class TopicModule
 		$args = array(
 			'share_list'=>&$post_list,
 			'pager'=>&$pager,
-			'current_share_id'=>$topic['share_id']
 		);
-		$post_html = tplFetch("inc/share/post_share_list",$args);
+		$post_html = tplFetch("inc/share/post_list",$args);
 
 		include template('page/topic/topic_detail');
 		display();
@@ -145,7 +144,7 @@ class TopicModule
 			$thread['share_id'] = $share['share_id'];
 			$thread['uid'] = $_FANWE['uid'];
 			$thread['title'] = htmlspecialchars($_FANWE['request']['title']);
-			$thread['content'] = htmlspecialchars($_FANWE['request']['content']);
+			$thread['content'] = $_FANWE['request']['content'];
 			$thread['create_time'] = TIME_UTC;
 			$tid = FDB::insert('forum_thread',$thread,true);
 			FDB::query('UPDATE '.FDB::table('share').' SET rec_id = '.$tid.'
@@ -231,7 +230,7 @@ class TopicModule
 
 		if($topic_detail['title'] != $title || $topic_detail['content'] != $content)
 		{
-			FS("Share")->updateShare($topic_detail['share_id'],$title,$content);
+			FS("Share")->updateShare($topic_detail['share_id'],$title,strip_tags($content));
 		}
 
 		FS("Topic")->updateTopic($tid,$title,$content);

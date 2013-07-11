@@ -25,24 +25,24 @@
 	<div class="piece1_hd"></div>
 	<!--{/if}-->
 	<div class="piece1_bd" style="background:#fff;">
-		<div id="content" class="fl">
-			<div class="piece2">
-				<div class="piece2_bd">
+		<div id="content">
 					<div id="topic_head">
 						<div class="topic_info">
 							<!--{getuser $topic['uid'] 0 'm,64' ',u_name fl'}-->
-							<div>
+							<div style="width:680px;">
 								<h1>{$topic['title']}</h1>
 								<br />
 								{lang thread_starter}：<!--{getuser $topic['uid'] 1 '' 'u_name'}--><br />
-								{lang create_yu}：<span>{$topic['time']}</span> 
-								<span style="padding: 0 10px;">{lang post_count}：<a href="#publish_topic" >{$topic['post_count']}</a></span>
-								<!--{if $topic['uid'] == $_FANWE['uid'] || $is_group_admin == 1}-->
-								<a href="{u topic/edit tid=$topic['tid']}">修改</a>&nbsp;|&nbsp;
-								<a class="del_topic" href="javascript:;" onclick="$.Remove_Topic($topic['tid'],this,'{u group/detail fid=$forum_id}');">删除</a>
-								<!--{/if}-->
+								{lang create_yu}：<a target="_blank">{$topic['time']}</a> 
+								<span style="padding: 0 10px;">{lang post_count}：<a href="#publish_topic" >{$topic['post_count']}</a></span><br />
 							</div>
 						</div>
+						<!--{if $topic['uid'] == $_FANWE['uid'] || $is_group_admin == 1}-->
+						<ul class="detail_toolbar clear_in pb20 pl20" tid="{$topic['tid']}">
+							<li><a href="{u topic/edit tid=$topic['tid']}">修改</a></li>
+							<li><a class="del_topic" href="javascript:;" onclick="$.Remove_Topic($topic['tid'],this,'{u group/detail fid=$forum_id}');">删除</a></li>
+						</ul>
+						<!--{/if}-->
 						<pre class="topic_intro">{anchor $topic['content']}</pre>
 						<div class="topitter" id="topitter_{$topic['share_id']}">
 							<div class="pics">
@@ -126,64 +126,24 @@
 							</ul>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div id="topic_body">
-				<div class="piece2 mt20">
-					<div id="topic_discussion_list" class="piece2_bd">
-						<?php
-							$post_topic_tid = $topic['tid'];
-							$post_topic_module = 'topic';
-							$post_topic_action = 'post';
-						?>
-						<!--{template inc/share/topic_publish}-->
-						<!-- 微博列表 -->
-						{$post_html}
-						<!-- 分页  -->
+			<div id="sidebar">
+			<div style="border-bottom:1px solid #ccc;padding:20px 0px;margin: 0 10px;">
+				<div class="piece3 fl pl10">
+					<div class="piece3_bd topic_detail_right" id="follow_box">
+						<!--{subtemplate inc/group/best_user}-->
 					</div>
 				</div>
-				<div class="piece2 mt20">
-					<div class="piece2_bd whocare topic_detail_right">
-						<h2>{lang who_look_topic}</h2>
-						<ul>
-							<!--{loop $topic_looks $look_uid $temp}-->
-							<li><!--{getuser $look_uid 0 'm,48' ',u_name'}--></li>
+				<div class="piece3 fl pl15">
+					<div class="piece3_bd topic_detail_right">
+						<h2>{$topic_user['short']}{lang now_send_topic}</h2>
+						<ul class="other_topic_list">
+							<!--{loop $user_new_topics $new_topic}-->
+							<li><a href="{$new_topic['url']}">{cutstr $new_topic['title'] 42}</a></li>
 							<!--{/loop}-->
 						</ul>
 					</div>
 				</div>
-			</div>
-		</div>
-		<div id="sidebar" class="fr">
-			<div class="piece3 mt20">
-				<div class="piece3_bd topic_detail_right" id="follow_box">
-					<!--{subtemplate inc/group/best_user}-->
-				</div>
-			</div>
-			<div class="piece3 mt20">
-				<div class="piece3_bd topic_detail_right">
-					<h2>{$topic_user['short']}{lang now_send_topic}</h2>
-					<ul class="other_topic_list">
-						<!--{loop $user_new_topics $new_topic}-->
-						<li><a href="{$new_topic['url']}">{cutstr $new_topic['title'] 42}</a></li>
-						<!--{/loop}-->
-					</ul>
-				</div>
-			</div>
-			<div class="piece3 mt20">
-				<div class="piece3_bd topic_detail_right">
-					<h2>{$topic_user['short']}加入的小组</h2>
-					<ul class="other_group_list">
-						<!--{loop $user_groups['list'] $group_item}-->
-						<li>
-							<a target="_blank" href="{u group/detail fid=$group_item['fid']}"><img class="tg_cover" src="{getimg $group_item['icon']['img'] 100 100 1}" height="64"></a>
-							<a target="_blank" href="{u group/detail fid=$group_item['fid']}">{cutstr $group_item['name'] 16}</a>
-						</li>
-						<!--{/loop}-->
-					</ul>
-				</div>
-			</div>
-			<div class="piece3 mt20">
+				<div class="piece3 fl pl15">
 				<div class="piece3_bd topic_detail_right">
 					<h2>该小组的其他精彩主题</h2>
 					<ul class="other_good_topic">
@@ -198,6 +158,47 @@
 						</li>
 						<!--{/loop}-->
 					</ul>
+				</div>
+			</div>
+				<br style="clear:both;">
+			</div>
+			<div class="mt10 pl10 clr">
+				<div class="piece3_bd topic_detail_right">
+					<h2>{$topic_user['short']}加入的小组</h2>
+					<ul class="other_group_list">
+						<!--{loop $user_groups['list'] $group_item}-->
+						<li>
+							<a target="_blank" href="{u group/detail fid=$group_item['fid']}"><img class="tg_cover" src="{getimg $group_item['icon']['img'] 100 100 1}" height="64"></a>
+							<a target="_blank" href="{u group/detail fid=$group_item['fid']}">{cutstr $group_item['name'] 16}</a>
+						</li>
+						<!--{/loop}-->
+					</ul>
+				</div>
+			</div>
+		</div>
+			<div id="topic_body">
+				<div class="m0a">
+					<div id="topic_discussion_list" class="piece2_bd">
+						<?php
+							$post_topic_tid = $topic['tid'];
+							$post_topic_module = 'topic';
+							$post_topic_action = 'post';
+						?>
+						<!--{template inc/share/topic_publish}-->
+						<!-- 微博列表 -->
+						{$post_html}
+						<!-- 分页  -->
+					</div>
+				</div>
+				<div class="piece2">
+					<div class="piece2_bd whocare topic_detail_right">
+						<h2>{lang who_look_topic}</h2>
+						<ul>
+							<!--{loop $topic_looks $look_uid $temp}-->
+							<li><!--{getuser $look_uid 0 'm,48' ',u_name'}--></li>
+							<!--{/loop}-->
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -217,6 +218,13 @@ jQuery(function($){
 			$.GetManageMenu('share',shareID,this,e);
 	});
 <!--{/if}-->
+
+	//自适应改变小组的主题图片大小
+	$(".topic_intro img").each(function(){
+		if($(this).width() > 800){
+			$(this).css("width", 800);
+		}
+	});
 });
 
 function updateTopicBest(result)

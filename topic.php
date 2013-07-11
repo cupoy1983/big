@@ -1,6 +1,10 @@
 <?php 
 define('MODULE_NAME','Topic');
-
+//detail：详情页面
+//create：新建页面
+//save：保存
+//edit：编辑 页面
+//update:更新
 $actions = array('detail','create','save','edit','update');
 $action = 'detail';
 

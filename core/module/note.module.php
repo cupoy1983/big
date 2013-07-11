@@ -22,7 +22,7 @@ class NoteModule
 		$share_id = intval($_FANWE['request']['sid']);
 		$id = intval($_FANWE['request']['id']);
 		$share_detail = FS('Share')->getShareDetail($share_id);
-		if($share_detail === false)
+		if($share_detail === false || strpos($share_detail['type'],"bar")!==false)
 			fHeader("location: ".FU('index'));
 		
 		$share_detail['share_content'] = str_replace(array('#','@'),array('＃','＠'),preg_replace("/[\r\n]/",'',$share_detail['content']));

@@ -32,9 +32,6 @@ if($type == 0)
 		case 'bar':
 			FS('Topic')->deleteTopic($share['rec_id']);
 		break;	
-		case 'bar_post':
-			FS('Topic')->deletePost($id);
-		break;	
 		case 'album':
 			FS('Album')->deleteAlbum($share['rec_id']);
 		break;	
@@ -72,9 +69,7 @@ elseif($type == 1)
 		rec_id = 0,
 		parent_id = 0 
 		WHERE share_id = '.$id);
-	if($share['type'] == 'bar_post')
-		FS('Topic')->deletePost($id);
-	elseif($share['type'] == 'vote_post')
+	if($share['type'] == 'vote_post')
 		FS('Vote')->deletePost($id);
 	FS('Share')->deleteShareCache($id);
 	$result['status'] = 1;

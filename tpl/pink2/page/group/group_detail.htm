@@ -75,13 +75,6 @@
 						<div class="img_tj"></div>
 						<!--{/if}--> 
 						<!--{getuser $topic['uid'] 0 '3,32' ',pic'}-->
-						<!--{if isset($topic['imgs'])}-->
-						<div class="show_big_img"> 
-							<!--{loop $topic['imgs'] $img}--> 
-							<img timgsrc="{getimg $img['img'] 100 100}" width="100" height="100" class="show"> 
-							<!--{/loop}--> 
-						</div>
-						<!--{/if}-->
 						<p class="ct"> <a class="tit fl" target="_blank" href="{$topic['url']}"> 
 							<!--{if $topic['is_top'] == 1}--> 
 							<span class="top fl">[{lang topic_top}]</span> 
