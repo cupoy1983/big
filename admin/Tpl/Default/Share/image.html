@@ -97,15 +97,15 @@
 			</td>
         </tr>
 		<tr{$tr_class} align="left">
-			<td colspan="4" class="torder">
+			<td colspan="4" rowspan="2" class="torder">
 				<foreach name="item['cache_data']['imgs']['all']" item="img">
-				<a href="{:adminFormatImgById($img['img_id'])}" target="_blank"><img class="imgTooltip" title="<img src='{:adminFormatImgById($img['img_id'])}' height='200' />" src="{:adminFormatImgById($img['img_id'],100,100)}" height="30" style="border:solid 1px #ccc;" /></a>
+				<a href="{:adminFormatImgById($img['img_id'])}" target="_blank"><img class="imgTooltip" title="<img src='{:adminFormatImgById($img['img_id'])}' height='200' />" src="{:adminFormatImgById($img['img_id'],100,100)}" style="border:solid 1px #ccc;width:150px;height:150px;" /></a>
 				</foreach>
 			</td>
 			<td colspan="6" class="torder">{$Think.lang.SHARE_TAGS}：{$item.tags}</td>
 		</tr>
 		<tr{$tr_class} align="left">
-			<td colspan="10" class="torder">
+			<td colspan="6" class="torder">
 				{$Think.lang.SHARE_CONTENT}：{$item.content}
 			</td>
 		</tr>

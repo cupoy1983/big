@@ -6,9 +6,8 @@
 	<input type="hidden" name="share_id" value="" />
 	<div class="pub_edit r5">
 		<script type="text/javascript">
-		var content = $("#ueditor").val();
-		 options={initialFrameWidth:840,};
-		UE.getEditor('ueditor', options).setContent(content);
+		 	var options={initialFrameWidth:840};
+			UE.getEditor('ueditor', options);
     	</script>
 		<textarea id="ueditor" name="content" class="fl PUB_TXT">{$post_topic_content}</textarea>
 		<!--{if $is_join_group == 1}-->

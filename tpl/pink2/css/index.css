@@ -144,13 +144,17 @@ html {
 	font-weight:bold;
 	font-family:"Arial Black", Gadget, sans-serif;}
 .main .types .box-item ul.title a{
-	color:#6B6A66;}
+	color:#999999;}
 
 .main .types .box-item ul.title a:hover{
 	color:#FF6600;}
 .main .types .box-item ul.content{
 	height:160px;}
-.main .types .box-item ul.content li.c1 a{display:block;}
+.main .types .box-item ul.content li.c1 a{
+	display:block;
+	width:160px;
+	height:160px;
+	overflow:hidden;}
 .main .types .box-item ul.content li{
 	float:left;}
 .main .types .box-item ul.content li.c2{
@@ -266,7 +270,7 @@ html {
 	color:#DD2C71}
 
 #slide{
-	width:970px;
+	width:972px;
 	height:300px;
 	margin:auto;
 	margin-top:10px;
