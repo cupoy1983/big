@@ -5,15 +5,15 @@
 	$js_list[0] = './public/js/jquery.masonry.js';
 ?>
 <!--{template inc/header}-->
-<div class="blank15"></div>
-<div class="wrapper1" id="note_{$share_detail['share_id']}">
+<br>
+<div class="nimei" id="note_{$share_detail['share_id']}">
 	<!--{if $current_type == 'other'}-->
 	<!--{subtemplate page/note/note_other}-->
 	<!--{else}-->
 	<!--{subtemplate page/note/note_img}-->
 	<!--{/if}-->
 </div>
-<!--{if $current_type != 'other' && count($related_shares) > 0}-->
+<center><!--{if $current_type != 'other' && count($related_shares) > 0}--></center>
 <div class="wrapper book_sort">
 	<h1>你可能还喜欢</h1>
 </div>
@@ -25,13 +25,10 @@
 				<ul class="pic">
 					<!--{loop $share['goods_imgs'] $share_img}-->
 					<li>
-						<a style="width:200px;" href="{$share_img['url']}" target="_blank">
-							<img class="book_img lazyload" original="{getimg $share_img['img'] 200 999}" width="200" src="./tpl/images/lazyload.gif" oldWidth="{$share_img['img_width']}" oldHeight="{$share_img['img_height']}" alt="{$share_img['alt']}"/>
+						<a style="width:200px;" href="{$share_img['url']}" title="{$share_img['name']}" target="_blank">
+							<img class="book_img lazyload" original="{getimg $share_img['img'] 200 999}" width="200" src="./tpl/images/lazyload.gif" oldWidth="{$share_img['img_width']}" oldHeight="{$share_img['img_height']}" title="{$share_img['name']}"/>
 						</a>
-						<!--{if $_FANWE['setting']['is_open_commission'] == 1 && $share_img['commission'] > 0}-->
-						<p class="fl">{lang buy_commission} 
-                                                <script type="text/javascript">$.Commission_Format({$share_img['commission']});</script>
-                                                </p>
+						<!--{if $share_img['commission'] > 0}-->
 						<!--{/if}-->
 						<p>{$share_img['price_format']}</p>
 						<a class="add_to_album_btn" href="javascript:;" style="display:none;" onclick="$.Show_Rel_Album($share_img['id'],'goods');"></a>
@@ -43,8 +40,8 @@
 				</div>
 				<div class="favorite">
 					<a href="javascript:;" class="favaImg" onclick="$.Fav_Share({$share['share_id']},this,32,'#share_item_{$share['share_id']}');"></a>
-					<div class="favDiv"><a target="_blank" class="favCount SHARE_FAV_COUNT" href="{$share['url']}"  >$share['collect_count']</a></div>
-					<a target="_blank" href="{$share['url']}" class="creply"><b>{$share['comment_count']}</b>评论</a>
+					<div class="favDiv"><a target="_blank" class="favCount SHARE_FAV_COUNT" href="{$share['url']}" title="{$share_img['name']}">18$share['collect_count']</a></div>
+					<a target="_blank" href="{$share['url']}" title="{$share_img['name']}" class="creply"><b>16{$share['comment_count']}</b>评论</a>
 				</div>
 				<div class="user">
 					<!--{getuser $share['uid'] 0 's,30' ',lazyload'}-->

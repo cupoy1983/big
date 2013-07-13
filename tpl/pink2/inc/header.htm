@@ -107,11 +107,11 @@ body{
 }
 #header .logo {
     float: left;
-    height: 30px;
-    margin-top: 11px;
+    height: 40px;
+    margin-top: 5px;
 	margin-left:20px;
     overflow: hidden;
-    width: 125px;
+    width: 103px;
 }
 #header .bar{
 	float: left;
@@ -369,7 +369,7 @@ body{
 	<div id="header">
 		<div class="beta" style="color:white"></div>
 		<div class="top">
-			<h1 class="logo"><a href="http://dadongjie.com/" style="display:block;width:125px;height:30px;"><img src="/logo.jpg"></img></a></h1>
+			<h1 class="logo"><a href="http://dadongjie.com/" style="display:block;width:103px;height:40px;"><img src="/logo.png"></img></a></h1>
 			<div class="bar">
 					<dl class="nav">
 						<dt class="son">
@@ -404,27 +404,26 @@ body{
 	</div>
 	
 	<script type="text/javascript">
-//定义搜索框js变量
-var searchDD = jQuery('.drop_so');
-var search = jQuery('#so-widget');
-
-//搜索菜单弹出框js
-search.click(function(e) {
-	e.preventDefault();
-	e.stopPropagation();
-	//操作so-widget
-	jQuery(this).closest('.search_li').toggleClass('so-widget-show');
-	searchDD.toggle();
-});
-jQuery(document).click(function(e) {
-	var target = jQuery(e.target);
-	
-	if(!target.closest('.search_li').length && searchDD.css('display')=="block"){
-		search.closest('.search_li').removeClass('so-widget-show');
-		searchDD.hide();
-	}
-});
-
+		//定义搜索框js变量
+		var searchDD = jQuery('.drop_so');
+		var search = jQuery('#so-widget');
+		
+		//搜索菜单弹出框js
+		search.click(function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			//操作so-widget
+			jQuery(this).closest('.search_li').toggleClass('so-widget-show');
+			searchDD.toggle();
+		});
+		jQuery(document).click(function(e) {
+			var target = jQuery(e.target);
+			
+			if(!target.closest('.search_li').length && searchDD.css('display')=="block"){
+				search.closest('.search_li').removeClass('so-widget-show');
+				searchDD.hide();
+			}
+		});
 </script>
-	
-	<center>{advlayout name='头部广告位'}</center>
+<center>{advlayout name='头部广告位'}</center>
+<div id="body_wrap">

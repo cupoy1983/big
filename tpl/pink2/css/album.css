@@ -285,3 +285,139 @@ border-radius:2px; line-height:20px; line-height:15px; }
 .album_sort a{color:#515151;}
 .album_sort a.c{font-weight:bold; color:#fc508c;}
 .album_sort span{color:#c1c1c1;}
+
+.album_top_con, .album_top_con .add_album, .album_top_con .tips h3 .moudou, #album_slide_btn a, .album_category .more .more_link, .album_category_nav {
+    background: url("../images/album-bg-op.png") no-repeat scroll 0 0 transparent;
+}
+.album_top {
+    height: 280px;
+}
+.album_top_box {
+    background: none repeat scroll 0 0 #FFFFFF;
+    height: 250px;
+    overflow: hidden;
+}
+#album_slide {
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+    width: 500px;
+}
+#album_slide ul {
+    position: absolute;
+    width: 9999em;
+}
+#album_slide ul li {
+    float: left;
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+    width: 250px;
+}
+#album_slide ul li img {
+    border-radius: 5px 5px 5px 5px;
+    height: 250px;
+    vertical-align: top;
+    width: 250px;
+}
+#album_slide ul li .title {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 0 5px 5px 5px;
+    bottom: 0;
+    color: #FFFFFF;
+    font-family: '寰蒋闆呴粦';
+    font-size: 20px;
+    height: 38px;
+    line-height: 38px;
+    padding: 0 15px;
+    position: absolute;
+    width: 245px;
+}
+.album_top_con {
+    background-repeat: repeat-x;
+    height: 245px;
+    margin: -243px 0 0 510px;
+    padding: 0 0 0 20px;
+    width: 422px;
+}
+.album_top_con h1 {
+    color: #FF83B4;
+    font-family: '寰蒋闆呴粦';
+    font-size: 20px;
+    height: 46px;
+    line-height: 46px;
+}
+.album_top_con .title_desc {
+    color: #666666;
+    font-family: '寰蒋闆呴粦';
+    font-size: 14px;
+    line-height: 20px;
+}
+.album_top_con .add_album {
+    background-position: 0 -300px;
+    color: #FFFFFF;
+    display: block;
+    font-family: '寰蒋闆呴粦';
+    font-size: 14px;
+    height: 27px;
+    line-height: 27px;
+    margin: 10px 0 0;
+    text-align: center;
+    width: 111px;
+}
+.album_top_con .tips {
+    margin: 25px 0 0;
+    overflow: hidden;
+}
+.album_top_con .tips li {
+    width: 210px;
+}
+.album_top_con .tips h3 {
+    color: #333333;
+    font-size: 14px;
+    height: 20px;
+    line-height: 20px;
+    margin: 0 0 5px;
+}
+.album_top_con .tips h3 .moudou {
+    background-position: 12px -346px;
+    color: #80B100;
+    display: inline-block;
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+    padding: 0 0 0 28px;
+}
+.album_top_con .tips_title {
+    color: #666666;
+}
+.album_top_con .tip_link {
+    color: #40ACFF;
+    font-size: 14px;
+    text-decoration: underline;
+}
+.album_top_con .see_detail {
+    display: inline-block;
+    margin: 17px 0 0;
+}
+#album_slide_btn {
+    height: 10px;
+    margin: 10px 0 0 230px;
+    width: 470px;
+}
+#album_slide_btn .div {
+    margin: 0 0 0 200px;
+}
+#album_slide_btn a {
+    background-position: right -400px;
+    cursor: pointer;
+    float: left;
+    height: 8px;
+    margin-left: 7px;
+    overflow: hidden;
+    text-indent: -20px;
+    width: 8px;
+}
+#album_slide_btn a.selected {
+    background-position: 0 -400px;
+}

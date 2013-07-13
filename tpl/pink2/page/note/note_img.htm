@@ -1,8 +1,9 @@
 <div class="note_left">
+<div class="piece2_frame">
 	<div class="note_content">
-		<a href="{u u/index uid=$share_user['uid']}" class="nc_avatar GUID" uid="{$share_user['uid']}"><img class="fl" src="{avatar $share_user['avatar'] m}"></a>
+		<a href="{u u/index uid=$share_user['uid']}" title="{$share_user['user_name']}" class="nc_avatar GUID" uid="{$share_user['uid']}"><img class="fl" src="{avatar $share_user['avatar'] m}" width="64" height="64" alt="{$share_user['user_name']}"></a>
 		<div class="nc_ut">
-			<a href="{u u/index uid=$share_user['uid']}" class="fl GUID" uid="{$share_user['uid']}">{$share_user['user_name']}</a>
+			<a href="{u u/index uid=$share_user['uid']}" title="{$share_user['user_name']}" class="fl GUID" uid="{$share_user['uid']}">{$share_user['user_name']}</a>
 			<span class="fl">&nbsp;
 				<!--{subtemplate inc/share/rel_type}-->
 			</span>
@@ -13,10 +14,10 @@
 		</div>
 		<div class="clear"></div>
 	</div>
-	<div class="blank15"></div>
 	<div class="note_imgs">
 		<div class="ni_big">
-			<a href="{if $current_type == 'bao'}$current_obj['to_url']{else}{$current_obj['img']}{/if}"{if $current_type == 'bao'}{$current_obj['tdj']}{/if} target="_blank" class="show_big"><img src="{getimg $current_obj['img'] 468 468}" width="320" /></a>
+			<a href="{if $current_type == 'bao'}$current_obj['to_url']{else}{$current_obj['img']}{/if}" rel="nofollow" target="_blank" class="show_big"><img src="{getimg $current_obj['img'] 468 468}" alt="{$share_user['user_name']}分享_{$current_obj['name']}"width="440"/></a>
+			
 			<!--{if $current_type == 'bao'}-->
 			<a class="add_to_album_btn" href="javascript:;" style="display: none;" onclick="$.Show_Rel_Album($current_obj['id'],'goods');"></a>
 			<!--{else}-->
@@ -24,6 +25,8 @@
 			<!--{/if}-->
 			<!--{if !empty($current_obj['alt'])}-->
 			<p>{$current_obj['alt']}</p>
+			<!--{else}-->
+			<p>{$current_obj['name']}</p>
 			<!--{/if}-->
 		</div>
 		<!--{if !empty($share_detail['imgs']) && count($share_detail['imgs']) > 1}-->
@@ -54,20 +57,8 @@
 				<a class="nwl_album" href="javascript:;" onclick="$.Show_Rel_Album($current_obj['id'],'photo');">收进杂志</a>
 				<!--{/if}-->
 				<a href="javascript:;" class="fl" onclick="$.Fav_Share({$share_detail['share_id']},this,32,'#note_{$share_detail['share_id']}');"><img class="fl add_fav_new" src="./tpl/images/like.png" /></a>
-				<span class="nwl_cfav"><span class="SHARE_FAV_COUNT">{$share_detail['collect_count']}</span><i></i></span>
-				<div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare" style="width:26px; float:right; overflow:hidden;">   
-					<span class="bds_more"></span>
-				</div>
-				<script type="text/javascript" id="bdshare_js" data="type=tools&mini=1" ></script> 
-				<script type="text/javascript" id="bdshell_js"></script> 
-				<script type="text/javascript">
-					//在这里定义bds_config
-					var bds_config = {"bdText":"<?php echo cutstr($share_detail['share_content'],200); ?>"};
-					<?php $bu_share_img = getImgName($current_obj['img'],0,0,0,1); ?>
-					bds_config.bdPic = "{$bu_share_img}";
-					document.getElementById('bdshell_js').src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
-				</script>
-				<a href="javascript:;" onclick="$.Relay_Share($share_detail['share_id']);" class="nwl_forward">转发({$share_detail['relay_count']})</a>
+				<span class="nwl_cfav"><span class="SHARE_FAV_COUNT">16{$share_detail['collect_count']}</span><i></i></span>
+
 			</div>
 		</div>
 		<!--{if isset($share_detail['goods_imgs'])}-->
@@ -77,15 +68,10 @@
 			<!--{eval $index = 1;}-->
 			<!--{if $current_type == 'bao'}-->
 			<!--{eval $goods_id = $current_obj['id'];}-->
-			<a href="{$current_obj['to_url']}"{$current_obj['tdj']} class="nig_c" target="_blank"><img src="./tpl/images/buy.gif" /><span>{$current_obj['name']}
-                                {if $_FANWE['setting']['is_open_commission'] == 1 && $current_obj['commission'] > 0}
-                                <em>
-                                    {lang buy_commission}
-                                    <script type="text/javascript">$.Commission_Format({$current_obj['commission']});</script>
-                                </em>
-                                {/if}</span></a>
+			<a href="{$current_obj['to_url']}" rel="nofollow" class="nig_c" target="_blank"><img src="./tpl/images/buy.gif" /><span>{$current_obj['name']}{if $current_obj['commission'] > 0}{/if}</span></a>
 			<!--{eval $index++;}-->
-			<a href="{$current_obj['to_url']}"{$current_obj['tdj']} class="nig_btn" target="_blank"><span>{$current_obj['price_format']}</span></a>
+			<a href="{$current_obj['to_url']}" class="nig_btn" target="_blank"><span>{$current_obj['price_format']}</span></a>
+			<a href="{$current_obj['to_url']}" class="nig_btn1" target="_blank"></a>
 			<!--{/if}-->
 			<!--{loop $share_detail['goods_imgs'] $goods}-->
 			<!--{if $goods['id'] != $goods_id}-->
@@ -93,11 +79,6 @@
 				<span class="num_list">{$index}</span>
 				<a class="link" target="_blank" href='{$goods['to_url']}' title="{$goods['name']}">{cutstr $goods['name'] 28}</a>&nbsp;
 				<span class="price">{$goods['price_format']}</span>
-                                {if $_FANWE['setting']['is_open_commission'] == 1 && $current_obj['commission'] > 0}
-				<em>{lang buy_commission}
-                                    <script type="text/javascript">$.Commission_Format({$goods['commission']});</script>
-                                    </em>
-                                {/if}
 			</div>
 			<!--{eval $index++;}-->
 			<!--{/if}-->
@@ -137,7 +118,7 @@
 					<!--{else}-->
 					<span class="SHARE_TAG_LIST">
 					<!--{loop $share_tags $share_tag}-->
-					<a href="{$share_tag['url']}" target="_blank">$share_tag['tag_name']</a>
+					<a href="http://www.dadongjie.com{$share_tag['url']}" target="_blank">$share_tag['tag_name']</a>
 					<!--{/loop}-->
 					</span>
 					<!--{if $is_eidt_tag}-->
@@ -157,6 +138,7 @@
 			</div>
 		</div>
 	</div>
+<br>
 	<div class="note_comment">
 		<form method="post">
 		<div class="pub_box" id="publish_note">
@@ -198,47 +180,64 @@
 				</li>
 				<!--{/loop}-->
 			</ul>
-			<div class="pagination clearfix mt20">
 				<!--{subtemplate inc/pages}-->
-			</div>
 		</div>
 		</form>
 	</div>
-	<!--{if $current_type == 'bao'}-->
-	<!--{dynamic getGoodsComment args=$current_obj['goods_id']}-->
-	<!--{/if}-->
-</div>
+</div></div>
 <div class="note_right">
+<div class="Space_index_boxBD">
+	<dl class="clearfix">
+		<dt>
+			<a class="Space_Rinfo_pic" href="/u/{$share_user['uid']}"><img src="{avatar $share_user['avatar'] b}" width="176" height="176" alt="{$share_user['user_name']}" /></a>
+					<a class="Space_Rinfo_TT" href="/u/{$share_user['uid']}" class="user_name usercard">{$share_user['user_name']}</a>			
+						</dt>
+            <div class="p_statistic">
+                    <ul class="userP_statistic big">
+                        <li>
+                            <span><a class="p_f" href="{u u/bao uid=$share_user['uid']}">分享</a></span><br />
+                            <span><a class="p_nums p_nums_new" href="{u u/bao uid=$share_user['uid']}">{$share_user['goods']}</a></span>
+                        </li>
+                        <li>
+                            <span><a class="p_f" href="{u u/follow uid=$share_user['uid']}">关注</a></span><br />
+                            <span><a class="p_nums p_nums_new" href="{u u/follow uid=$share_user['uid']}">{$share_user['follows']}</a></span>
+                        </li>
+                        <li>
+                            <span><a class="p_f" href="{u u/fans uid=$share_user['uid']}">粉丝</a></span><br />
+                            <span><a class="p_nums p_nums_new" href="{u u/fans uid=$share_user['uid']}">{$share_user['fans']}</a></span>
+                        </li>
+                        <li style="background:none;">
+                            <span class="p_flike"><a class="p_f">喜欢</a></span><br />
+                            <span><a class="p_nums p_nums_new">{$share_user['collects']}</a></span>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+            </div>
+			<div class="she_rinfo">
+<a onclick="$.User_Follow(10655,this,UpdateUserFollowHandler);" href="javascript:;" class="addfollow_big"></a>
+                </span>
+                <ul class="left she_gray">
+                        <li><a href="javascript:;" onclick="$.AtMe_Share(this);" toname="{$share_user['user_name']}" >@{$user_show_name['short']}</a></li>
+                        <li>|</li>
+                        <li><a href="javascript:void(0);" onclick="$.Send_Msg('<!--{eval echo urlencode($share_user[user_name]); }-->');">发私信</a></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="she_about">
+                <div class="she_atarrow"></div>
+                <a href="{u u/index uid=$share_user['uid']}">关注我</a>，让我每天给你推荐好看的东东吧！
+            </div>       </div>
+			       <div class="blank20"></div>
 	<!--{if $current_type == 'bao'}-->
-	<div class="hot_images">
-		<h2><a>最被喜欢的宝贝</a></h2>
-		<ul class="fl"> 
+	<div class="Space_index_boxBD">
+	            <h3 class="f14n">
+				<a target="_blank" href="{u u/bao uid=$share_user['uid']}">{$share_user['user_name']}最被喜欢的宝贝</a></h3>
+ <div class="mygroup mt14">
+                <ul class="SKU mt5">
 			<!--{loop $best_goods_share $goods_share}-->
 			<li><a target="_blank" href="{$goods_share['url']}"><img src="{getimg $goods_share['img'] 100 100}"></a></li>
 			<!--{/loop}-->
 		</ul> 
-	</div>
-	<div class="blank20"></div>
-	{$shop_percent_html}
-	<!--{elseif $current_type == 'photo'}-->
-	<div class="hot_images">
-		<h2><a>最被喜欢的照片 </a></h2>
-		<ul class="fl">
-			<!--{loop $best_photo_share $photo_share}-->
-			<li><a target="_blank" href="{$photo_share['url']}"><img src="{getimg $photo_share['img'] 100 100}"></a></li>
-			<!--{/loop}-->
-		</ul>
-	</div>
-	<div class="blank20"></div>
-	<div class="hot_images">
-		<h2><a>{$user_show_name['short']}喜欢的照片 </a></h2>
-		<ul class="fl">
-			<!--{loop $user_fav_photo $photo_share}-->
-			<li><a target="_blank" href="{$photo_share['url']}"><img src="{getimg $photo_share['img'] 100 100}"></a></li>
-			<!--{/loop}-->
-		</ul>
-	</div>
-	<!--{else}-->
-	
+	</div></div>
 	<!--{/if}-->
 </div>

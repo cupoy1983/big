@@ -1,13 +1,13 @@
 .note_left{width:690px; float:left;}
-.note_content{width:670px; background:#f7f7f7; padding:10px;}
+.note_content{background:#f7f7f7; padding:10px;}
 .note_content .nc_avatar{float:left;}
 .note_content .nc_ut{float:left; padding:2px 0 0 8px; color:#999; width:598px;}
 .note_content .nc_ut a{color:#ed6697;}
 .note_content .nc_info{float:left; padding:8px 0 0 8px; color:#666; width:598px;}
 
-.note_imgs{float:left; width:320px;}
-.note_imgs .ni_big{float:left; width:320px; position:relative;}
-.note_imgs .ni_big p{position:absolute; bottom:0; left:0; padding:10px; color:#fff; background:url(../images/book_p.png); width:300px; _background:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/book_p.png',sizingMethod='scale');}
+.note_imgs{float:left; width:440px;}
+.note_imgs .ni_big{float:left; width:440px; position:relative;}
+.note_imgs .ni_big p{position:absolute; bottom:0; left:0; padding:10px; color:#fff; background:url(../images/book_p.png); width:420px; _background:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/book_p.png',sizingMethod='scale');}
 .note_imgs .ni_small{float:left; width:320px;}
 .note_imgs .ni_small ul{float:left; margin:0 0 0 -8px;}
 .note_imgs .ni_small li{width:72px; height:72px; border:solid 1px #fff; position:relative; float:left; margin:8px 0 0 8px; _display:inline; }
@@ -15,7 +15,7 @@
 .note_imgs .ni_small li.c{border-color:#ed6697;}
 .note_imgs .ni_small li p{position:absolute; bottom:0; right:0; display:block; color:#fff; background:url(../images/book_p.png); _background:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/book_p.png',sizingMethod='scale');padding:3px 6px; border-radius:4px 0 0 0;}
 
-.note_info{float:right; width:350px;}
+.note_info{float:right; width:275px;}
 .note_info .ni_goods{}
 .note_info .ni_goods a.nig_c{color:#11aeff; display:block; padding:10px 0 0 0;}
 .note_info .ni_goods a.nig_c img{vertical-align:text-bottom; margin:0 6px 0 0;}
@@ -33,7 +33,7 @@
 .note_info .ni_goods div em{font-size:12px; font-style:normal; color:#333; padding:0 0 0 10px;}
 
 .note_who_like .s_l_h { display:none; }
-.note_who_like { padding:10px 0 0 0; position:relative; width:350px; clear:both; }
+.note_who_like { padding:10px 0 0 0; position:relative; width:300px; clear:both; }
 .note_who_like .nwl_album{display:block; float:left; width:94px; height:25px; overflow:hidden; text-indent:-100px;background:url(../images/album_into.png) no-repeat; margin:0 6px 0 0;}
 .note_who_like .nwl_forward { float:right; background:url(../images/icons_line.png) no-repeat; padding:0 5px 0 20px; display:block; height:18px; background-position:0 -299px; color:#09e; cursor:pointer; margin:4px 0 0 0;}
 .note_who_like .nwl_forward:hover { background-position:0 -282px; }
@@ -72,7 +72,7 @@
 
 .note_right{float:right; width:220px;}
 .note_right h2{color:#767676; font-size:14px;}
-.hot_images { overflow:hidden; zoom:1; }
+.hot_images {zoom:1; }
 .hot_images ul { padding-top:15px; float:left; margin:0 0 0 -8px;}
 .hot_images li { float:left; display:inline; width:68px; height:68px; overflow:hidden; margin:0 0 10px 8px; }
 .hot_images img { width:68px; height:68px; }
@@ -86,7 +86,7 @@
 .shops .shops_per .t { border-bottom:1px solid #b0b79c; color:#666; line-height:180%; margin-bottom:2px; *margin-bottom:5px;}
 
 .note_comment {clear:both; padding-top:15px; *padding-top:0;}
-.pub_box .pub_edit { clear:both; width:650px; padding:0 20px 0; background-color:#f7f7f7; position:relative; zoom:1; }
+.pub_box .pub_edit { clear:both; width:650px; padding:0 40px 0 40px; background-color:#f7f7f7; position:relative; zoom:1; }
 .pub_box .pub_txt { padding:2px 5px; border:1px solid #ccc; width:583px; height:48px; clear:both; overflow:hidden; background-color:#FFF; }
 .pub_box .pub_btn { width:54px; height:54px; background-color:#f69; border:none; color:#fff; font-size:14px; font-weight:bold; cursor:pointer; }
 .pub_box .pub_ext { padding:10px 0; clear:both; overflow:hidden; height:16px; }
@@ -100,8 +100,8 @@
 .pub_box .word_count i { color:#6A6F5E; font-style:normal; }
 .pub_box .word_count i.out { color:#F92D09; font-weight:bold; }
 .pub_box .fw_count { float:right; line-height:120%; margin:10px 10px 10px 0; }
-.note_comment .c_l { background-color:#fff; padding-bottom:10px; width:690px; }
-.note_comment .c_l li {float:left; width:690px; margin:15px 0 0 0; background:url(../images/note_comment_l.png) no-repeat 64px 0;}
+.note_comment .c_l { background-color:#fff; width:650px; }
+.note_comment .c_l li {float:left; width:690px; margin:8px 0 5px 10px; background:url(../images/note_comment_l.png) no-repeat 64px 0;}
 .note_comment .c_l .avt { width:56px; height:56px; float:left; }
 .note_comment .c_l div{float:left; margin:0 0 0 16px; border:solid 1px #e4e4e4; border-left:none; background:#f9f9f9; width:617px;}
 .note_comment .c_l div .p1{float:left; padding:8px 10px; width:597px;}
@@ -126,3 +126,77 @@
 .up_page,.down_page{background:url(../images/page_nav.png) no-repeat;position:fixed;top: 252px;z-index: 9999;height: 50px;width: 31px;text-indent: -99999px;background-position:0 0;filter:alpha(opacity=30);opacity:.3;}
 .up_page a,.down_page a{ display: block;height: 50px;width: 31px;}
 .down_page{right:0px;background-position:-31px 0;}
+
+
+.piece2_frame { background:none repeat scroll 0 0 #FFF;border:1px solid #DEDEDE;border-radius:5px 5px 5px 5px;box-shadow:1px 0 3px #EDEDED,-1px 0 3px #EDEDED,0 2px 3px #9E9E9E;width:725px;overflow:hidden;position:relative;}
+.Space_index_boxBD {background:none repeat scroll 0 0 #FFF;border:1px solid #DDD;border-radius:5px 5px 5px 5px;box-shadow:1px 0 3px #EDEDED,-1px 0 3px #EDEDED,0 2px 3px #9E9E9E;padding:8px;width:206px;float:left;}
+.Space_Rinfo_pic {display:block;margin:5px auto 6px;overflow:hidden;width:180px;}
+.Space_Rinfo_pic img {width:176px;border-radius:5px 5px 5px 5px;border:2px solid #DDD;}
+.Space_Rinfo_TT {color:#666;display:block;font-size:16px;font-weight:700;margin-bottom:8px;text-align:center;width:206px;}
+.userP_statistic span {height:18px;margin-bottom:3px;overflow:hidden;width:51px;}
+.userP_statistic span .p_f {color:#484848;}
+.userP_statistic .p_nums {font-size:16px;font-weight:bold;}
+.userP_statistic span .p_nums {color:#f69;}
+.userP_statistic li {float:left;height:35px;text-align:center;width:51px;}
+.she_rinfo {margin:12px 0 0 11px;}
+.she_gray {font-weight:normal;margin-left:25px;}
+.she_gray li {color:#DEDEDE;float:left;line-height:20px;margin:0 5px 0 0;}
+.she_gray li a {color:#f69;}
+.she_about {background:none repeat scroll 0 0 #F8F8F8;border:1px solid #E8E8E8;border-radius:5px 5px 5px 5px;color:#484848;margin-bottom:8px;margin-left:10px;margin-top:8px;	padding:5px 8px;
+position:relative;width:168px;}
+.she_about a {color:#f69;}
+.she_atarrow {background:url(../images/about_her_bg.gif) no-repeat scroll 0 0 transparent;height:8px;left:17px;position:absolute;top:-8px;width:17px;}
+.addfollow_big {background:url(../images/wawa_btn_bg.png) no-repeat 0 -165px;width:75px;height:24px;display:block;text-indent:-9999px;float:left;}
+.f14n {font-size: 14px;padding: 3px 0px;}
+.SKU {overflow: hidden;width: 100%;}
+.SKU li, 
+.SKU li a {float: left;}
+.SKU li img {float: left;height: 60px;margin: 3px;width: 60px;}
+.nimei{width:958px;margin:0 auto;}
+
+
+/**
+ * 计划删除的css
+.w709 {width:709px;}
+.w224 {width:224px;}
+
+.note_body {width:455px;padding:15px 0 20px 0;}
+.note_bimg,.note_simg {position:relative;padding-left:15px;}
+.note_bimg img {display:block;margin:0 auto;}
+.note_simg input {border:none;width:21px;height:21px;}
+.note_prev,.note_next {width:23px;padding:50px 0;}
+.note_prev .prev {cursor:pointer;background:url(/tpl/pink2/images/left.png) no-repeat;}
+.note_simg .next {cursor:pointer;background:url(/tpl/pink2/images/right.png) no-repeat;}
+.note_simg_list {visibility:visible;overflow:hidden;position:relative;z-index:2px;left:0;}
+.note_simg_list ul {list-style:none;}
+.note_simg_list ul li {padding:10px;position:relative;width:104px;}
+.note_simg_list ul li .p {bottom:10px;display:block;height:22px;position:absolute;right:8px;}
+.note_simg_list ul li .p span {background:url(/tpl/pink2/images/imgwall_price_bg.png) no-repeat scroll left top transparent;color:white;display:block;float:left;height:20px;line-height:20px;padding-left:3px;}
+.note_simg_list ul li .p i {background:url(/tpl/pink2/images/imgwall_price_bg.png) no-repeat scroll left bottom transparent;display:block;float:left;height:20px;width:5px;}
+.note_simg_list .active {border:2px solid #F78231;}
+.note_desc {padding:15px 8px 20px 0;width:230px;}
+.note_related ul li {line-height:25px;}
+.note_related ul li a {height:22px;line-height:22px;font-size:13px;color:#11AEFF;text-decoration:underline;}
+.note_related ul li span {color:#f69;}
+.note_title img {float:left;padding-right:5px;}
+.note_title h1 {font-size:14px;line-height:20px;}
+.note_fav {margin:15px 0;}
+.note_price p {font-size:15px;line-height:35px;letter-spacing:1px;}
+.note_price p span {font-size:18px;}
+.note_price .price_font,.note_like .fav_font {font-family:'微软雅黑';color:#f69;}
+.note_link {margin:10px 0;}
+.note_link a {background:url(/tpl/pink2/images/buy_btn.gif) no-repeat;display:inline-block;width:130px;height:36px;}
+.note_like {margin-top:15px;}
+.note_like p {padding-bottom:5px;letter-spacing:1px;}
+.note_tool {width:709px;line-height:25px;height:27px;}
+.note_tool .note_forward_btn {background:url(/tpl/pink2/images/icons_line.png) no-repeat;background-position:0 -281px;padding:3px 5px 0px 20px;}
+.note_tool .note_comment_btn {background:url(/tpl/pink2/images/icons_line.png) no-repeat;background-position:0 -315px;padding:3px 5px 0px 20px;}
+.note_tool #bdshare {float:left;display:inline;padding-right:10px;}
+.note_share {width:580px;display:inline;float:left;text-align:right;}
+.userP_statistic_new .userP_statistic .pb_flike {background:url(/tpl/pink2/images/cover_like.png) no-repeat;padding-left:17px;width:70px;}
+
+.Space_Rinfo_more,.Space_Rinfo_tool {color:#f69;display:block;margin-bottom:6px;margin-top:10px;text-align:center;text-decoration:underline;width:65px;}
+.Space_Rinfo_tool {width:40px;}
+ol,ul {list-style:none;}
+.f12 {font-size: 12px;font-weight: normal;}
+ */
