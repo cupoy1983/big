@@ -112,29 +112,49 @@ h1,h2{font-family:"黑体", "微软雅黑", "宋体", Arial;}
 
 .shipai_tag{background:url(../images/wanggou_shipai.png) no-repeat;width:76px;height:76px;position:absolute;left:0;top:0;_background-image:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/wanggou_shipai.png',sizingMethod='scale');}
 
-.user_nav{width:958px;height:165px; border:solid 1px #e5e5e5; border-top:none; border-bottom-color:#cdcdcd; clear:both; background:#fff; overflow:hidden;}
-.user_nav .un_avatar{padding:12px 25px; height:100px;}
-.user_nav .un_info{float:left; padding:6px 0 0 16px; width:550px;}
-.user_nav .un_info h2{color:#ff70a7; font-size:24px;}
-.user_nav .un_info h2 img{vertical-align:text-bottom;}
-.user_nav .un_info p{padding:10px 0 0 0; color:#ababab; height:16px; line-height:16px; overflow:hidden;}
-.user_nav .un_info div{padding:10px 0 0 0;}
-.user_nav .un_info div *{float:left;}
-.user_nav .un_info div .addfo{display:block; height:18px; width:50px; text-indent:-100px;background:url(../images/add_follow_new.png) no-repeat 0 0; overflow:hidden;}
-.user_nav .un_info div .followed{display:block; height:18px; width:50px; text-indent:-100px;background:url(../images/add_follow_new.png) no-repeat 0 -21px; overflow:hidden;}
-.user_nav .un_info div a{color:#4977c7;}
+/***2012-11-16@米粒谷【miligu.com】添加修改***/
+.user_nav{width:958px;height:auto; clear:both;width:958px;height:373px;border:1px solid #d5d5d5;border-radius: 5px;}
+.user_nav .un_avatar{height:330px;width:958px;position:relative; background:url(../images/user_default_bg.jpg);}
+.user_nav .un_info{width:958px;height:144px;position:absolute;bottom:0}
+.user_nav .un_info .un_t_bg{width:958px;height:144px;position:absolute;bottom:0; background:#fff;FILTER:alpha(opacity=80);opacity:0.8; border-top:1px solid #ddd;}
+.user_nav .un_info .un_img{height:233px;width:180px;padding:3px;background:#fff;position:absolute;bottom:17px;left:15px;border-radius:8px;box-shadow:1px 1px 2px #e4e4e4;}
+.user_nav .un_info .un_img .fleft{width:180px;height:180px;}
+.user_nav .un_info .un_img img{width:180px;height:180px;border-radius: 5px;}
+.user_nav .un_info .un_img .un_ffc{margin:4px 0;width:180px;overflow:hidden;}
+.user_nav .un_info .un_img .un_ffc li{float:left; width:61px; text-align:center; overflow:hidden; padding:0; margin:0;}
+.user_nav .un_info .un_img .un_ffc li.first{ width:54px;}
+.user_nav .un_info .un_img .un_ffc li a { display:block; width:100%;}
+.user_nav .un_info .un_img .un_ffc li a span{ display:block; font-size:16px; font-weight:bold; text-align:center; width:100%;}
+
+.user_nav .un_info .un_user{width: 700px;position: absolute;left: 240px;}
+
+
+.user_nav .un_info .un_user{padding:10px 0 0 0;}
+.user_nav .un_info .un_user h2{color:#ff70a7; font-size:24px;}
+.user_nav .un_info .un_user .un_user_t{ width:475px; height:30px; line-height:30px;}
+.user_nav .un_info .un_user .un_user_t *{float:left; margin-right:5px;}
+.user_nav .un_info .un_user .un_user_t img{ margin-top:2px;}
+.user_nav .un_info .un_user p{padding:10px 0 0 0; color:#666; height:80px; line-height:16px; overflow:hidden;}
+.user_nav .un_info .un_user .addfo{display:block; height:18px; width:50px; text-indent:-100px;background:url(../images/add_follow_new.png) no-repeat 0 0; overflow:hidden;}
+.user_nav .un_info .un_user .followed{display:block; height:18px; width:50px; text-indent:-100px;background:url(../images/add_follow_new.png) no-repeat 0 -21px; overflow:hidden;}
+.user_nav .un_info .un_user a{color:#F30; height:24px; line-height:24px;}
+
+.user_nav .cus_cover{font-size:12px;padding:0 4px 1px;color:#282828;background-color:#f9f7ef;border:1px solid #c1c1c1;margin:5px 5px 0 0;display:none;border-radius: 5px; float:right;}
+.user_nav .cus_cover:hover{ color:#F00}
+/***2012-11-16@米粒谷【miligu.com】添加修改结束***/
+
 .user_nav .un_ffc{float:right; padding:12px 0 0 0;}
-.user_nav .un_ffc li{float:left; padding:0 14px; border-left:dashed 1px #e5e5e5; text-align:center;}
+.user_nav .un_ffc li{float:left; padding:0 14px; border-left:dotted 1px #ccc; text-align:center;}
 .user_nav .un_ffc li.first{border:none;}
 .user_nav .un_ffc li a{color:#111; display:block;}
 .user_nav .un_ffc li a span{color:#4e4e4e;}
 .user_nav .un_ffc li a:hover{color:#ff1566;}
-.user_nav .un_menu{border-top:solid 1px #ecebeb; background:#fff; padding:1px;}
-.user_nav .un_menu ul{height:38px; background:#eee;}
-.user_nav .un_menu li{float:left; height:24px; width:68px; overflow:hidden; margin:7px 0 0 7px;}
-.user_nav .un_menu li a{float:left; height:100%; width:100%; overflow:hidden; background:url(../images/user/menu_bg.png) no-repeat 0 0; text-align:center; line-height:24px; color:#747474;}
+.user_nav .un_menu{height: 43px;width: 958px;background: url(../images/home-top-bg.png) repeat-x 0 0;position: relative;}
+.user_nav .un_menu ul{height:43px; line-height:43px; }
+.user_nav .un_menu li{float:left; height:43px; width:68px; overflow:hidden; margin-right:1px;}
+.user_nav .un_menu li a{float:left; height:100%; width:100%; overflow:hidden;  text-align:center; color:#333; font-size:14px;font-weight:bold;}
 .user_nav .un_menu li.c a,
-.user_nav .un_menu li a:hover{background:url(../images/user/menu_bg_hover.png) no-repeat 0 0; color:#fff; font-weight:bold;}
+.user_nav .un_menu li a:hover{background: url(../images/home-top-bg.png) repeat-x 0 -100px; }
 
 .empty{padding:100px;color:#666; line-height:200%;border:solid 1px #e5e5e5; border-top:none; border-bottom-color:#cdcdcd;background:#fff;}
 .empty span { font-size:14px; color:#313131; }

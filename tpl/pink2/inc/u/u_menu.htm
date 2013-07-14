@@ -1,19 +1,12 @@
-<div class="wrapper user_nav mt20">
-	<div class="un_avatar">
-		<a class="fleft" href="{u u/book uid=$home_uid}"><img src="{avatar $home_user['avatar'] b}" width="100" height="100" alt="{$home_user['user_name']}" /></a>
+<br>
+<div class="wrapper user_nav">
+	<div class="un_avatar" style="background:url({custom $home_user['custom'] s});">
+		
 		<div class="un_info">
-			<h2>{$home_user['user_name']}<!--{if $home_user['is_daren'] == 1}--><img src="./tpl/images/tag_daren_b.png" /><!--{/if}--></h2>
-			<p>{$home_user['introduce']}</p>
-			<div>
-				<!--{if $home_uid == $_FANWE['uid']}-->
-				<a href="{u settings/personal}" class="un_setting">[完善我的资料]</a>
-				<!--{else}-->
-				<!--{getfollow $home_uid inc/getfollow/u_menu}-->
-				<a href="javascript:;" onclick="$.AtMe_Share(this);" class="home_at_ta ml10" toname="{$home_user['user_name']}" >@{$_FANWE['home_user_names']['short']}</a>
-				<!--{/if}-->
-			</div>
-		</div>
-		<ul class="un_ffc">
+          <span class="un_t_bg"></span>
+          <div class="un_img">
+            <a class="fleft" href="{u u/book uid=$home_uid}"><img src="{avatar $home_user['avatar'] b}" width="180" height="180" alt="{$home_user['user_name']}" /></a>
+            <ul class="un_ffc">
 			<li class="first">
 				<a href="{u u/follow uid=$home_uid}"><span>{$home_user['follows']}</span></a>
 				<a href="{u u/follow uid=$home_uid}">关注</a>
@@ -26,10 +19,46 @@
 				<a><span style="color:#f39;">{$home_user['collects']}</span></a>
 				<a>被喜欢</a>
 			</li>
-		</ul>
+		    </ul>
+          </div>
+          
+		  <div class="un_user">
+            <div class="un_user_t">
+            <h2><span>{$home_user['user_name']}</span><!--{if $home_user['is_daren'] == 1}--><img src="./tpl/images/tag_daren_b.png" /><!--{/if}--></h2>
+
+            <!--{if $home_uid == $_FANWE['uid']}-->
+
+				<a href="{u settings/personal}" class="un_setting">[完善我的资料]</a>
+				<!--{else}-->
+				<!--{getfollow $home_uid inc/getfollow/u_menu}-->
+				<!--<a href="javascript:;" onclick="$.AtMe_Share(this);" class="home_at_ta ml10" toname="{$home_user['user_name']}" >@{$_FANWE['home_user_names']['short']}</a>-->
+				<!--{/if}-->
+	<a class="zr_more" href="{u medal/u uid=$home_uid}" rel="nofollow" target="_blank">更多</a>
+	<?php
+		$medals = FS('User')->getUserMedal($home_uid);
+	?>
+	<ul class="ml5">
+		<!--{loop $medals $medal}-->
+		<li class="medal_f"><a href="{u medal/u uid=$home_uid}" rel="nofollow" target="_blank"><img src="{$medal['small_img']}" height="25" alt="{$medal['name']}" title="{$medal['name']}"></a></li>
+		<!--{/loop}-->
+  	</ul>
+
+				</div><p>{$home_user['introduce']}</p> 
+            </div>
+
+      
+
+			
+  			      
+		</div>
+		 <!--{if $home_uid == $_FANWE['uid']}-->
+          <a href="{u settings/custom}" class="cus_cover" style="display:none; ">个人宣言:</a>
+         <!--{/if}-->
+		
 	</div>
 	<div class="un_menu">
 		<ul>
+			
 			<li{if $current_menu == 'book'} class="c"{/if}><a href="{u u/book uid=$home_uid}">封面</a></li>
 			<li{if $current_menu == 'index'} class="c"{/if}><a href="{u u/index uid=$home_uid}">动态</a></li>
 			<li{if $current_menu == 'album'} class="c"{/if}><a href="{u u/album uid=$home_uid}">杂志社</a></li>
@@ -65,4 +94,11 @@ function UMenuUpdateUserFollow(obj,result)
 		parent.html('<a onclick="$.User_Follow($home_uid,this,UMenuUpdateUserFollow);" href="javascript:;" class="addfo">加关注</a>');
 	}
 }
+
+$(".cus_cover").parent().hover(
+function(){
+ $(".cus_cover",this).css({"display":"inline"});
+},function(){
+ $(".cus_cover",this).css({"display":"none"});
+})
 </script>

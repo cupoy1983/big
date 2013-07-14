@@ -22,7 +22,7 @@
 			$relay_share = $share_item['relay_share'];
 	?>
 	<li class="t_f" shareID="{$share_item['share_id']}" id="SHARE_LIST_{$share_item['share_id']}">
-		<div class="t_tag"> <span class="t" >{$share_item['time']}</span> </div>
+		<div class="t_tag"> <a class="t" href="{$share_item['url']}" target="_blank">{$share_item['time']}</a> </div>
 		<div class="hd">
 			<!--{getuser $share_item['uid'] 0 'm,48' ',avt icard r5 lazyload'}-->
 			<div class="addfo">
@@ -157,8 +157,8 @@
 				<!--{if $self_share['authoritys'] > 0}-->
 				<a w="f" href="javascript:;" class="mg SHARE_MANAGE">管理</a>
 				<!--{/if}-->
-				<a w="f" href="javascript:;" class="fw ed" onclick="$.Relay_Share($share_item['share_id']);">转发({$share_item['relay_count']})</a>
-				<a w="f" href="javascript:;" class="cmt ed" shareID="{$share_item['share_id']}" onclick="$.Get_Share_Comment_List(this);">评论({$share_item['comment_count']})</a>
+				<a w="f" href="javascript:;" class="fw ed" onclick="$.Relay_Share($share_item['share_id']);">热心传递({$share_item['relay_count']})</a>
+				<a w="f" href="javascript:;" class="cmt ed" shareID="{$share_item['share_id']}" onclick="$.Get_Share_Comment_List(this);">叨叨絮絮({$share_item['comment_count']})</a>
 			</div>
 			<ul class="SHARE_FAV_LIST u_like">
 				<!--{loop $share_item['collects'] $collect_uid}-->

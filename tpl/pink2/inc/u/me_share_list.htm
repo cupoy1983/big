@@ -7,6 +7,7 @@
 	<br>在上边的输入框里写一句想说的话，把生活分享给大家吧。
 	<!--{else}-->
 	<span>呼~~这里还是空的~~</span>
+	<br>在大东街吼一下
 	<!--{/if}-->
 </div> 
 <ul class="t_l" id="SHARE_DETAIL_LiST">
@@ -29,7 +30,7 @@
 	?>
 	<li class="t_f" id="SHARE_LIST_{$share_item['share_id']}">
 		<!--{if $share_item['type'] == 'fav' && $parent_share}--> 
-		<div class="t_tag"> <span class="t">{$share_item['time']}</span> </div>
+		<div class="t_tag"> <a class="t" href="{$parent_share['url']}" target="_blank">{$share_item['time']}</a> </div>
 		<div class="fav_label">
 			<div class="fl_p">
 				<div>
@@ -42,7 +43,7 @@
 		</div>
 		<!--{eval $share_item = $parent_share;}-->
 		<!--{else}--> 
-		<div class="t_tag"> <span class="t" >{$share_item['time']}</span> </div>
+		<div class="t_tag"> <a class="t" href="{$share_item['url']}" target="_blank">{$share_item['time']}</a> </div>
 		<!--{/if}--> 
 		<div class="hd">
 			<!--{getuser $share_item['uid'] 0 'm,48' ',avt icard r5 lazyload'}-->
@@ -179,8 +180,8 @@
 				<!--{if $self_share['authoritys'] > 0}-->
 				<a w="f" href="javascript:;" class="mg SHARE_MANAGE">管理</a>
 				<!--{/if}-->
-				<a w="f" href="javascript:;" class="fw ed" onclick="$.Relay_Share($share_item['share_id']);">转发({$share_item['relay_count']})</a>
-				<a w="f" href="javascript:;" class="cmt ed" shareID="{$share_item['share_id']}" onclick="$.Get_Share_Comment_List(this);">评论({$share_item['comment_count']})</a>
+				<a w="f" href="javascript:;" class="fw ed" onclick="$.Relay_Share($share_item['share_id']);">热心传递({$share_item['relay_count']})</a>
+				<a w="f" href="javascript:;" class="cmt ed" shareID="{$share_item['share_id']}" onclick="$.Get_Share_Comment_List(this);">絮絮叨叨({$share_item['comment_count']})</a>
 			</div>
 			<ul class="SHARE_FAV_LIST u_like">
 				<!--{loop $share_item['collects'] $collect_uid}-->
