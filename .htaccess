@@ -62,6 +62,11 @@ RewriteRule ^group/(\d+)/(\d+)$  group\.php\?action=detail&fid=$1&page=$2 [QSA,L
 RewriteRule ^group/(\d+)$  group\.php\?action=detail&fid=$1 [QSA,L]
 RewriteRule ^group$  group\.php\?action=index [QSA,L]
 
+RewriteRule ^group/i$  group.php?action=i [QSA,L]
+RewriteRule ^group/i-(\d+)$  group.php?action=i&page=$1 [QSA,L]
+RewriteRule ^group/i-t(\d+)$  group\.php\?action=i&type=top&page=$1 [QSA,L]
+RewriteRule ^group/i-b(\d+)$  group\.php\?action=i&type=best&page=$1 [QSA,L]
+
 RewriteRule ^topic/create/(\d+)$  topic\.php\?action=create&fid=$1 [QSA,L]
 RewriteRule ^topic/edit/(\d+)$  topic\.php\?action=edit&tid=$1 [QSA,L]
 RewriteRule ^topic/detail/(\d+)/(\d+)$  topic\.php\?action=detail&tid=$1&page=$2 [QSA,L]

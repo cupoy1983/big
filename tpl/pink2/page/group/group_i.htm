@@ -1,0 +1,260 @@
+<?php
+	$css_list[0]['url'] = './tpl/css/club.css';
+	$js_list[0][] = './tpl/js/group.js';
+	$js_list[0][] = './public/js/jquery.slides.js';
+?>
+<!--{template inc/header}-->
+<style>
+<!--
+#content {
+    width: 730px;
+}
+.toplic_content{
+	width:700px;
+}
+.topic_list{
+	padding-left:0;
+}
+.group_entry{
+	padding-left:30px;
+}
+.group_entry ul li {
+    float: left;
+    height: 110px;
+    padding-left: 10px;
+    padding-right: 80px;
+    padding-top: 15px;
+}
+.group_entry ul li .last{
+    padding-right: 25px;
+}
+.group_entry li img {
+    border-radius: 5px 5px 5px 5px;
+    height: 80px;
+    width: 80px;
+}
+
+.group_entry ul li p {
+    font-family: "微软雅黑";
+    font-size: 15px;
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+}
+.headlines {padding:30px 10px 20px;background:#fff; } 
+.headlines .hot-ask { float:left;width:335px;margin-right:20px; } 
+.headlines .hot-knowledge { float:left;width:335px; } 
+.headlines h2 { line-height:16px;margin-bottom:10px;font-size:12px;padding-left:20px;background-image:url(/tpl/pink2/images/icon-forum.png);background-repeat:no-repeat; } 
+.headlines .hot-ask h2 { background-position:0 -20px; } 
+.headlines .hot-knowledge h2 { background-position:0 -0px; } 
+.headlines .hot-list li { padding:5px 0 7px;height:25px;line-height:25px;border-top:1px dotted #d1d1d1;text-align:right; } 
+.headlines .hot-list li img { float:left;margin-right:5px;width:25px;height:25px; } 
+.headlines .hot-list li .text { float:left;width:230px;text-align:left; } 
+.headlines .hot-list li .text a { color:#333; } 
+
+.topic-oper{background-color:#f3f3f3;height:35px;margin-bottom:10px;}
+.topic-oper dl{float:left;margin:0 15px 0 15px;_margin:0 8px;padding:10px 0 0 0;}
+.topic-oper dl dt{float:left;padding:0;_padding-top:2px;+padding-top:2px}
+.topic-oper dl dd{float:left;border-right:1px solid #ddd;}
+.topic-oper dl dd a{margin:0 5px;}
+.topic-oper dl dd.current a{cursor:default;color:#666;}
+.topic-oper dl dd.current a:hover{text-decoration:none;}
+.topic-oper dl dd.last{border-right:none;}
+.topic-oper form{float:right;padding-top:6px;margin-right:0px;width:243px;}
+.topic-oper form input.txt{border:1px solid #ddd;height:20px;line-height:20px;width:180px;float:left;font-size:12px;}
+
+.activity h2 { background-position:0 -100px; } 
+
+.active_u{
+	margin-bottom: 10px;
+    padding: 10px;
+}
+
+.active_u .hd {
+    border-bottom: 1px dotted #D1D1D1;
+    line-height: 1.2;
+    margin: 0 0 5px;
+    padding: 0 0 6px;
+}
+.user-member li {
+    padding: 5px 0 5px 50px;
+	display: block;
+    line-height: 20px;
+}
+.user-member li a {
+    color: #666666;
+}
+.user-member li a.img {
+    float: left;
+	display:block;
+    height: 40px;
+    margin-left: -50px;
+    margin-right: 4px;
+    width: 40px;
+}
+.user-member li span {
+    color: #999999;
+    display: block;
+}
+
+-->
+</style>
+<div id="body" class="wrapper">
+	<div style="background-color:#fff;" class="clearfix pb40">
+		<div id="content" class="fl">
+		
+	<div class="group_entry">
+		<ul>
+			<!--{loop $newGroups $group_item}-->      
+			<li>
+				<a href="{u group/detail fid=$group_item['fid']}" target="_blank"><img class="r5 lazyload" height="50" original="{getimg $group_item['icon']['img'] 100 100 1}"  src="./tpl/images/lazyload.gif"/></a>
+				<p><a href="{u group/detail fid=$group_item['fid']}" target="_blank">{cutstr $group_item['name'] 10}</a></p>
+			</li>
+			<!--{/loop}-->
+	    </ul>
+	    <div class="clr"></div>
+	</div>
+
+	<div class="headlines clearfix">
+	    <div class="hot-ask">
+	      <h2>更多精华</h2>
+	      <ul class="hot-list clearfix">
+			<!--{loop $topTopics $top}-->      
+			<li>
+				<!--{getuser $top['uid'] 0 's,30' ''}-->
+				<div class="text"><a class="tit fl" target="_blank" href="{$top['url']}"> {cutstr $top['title'] 35} </a></div>
+				<span class="reply-num gc">{$top['post_count']}条回复</span>
+			</li>
+			<!--{/loop}-->
+	      </ul>
+	    </div>
+	    <div class="hot-knowledge">
+      <h2>更多置顶</h2>
+      <ul class="hot-list clearfix">
+        <!--{loop $bestTopics $best}-->      
+			<li>
+				<!--{getuser $best['uid'] 0 's,30' ''}-->
+				<div class="text"><a class="tit fl" target="_blank" href="{$best['url']}"> {cutstr $best['title'] 35} </a></div>
+				<span class="reply-num gc">{$best['post_count']}条回复</span>
+			</li>
+			<!--{/loop}-->
+      </ul>
+    </div>
+  	</div>
+  		
+			<div class="toplic_content">
+				<div class="topic-oper">
+			        <dl>
+			          <dt></dt>
+			          <dd class="current"><a>全部</a>-</dd>
+			          <dd><a href="/group/i-b1">精华</a>-</dd>
+			          <dd><a href="/group/i-t1">置顶</a></dd>
+			        </dl>
+			        <form action="/search.php?action=topic" class="search-forum">
+			          	<input type="text" value="" class="txt" name="keyword" tooltip="搜小组主题">
+			          	<input type="submit" value="搜索" class="sbl-btn">
+			          	<input type="hidden" name="action" value="topic">
+			        </form>
+		      	</div>
+      
+      
+				<ul class="topic_list">
+					<!--{loop $topic_list $topic}-->
+					<li class="tl_f" topicID="{$topic['tid']}" id="TOPIC_ID_{$topic['tid']}">
+						<div class="tl_c"> 
+							<!--{if $topic['is_best'] == 1}-->
+							<div class="img_tj"></div>
+							<!--{/if}--> 
+							<img class="pic r5 lazyload" height="50" original="{getimg $newGroups[$topic['fid']]['icon']['img'] 100 100 1}"  src="./tpl/images/lazyload.gif"/>
+							<p class="ct"> <a class="tit fl" target="_blank" href="{$topic['url']}"> 
+								<!--{if $topic['is_top'] == 1}--> 
+								<span class="top fl">[{lang topic_top}]</span> 
+								<!--{/if}--> 
+								{cutstr $topic['title'] 60} </a><br />
+								<!--{getuser $topic['uid'] 0 '' 'n'}--> 
+								<span class="p_time"> 
+								<!--{if !empty($topic['lastposter'])}--> 
+								{lang last_post} : <!--{getuser $topic['lastposter'] 0 '' 'n'}--> 
+								{$topic['last_time']} 
+								<!--{/if}--> 
+								</span>
+							</p>
+						</div>
+						<div class="count">{$topic['post_count']}</div>
+						<a class="all" target="_blank"  href="{$topic['url']}">{lang view_full_text}</a>
+					</li>
+					<!--{/loop}-->
+				</ul>
+				<div class="pagination mt40"> 
+					<!--{subtemplate inc/pages}--> 
+				</div>
+			</div>
+		</div>
+		<div id="sidebar" class="fr" style="width:230px;background-color:#fff;"> 
+			
+			
+			<div class="activity headlines">
+		      <h2>精彩活动</h2>
+		      <div class="ad-box"> <a target="_blank" href="http://guang.com/topicset/topicset16?gad=tlbgg"> <img width="220" height="320" title="#主题合集#偶尔帅气生活" alt="#主题合集#偶尔帅气生活" src="http://qlimg1.meimei22.com/pic/qingliang/2013-5-30/1/1.jpg"> </a> </div>
+    		</div>
+			
+		<div class="active_u">
+		        <div>
+		          <h3>活跃成员</h3>
+		        </div>
+		        <div>
+					<ul class="group_daren_list" >
+						<!--{loop $group_darens $daren}-->
+						<li>
+							<a href="{u u/index uid=$daren['uid']}" target="_blank"><img class="fl avatar r3 lazyload" original="{getimg $daren['img'] 100 100 1}"  height="80"  src="./tpl/images/lazyload.gif" /></a>
+							<div class="daren_info">
+								<!--{getuser $daren['uid'] 0 '' '' 'inc/getuser/group_daren'}-->
+							</div>
+						</li>
+						<!--{/loop}-->
+					</ul>
+		        </div>
+    	</div>
+    
+    
+		</div>
+	</div>
+	<div class="piece1_ft"></div>
+</div>
+<script type="text/javascript">
+jQuery(function($){
+<!--{if getIsManage('club')}-->
+	$('.topic_list .tl_f').hover(function(){
+		var topicID = this.getAttribute('topicID');
+		$.GetManageMenu('club',topicID,this);
+	},function(){});
+<!--{/if}-->
+	
+	$(".topic_list li").hover(function(){
+		$(this).addClass('h');
+        $(this).find('.del_topic').addClass('del_css');
+	},function(){
+		$(this).removeClass('h');
+        $(this).find('.del_topic').removeClass('del_css');
+	});
+
+	$(".topic_list .tl_c .pic").hover(function(){
+		var li = $(this).parent().parent();
+		if($('.show_big_img',li).length > 0)
+		{
+			var html = $('.show_big_img',li).html();
+			html = html.replace(/timgsrc/g,'src');
+			html = '<div class="tl_pic_float">'+ html +'<i></i></div>';
+			var offset = $(this).offset();
+			var left = offset.left;
+			var top = offset.top;
+			$("body").append(html);
+			$(".tl_pic_float").css({"top":top-128,"left":left-42,"width":$('.show_big_img img',li).length * 110 + 5});
+		}
+	},function(){
+		$(".tl_pic_float").remove();
+	});
+});
+</script> 
+<!--{template inc/footer}-->

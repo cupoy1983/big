@@ -112,7 +112,7 @@ zoom:1; *float:left;
 .tl_f .p_time .n { color:#6F980B; margin:0 8px 0 0; }
 .tl_f .more { display:none; color:#999; white-space:nowrap; line-height:24px; }
 .tl_f .more a { color:#6F980B; margin-right:7px; }
-.tl_f .img_tj { z-index:333; width:23px; height:24px; position:absolute; top:2px; left:-10px; background:url('../images/jian.png') no-repeat; _background-image:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/jian.png', sizingMethod='scale');
+.tl_f .img_tj { z-index:333; width:23px; height:24px; position:absolute; top:2px; left:0px; background:url('../images/jian.png') no-repeat; _background-image:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/jian.png', sizingMethod='scale');
 }
 .tl_pic_float { z-index:888; float:left; height:125px; background:url(../images/topic_pic_bg.png) no-repeat; position:absolute; }
 .tl_pic_float i { display:blcok; float:left; width:10px; height:125px; background:url(../images/topic_pic_bg.png) left -125px no-repeat; position:absolute; }

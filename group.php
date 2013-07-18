@@ -1,7 +1,7 @@
 <?php 
 define('MODULE_NAME','Group');
 
-$actions = array('index','detail','create','edit','save','update','agreement','users','apply');
+$actions = array('i','index','detail','create','edit','save','update','agreement','users','apply');
 $action = 'index';
 
 if(isset($_REQUEST['action']))
@@ -21,6 +21,9 @@ require fimport('module/group');
 
 switch(ACTION_NAME)
 {
+	case 'i':
+		GroupModule::i();
+	break;
 	case 'index':
 		GroupModule::index();
 	break;

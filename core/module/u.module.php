@@ -193,7 +193,7 @@ class UModule
 			if(!FS('User')->getIsFollowUId($home_uid))
 				$is_show_follow = true;
 		}
-
+		$_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].'的个人主页';
 		include template('page/u/u_book');
 		display();
 	}
@@ -231,7 +231,8 @@ class UModule
 		    $share_list_html = tplFetch("inc/u/u_share_list",$args);
         else
             $share_list_html = tplFetch("inc/u/me_share_list",$args);
-
+		
+        $_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].'的最新动态';
 		include template('page/u/u_me');
 		display();
 	}
@@ -436,7 +437,8 @@ class UModule
 		
 		$args = array('share_list'=>&$share_list,'pager'=>&$pager,'pb_url'=>&$pb_url,'pb_list'=>&$pb_list,'book_type'=>'all');
 		$share_list_html = tplFetch("inc/u/book_share_list",$args);
-
+		
+		$_FANWE['nav_title'] = '为它疯狂的'.$_FANWE['home_user_names']['name'];
 		include template('page/u/u_fav');
 		display();
 	}
@@ -493,6 +495,7 @@ class UModule
 		$args = array('share_list'=>&$share_list,'pager'=>&$pager,'pb_url'=>&$pb_url,'pb_list'=>&$pb_list,'book_type'=>'goods');
 		$share_list_html = tplFetch("inc/u/book_share_list",$args);
 		
+		$_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].'分享的宝贝';
 		include template('page/u/u_book_list');
 		display();
 	}
@@ -549,6 +552,7 @@ class UModule
 		$args = array('share_list'=>&$share_list,'pager'=>&$pager,'pb_url'=>&$pb_url,'pb_list'=>&$pb_list,'book_type'=>'look');
 		$share_list_html = tplFetch("inc/u/book_share_list",$args);
 		
+		$_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].'的晒货';
 		include template('page/u/u_book_list');
 		display();
 	}
@@ -605,6 +609,7 @@ class UModule
 		$args = array('share_list'=>&$share_list,'pager'=>&$pager,'pb_url'=>&$pb_url,'pb_list'=>&$pb_list,'book_type'=>'dapei');
 		$share_list_html = tplFetch("inc/u/book_share_list",$args);
 		
+		$_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].'的搭配';
 		include template('page/u/u_book_list');
 		display();
 	}
@@ -661,6 +666,7 @@ class UModule
 		$args = array('share_list'=>&$share_list,'pager'=>&$pager,'pb_url'=>&$pb_url,'pb_list'=>&$pb_list,'book_type'=>'photo');
 		$share_list_html = tplFetch("inc/u/book_share_list",$args);
 		
+		$_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].'的相册';
 		include template('page/u/u_book_list');
 		display();
 	}
@@ -695,6 +701,7 @@ class UModule
 		}
 		FS('Group')->formatByIdKeys($group_ids,false);
 		
+		$_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].'的帖子';
 		include template('page/u/u_topic');
 		display();
 	}
@@ -1176,6 +1183,7 @@ class UModule
 		}
 		if(count($album_list) > 0)
 			FS('Album')->albumImagesFormat($album_list);
+		$_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].'的杂志铺';
 		include template('page/u/u_album');
 		display();
 	}

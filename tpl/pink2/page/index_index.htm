@@ -5,57 +5,33 @@
 <!--{template inc/header}-->
 <div id="body" class="fm960">
 	<div id="slide"> 
-  <!-- 代码 开始 -->
-  <div id="photos" class="galleryview" style=" background: border:1px solid #000">
-    <div class="panel"> <img src="/images/slide1.jpg" width="972" height="300" /> </div>
-    <div class="panel"> <img src="/images/slide4.jpg" width="972" height="300" /> </div>
-    <div class="panel"> <img src="/images/slide5.jpg" width="972" height="300" /> </div>
-    <div class="panel"> <img src="/images/slide6.jpg" width="972" height="300" /> </div>
-    <div class="panel"> <img src="/images/slide4.jpg" width="972" height="300" /> </div>
-    <div class="panel"> <img src="/images/slide5.jpg" width="972" height="300" /> </div>
-    <div >
-      <ul class="filmstrip" >
-        <li><img src="/images/slide1.jpg" width="162" height="50" /></li>
-        <li><img src="/images/slide4.jpg" width="162" height="50" /></li>
-        <li><img src="/images/slide5.jpg" width="162" height="50" /></li>
-        <li><img src="/images/slide6.jpg" width="162" height="50" /></li>
-        <li><img src="/images/slide4.jpg" width="162" height="50" /></li>
-        <li><img src="/images/slide5.jpg" width="162" height="50" /></li>
-      </ul>
-    </div>
-  </div>
-  
-  <!-- 代码 结束 --> 
-  
-</div>
-<div class="main" >
-  
-  <div class="types">
-  
-	<!--{loop $best_albums $album}-->
-    <div class="box-item">
-      <div style="width:284px; margin:auto">
-        <ul class="title">
-          <a href="{$album['url']}">{$album['title']}</a>
-        </ul>
-        <ul class="content">
-          <li class="c1"><a href="{$album['url']}"><img scaleSrc="{getimg $album['img']['img'] 468 468}" scaleType="3" scaleWidth="160" scaleHeight="160" src="./tpl/images/lazyload.gif" class="LOAD_SCALE_IMG"></a></li>
-          <li class="c2">
-            <p>小站简介</p>
-            <p class="p2">{$album['content']}</p>
-            <p class="p3">{$album['collect_count']}</p>
-            <p class="p4">
-            	<!--{getuser $album['uid'] 0 's,20' 'abl_uimg'}-->
-				<!--{getuser $album['uid'] 0 '' 'abl_uname'}-->
-			</p>
-          </li>
-        </ul>
-      </div>
-    </div>
-	<!--{/loop}--> 
-   
-  </div>
-</div>
+		{advlayout id=6}
+	</div>
+	<div class="main" >
+	  <div class="types">
+		<!--{loop $best_albums $album}-->
+	    <div class="box-item">
+	      <div style="width:284px; margin:auto">
+	        <ul class="title">
+	          <a href="{$album['url']}">{$album['title']}</a>
+	        </ul>
+	        <ul class="content">
+	          <li class="c1"><a href="{$album['url']}"><img scaleSrc="{getimg $album['img']['img'] 468 468}" scaleType="3" scaleWidth="160" scaleHeight="160" src="./tpl/images/lazyload.gif" class="LOAD_SCALE_IMG"></a></li>
+	          <li class="c2">
+	            <p>小站简介</p>
+	            <p class="p2">{$album['content']}</p>
+	            <p class="p3">{$album['collect_count']}</p>
+	            <p class="p4">
+	            	<!--{getuser $album['uid'] 0 's,20' 'abl_uimg'}-->
+					<!--{getuser $album['uid'] 0 '' 'abl_uname'}-->
+				</p>
+	          </li>
+	        </ul>
+	      </div>
+	    </div>
+		<!--{/loop}--> 
+	  </div>
+	</div>
 <br style="clear:both">
 </div>
 <script type="text/javascript"> 

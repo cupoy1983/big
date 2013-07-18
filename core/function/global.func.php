@@ -252,6 +252,10 @@ function FU($type,$args = array(),$is_full = false)
 			case 'group':
 				switch($action)
 				{
+					case 'i':
+						$search = array('page/','i/','type/','best/','top/');
+						$replace = array('','i-','','b','t');
+					break;
 					case 'index':
 						$search = array('/index');
 						$replace = array('');
