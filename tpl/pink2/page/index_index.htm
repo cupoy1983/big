@@ -1,4 +1,5 @@
 <?php
+	$css_list[0]['url'] = './tpl/css/index.css';
 	$js_list[0] = './public/js/jquery.galleryview-1.1.js';
 	$js_list[1] = './public/js/jquery.timers-1.1.2.js';
 ?>
@@ -8,9 +9,23 @@
 		{advlayout id=6}
 	</div>
 	<div class="main" >
+		<div class="fun_link"> 
+			<ul>
+		    	<li class="fun1"><a href="#"><p>本季大家淘到的33966件精品</p></a></li>
+		    	<li class="fun2"><a href="#"><p>汇聚800家B2C商城商品</p></a></li>
+		    	<li class="fun3"><a href="#"><p>有77家商城在搞活动啦</p></a></li>
+		    	<li class="fun4"><a href="#"><p>ios/android客户端下载 </p></a></li>
+		    </ul>
+	  	</div>
+	
 	  <div class="types">
+	  	<!--{eval $index = 0;}-->
 		<!--{loop $best_albums $album}-->
-	    <div class="box-item">
+		<!--{eval $index++;}-->
+		<!--{if $index % 3 == 1}-->
+		<div class="box_row">
+		<!--{/if}-->
+	    <div class="box_item {if $index % 3 == 0}last{/if}">
 	      <div style="width:284px; margin:auto">
 	        <ul class="title">
 	          <a href="{$album['url']}">{$album['title']}</a>
@@ -18,7 +33,7 @@
 	        <ul class="content">
 	          <li class="c1"><a href="{$album['url']}"><img scaleSrc="{getimg $album['img']['img'] 468 468}" scaleType="3" scaleWidth="160" scaleHeight="160" src="./tpl/images/lazyload.gif" class="LOAD_SCALE_IMG"></a></li>
 	          <li class="c2">
-	            <p>小站简介</p>
+	            <p>杂志简介</p>
 	            <p class="p2">{$album['content']}</p>
 	            <p class="p3">{$album['collect_count']}</p>
 	            <p class="p4">
@@ -29,6 +44,9 @@
 	        </ul>
 	      </div>
 	    </div>
+		<!--{if $index % 3 == 0}-->
+		</div>
+		<!--{/if}-->
 		<!--{/loop}--> 
 	  </div>
 	</div>
@@ -36,11 +54,16 @@
 </div>
 <script type="text/javascript"> 
 	$(document).ready(function(){
-		$('#photos').galleryView({
+		$("#photos").galleryView({
 			panel_width: 972,
 			panel_height: 300,
 			frame_width:162,
 			frame_height: 50
+		});
+		$(".fun_link ul li").hover(function(){
+			$(this).css("background-image","url(/tpl/pink2/images/fun-bg2.png)");
+		}, function() {
+			$(this).css("background-image","url(/tpl/pink2/images/fun-bg1.png)");
 		});
 	});
 </script>

@@ -5,17 +5,17 @@
 <!--{template inc/header}-->
 <div class="wrapper"> 
 	<div class="album_subnav">
-		<a href="{u album/index}">全部</a>
+		<a href="{u album/index}" rel="nofollow" >全部</a>
 		<!--{loop $_FANWE['cache']['albums']['category'] $category}-->
 		<span></span>
-		<a href="{$category['url']}"{if $category['id'] == $album_cate['id']} class="c"{/if}>{$category['name']}</a>
+		<a href="{$category['url']}"{if $category['id'] == $album_cate['id']} class="c"{/if}><h2>{$category['name']}</h2></a>
 		<!--{/loop}-->
 	</div>
 </div>
 <div class="wrapper">
 	<div class="album_sort">
 		<strong>排序：</strong>
-		<a href="{u album/category id=$album_cate['id'],sort=new}"{if $sort == 'new'} class="c"{/if}>最新</a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span><a href="{u album/category id=$album_cate['id'],sort=hot}"{if $sort == 'hot'} class="c"{/if}>最热</a>
+		<a href="{u album/category id=$album_cate['id'],sort=new}"  {if $sort == 'new'}rel="nofollow" class="c"{/if}>最新</a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span><a href="{u album/category id=$album_cate['id'],sort=hot}"{if $sort == 'hot'} rel="nofollow" class="c"{/if}>最热</a>
 	</div>
 </div>
 <div class="clear"></div>
@@ -23,7 +23,7 @@
 	<ul>
 		<!--{loop $album_list $album}-->
 		<li>
-			<a class="abl_big" target="_blank" href="{$album['url']}"><img scaleSrc="{getimg $album['img']['img'] 468 468}" scaleType="3" scaleWidth="223" scaleHeight="223" src="./tpl/images/lazyload.gif" class="LOAD_SCALE_IMG"/></a>
+			<a class="abl_big" target="_blank" href="{$album['url']}"><img scaleSrc="{getimg $album['img']['img'] 468 468}" alt="{$album['title']}预览图"scaleType="3" scaleWidth="223" scaleHeight="223" src="./tpl/images/lazyload.gif" class="LOAD_SCALE_IMG"/></a>
 			<div class="abl_smalls">
 				<!--{eval $list_img_counts = array(0,0,0,0);}-->
 				<!--{loop $album['imgs'] $img}-->
@@ -31,7 +31,7 @@
 				<!--{eval break;}-->
 				<!--{/if}-->
 				<!--{if $img['img'] != $album['img']['img']}-->
-				<a target="_blank" href="{$album['url']}"><img scaleSrc="{getimg $img['img'] 100 100}" scaleType="3" scaleWidth="55" scaleHeight="55" class="LOAD_SCALE_IMG" /></a>
+				<a target="_blank" href="{$album['url']}"><img scaleSrc="{getimg $img['img'] 100 100}" alt="{$album['title']}小图片" scaleType="3" scaleWidth="55" scaleHeight="55" class="LOAD_SCALE_IMG" /></a>
 				<!--{eval array_pop($list_img_counts);}-->
 				<!--{/if}-->
 				<!--{/loop}-->

@@ -20,7 +20,7 @@
 						<!--{/loop}-->
 					</ul>
 					<ul class="logo">
-         				<a href="{u index}"><img class="logo fl" src="{$_FANWE['site_root']}{$_FANWE['setting']['foot_logo']}" /></a>
+         				<a href="{u index}"><img class="logo fl" src="{$_FANWE['setting']['foot_logo']}" /></a>
         			</ul>
 					<!--{else}-->
 					<ul class="n1">
@@ -36,7 +36,7 @@
 		<ul class="n2">
         	大东街2013 www.dadongjie.com 大东街&mdash;&mdash;女人的后花园 苏ICP备11008062号-5 苏ICP备11008062号-5
         </ul>
-        
+    	<!--{if MODULE_NAME=='Index' && ACTION_NAME == 'index'}-->
         <ul class="links">
         友情链接：
         	<!--{eval $link_index = 1;}-->
@@ -48,6 +48,7 @@
 				<!--{eval $link_index++;}-->
 				<!--{/loop}-->
         </ul>
+    	<!--{/if}-->
     </div>
 </div>
 </div>

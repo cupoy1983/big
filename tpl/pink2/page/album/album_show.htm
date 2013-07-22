@@ -93,7 +93,7 @@
 					<!--{loop $share['imgs'] $share_img}-->
 					<li>
 						<a style="width:200px;" href="{$share_img['url']}" target="_blank">
-							<img class="book_img lazyload" original="{getimg $share_img['img'] 200 999}" width="200" src="./tpl/images/lazyload.gif" oldWidth="{$share_img['img_width']}" oldHeight="{$share_img['img_height']}" alt="{$share_img['alt']}"/>
+							<img class="book_img lazyload" original="{getimg $share_img['img'] 200 999}" alt="{cutstr $share['content'] 96}" width="200" src="./tpl/images/lazyload.gif" oldWidth="{$share_img['img_width']}" oldHeight="{$share_img['img_height']}" alt="{$share_img['alt']}"/>
 						</a>
 						<!--{if $share_img['type'] == 'g'}-->
 						<!--{if $share_img['commission'] > 0}-->
@@ -157,7 +157,7 @@
         		<div class="albumall_more">
 					<div class="album_more">
 						<h1>{$album_user['user_name']}的其他{lang common/album}</h1>
-						<a href="{u u/album uid=$album['uid']}" class="more_btn">查看更多</a>
+						<a href="{u u/album uid=$album['uid']}" rel="nofollow"  class="more_btn">查看更多</a>
 					</div>
             		<ul class="album_more_pic clearfix">
 						<!--{eval $album_index = 0;}-->
@@ -177,7 +177,7 @@
 								<!--{loop $list_img_counts $imgkey $imgindex}-->
 								<!--{eval $img = $album['imgs'][$imgkey];}-->
 								<!--{if !empty($img)}-->
-								<li><a target="_blank" href="{$album['url']}"><img src="{getimg $img['img'] 100 100}" /></a></li>
+								<li><a target="_blank" href="{$album['url']}"><img src="{getimg $img['img'] 100 100}" alt="{cutstr $album['content'] 98}"/></a></li>
 								<!--{else}-->
 								<li><a target="_blank" class="add_img" href="{$album['url']}"><img src="./tpl/images/none_pic.png" /></a></li>
 								<!--{/if}-->

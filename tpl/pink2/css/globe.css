@@ -23,7 +23,7 @@ a.v:hover { background-color:transparent!important; }
 .blue_alert_l, .blue_alert_m, .blue_alert_s { border:1px solid #3cc1ff; background-color:#d1f2f8; color:#0b7cb6; }
 .fl_time { margin-top:10px; margin-right:10px; color:#9c9c9c; }
 html, body { height:100%; }
-body { font-size: 12px;color:#2a2a2a; background:url(../images/body_bg.png) 0 123px repeat-x #fafafa;}
+body { font-size: 12px;color:#2a2a2a; background:url(../images/bg-v1.png);}
 #head, #body_wrap {font-size: 12px; min-width:960px; _width:expression(document.body.clientWidth < 960 ? '960px':'auto');}
 #body { font-size:12px; color:#484848; }
 .fm960 { margin:0 auto; width:960px; }
@@ -225,3 +225,76 @@ width:53px; height:53px; display:none; }
 #MANAGE_MENU_BOX{position:absolute; background-color:#fff; border:2px solid #f69; padding:6px; float:left; font-size:12px;}
 #MANAGE_MENU_BOX .manage_menu{line-height:1.5em; white-space: nowrap;}
 #MANAGE_MENU_BOX .manage_menu a:hover{color:#f69;}
+
+#footer .g_foot,#site-nav-bd {
+	width:990px
+}
+.foot{
+	width:100%;
+	height:280px;
+	margin:auto;
+	clear:both;
+	background:#F6F6F6;}
+
+.foot .xian{
+	height:4px;
+	background:#DD2C71;
+	clear:both;
+	overflow:hidden;
+	margin-top:25px;
+	}
+.foot .nav_foot{
+	width:990px;
+	margin:auto;}
+.foot .nav_foot ul{
+	float:left;}
+.foot .nav_foot ul.n1{
+	width:100px;
+	margin-left:70px;
+	display:inline}
+.foot .nav_foot ul.n1 li.content{
+	line-height:20px;
+	text-indent:20px;
+	background:url(../images/foot_img2.jpg) no-repeat 3px 6px;
+}
+.foot .nav_foot ul.n1 li.title{
+	height:65px;
+	line-height:65px;
+	color:#DD2C71;
+	font-weight:bold;
+	text-indent:20px}
+.foot .nav_foot ul.n1 li.title_1{
+	background:url(../images/foot_img1.jpg) no-repeat left 23px;}
+.foot .nav_foot ul.n1 li.title_2{
+	background:url(../images/foot_img3.jpg) no-repeat left 23px;}
+.foot .nav_foot ul.n1 li.title_3{
+	background:url(../images/foot_img4.jpg) no-repeat left 23px;}
+.foot .nav_foot ul.n1 li.title_4{
+	background:url(../images/foot_img5.jpg) no-repeat left 23px;}
+
+.foot .nav_foot ul.n1 li.content a{
+	color:#4B4B4B;}
+.foot .nav_foot ul.n1 li.content a:hover{
+	color:#DD2C71}
+
+.foot .nav_foot ul.logo{
+	margin-top:25px;
+	margin-left:10px;}
+
+.foot .nav_foot ul.n2{
+	text-align:center;
+	width:990px;
+	clear:both;
+	margin-top:35px;}
+
+.foot .nav_foot ul.links{
+	line-height:28px;
+	clear:both;
+	width:990px;}
+
+.foot .nav_foot ul.links{
+	color:#999;}
+.foot .nav_foot ul.links a{
+	color:#333333;}
+.foot .nav_foot ul.links a:hover{
+	color:#DD2C71}
