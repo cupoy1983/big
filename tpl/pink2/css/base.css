@@ -37,8 +37,7 @@ h1,h2{font-family:"微软雅黑", "黑体", "宋体", Arial;}
 
 .clear:before,.clear:after { content:""; display:table;}
 .clear{clear:both; display:block; overflow:hidden; visibility:hidden; height:1px; zoom:1;}
-.clearfix:before, .clearfix:after { content:""; display:table; }
-.clearfix:after { clear:both; }
+.clearfix:before, .clearfix:after { clear: both;content: ".";display: block;font-size: 0;height: 0;line-height: 0;overflow: hidden;visibility: hidden; }
 .clearfix { zoom:1; }
 
 .blank3 {clear:both; height:3px; overflow:hidden; display:block;}
@@ -148,19 +147,9 @@ h1,h2{font-family:"微软雅黑", "黑体", "宋体", Arial;}
 .ofh { white-space:nowrap; word-wrap:normal; word-break:normal; text-overflow:ellipsis; -o-text-overflow:ellipsis; overflow:hidden; }
 .clr { clear:both; }
 .clear_in { overflow:hidden; zoom:1; }
-.clearfix:before, .clearfix:after { content:""; display:table; }
-.clearfix:after { clear:both; }
-.clearfix { zoom:1; }
-.clear { clear:both; display:block; overflow:hidden; visibility:hidden; width:0; height:0; }
 .hide{display:none;}
 .hide1{visibility:hidden;}
 .tipcolor{color:#999;}
-.blank3 {clear:both; height:3px; overflow:hidden; display:block;}
-.blank6 {clear:both; height:6px; overflow:hidden; display:block;}
-.blank9 {clear:both; height:9px; overflow:hidden; display:block;}
-.blank12 {clear:both; height:12px; overflow:hidden; display:block;}
-.blank15 {clear:both; height:15px; overflow:hidden; display:block;}
-.blank20 {clear:both; height:20px; overflow:hidden; display:block;}
 
 .message-box{width:522px; border:solid 1px #ddd; padding:0 0 41px 0; margin:120px auto; font-size:13px; background:#fff;}
 .message-box dt{height:36px; background:url(../images/b20.gif) repeat-x 0 0; overflow:hidden;line-height:36px; letter-spacing:2px;border-bottom:solid 1px #ddd; }

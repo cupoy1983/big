@@ -122,7 +122,7 @@ class TopicService
 			global $_FANWE;
 			$where = '';
 			if($fid > 0)
-				$where = ' WHERE sort !=0 AND ft.fid = '.$fid;
+				$where = ' WHERE ft.sort !=0 AND ft.fid = '.$fid;
 	
 			$order = 'ft.tid DESC';
 	

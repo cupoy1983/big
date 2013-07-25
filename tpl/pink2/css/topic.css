@@ -38,9 +38,9 @@ _padding-top:2px; line-height:16px; background:url(../images/adds.png) no-repeat
 #topic_con .pub_shop .shop_bar .rstar { height:15px; line-height:15px; }
 .pub_box { clear:both; margin-top:5px; }
 .pub_tit { color:#FF579A; font-size:14px; font-weight:bold; line-height:36px; }
-.pub_box .pub_edit { clear:both; width:900px; padding:0 20px 10px; background-color:#f1f1f1; position:relative; zoom:1; }
+.pub_box .pub_edit { clear:both; width:670px; padding:0 20px 10px; background-color:#f1f1f1; position:relative; zoom:1; }
 .pub_box .pub_txt { padding:2px 5px; border:1px solid #ccc; width:523px; height:72px; clear:both; overflow:hidden; background-color:#FFF; }
-.pub_box .pub_btn { width:54px; height:78px; background-color:#f69; border:none; color:#fff; font-size:14px; font-weight:bold; cursor:pointer;}
+.pub_box .pub_btn { width:80px; height:50px; background-color:#f69; border:none; color:#fff; font-size:14px; font-weight:bold; cursor:pointer;}
 .pub_box .pub_loading{background:url(../images/pub_loading.gif) no-repeat center center #F69;}
 .pub_box .pub_ext { padding:10px 0; clear:both; overflow:hidden; height:16px; }
 .pub_box .pub_opt { line-height:16px; _line-height:18px; _width:330px;}
@@ -91,7 +91,6 @@ line-height:24px; }
 #topic_head .topic_info { height:auto; padding:15px 50px 15px 20px; overflow:hidden; zoom:1; }
 #topic_head .topic_info .fl { margin:5px 15px 0 5px; width:65px; height:65px; }
 #topic_head .topic_info h1 { font-size:20px; color:#000; margin:0; display:inline; line-height:200%; }
-#topic_head .topic_info div { color:#666; line-height:150%; float:left; display:inline; margin-top:-5px; width:480px; _width:470px; margin-bottom:15px; }
 #topic_head .topic_info a { color:#E71F8D; }
 #topic_head .topic_info a:hover { color:#fff; background-color:#E71F8D; }
 #topic_head .topic_info .tool { color:#09e; padding:0 5px; }
@@ -291,7 +290,7 @@ _background-image:none; }
 
 .bar_title .piece_hd { background:url('../images/new_bar_hd_960x10.png') no-repeat; width:960px; height:10px; _background-image:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/new_bar_hd_960x10.png', sizingMethod='scale');
 }
-.bar_title .piece_bd { height:149px; position:relative; border-bottom:1px solid #f5307e; }
+.bar_title .piece_bd { height:100px; position:relative;}
 .bar_title .b_info { left:20px; overflow:hidden; padding:10px; zoom:1; position:absolute; top:14px; background-color:rgba(0, 0, 0, 0.5); filter:progid:DXImageTransform.Microsoft.gradient(startcolorstr=#7F000000, endcolorstr=#7F000000);
 }
 .b_info .b_n { color:#fff; padding-left:60px; }

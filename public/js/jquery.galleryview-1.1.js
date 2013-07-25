@@ -295,9 +295,9 @@
 			});
 			$('.strip_wrapper',j_gallery).css({
 				'position':'absolute',
-				'top':'248px',
-				'left':((gallery_width-wrapper_width)/2)+'px',
-				'width':wrapper_width+'px',
+				'top':'245px',
+				'left':((gallery_width-wrapper_width)/2) - 81 +'px',
+				'width':wrapper_width + 162 +'px',
 				'height':(opts.frame_height+frame_margin_top+(opts.show_captions?frame_caption_size:frame_margin_top))+'px',
 				'overflow':'hidden'
 			});
@@ -512,7 +512,7 @@
 	};
 	
 	$.fn.galleryView.defaults = {
-		panel_width: 400,
+		panel_width: 900,
 		panel_height: 300,
 		frame_width: 80,
 		frame_height: 80,

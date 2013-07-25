@@ -16,7 +16,6 @@ class TopicModule
 		$topic_user = FS('User')->getUserShowName($topic['uid']);
 		$forum_id = $topic['fid'];
 		$group_detail = FS('Group')->getGroupById($forum_id);
-		
 		$_FANWE['PAGE_SEO_SELF'] = $topic;
 		$_FANWE['PAGE_SEO_SELF']['content'] = cutStr(strip_tags($topic['content']),80,'');
 		$_FANWE['PAGE_SEO_SELF']['user_name'] = $topic_user['name'];
@@ -37,8 +36,9 @@ class TopicModule
 		$user_new_topics = FS('Topic')->getUserNewTopicList($tid,$topic['uid'],6);
 		$user_groups = FS('Group')->getGroupsByUid($topic['uid'],9);
 
-		if($forum_id > 0)
-			$topic_bests = FS('Topic')->getImgTopic('best',5,1,$topic['fid'],0,array($tid));
+		if($forum_id > 0){
+			$topic_bests = FS('Topic')->getTopicsByType("hot" ,$topic['fid'],10);
+		}
 		
 		$is_best = FS('Topic')->getIsBestTid($tid);
 		$best_count = $topic['best_count'];

@@ -1,13 +1,3 @@
-.clearfix:after {
-	content:'\0020';
-	display:block;
-	height:0;
-	clear:both
-}
-.clearfix {
-	*zoom:1
-}
-
 .fun_link{
 	width:972px;
 	height:85px;
@@ -21,7 +11,7 @@
 	margin:0px;
 	float:left;
 	padding:0px;
-	background:url(../images/fun-bg1.png) no-repeat}
+	background:url(../images/fun-bg2.png) no-repeat}
 	
 .fun_link  ul li p{
 	text-indent:72px;
@@ -108,10 +98,14 @@ width:71px;
 	overflow:hidden;
 	height:36px;
 	line-height:36px;
-	text-align:center;
+	text-align:left;
 	color:#989898;
 	font-weight:bold;
 	font-size:15px;
+}
+.main .types .box_item .p4 .s_image img{
+	top:4px;
+	position:relative;
 }
 
 #slide{
