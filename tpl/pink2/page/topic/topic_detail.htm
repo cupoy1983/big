@@ -3,7 +3,7 @@
 	$css_list[0]['url'][] = './tpl/css/topic.css';
 ?>
 <!--{template inc/header}-->
-
+ 
 <div id="body" class="fm980" style="margin-top:0px;">
 	<!--{if $group_detail}-->
 		<div class="bar_title">
@@ -227,11 +227,11 @@
 			<div class="bd user-member">
 				<ul>
 				
-				<!--{loop $topic_bests $topic}-->
+				<!--{loop $topic_bests $t}-->
 					<li>
-						<!--{getuser $topic['uid'] 0 'm,40' 'img'}-->
-						<a title="{$topic['title']}" class="wordbreak" href="{$topic['url']}">{cutstr $topic['title'] 25}</a>
-						<span>{$topic['post_count']}条讨论</span>
+						<!--{getuser $t['uid'] 0 'm,40' 'img'}-->
+						<a title="{$t['title']}" class="wordbreak" href="{$t['url']}">{cutstr $t['title'] 24}</a>
+						<span>{$t['post_count']}条讨论</span>
 					</li>
 				<!--{/loop}-->
 				</ul>
