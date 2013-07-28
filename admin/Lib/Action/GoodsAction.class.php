@@ -234,11 +234,10 @@ class GoodsAction extends CommonAction
 		$this->display();
 	}
 	
-	public function update()
-	{
+	public function update(){
 		$id = intval($_REQUEST['id']);
 		$model = D("Goods");
-		if (false === $data = $model->create ()) {
+		if (false === $data = $model->create ()){
 			$this->error ($model->getError());
 		}
 		
@@ -250,10 +249,8 @@ class GoodsAction extends CommonAction
 		
 		// 更新数据
 		$list=$model->save($data);
-		if (false !== $list)
-		{
-			if(!empty($goods_img))
-			{
+		if (false !== $list){
+			if(!empty($goods_img)){
 				vendor("common");
 				$img = array();
 				$img['id'] = $old_goods['img_id'];
@@ -265,43 +262,37 @@ class GoodsAction extends CommonAction
 			$this->saveLog(1,$id);
 			$is_update = false;
 			$goods_update_setting = array();
-			if($old_goods['name'] != $data['name'])
-			{
+			if($old_goods['name'] != $data['name']){
 				$is_update = true;
 				$goods_update_setting['name'] = 1;
 			}
 			
 			$update_sql = array();
-			if((float)$old_goods['price'] != (float)$data['price'])
-			{
+			if((float)$old_goods['price'] != (float)$data['price']){
 				$is_update = true;
 				$goods_update_setting['price'] = 1;
 				$update_sql[] = 'price = '.(float)$data['price'];
 			}
 
-			if((int)$old_goods['cid'] != (int)$data['cid'])
-			{
+			if((int)$old_goods['cid'] != (int)$data['cid']){
 				$is_update = true;
 				$goods_update_setting['cate'] = 1;
 			}
 
-			if((int)$old_goods['color'] != (int)$data['color'])
-			{
+			if((int)$old_goods['color'] != (int)$data['color']){
 				$is_update = true;
 				$goods_update_setting['color'] = 1;
 				$update_sql[] = 'color = '.(int)$data['color'];
 			}
 
-			if((int)$old_goods['shop_id'] != (int)$data['shop_id'])
-			{
+			if((int)$old_goods['shop_id'] != (int)$data['shop_id']){
 				$is_update = true;
 				$goods_update_setting['shop'] = 1;
 				$goods_update_setting['shop_id'] = (int)$old_goods['shop_id'];
 				$update_sql[] = 'shop_id = '.(int)$data['shop_id'];
 			}
 
-			if($is_update)
-			{
+			if($is_update){
 				if(count($update_sql) > 0)
 				{
 					M()->query('UPDATE '.C("DB_PREFIX").'share_goods SET '.implode(',',$update_sql).' WHERE goods_id = '.$id);
@@ -310,29 +301,27 @@ class GoodsAction extends CommonAction
 				$_SESSION['goods_update_id'] = $id;
 				$this->redirect('Goods/updateShare');
 			}
-		}
-		else
-		{
+			$this->assign('jumpUrl', Cookie::get ( '_currentUrl_' ) );
+			$this->success (L('EDIT_SUCCESS'));
+		}else{
 			//错误提示
 			$this->saveLog(0,$id);
 			$this->error (L('EDIT_ERROR'));
 		}
+		
 	}
 	
-	public function disable()
-	{
+	public function disable(){
 		$_SESSION['goods_remove_ids'] = '';
 		$id = $_REQUEST['id'];
-		if(!empty($id))
-		{
+		if(!empty($id)){
 			$model = D("Goods");
 			$condition = array('id' => array('in',explode(',',$id)));
 			$list = $model->where ($condition)->select();
 			$time = gmtTime();
 			$goods_ids = array();
 			$img_ids = array();
-			foreach($list as $item)
-			{
+			foreach($list as $item){
 				$goods_ids[] = $item['id'];
 				if($item['img_id'] > 0)
 					$img_ids[] = $item['img_id'];
@@ -343,8 +332,7 @@ class GoodsAction extends CommonAction
 				WHERE id IN (".$goods_ids_str.")";
 			M()->query($sql);
 			
-			if(false !== $model->where ( $condition )->delete())
-			{
+			if(false !== $model->where ( $condition )->delete()){
 				//$sql = 'DELETE FROM '.C("DB_PREFIX")."goods_order WHERE goods_id IN (".$goods_ids.")";
 				//M()->query($sql);
 				
@@ -358,14 +346,12 @@ class GoodsAction extends CommonAction
 				$_SESSION['goods_remove_ids'] = $goods_ids;
 				$this->saveLog(1,$id);
 				$this->redirect('Goods/removeShare');
-			}
-			else
-			{
+			}else{
 				$this->error(L('REMOVE_ERROR'));
 			}
-		}
-		else
-		{
+			$this->assign('jumpUrl', Cookie::get ( '_currentUrl_' ) );
+			$this->success (L('EDIT_SUCCESS'));
+		}else{
 			$this->error(L('ACCESS_DENIED'));
 		}
 	}

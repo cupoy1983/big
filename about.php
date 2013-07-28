@@ -6,6 +6,9 @@ $actions = array(
 		'contact',
 		'link',
 		'help',
+		'privacy',
+		'agreement',
+		'disclaimer',
 		'iphone',
 		'android'
 );
@@ -38,6 +41,15 @@ switch(Action_NAME) {
 		break;
 	case 'help' :
 		AboutModule::help();
+		break;
+	case 'privacy' :
+		AboutModule::privacy();
+		break;
+	case 'agreement' :
+		AboutModule::agreement();
+		break;
+	case 'disclaimer' :
+		AboutModule::disclaimer();
 		break;
 	case 'iphone' :
 		AboutModule::iphone();

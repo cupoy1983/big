@@ -483,6 +483,8 @@ h2 {display: block;font-size: 1.5em;-webkit-margin-before: 0.83em;-webkit-margin
     height: 30px;
     line-height: 30px;
     text-align: center;
+	display:block;
+	width:80px;
 }
 .headlines {padding:30px 10px 20px;background:#fff; } 
 .headlines .hot-ask { float:left;width:335px;margin-right:20px; } 

@@ -8,7 +8,7 @@ ins { text-decoration:none; }
 del { text-decoration:line-through; }
 table { border-collapse:collapse; border-spacing:0; }
 a { text-decoration:none; }
-* { word-wrap:break-word; word-break:break-all; color:#111; }
+* { word-wrap:break-word; word-break:break-all;}
 body, textarea, pre, input { font:12px/1.6 arial, sans-serif; }
 input, textarea { margin:0; padding:0; outline:0; font-size:100%; vertical-align:baseline; }
 hr { border:0 #ccc solid; border-top-width:1px; clear:both; height:0; }

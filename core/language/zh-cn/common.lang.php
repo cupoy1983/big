@@ -9,7 +9,7 @@ $lang = array(
 	
 	'ask'=>'问答',
     'ask_newtopic'=>'我要提问',
-    'group'=>'小组',
+    'group'=>'讨论吧',
     'club_newtopic'=>'发表主题',
     'daren'=>'达人',
     'home'=>'我的家',

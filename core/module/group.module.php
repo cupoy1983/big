@@ -5,45 +5,53 @@ class GroupModule{
 	 */
 	function i(){
 		global $_FANWE;
-		$fid = (int)$_FANWE['request']['fid'];
-		$page_args = array();
-		$page_type = 0;
-		$where = '';
-		
-		$type = $_FANWE['request']['type'];
-		if($type == 'best'){
-			$page_type = 1;
-			$where .= ' WHERE ft.is_best = 1';
-			$page_args['type'] = $type;
-		}else if($type == 'top'){
-			$page_type = 2;
-			$where .= ' WHERE ft.is_best = 1';
-			$page_args['type'] = $type;
-		}
-
-		$order = ' ORDER BY ft.is_top DESC,ft.tid DESC';
-		
-		$count = FDB::resultFirst('SELECT COUNT(ft.tid) FROM '.FDB::table('forum_thread').' AS ft '.$where);
-		$pager = buildPage('group/i',$page_args,$count,$_FANWE['page'],20);
-		$topic_list = array();
-
-		$sql = 'SELECT ft.fid,ft.tid,ft.title,ft.create_time,ft.lastpost,ft.lastposter,
+		$cache_file = getTplCache('page/group/group_i',array(),1);
+		if(getCacheIsUpdate($cache_file,SHARE_CACHE_TIME,1)){
+			$_FANWE['nav_title'] = lang('common','group');
+			$fid = (int)$_FANWE['request']['fid'];
+			$page_args = array();
+			$page_type = 0;
+			$where = '';
+			
+			$type = $_FANWE['request']['type'];
+			if($type == 'best'){
+				$page_type = 1;
+				$where .= ' WHERE ft.is_best = 1';
+				$page_args['type'] = $type;
+			}else if($type == 'top'){
+				$page_type = 2;
+				$where .= ' WHERE ft.is_best = 1';
+				$page_args['type'] = $type;
+			}
+			
+			$order = ' ORDER BY ft.is_top DESC,ft.tid DESC';
+			
+			$count = FDB::resultFirst('SELECT COUNT(ft.tid) FROM '.FDB::table('forum_thread').' AS ft '.$where);
+			$pager = buildPage('group/i',$page_args,$count,$_FANWE['page'],20);
+			$topic_list = array();
+			
+			$sql = 'SELECT ft.fid,ft.tid,ft.title,ft.create_time,ft.lastpost,ft.lastposter,
 			ft.uid,ft.post_count,ft.share_id,ft.is_top,ft.is_best
 			FROM '.FDB::table('forum_thread').' AS ft '	.$where.$order.' LIMIT '.$pager['limit'];
-		$res = FDB::query($sql);
-		while($data = FDB::fetch($res)){
-			$data['time'] = getBeforeTimelag($data['create_time']);
-			$data['last_time'] = getBeforeTimelag($data['lastpost']);
-			$data['url'] = FU('topic/detail',array('tid'=>$data['tid']));
-			$topic_list[$data['tid']] = $data;
+			$res = FDB::query($sql);
+			while($data = FDB::fetch($res)){
+				$data['time'] = getBeforeTimelag($data['create_time']);
+				$data['last_time'] = getBeforeTimelag($data['lastpost']);
+				$data['url'] = FU('topic/detail',array('tid'=>$data['tid']));
+				$topic_list[$data['tid']] = $data;
+			}
+			$group_darens = FS('Daren')->getDarensByType(4);
+			$newGroups = FS('Group')->getGroupsByType('new',4);
+			$topTopics = FS('Topic')->getTopicsByType('top', 0, 4);
+			$bestTopics = FS('Topic')->getTopicsByType('best', 0, 4);
+			
+			include template('page/group/group_i');
+			display($cache_file);
+		}else{
+			include $cache_file;
+			display();
 		}
-		$group_darens = FS('Daren')->getDarensByType(4);
-		$newGroups = FS('Group')->getGroupsByType('new',4);
-		$topTopics = FS('Topic')->getTopicsByType('top', 0, 4);
-		$bestTopics = FS('Topic')->getTopicsByType('best', 0, 4);
 		
-		include template('page/group/group_i');
-		display();
 	}
 	
 	function index()

@@ -381,3 +381,59 @@ right:-5px; top:-5px; }
 .pub_expand .pub_photo_detailed div{clear:both; height:20px; line-height:20px; width:260px;}
 .pub_expand .pub_photo_detailed div label{width:60px;line-height:20px;}
 .pub_expand .pub_photo_detailed .phd_close{width:11px; height:11px; display:block;background:url(../images/close_11x11_p.png) no-repeat 0 0; position:absolute; top:5px; right:5px; overflow:hidden; text-indent:-80px; cursor:pointer;}
+
+.create-topic {
+    background: none repeat scroll 0 0 #55AADD;
+    border-radius: 2px 2px 2px 2px;
+    color: #FFFFFF;
+    display: block;
+    font-size: 18px;
+    height: 40px;
+    line-height: 40px;
+    margin-bottom: 10px;
+    text-align: center;
+    width: 230px;
+}
+.fm230 .topic_adv {
+    padding: 10px;
+}
+.fm230 .box {
+    background-color: #FFFFFF;
+    clear: both;
+    margin-bottom: 10px;
+}
+.fm230 .box .hd {
+    border-bottom: 1px dotted #DDDDDD;
+    margin: 0 10px;
+    padding: 15px 0 8px;
+}
+.fm230 .box .bd {
+    margin: 0 10px;
+    overflow: hidden;
+    padding: 0 0 15px;
+}
+.fm230 .box .user-member li {
+    line-height: 20px;
+	padding: 5px 0 5px 50px;
+}
+.fm230 .user-member li a {
+    color: #666666;
+}
+.fm230 .user-member li a.img {
+    float: left;
+    height: 40px;
+    margin-left: -50px;
+    margin-right: 4px;
+    width: 40px;
+}
+.fm230 .wordbreak {
+    display: block;
+    height: 16px;
+    line-height: 16px;
+    max-height: 30px;
+    width: 160px;
+}
+.fm230 .user-member li span {
+    color: #999999;
+    display: block;
+}
