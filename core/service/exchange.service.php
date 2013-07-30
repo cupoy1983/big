@@ -128,6 +128,36 @@ class ExchangeService
 		$list = FDB::fetchAll($sql);
 		return FS('Share')->getShareDetailList($list,true,false,true);
 	}
+	/**
+	 * 最新成功申请试用和兑换的订单
+	 */
+	public function getNewOrder($num = 10){
+		
+		$sql = 'SELECT uid, data_name, data_num, user_name, create_time FROM '.FDB::table('order').' WHERE status = 1 ORDER BY id DESC LIMIT 0,'.$num;
+		$list = array();
+		$query = FDB::query($sql);
+		while($data = FDB::fetch($query)){
+			$data['create_time_format']  = fToDate($data['create_time'],'H:i:s');
+			$data['url'] = FU('exchange/info',array('id'=>$data['rec_id']));
+			$list[] = $data;
+		}
+		return $list;
+	}
+	
+	/**
+	 * 通过用户uid获取该用户成功试用和兑换的总数
+	 */
+	public function getExchangeCount($uid){
+		if(empty($uid)){
+			$sql = 'SELECT count(*) FROM '.FDB::table('order').' WHERE status = 1' ;
+			$count = FDB::resultFirst($sql);
+			return $count;
+		}else{
+			$sql = 'SELECT count(*) FROM '.FDB::table('order').' WHERE status = 1 AND uid = '.$uid ;
+			$count = FDB::resultFirst($sql);
+			return $count;
+		}
+	}
 	
 	public function setApplyCache($id)
 	{

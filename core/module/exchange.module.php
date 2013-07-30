@@ -61,13 +61,22 @@ class ExchangeModule
 			$goods_list[] = $data;
 		}
 		
-		$apply_list = FS("Exchange")->getApplyTop();
-		$order_list = FS("Exchange")->getOrderTop();
-		$score_list = FS("Exchange")->getScoreTop();
-		$exchange_list = FS("Exchange")->getExchangeTop();
+// 		//最新使用申请
+// 		$apply_list = FS("Exchange")->getApplyTop();
+// 		//最新兑换
+// 		$order_list = FS("Exchange")->getOrderTop();
+// 		//兑换排行
+// 		$exchange_list = FS("Exchange")->getExchangeTop();
 		
-		if($_FANWE['uid'] > 0)
+		if($_FANWE['uid'] > 0){
 			$consignee = FDB::fetchFirst('SELECT * FROM '.FDB::table('user_consignee').' WHERE uid = '.$_FANWE['uid']);
+			//该用户成功试用和兑换的总数
+			$myCount = FS("Exchange")->getExchangeCount($_FANWE['uid']);
+		}
+		//全网用户成功试用和兑换的总数
+		$allCount = FS("Exchange")->getExchangeCount();
+		//获取最新成功申请试用和兑换的订单
+		$newOrder = FS("Exchange")->getNewOrder();
 		
 		include template('page/exchange/exchange_index');
 		display();

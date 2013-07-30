@@ -29,7 +29,9 @@ body { font-size: 12px;color:#2a2a2a; background:url(../images/bg-v1.png);}
 .fm960 { margin:0 auto; width:960px; }
 .fm980 { margin:0 auto; width:980px; }
 .fm730 { width:730px; float:left;}
+.fm750 { width:750px; float:left;}
 .fm230 { width:230px; float:right;}
+.fm200 { width:200px; float:right;}
 .piece1 { width:960px; position:relative; }
 .piece1_hd { background:url(../images/piece_bg.png) 0 0 no-repeat; height:10px; font-size:0; _background-image:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/r_hd_w_960x10.png', sizingMethod='scale');}
 .piece1_bd { overflow:hidden; zoom:1; background:url(../images/r_bd_w_960x1.png) 0 0 repeat-y #fff;}

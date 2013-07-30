@@ -3,8 +3,149 @@
 	$js_list[0] = './tpl/js/exchange.js';
 ?>
 <!--{template inc/header}-->
+<style>
+<!--
+.exchange_adv .bd {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+	padding:10px;
+	background-color:white;
+	margin-top:14px;
+	border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 3px rgba(34, 25, 25, 0.2);
+}
+.exchange_adv .bd h2 {
+    background-color: #D8D8D8;
+    border-radius: 5px 5px 5px 5px;
+    color: #3C3C3C;
+    font-size: 15px;
+    height: 30px;
+    line-height: 30px;
+    margin: 5px auto;
+    padding-left: 50px;
+    width: 150px;
+}
+.exchange_adv .bd li {
+    border: 1px solid #CCCCCC;
+    display: inline;
+    float: left;
+    height: 95px;
+    overflow: hidden;
+    margin: 4px;
+    position: relative;
+    text-align: center;
+    width: 95px;
+}
+
+
+.top_info {
+    height: 80px;
+	font-size: 13px;
+	background-color:white;
+	margin-top: 14px;
+    padding: 13px;
+ 	overflow: hidden;
+    position: relative;
+	border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 3px rgba(34, 25, 25, 0.2);
+    width: 680px;
+}
+.top_info .info_left {
+    float: left;
+    height: 80px;
+    width: 230px;
+}
+.top_info .user_info {
+    background-color: #FFE2EC;
+    height: 60px;
+    margin-bottom: 15px;
+    padding: 10px;
+    width: 210px;
+}
+.user_info .fl {
+    line-height: 23px;
+    margin-right: 13px;
+}
+
+.user_info p {
+    color: #484845;
+	font-size:14px;
+	padding-bottom:5px;
+}
+.top_info .info_right {
+    background-color: #FFF4F3;
+    float: right;
+    height: 80px;
+    padding: 0px 8px;
+    width: 420px;
+}
+.top_info .info_right .hd {
+    height: 35px;
+}
+.top_info .hd em {
+    color: #EE0059;
+    font-size: 17px;
+}
+.top_info .info_right .bd {
+    overflow: hidden;
+}
+.top_info .info_right .bd ul {
+    height: 35px;
+    overflow: hidden;
+}
+.top_info .info_right .bd li {
+    height: 35px;
+    overflow: hidden;
+}
+.top_info .info_right .bd li em {
+    color: #6EAFD5;
+    cursor: pointer;
+}
+.top_info .login_btn {
+    background-color: #FFE2EC;
+    height: 60px;
+    margin-bottom: 15px;
+    padding: 10px;
+    width: 210px;
+	display:block;
+}
+-->
+</style>
 <div class="trial_box">
-	<div class="tb_left">
+	<div class="fm730">
+	
+		<div class="top_info fl">
+			<div class="info_left ">
+				<!--{if $_FANWE['uid'] > 0}-->
+				<div class="user_info r5 hd" style="display: block;">
+					<img width="60" height="60" src="{avatar $_FANWE['user']['avatar'] m}" class="fl r5">
+					<div class="fl">
+						<p id="free_score">我的积分: <a href="{u exchange/rule}" target="_blank"><em>$_FANWE['user']['credits']</em></a> 个</p>
+						<p><a href="{u u/exchange}" target="_blank">我已兑换 <em>$myCount</em> 件商品</a></p>
+					</div>
+				</div>
+				<!--{else}-->
+				 <div class="login_btn r5"><a href="javascript:;" onclick="$.Show_Login_Form();" style="font-size: 36px; margin-left: 28px;">立即登录</a></div>
+				<!--{/if}-->
+			</div>
+			<div class="info_right r5">
+				<div class="hd">累计分发<em>$allCount</em>分免费福利</div>
+					<div class="bd">
+					<ul>
+						<!--{loop $newOrder $order}-->
+						<li>
+							<!--{getuser $order['uid'] 0 's,30' 'fl pt5 pr5'}-->
+							<div class="fl pt10">
+							<em>{$order['user_name']}:</em>
+							<span>成功兑换 <a href="{$order['url']}">{cutstr $order['data_name'] 28}</a> <em>{$order['data_num']}</em> 件</span>
+							</div>
+						</li>
+						<!--{/loop}-->
+					</ul>
+					</div>
+				</div>
+			</div>
+	
 		<!--{if count($notice_list) > 0}-->
 		<div class="tbl_recommend tbl_box">
 			<div class="tbln_ico"></div>
@@ -122,97 +263,25 @@
 		</div>
 		<!--{/loop}-->
 	</div>
-	<div class="exchange_right">
-		<dl>
-			<dd class="content">
-				<!--{if $_FANWE['uid'] > 0}-->
-				<div class="er_info">
-					<span class="fl">&nbsp;&nbsp;当前积分：<b class="red">$_FANWE['user']['credits']</b></span>
-					<span class="fr"><a href="{u exchange/rule}" target="_blank">如何赚取积分？</a></span>
-				</div>
-				<div class="er_link">
-					<a href="{u u/exchange}"><img src="./tpl/images/exchange.jpg" /></a>
-				</div>
-				<!--{else}-->
-				<div class="er_link">
-					<a href="{u user/login}"><img src="./tpl/images/login.jpg" /></a>
-				</div>
-				<div class="er_rule"><a href="{u exchange/rule}" target="_blank">如何赚取积分？</a></div>
-				<!--{/if}-->
-			</dd>
-		</dl>
-		<div class="blank12"></div>
-		<dl>
-			<dt><strong>正在申请试用的MM</strong></dt>
-			<dd class="user-list">
-				<!--{if count($apply_list) > 0}-->
-				<ul>
-					<!--{loop $apply_list $order}-->
-					<li>
-						<a href="{u u/index uid=$order['uid']}" target="_blank" class="fl GUID" uid="{$order['uid']}"><img class="fl" src="{avatar $order['avatar'] s}"></a>
-						<p><span class="fr">{timelag $order['create_time']}</span><a href="{u u/index uid=$order['uid']}" target="_blank" class="uname GUID" uid="{$order['uid']}">{$order['user_name']}</a></p>
-						<p class="e_title"><a target="_blank" href="{u exchange/info id=$order['id']}" title="{$order['name']}">{cutstr $order['name'] 30}</a></p>
-					</li>
-					<!--{/loop}-->
-				</ul>
-				<!--{else}-->
-				<div class="empty">&nbsp;</div>
-				<!--{/if}-->
-			</dd>
-		</dl>
-		<div class="blank12"></div>
-		<dl>
-			<dt><strong>正在兑换的MM</strong></dt>
-			<dd class="user-list">
-				<!--{if count($order_list) > 0}-->
-				<ul>
-					<!--{loop $order_list $order}-->
-					<li>
-						<a href="{u u/index uid=$order['uid']}" target="_blank" class="fl GUID" uid="{$order['uid']}"><img class="fl" src="{avatar $order['avatar'] s}"></a>
-						<p><span class="fr">{timelag $order['create_time']}</span><a href="{u u/index uid=$order['uid']}" target="_blank" class="uname GUID" uid="{$order['uid']}">{$order['user_name']}</a></p>
-						<p class="e_title"><span>兑换了&nbsp;</span><a target="_blank" href="{u exchange/info id=$order['id']}" title="{$order['name']}">{cutstr $order['name'] 16}</a><span>&nbsp;<b>$order['data_num']</b>&nbsp;件</span></p>
-					</li>
-					<!--{/loop}-->
-				</ul>
-				<!--{else}-->
-				<div class="empty">&nbsp;</div>
-				<!--{/if}-->
-			</dd>
-		</dl>
-		<div class="blank12"></div>
-		<dl>
-			<dt><strong>积分TOP10</strong></dt>
-			<dd class="top">
-				<!--{if count($score_list) > 0}-->
-				<ul>
-					<!--{eval $index = 1;}-->
-					<!--{loop $score_list $score_item}-->
-					<li><span class="i{if $index < 4} t{/if}">{if $index < 10}0{/if}{$index}</span><span class="u">{getuser $score_item['uid'] 0}</span><span class="j">积分：{$score_item[credits]}</span></li>
-					<!--{eval $index++;}-->
-					<!--{/loop}-->
-				</ul>
-				<!--{else}-->
-				<div class="empty">&nbsp;</div>
-				<!--{/if}-->
-			</dd>
-		</dl>
-		<div class="blank12"></div>
-		<dl>
-			<dt><strong>兑换TOP10</strong></dt>
-			<dd class="top">
-				<!--{if count($exchange_list) > 0}-->
-				<ul>
-					<!--{eval $index = 1;}-->
-					<!--{loop $exchange_list $exchange_item}-->
-					<li><span class="i{if $index < 4} t{/if}">{if $index < 10}0{/if}{$index}</span><span class="u1">{getuser $exchange_item['uid'] 0}</span><span class="j j1">兑换了$exchange_item[sum_count]件礼品</span></li>
-					<!--{eval $index++;}-->
-					<!--{/loop}-->
-				</ul>
-				<!--{else}-->
-				<div class="empty">&nbsp;</div>
-				<!--{/if}-->
-			</dd>
-		</dl>
+	<div class="fm230 exchange_adv">
+		
+		<div class="bd">
+			<h2 class="f14">热门搭配推荐</h2>
+			<ul class="clearfix">
+				<li><a target="_blank" href=""><img width="95" src="/images/7.jpg"><span class="popup"><strong>长裙</strong></span></a></li>
+				<li><a target="_blank" href=""><img width="95" src="/images/8.jpg"><span class="popup"><strong>短袖T恤</strong></span></a></li>
+				<li><a target="_blank" href=""><img width="95" src="/images/9.jpg"><span class="popup"><strong>连衣裙</strong></span></a></li>
+				<li><a target="_blank" href=""><img width="95" src="/images/10.jpg"><span class="popup"><strong>丝袜</strong></span></a></li>
+				<li><a target="_blank" href=""><img width="95" src="/images/11.jpg"><span class="popup"><strong>高腰裙</strong></span></a></li>
+				<li><a target="_blank" href=""><img width="95" src="/images/12.jpg"><span class="popup"><strong>遮阳帽</strong></span></a></li>
+			</ul>
+		</div>
+		<div class="bd">
+			<a target="_blank" href=""><img alt="雪纺连衣裙" width="210" src="/images/5.jpg"></a>
+		</div>
+		<div class="bd">
+			<a target="_blank" href=""><img alt="百搭TEE" width="210" src="/images/6.jpg"></a>
+		</div>
 	</div>
    
 	<div class="clear"></div>
