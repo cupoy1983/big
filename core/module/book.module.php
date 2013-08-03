@@ -219,20 +219,20 @@ class BookModule
 			$seoPrefix = '';
 			switch($page_args['sort'])
 			{
-				//24小时最�?24小时喜欢人数
+				//24小时最热 24小时喜欢人数
 				case 'hot1':
 					$sort = " ORDER BY sgi.collect_1count DESC,sgi.share_id DESC";
-					$seoPrefix = "当天最�?;
+					$seoPrefix = "当天最热";
 				break;
-				//1周天最�?1周喜欢人�?
+				//1周天最热 1周喜欢人数
 				case 'hot7':
 					$sort = " ORDER BY sgi.collect_7count DESC,sgi.share_id DESC";
-					$seoPrefix = "1周天最�?;
+					$seoPrefix = "1周天最热";
 				break;
-				//最�?
+				//最新
 				case 'new':
 					$sort = " ORDER BY sgi.share_id DESC";
-					$seoPrefix = "最新宝�?;
+					$seoPrefix = "最新宝贝";
 				break;
 				
 				default:
