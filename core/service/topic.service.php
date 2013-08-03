@@ -78,6 +78,9 @@ class TopicService
 				$data['time'] = getBeforeTimelag($data['create_time']);
 				$data['last_time'] = getBeforeTimelag($data['lastpost']);
 				$data['url'] = FU('topic/detail',array('tid'=>$data['tid']));
+				$t = array('#'=>'');
+				$data['title'] = strtr($data['title'], $t);
+				
 				$list[$data['tid']] = $data;
 				$share_ids[$data['share_id']] = &$list[$data['tid']];
 				if($is_group)
@@ -153,6 +156,7 @@ class TopicService
 				$data['url'] = FU('topic/detail',array('tid'=>$data['tid']));
 				$t = array('#'=>'');
 				$data['title'] = strtr($data['title'], $t);
+				
 				$list[$data['tid']] = $data;
 				if($is_group)
 				{
@@ -184,6 +188,9 @@ class TopicService
 			$data['time'] = getBeforeTimelag($data['create_time']);
 			$data['last_time'] = getBeforeTimelag($data['lastpost']);
 			$data['url'] = FU('topic/detail',array('tid'=>$data['tid']));
+			$t = array('#'=>'');
+			$data['title'] = strtr($data['title'], $t);
+			
 			$list[$data['tid']] = $data;
 		}
 		return $list;

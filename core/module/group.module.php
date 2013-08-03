@@ -38,6 +38,9 @@ class GroupModule{
 				$data['time'] = getBeforeTimelag($data['create_time']);
 				$data['last_time'] = getBeforeTimelag($data['lastpost']);
 				$data['url'] = FU('topic/detail',array('tid'=>$data['tid']));
+				$t = array('#'=>'');
+				$data['title'] = strtr($data['title'], $t);
+				
 				$topic_list[$data['tid']] = $data;
 			}
 			$group_darens = FS('Daren')->getDarensByType(4);
@@ -187,6 +190,8 @@ class GroupModule{
 			$data['time'] = getBeforeTimelag($data['create_time']);
 			$data['last_time'] = getBeforeTimelag($data['lastpost']);
 			$data['url'] = FU('topic/detail',array('tid'=>$data['tid']));
+			$t = array('#'=>'');
+			$data['title'] = strtr($data['title'], $t);
 			$topic_list[$data['tid']] = $data;
 		}
 		include template('page/group/group_detail');

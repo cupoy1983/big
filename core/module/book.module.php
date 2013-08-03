@@ -25,8 +25,8 @@ class BookModule
 		global $_FANWE;
 		$_FANWE['user_click_share_id'] = (int)$_FANWE['request']['sid'];
 		unset($_FANWE['request']['sid']);
-		$cache_file = getTplCache('page/book/book_index',$_FANWE['request'],2);
-		if(getCacheIsUpdate($cache_file,1,1))
+		$cache_file = getTplCache('page/book/book_index',$_FANWE['request'],2);	
+		if(getCacheIsUpdate($cache_file,SHARE_CACHE_TIME,1))
 		{
 			$category = urldecode($_FANWE['request']['cate']);
 			$is_root = false;
@@ -165,9 +165,9 @@ class BookModule
 					$cate_index++;
 				}
 			}
-                        $tag = base64_decode(str_replace(array('S0U0M','E0P0T0Y','P0OL0E'),array('+',' ','/'),$_FANWE['request']['tag']));
+			$tag = base64_decode(str_replace(array('S0U0M','E0P0T0Y','P0OL0E'),array('+',' ','/'),$_FANWE['request']['tag']));
 			$_FANWE['PAGE_SEO_SELF'] = $current_cate;
-                        $_FANWE['PAGE_SEO_SELF']['tag'] = $tag;
+			
 			$condition = '';
 			
 			$title = $current_cate['short_name'];
@@ -208,31 +208,37 @@ class BookModule
 				$page_args['tag'] =  str_replace(array('+',' ','/'),array('S0U0M','E0P0T0Y','P0OL0E'),  base64_encode($tag));
 			}
 
-			if(!empty($_FANWE['request']['sort']))
+			if(!empty($_FANWE['request']['sort'])){
 				$page_args['sort'] = $sort;
-			else
+			}else{
 				$page_args['sort'] = 'hot1';
+			}
 			
 			$field = '';
 			$today_time = getTodayTime();
-			switch($sort)
+			$seoPrefix = '';
+			switch($page_args['sort'])
 			{
-				//24小时最热 24小时喜欢人数
+				//24小时最�?24小时喜欢人数
 				case 'hot1':
 					$sort = " ORDER BY sgi.collect_1count DESC,sgi.share_id DESC";
+					$seoPrefix = "当天最�?;
 				break;
-				//1周天最热 1周喜欢人数
+				//1周天最�?1周喜欢人�?
 				case 'hot7':
 					$sort = " ORDER BY sgi.collect_7count DESC,sgi.share_id DESC";
+					$seoPrefix = "1周天最�?;
 				break;
-				//最新
+				//最�?
 				case 'new':
 					$sort = " ORDER BY sgi.share_id DESC";
+					$seoPrefix = "最新宝�?;
 				break;
 				
 				default:
 					$sort = " ORDER BY sgi.collect_1count DESC,sgi.share_id DESC";
 					$page_args['sort'] = 'hot1';
+					$seoPrefix = "";
 				break;
 			}
 			
@@ -359,7 +365,29 @@ class BookModule
 				}
 				$share_list = FS('Share')->getShareDetailList($share_list,false,false,false,true,2);
 			}
-			//print_r($page_args);exit;
+			
+			//处理title
+			$t="爱逛街";
+			$n="";
+			if(!empty($category)){
+				if(empty($tag)){
+					$t=$_FANWE['PAGE_SEO_SELF']['short_name'];
+				}else{
+					$t=$tag;
+					$n=$_FANWE['PAGE_SEO_SELF']['short_name'];
+					$_FANWE['PAGE_SEO_SELF']['TAG']='';
+				}
+			}else{
+				$t=$tag;
+				$n="爱逛街";
+				if(empty($t)){
+					$t = $n;
+					$n = "";
+				}
+			}
+			
+			$_FANWE['PAGE_SEO_SELF']['short_name']="品牌".$n.$t."_热卖".$t."_韩版".$t;
+			
 			include template('page/book/book_index');
 			display($cache_file); 
 			exit;

@@ -3502,7 +3502,7 @@ jQuery(function($){
 	{
 		var backtop = $("#back2top");
 		var body_width = 960;
-		body_width = $.browser.msie && $.browser.version == "6.0" ? 950 : 953;
+		body_width = $.browser.msie && $.browser.version == "6.0" ? 975: 978;
 		isback2top = true;
 		$("#back2top").css("left",Math.floor(($(window).width()-body_width)/2) + body_width + 5 + "px");
 
