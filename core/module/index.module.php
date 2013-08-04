@@ -4,8 +4,14 @@ class IndexModule
 	public function index()
 	{
 		global $_FANWE;
+		$firstAccess = false;
+		if(empty($_FANWE['cookie']['firstAccess'])){
+			$firstAccess = true;
+			fSetCookie('firstAccess', 1, 0, 1, true);
+		}
+		
 		clearTempImage();
-		$cache_file = getTplCache('page/index_index',array(),2);
+		$cache_file = getTplCache('page/index_index',array("firstAccess"=>$firstAccess),2);
 		if(getCacheIsUpdate($cache_file,SHARE_CACHE_TIME,1))
 		{
 //          modified by frankie 删除模板无用数据
