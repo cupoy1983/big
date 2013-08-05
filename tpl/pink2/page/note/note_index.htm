@@ -40,8 +40,8 @@
 				</div>
 				<div class="favorite">
 					<a href="javascript:;" class="favaImg" onclick="$.Fav_Share({$share['share_id']},this,32,'#share_item_{$share['share_id']}');"></a>
-					<div class="favDiv"><a target="_blank" class="favCount SHARE_FAV_COUNT" href="{$share['url']}" title="{$share_img['name']}">18$share['collect_count']</a></div>
-					<a target="_blank" href="{$share['url']}" title="{$share_img['name']}" class="creply"><b>16{$share['comment_count']}</b>评论</a>
+					<div class="favDiv"><a target="_blank" class="favCount SHARE_FAV_COUNT" href="{$share['url']}" title="{$share_img['name']}">$share['collect_count']</a></div>
+					<a target="_blank" href="{$share['url']}" title="{$share_img['name']}" class="creply"><b>{$share['comment_count']}</b>评论</a>
 				</div>
 				<div class="user">
 					<!--{getuser $share['uid'] 0 's,30' ',lazyload'}-->

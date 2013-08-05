@@ -29,7 +29,7 @@
 	    <div class="box_item {if $index % 3 == 0}last{/if}">
 	      <div style="width:284px; margin:auto">
 	        <ul class="title">
-	          <a href="{$album['url']}">{$album['title']}</a>
+	          <a href="{$album['url']}">{cutstr $album['title'] 25}</a>
 	        </ul>
 	        <ul class="content">
 	          <li class="c1"><a href="{$album['url']}"><img scaleSrc="{getimg $album['img']['img'] 468 468}" scaleType="3" scaleWidth="160" scaleHeight="160" src="./tpl/images/lazyload.gif" class="LOAD_SCALE_IMG"></a></li>
@@ -71,7 +71,7 @@
 <!--{if $firstAccess}-->
 <script type="text/javascript">
 window.onload = function(){
-	var neirong = '<div id="msgShut"><img  src="/tpl/pink2/images/tan.png" class="imgd"  /><a onClick="changeText()" href="####" id=closes style="position:relative;top:-430px; left:-48px"><img  src="/tpl/pink2/images/cancel.png"  /></a></div>';
+	var neirong = '<div id="msgShut"><img  src="/tpl/pink2/images/tan.png" class="imgd"  /><a onClick="changeText()" href="#" id=closes style="position:relative;top:-430px; left:-48px"><img  src="/tpl/pink2/images/cancel.png"  /></a></div>';
 	cwxbox.box.show(neirong);
 }
 function changeText(){
