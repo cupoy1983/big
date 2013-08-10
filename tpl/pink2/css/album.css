@@ -278,7 +278,7 @@ border-radius:2px; line-height:20px; line-height:15px; }
 .album_index_best li{margin-top:0;}
 
 .album_subnav{height:38px;background:url('../images/album_cate_bg.png') repeat-x 0 0; overflow:hidden;}
-.album_subnav a{display:block; padding:12px 25px 0 30px; height:26px; float:left; color:#7f7f7f;}
+.album_subnav a{display:block; padding:12px 20px 0 30px; height:26px; float:left; color:#7f7f7f;}
 .album_subnav a.c{height:38px;background:url('../images/album_cate_bg_a.png') no-repeat 0 0; color:#535353; font-weight:bold; font-size:14px;}
 .album_subnav span{display:block; height:38px; width:1px;background:url('../images/album_cate_jg.png') no-repeat 0 0; float:left;}
 .album_sort{height:38px; line-height:38px; padding:0 0 0 30px; color:#515151;}
