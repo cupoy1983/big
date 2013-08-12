@@ -172,6 +172,7 @@ class AlbumModule
 			}
 			FS('Album')->albumImagesFormat($other_album);
 		}
+		$album["img"] = FS('Image')->formatById($album["img"]);
 		
 		include template('page/album/album_show');
 		display();
@@ -345,14 +346,35 @@ class AlbumModule
 		$tags = str_replace('　',' ',$tags);
 		$tags = explode(' ',$tags);
 		$tags = array_unique($tags);
-		if(count($tags) > $_FANWE['cache']['albums']['setting']['album_tag_count'])
+		if(count($tags) > $_FANWE['cache']['albums']['setting']['album_tag_count']){
 			exit;
+		}
 		
-		if($id > 0)
-		{
+		$img = array();
+		$img['type'] = 'album';
+		$img['src'] = false;
+		$imgId = $_FANWE['request']['imgId'];
+		$albumImg = trim($_FANWE['request']['album_img']);
+		if(!empty($albumImg) && file_exists(FANWE_ROOT.$albumImg)){
+			$img['src'] = FANWE_ROOT.$albumImg;
+		}
+		
+		if($img['src'] !== false){
+			if($imgId > 0){
+				$img['id'] = $imgId;
+				FS('Image')->updateImage($img,true);
+			}else{
+				$img = FS('Image')->addImage($img);
+			}
+		}
+		
+		if($id > 0){
 			$data['title'] = htmlspecialchars($_FANWE['request']['title']);
 			$data['content'] = htmlspecialchars($_FANWE['request']['content']);
 			$data['tags'] = implode(' ',$tags);
+			if(empty($imgId)){
+				$data['img'] = $img['id'];
+			}
 			FDB::update('album',$data,'id = '.$id);
 			FS('Share')->updateShare($album['share_id'],$data['title'],$data['content']);
 			FS("Album")->saveTags($id,$tags);
@@ -369,41 +391,41 @@ class AlbumModule
 			$url = FU('album/show',array('id'=>$id));
 			fHeader('location: '.$url);
 			exit;
-		}
-		
-		
-		$_FANWE['request']['uid'] = $_FANWE['uid'];
-		$_FANWE['request']['type'] = 'album';
-		$share = FS('Share')->submit($_FANWE['request']);
-		
-		if($share['status'])
-		{
-			$data['title'] = htmlspecialchars($_FANWE['request']['title']);
-			$data['content'] = htmlspecialchars($_FANWE['request']['content']);
-			$data['tags'] = implode(' ',$tags);
-			$data['uid'] = $_FANWE['uid'];
-			$data['share_id'] = $share['share_id'];
-			$data['create_day'] = getTodayTime();
-			$data['create_time'] = TIME_UTC;
+		}else{
+			$_FANWE['request']['uid'] = $_FANWE['uid'];
+			$_FANWE['request']['type'] = 'album';
+			$share = FS('Share')->submit($_FANWE['request']);
 			
-			$aid = FDB::insert('album',$data,true);
-			
-			FS("Album")->saveTags($aid,$tags);
-			
-			$content_match = trim($data['title'].' '.$data['tags']);
-			$content_match = FS('Words')->segmentToUnicode($content_match);
-			FDB::insert("album_match",array('id'=>$aid,'content'=>$content_match),false,true);
-			
-			FDB::query('UPDATE '.FDB::table('share').' SET rec_id = '.$aid.' 
+			if($share['status'])
+			{
+				$data['title'] = htmlspecialchars($_FANWE['request']['title']);
+				$data['content'] = htmlspecialchars($_FANWE['request']['content']);
+				$data['tags'] = implode(' ',$tags);
+				$data['uid'] = $_FANWE['uid'];
+				$data['share_id'] = $share['share_id'];
+				$data['create_day'] = getTodayTime();
+				$data['create_time'] = TIME_UTC;
+				$date['img'] = $img['id'];
+				$aid = FDB::insert('album',$data,true);
+					
+				FS("Album")->saveTags($aid,$tags);
+					
+				$content_match = trim($data['title'].' '.$data['tags']);
+				$content_match = FS('Words')->segmentToUnicode($content_match);
+				FDB::insert("album_match",array('id'=>$aid,'content'=>$content_match),false,true);
+					
+				FDB::query('UPDATE '.FDB::table('share').' SET rec_id = '.$aid.'
 				WHERE share_id = '.$share['share_id']);
-			FDB::query("update ".FDB::table("user_count")." set albums = albums + 1 where uid = ".$_FANWE['uid']);
-			FS('Medal')->runAuto($_FANWE['uid'],'albums');
-			
-			$url = FU('album/show',array('id'=>$aid));
-			fHeader('location: '.$url);
+				FDB::query("update ".FDB::table("user_count")." set albums = albums + 1 where uid = ".$_FANWE['uid']);
+				FS('Medal')->runAuto($_FANWE['uid'],'albums');
+					
+				$url = FU('album/show',array('id'=>$aid));
+				fHeader('location: '.$url);
+			}
+			else{
+				showError('提交失败','添加数据失败',-1);
+			}
 		}
-		else
-			showError('提交失败','添加数据失败',-1);
 	}
 }
 ?>
