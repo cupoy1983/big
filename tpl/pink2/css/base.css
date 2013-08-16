@@ -277,3 +277,20 @@ pre{
 .tooltip_box .tbm em{font-size:12px; color:#ED4855; font-style:normal;}
 .tooltip_box .tbclose{width:11px; height:11px; display:block;background:url(../images/close_11x11_p.png) no-repeat 0 0; position:absolute; top:5px; right:5px; overflow:hidden; text-indent:-80px; cursor:pointer;}
 /*end new css*/
+
+/*幻灯css*/
+#ppt_box .bitdiv{display:inline-block;width:18px;height:18px;margin:0 10px 10px 0px;cursor:pointer;float:right;}
+#ppt_box .defimg{background-image:url(../images/02.png)}
+#ppt_box .curimg{background-image:url(../images/01.png)}
+#ppt_box .mainbox{
+    overflow:hidden;
+    position:relative;
+}
+#ppt_box .flashbox{
+   overflow:hidden;
+    position:relative;
+}
+#ppt_box .imagebox{
+    text-align:right;position:relative;z-index:999;
+}
+/*幻灯css*/

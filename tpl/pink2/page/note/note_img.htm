@@ -70,8 +70,8 @@
 			<!--{eval $goods_id = $current_obj['id'];}-->
 			<a href="{$current_obj['to_url']}" rel="nofollow" class="nig_c" target="_blank"><img src="./tpl/images/buy.gif" /><span>{$current_obj['name']}{if $current_obj['commission'] > 0}{/if}</span></a>
 			<!--{eval $index++;}-->
-			<a href="{$current_obj['to_url']}" class="nig_btn" target="_blank"><span>{$current_obj['price_format']}</span></a>
-			<a href="{$current_obj['to_url']}" class="nig_btn1" target="_blank"></a>
+			<span id="J_price">原价：<b>￥123</b> </span>
+			<a id="J_promotion_price" href="{$current_obj['to_url']}" class="nig_btn" target="_blank"><span>{$current_obj['price_format']}</span></a>
 			<!--{/if}-->
 			<!--{loop $share_detail['goods_imgs'] $goods}-->
 			<!--{if $goods['id'] != $goods_id}-->
@@ -161,6 +161,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<div id="SHARE_COMMENT_LIST_BOX">
 			<ul id="SHARE_COMMENT_LIST_{$share_detail['share_id']}" class="c_l rb5">
 				<!--{loop $share_detail['comments'] $comment}-->

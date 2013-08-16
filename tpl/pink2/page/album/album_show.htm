@@ -78,7 +78,9 @@
 					</script>
 				</div>
 			</div>
-			<div style="padding:0 15px"><img style="margin-right:3px;" src="{getimg $album['img']['img'] 0 0}" /></div>
+			<!--{if $album['img']['img']}-->
+			<div style="padding:0 15px"><img src="{getimg $album['img']['img'] 0 0}" /></div>
+			<!--{/if}-->
 		</div>
 		<div class="piece1_ft"></div>
 	</div>

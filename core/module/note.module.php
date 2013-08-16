@@ -158,6 +158,9 @@ class NoteModule
 				$best_goods_share = FS('Share')->getBestCollectGoodsShareByUser($share_user['uid']);
 				//会员分享店铺信息
 				$shop_percent_html = FS('Shop')->getUserShareShopHtml($share_user['uid']);
+				//淘宝商品id
+				$taoId = $current_obj['keyid'];
+				$taoId = substr($taoId,strpos($taoId,"_") + 1);
 			break;
 
 			case 'photo':

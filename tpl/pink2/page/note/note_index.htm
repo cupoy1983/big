@@ -13,7 +13,8 @@
 	<!--{subtemplate page/note/note_img}-->
 	<!--{/if}-->
 </div>
-<center><!--{if $current_type != 'other' && count($related_shares) > 0}--></center>
+<center>
+<!--{if $current_type != 'other' && count($related_shares) > 0}--></center>
 <div class="wrapper book_sort">
 	<h1>你可能还喜欢</h1>
 </div>
@@ -170,32 +171,15 @@ function UpdateUserFollow(obj,result)
 }
 
 jQuery(function(){
+	
 	CommentInit();
+	
 	<!--{if getIsManage('share')}-->
 	$('#shareInfobox').hover(function(e){
 		$.GetManageMenu('share',{$share_detail['share_id']},this,e);
 	},function(){});
 	<!--{/if}-->
 
-});
-
-function CommentInit()
-{
-	$(".note_comment .pagination a").click(function(){
-		var page = $(this).attr('page');
-		$.Get_Share_Comment("{$share_detail['share_id']}",page,'#SHARE_COMMENT_LIST_BOX',CommentInit);
-		return false;
-	});
-}
-</script>
-<!--{if $pns['prev'] > 0}-->
-<div class="up_page"><a href="{u note/index sid=$pns['prev']}">上一页</a></div>
-<!--{/if}-->
-<!--{if $pns['next'] > 0}-->
-<div class="down_page"><a href="{u note/index sid=$pns['next']}">下一页</a></div>
-<!--{/if}-->
-<script type="text/javascript">
-jQuery(function($){
 	$('.up_page').hover(function(){
             $(this).css({opacity:"1"});
         },function(){
@@ -208,6 +192,43 @@ jQuery(function($){
             $(this).css({opacity:"0.3"});
         }
     );
+    
+    ItemsConvert({$taoId});
+    
 });
+
+function CommentInit()
+{
+	$(".note_comment .pagination a").click(function(){
+		var page = $(this).attr('page');
+		$.Get_Share_Comment("{$share_detail['share_id']}",page,'#SHARE_COMMENT_LIST_BOX',CommentInit);
+		return false;
+	});
+}
+
+function ItemsConvert(iids) {
+	TOP.api({
+		method : 'taobao.taobaoke.widget.items.convert',
+		fields : 'price,promotion_price',
+		num_iids : iids
+		}, function(resp) {
+		if (resp.taobaoke_items) {
+			var result = resp.taobaoke_items.taobaoke_item[0];
+			var price = result.price;
+			var pprice = result.promotion_price;
+			$("#J_price b").text("￥" + price);
+			$("#J_price").css("display","block");
+			$("#J_promotion_price span").text("优惠：￥" + pprice);
+		}else{
+			return false;
+		}
+	});
+}
 </script>
+<!--{if $pns['prev'] > 0}-->
+<div class="up_page"><a href="{u note/index sid=$pns['prev']}">上一页</a></div>
+<!--{/if}-->
+<!--{if $pns['next'] > 0}-->
+<div class="down_page"><a href="{u note/index sid=$pns['next']}">下一页</a></div>
+<!--{/if}-->
 <!--{template inc/footer}-->
