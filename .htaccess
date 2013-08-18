@@ -105,6 +105,44 @@ RewriteRule ^book/([a-z0-9]+)/(\d+)$  book\.php\?action=cate&cate=$1&page=$2 [QS
 RewriteRule ^book/([a-z0-9]+)/([^\/]+)$  book\.php\?action=cate&cate=$1&tag=$2 [QSA,L]
 RewriteRule ^book/([a-z0-9]+)$  book\.php\?action=cate&cate=$1 [QSA,L]
 
+#增加
+RewriteRule ^book/shopping/p([\d-]+)/c(\d+)/(new|hot1|hot7)/([^\/]+)/(\d+)$  book\.php\?action=shopping&price=$1&color=$2&sort=$3&tag=$4&page=$5 [QSA,L]
+RewriteRule ^book/shopping/p([\d-]+)/c(\d+)/(new|hot1|hot7)/(\d+)$  book\.php\?action=shopping&price=$1&color=$2&sort=$3&page=$4 [QSA,L]
+RewriteRule ^book/shopping/p([\d-]+)/c(\d+)/(new|hot1|hot7)/([^\/]+)$  book\.php\?action=shopping&price=$1&color=$2&sort=$3&tag=$4 [QSA,L]
+RewriteRule ^book/shopping/p([\d-]+)/c(\d+)/(new|hot1|hot7)$  book\.php\?action=shopping&price=$1&color=$2&sort=$3 [QSA,L]
+
+RewriteRule ^book/shopping/p([\d-]+)/(new|hot1|hot7)/([^\/]+)/(\d+)$  book\.php\?action=shopping&price=$1&sort=$2&tag=$3&page=$4 [QSA,L]
+RewriteRule ^book/shopping/p([\d-]+)/(new|hot1|hot7)/(\d+)$  book\.php\?action=shopping&price=$1&sort=$2&page=$3 [QSA,L]
+RewriteRule ^book/shopping/p([\d-]+)/(new|hot1|hot7)/([^\/]+)$  book\.php\?action=shopping&price=$1sort=$2&tag=$3 [QSA,L]
+RewriteRule ^book/shopping/p([\d-]+)/(new|hot1|hot7)$  book\.php\?action=shopping&price=$1&sort=$2 [QSA,L]
+
+RewriteRule ^book/shopping/c(\d+)/(new|hot1|hot7)/([^\/]+)/(\d+)$  book\.php\?action=shopping&color=$1&sort=$2&tag=$3&page=$4 [QSA,L]
+RewriteRule ^book/shopping/c(\d+)/(new|hot1|hot7)/(\d+)$  book\.php\?action=shopping&color=$1&sort=$2&page=$3 [QSA,L]
+RewriteRule ^book/shopping/c(\d+)/(new|hot1|hot7)/([^\/]+)$  book\.php\?action=shopping&color=$1&sort=$2&tag=$3 [QSA,L]
+RewriteRule ^book/shopping/c(\d+)/(new|hot1|hot7)$  book\.php\?action=shopping&color=$1&sort=$2 [QSA,L]
+
+RewriteRule ^book/([a-z0-9]+)/g(\d+)/p([\d-]+)/c(\d+)/(new|hot1|hot7)/(\d+)$  book\.php\?action=cate&cate=$1&gid=$2&price=$3&color=$4&sort=$5&page=$6 [QSA,L]
+RewriteRule ^book/([a-z0-9]+)/g(\d+)/p([\d-]+)/c(\d+)/(new|hot1|hot7)$  book\.php\?action=cate&cate=$1&gid=$2&price=$3&color=$4&sort=$5 [QSA,L]
+RewriteRule ^book/([a-z0-9]+)/g(\d+)/p([\d-]+)/(new|hot1|hot7)/(\d+)$  book\.php\?action=cate&cate=$1&gid=$2&price=$3&sort=$4&page=$5 [QSA,L]
+RewriteRule ^book/([a-z0-9]+)/g(\d+)/p([\d-]+)/(new|hot1|hot7)$  book\.php\?action=cate&cate=$1&gid=$2&price=$3&sort=$4 [QSA,L]
+RewriteRule ^book/([a-z0-9]+)/g(\d+)/c(\d+)/(new|hot1|hot7)/(\d+)$  book\.php\?action=cate&cate=$1&gid=$2&color=$3&sort=$4&page=$5 [QSA,L]
+RewriteRule ^book/([a-z0-9]+)/g(\d+)/c(\d+)/(new|hot1|hot7)$  book\.php\?action=cate&cate=$1&gid=$2&color=$3&sort=$4 [QSA,L]
+
+RewriteRule ^book/([a-z0-9]+)/p([\d-]+)/c(\d+)/(new|hot1|hot7)/([^\/]+)/(\d+)$  book\.php\?action=cate&cate=$1&price=$2&color=$3&sort=$4&tag=$5&page=$6 [QSA,L]
+RewriteRule ^book/([a-z0-9]+)/p([\d-]+)/c(\d+)/(new|hot1|hot7)/(\d+)$  book\.php\?action=cate&cate=$1&price=$2&color=$3&sort=$4&page=$5 [QSA,L]
+RewriteRule ^book/([a-z0-9]+)/p([\d-]+)/c(\d+)/(new|hot1|hot7)/([^\/]+)$  book\.php\?action=cate&cate=$1&price=$2&color=$3&sort=$4&tag=$5 [QSA,L]
+RewriteRule ^book/([a-z0-9]+)/p([\d-]+)/c(\d+)/(new|hot1|hot7)$  book\.php\?action=cate&cate=$1&price=$2&color=$3&sort=$4 [QSA,L]
+
+RewriteRule ^book/([a-z0-9]+)/p([\d-]+)/(new|hot1|hot7)/([^\/]+)/(\d+)$  book\.php\?action=cate&cate=$1&price=$2&sort=$3&tag=$4&page=$5 [QSA,L]
+RewriteRule ^book/([a-z0-9]+)/p([\d-]+)/(new|hot1|hot7)/(\d+)$  book\.php\?action=cate&cate=$1&price=$2&sort=$3&page=$4 [QSA,L]
+RewriteRule ^book/([a-z0-9]+)/p([\d-]+)/(new|hot1|hot7)/([^\/]+)$  book\.php\?action=cate&cate=$1&price=$2&sort=$3&tag=$4 [QSA,L]
+RewriteRule ^book/([a-z0-9]+)/p([\d-]+)/(new|hot1|hot7)$  book\.php\?action=cate&cate=$1&price=$2&sort=$3 [QSA,L]
+
+RewriteRule ^book/([a-z0-9]+)/c(\d+)/(new|hot1|hot7)/([^\/]+)/(\d+)$  book\.php\?action=cate&cate=$1&color=$2&sort=$3&tag=$4&page=$5 [QSA,L]
+RewriteRule ^book/([a-z0-9]+)/c(\d+)/(new|hot1|hot7)/(\d+)$  book\.php\?action=cate&cate=$1&color=$2&sort=$3&page=$4 [QSA,L]
+RewriteRule ^book/([a-z0-9]+)/c(\d+)/(new|hot1|hot7)/([^\/]+)$  book\.php\?action=cate&cate=$1&color=$2&sort=$3&tag=$4 [QSA,L]
+RewriteRule ^book/([a-z0-9]+)/c(\d+)/(new|hot1|hot7)$  book\.php\?action=cate&cate=$1&color=$2&sort=$3 [QSA,L]
+
 #晒货
 RewriteRule ^look/goods/(new|hot1|hot7)/(\d+)$  look\.php\?action=index&type=goods&sort=$1&page=$2 [QSA,L]
 RewriteRule ^look/goods/(new|hot1|hot7)$  look\.php\?action=index&type=goods&sort=$1 [QSA,L]
@@ -203,49 +241,16 @@ RewriteRule ^mailrss$  mailrss\.php\?action=index [QSA,L]
 
 #其他
 RewriteRule ^/index$    /index.php [QSA,L]
-RewriteRule ^([A-Za-z]+)/([A-Za-z]+)$  $1\.php\?action=$2 [QSA,L]
-RewriteRule ^([A-Za-z]+)/([A-Za-z]+).html$  $1\.php\?action=$2 [QSA,L]
-RewriteRule ^([A-Za-z]+).html$  $1\.php [QSA,L]
+
 RewriteRule ^([A-Za-z]+)/$  $1\.php [QSA,L]
 RewriteRule ^([A-Za-z]+)$  $1\.php [QSA,L]
+RewriteRule ^([A-Za-z]+)/([A-Za-z]+)$  $1\.php\?action=$2 [QSA,L]
+RewriteRule ^([A-Za-z]+)-([A-Za-z]+)$  $1\.php\?action=$2 [QSA,L]
 
-#增加
-RewriteRule ^book/shopping/p([\d-]+)/c(\d+)/(new|hot1|hot7)/([^\/]+)/(\d+)$  book\.php\?action=shopping&price=$1&color=$2&sort=$3&tag=$4&page=$5 [QSA,L]
-RewriteRule ^book/shopping/p([\d-]+)/c(\d+)/(new|hot1|hot7)/(\d+)$  book\.php\?action=shopping&price=$1&color=$2&sort=$3&page=$4 [QSA,L]
-RewriteRule ^book/shopping/p([\d-]+)/c(\d+)/(new|hot1|hot7)/([^\/]+)$  book\.php\?action=shopping&price=$1&color=$2&sort=$3&tag=$4 [QSA,L]
-RewriteRule ^book/shopping/p([\d-]+)/c(\d+)/(new|hot1|hot7)$  book\.php\?action=shopping&price=$1&color=$2&sort=$3 [QSA,L]
+RewriteRule ^([A-Za-z]+)/([A-Za-z]+).html$  $1\.php\?action=$2 [QSA,L]
+RewriteRule ^([A-Za-z]+).html$  $1\.php [QSA,L]
 
-RewriteRule ^book/shopping/p([\d-]+)/(new|hot1|hot7)/([^\/]+)/(\d+)$  book\.php\?action=shopping&price=$1&sort=$2&tag=$3&page=$4 [QSA,L]
-RewriteRule ^book/shopping/p([\d-]+)/(new|hot1|hot7)/(\d+)$  book\.php\?action=shopping&price=$1&sort=$2&page=$3 [QSA,L]
-RewriteRule ^book/shopping/p([\d-]+)/(new|hot1|hot7)/([^\/]+)$  book\.php\?action=shopping&price=$1sort=$2&tag=$3 [QSA,L]
-RewriteRule ^book/shopping/p([\d-]+)/(new|hot1|hot7)$  book\.php\?action=shopping&price=$1&sort=$2 [QSA,L]
 
-RewriteRule ^book/shopping/c(\d+)/(new|hot1|hot7)/([^\/]+)/(\d+)$  book\.php\?action=shopping&color=$1&sort=$2&tag=$3&page=$4 [QSA,L]
-RewriteRule ^book/shopping/c(\d+)/(new|hot1|hot7)/(\d+)$  book\.php\?action=shopping&color=$1&sort=$2&page=$3 [QSA,L]
-RewriteRule ^book/shopping/c(\d+)/(new|hot1|hot7)/([^\/]+)$  book\.php\?action=shopping&color=$1&sort=$2&tag=$3 [QSA,L]
-RewriteRule ^book/shopping/c(\d+)/(new|hot1|hot7)$  book\.php\?action=shopping&color=$1&sort=$2 [QSA,L]
-
-RewriteRule ^book/([a-z0-9]+)/g(\d+)/p([\d-]+)/c(\d+)/(new|hot1|hot7)/(\d+)$  book\.php\?action=cate&cate=$1&gid=$2&price=$3&color=$4&sort=$5&page=$6 [QSA,L]
-RewriteRule ^book/([a-z0-9]+)/g(\d+)/p([\d-]+)/c(\d+)/(new|hot1|hot7)$  book\.php\?action=cate&cate=$1&gid=$2&price=$3&color=$4&sort=$5 [QSA,L]
-RewriteRule ^book/([a-z0-9]+)/g(\d+)/p([\d-]+)/(new|hot1|hot7)/(\d+)$  book\.php\?action=cate&cate=$1&gid=$2&price=$3&sort=$4&page=$5 [QSA,L]
-RewriteRule ^book/([a-z0-9]+)/g(\d+)/p([\d-]+)/(new|hot1|hot7)$  book\.php\?action=cate&cate=$1&gid=$2&price=$3&sort=$4 [QSA,L]
-RewriteRule ^book/([a-z0-9]+)/g(\d+)/c(\d+)/(new|hot1|hot7)/(\d+)$  book\.php\?action=cate&cate=$1&gid=$2&color=$3&sort=$4&page=$5 [QSA,L]
-RewriteRule ^book/([a-z0-9]+)/g(\d+)/c(\d+)/(new|hot1|hot7)$  book\.php\?action=cate&cate=$1&gid=$2&color=$3&sort=$4 [QSA,L]
-
-RewriteRule ^book/([a-z0-9]+)/p([\d-]+)/c(\d+)/(new|hot1|hot7)/([^\/]+)/(\d+)$  book\.php\?action=cate&cate=$1&price=$2&color=$3&sort=$4&tag=$5&page=$6 [QSA,L]
-RewriteRule ^book/([a-z0-9]+)/p([\d-]+)/c(\d+)/(new|hot1|hot7)/(\d+)$  book\.php\?action=cate&cate=$1&price=$2&color=$3&sort=$4&page=$5 [QSA,L]
-RewriteRule ^book/([a-z0-9]+)/p([\d-]+)/c(\d+)/(new|hot1|hot7)/([^\/]+)$  book\.php\?action=cate&cate=$1&price=$2&color=$3&sort=$4&tag=$5 [QSA,L]
-RewriteRule ^book/([a-z0-9]+)/p([\d-]+)/c(\d+)/(new|hot1|hot7)$  book\.php\?action=cate&cate=$1&price=$2&color=$3&sort=$4 [QSA,L]
-
-RewriteRule ^book/([a-z0-9]+)/p([\d-]+)/(new|hot1|hot7)/([^\/]+)/(\d+)$  book\.php\?action=cate&cate=$1&price=$2&sort=$3&tag=$4&page=$5 [QSA,L]
-RewriteRule ^book/([a-z0-9]+)/p([\d-]+)/(new|hot1|hot7)/(\d+)$  book\.php\?action=cate&cate=$1&price=$2&sort=$3&page=$4 [QSA,L]
-RewriteRule ^book/([a-z0-9]+)/p([\d-]+)/(new|hot1|hot7)/([^\/]+)$  book\.php\?action=cate&cate=$1&price=$2&sort=$3&tag=$4 [QSA,L]
-RewriteRule ^book/([a-z0-9]+)/p([\d-]+)/(new|hot1|hot7)$  book\.php\?action=cate&cate=$1&price=$2&sort=$3 [QSA,L]
-
-RewriteRule ^book/([a-z0-9]+)/c(\d+)/(new|hot1|hot7)/([^\/]+)/(\d+)$  book\.php\?action=cate&cate=$1&color=$2&sort=$3&tag=$4&page=$5 [QSA,L]
-RewriteRule ^book/([a-z0-9]+)/c(\d+)/(new|hot1|hot7)/(\d+)$  book\.php\?action=cate&cate=$1&color=$2&sort=$3&page=$4 [QSA,L]
-RewriteRule ^book/([a-z0-9]+)/c(\d+)/(new|hot1|hot7)/([^\/]+)$  book\.php\?action=cate&cate=$1&color=$2&sort=$3&tag=$4 [QSA,L]
-RewriteRule ^book/([a-z0-9]+)/c(\d+)/(new|hot1|hot7)$  book\.php\?action=cate&cate=$1&color=$2&sort=$3 [QSA,L]
 
 </IfModule>
 

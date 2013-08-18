@@ -25,7 +25,7 @@
 		<!--{loop $book_cates $book_cate}-->
 		<!--{if $book_cate['type'] == 'cate'}-->
 		<!--{eval $book_cate = $book_cate['data'];}-->
-		<li class="cn_item">
+		<li {if count($book_cates) == 1}class="cn_item_one"{else}class="cn_item"{/if}>
 			<!--{if !empty($book_cate['cate_icon'])}-->
 			<a href="{u book/cate cate=$book_cate['cate_code']}" class="cn_icon"><img src="{$book_cate['cate_icon']}" title="{$book_cate['cate_name']}" ></a>
 			<div class="cn_cate">
@@ -34,6 +34,9 @@
 			<!--{/if}-->
 				<div class="cn_title">
 					<a href="{u book/cate cate=$book_cate['cate_code']}"><span>{$book_cate['cate_name']}</span></a>
+					<!--{if count($book_cates) == 1}-->
+					<a style="padding-left:30px;" href="/site-tag"><b>标签库</b></a>
+					<!--{/if}-->
 				</div>
 				<p class="cn_tags">
 					<!--{loop $book_cate['tags'] $cate_tag}-->

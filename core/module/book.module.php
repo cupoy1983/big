@@ -26,7 +26,7 @@ class BookModule
 		$_FANWE['user_click_share_id'] = (int)$_FANWE['request']['sid'];
 		unset($_FANWE['request']['sid']);
 		$cache_file = getTplCache('page/book/book_index',$_FANWE['request'],2);	
-		if(getCacheIsUpdate($cache_file,SHARE_CACHE_TIME,1))
+		if(getCacheIsUpdate($cache_file,1,1))
 		{
 			$category = urldecode($_FANWE['request']['cate']);
 			$is_root = false;
@@ -93,7 +93,7 @@ class BookModule
 					$tag_key = 'goods_category_tags_'.$cid;
 					FanweService::instance()->cache->loadCache($tag_key);
                                      
-					$book_cate['tags'] = array_slice($_FANWE['cache'][$tag_key],0,20);
+					$book_cate['tags'] = array_slice($_FANWE['cache'][$tag_key],0,100);
 					if($cate_index % 3 == 0)
 					{
 						if(isset($book_advs[$book_adv_num]))
@@ -143,10 +143,10 @@ class BookModule
 				}
 			}
 			
-			if(count($book_cates) % 3 > 0)
+			if(count($book_cates) > 1 && count($book_cates) % 3 > 0)
 			{
-				$$book_cates_count = 3 - (count($book_cates) % 3);
-				for($i = 0;$i < $$book_cates_count;$i++)
+				$book_cates_count = 3 - (count($book_cates) % 3);
+				for($i = 0;$i < $book_cates_count;$i++)
 				{
 					if(isset($book_advs[$book_adv_num]))
 					{

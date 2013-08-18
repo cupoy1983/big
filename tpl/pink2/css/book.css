@@ -165,11 +165,12 @@ box-shadow:0 1px 3px rgba(34, 25, 25, 0.2); -webkit-box-shadow:rgba(34, 25, 25, 
 .cn_href .split{ background: url("../images/cate_split.png") no-repeat 0 0 #fff; display: inline-block; height: 10px; margin: 4px 6px; width: 10px; }
 
 .cn_list {overflow:hidden; background:#fff; border-radius:0 10px 10px 10px; width:960px; clear:both;}
-.cn_list li{float:left; width:319px; height:109px; border:1px solid #f0f0f0; border-top:none; border-left:none; background:#fff;}
-.cn_list li.cn_item{height:100px; padding-top:9px; }
+.cn_list li{float:left; height:109px; border:1px solid #f0f0f0; border-top:none; border-left:none; background:#fff;}
+.cn_list li.cn_item{height:100px; padding-top:9px;width:319px;}
+.cn_list li.cn_item_one{height:100px; padding-top:9px;width:960px;}
 .cn_list .cn_icon{float:left; padding:0 0 0 9px;}
 .cn_list .cn_icon img{float:left; height:91px; width:91px;}
-.cn_list .cn_cate { margin:5px 0 0 110px; width:195px; overflow:hidden; height:84px; }
+.cn_list .cn_cate { margin:5px 15px 0 110px;overflow:hidden; height:84px; }
 .cn_list .cn_cate1{margin:5px 0 0 9px;width:305px;}
 .cn_list .cn_title{padding:2px 0 0 0;}
 .cn_list .cn_title span{ color:#ff83b4; font-size:14px; font-weight:bold;}

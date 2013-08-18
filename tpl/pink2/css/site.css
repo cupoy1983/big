@@ -1,0 +1,17 @@
+#body {
+    margin-top: 30px;
+}
+
+#flink {margin-top:30px;padding:0 30px;min-height:600px;_height:600px;}
+#flink h2{color:#5A6243;font-size:14px;}
+#flink li{
+    cursor: pointer;
+    display: inline;
+    float: left;
+    height: 22px;
+    margin: 10px 2px 0;
+    padding-left: 9px;
+}
+.album_cate{
+	padding: 20px 0;
+}

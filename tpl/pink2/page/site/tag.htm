@@ -1,0 +1,21 @@
+<?php
+	$css_list[0]['url'] = './tpl/css/site.css';
+?>
+<!--{template inc/header}-->
+<div id="body" class="wrapper">
+<div class="piece1_hd"></div>
+<div class="piece1_bd clearfix">
+	<div id="flink">
+		<h2>标签库</h2>
+		<ul class="cn_tags">
+			<!--{loop $tags $t}-->
+			<!--{loop $t $cate_tag}-->
+			<li><a href="{u book/shopping tag=$cate_tag['url_tag']}"{if $cate_tag['is_hot'] == 1} class="h"{/if}>{$cate_tag['tag_name']}</a></li>
+			<!--{/loop}-->
+			<!--{/loop}-->
+		</ul>
+	</div>
+</div>
+<div class="piece1_ft"></div>
+</div>
+<!--{template inc/footer}-->
