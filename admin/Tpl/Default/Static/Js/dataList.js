@@ -201,7 +201,7 @@ function toggleStatus(obj,id,name,args)
 				}
 			}
 			else
-				$.ajaxError();
+				$.ajaxError(result.content);
 		}
 	});
 }

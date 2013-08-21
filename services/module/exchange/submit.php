@@ -88,8 +88,14 @@ if($_FANWE['uid'] > 0 && $goods && $goods['apply_type'] > 0)
 		$order['sn'] = fToDate(TIME_UTC,'ymdHis').mt_rand(0,100);
 		$order_id = FDB::insert('order',$data,true);
 	}
+	//库存为零，则将该商品下架
+	if($goods['stock'] <= intval($goods['buy_count']) + 1){
+		$status = ", status = 0 ";
+	}else{
+		$status = "";
+	}
+	FDB::query('UPDATE '.FDB::table('exchange_goods').' SET buy_count = buy_count + 1 '.$status.'WHERE id = '.$id);
 	
-	FDB::query('UPDATE '.FDB::table('exchange_goods').' SET buy_count = buy_count + 1 WHERE id = '.$id);
 	FS("User")->updateUserScore($_FANWE['uid'],"exchange","submit",addslashes($goods['name']),$order_id,0 - intval($data['order_score']));
 	$result['status'] = 1;
 	

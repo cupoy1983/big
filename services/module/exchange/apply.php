@@ -31,13 +31,6 @@ if($_FANWE['uid'] > 0 && $goods && ($goods['apply_type'] == 0 || $goods['apply_t
 		outputJson($result);
 	}
 	
-	$exchange_num = (int)FDB::resultFirst('SELECT COUNT(*) FROM '.FDB::table('order').' WHERE order_type = 0 AND rec_id = '.$id.' AND uid = '.$_FANWE['uid']);
-	if($exchange_num > 0)
-	{
-		$result['msg'] = lang('exchange','apply_user_num_error');
-		outputJson($result);
-	}
-	
 	$user_num = (int)FDB::resultFirst('SELECT COUNT(*) FROM '.FDB::table('order').' WHERE rec_id = '.$id.' AND uid = '.$_FANWE['uid']);
 	if($user_num > 0)
 	{

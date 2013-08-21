@@ -38,13 +38,21 @@
 				<p class="time"></p>
 				<!--{/if}-->
 				<p class="GOODS_BTNS" url="{$info['url']}">
-					<!--{if $info['apply_type'] == 0}-->
-					<a class="trial_apply trialBtn" href="javascript:;" goodsID="{$info['id']}" goodsType="{$info['goods_type']}"></a>
-					<!--{elseif $info['apply_type'] == 1}-->
-					<a class="exchange_apply exchangeBtn" href="javascript:;" goodsID="{$info['id']}" goodsType="{$info['goods_type']}"></a>
-					<!--{elseif $info['apply_type'] == 2}-->
-					<a class="trial_btn trialBtn" href="javascript:;" goodsID="{$info['id']}" goodsType="{$info['goods_type']}"></a>
-					<a class="exchange_btn exchangeBtn" href="javascript:;" goodsID="{$info['id']}" goodsType="{$info['goods_type']}"></a>
+					<!--{if $goods['status'] != 0}-->
+						<!--{if $info['apply_type'] == 0}-->
+						<a class="trial_apply trialBtn" href="javascript:;" goodsID="{$info['id']}" goodsType="{$info['goods_type']}"></a>
+						<!--{elseif $info['apply_type'] == 1}-->
+						<a class="exchange_apply exchangeBtn" href="javascript:;" goodsID="{$info['id']}" goodsType="{$info['goods_type']}"></a>
+						<!--{elseif $info['apply_type'] == 2}-->
+						<a class="trial_btn trialBtn" href="javascript:;" goodsID="{$info['id']}" goodsType="{$info['goods_type']}"></a>
+						<a class="exchange_btn exchangeBtn" href="javascript:;" goodsID="{$info['id']}" goodsType="{$info['goods_type']}"></a>
+						<!--{/if}-->
+					<!--{else}-->
+						<!--{if $goods['apply_type'] == 0}-->
+						<a class="apply_gray"></a>
+						<!--{else}-->
+						<a class="exchange_gray"></a>
+						<!--{/if}-->
 					<!--{/if}-->
 				</p>
 				<p><b>{$info['apply_count']}</b>人{if $info['apply_type'] == 0 || $info['apply_type'] == 2}申请{else}兑换{/if}</p>
@@ -303,13 +311,6 @@ function updateEndTime()
 			var hour = Math.floor((lag / 3600) % 24);
 			var day = Math.floor((lag / 3600) / 24);
 			$(this).html("<span>剩余时间：</span><strong>"+day+"</strong><span>天</span><strong>"+hour+"</strong><span>时</span><strong>"+minite+"</strong><span>分</span><strong>"+second+"</strong><span>秒</span>");
-		}
-		else
-		{
-			var parent = $(this).parent();
-			$(this).html("<span>剩余时间：</span><strong>已结束</strong>");
-			parent.html('<a class="detail_btn" href="'+parent.attr("url")+'" target="_blank"></a>');
-			
 		}
 	});
 	setTimeout("updateEndTime()",1000);

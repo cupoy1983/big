@@ -133,7 +133,7 @@ class ExchangeService
 	 */
 	public function getNewOrder($num = 10){
 		
-		$sql = 'SELECT uid, data_name, data_num, user_name, create_time FROM '.FDB::table('order').' WHERE status = 1 ORDER BY id DESC LIMIT 0,'.$num;
+		$sql = 'SELECT uid, data_name, data_num, user_name, create_time FROM '.FDB::table('order').' WHERE goods_status = 1 ORDER BY id DESC LIMIT 0,'.$num;
 		$list = array();
 		$query = FDB::query($sql);
 		while($data = FDB::fetch($query)){
@@ -149,11 +149,11 @@ class ExchangeService
 	 */
 	public function getExchangeCount($uid){
 		if(empty($uid)){
-			$sql = 'SELECT count(*) FROM '.FDB::table('order').' WHERE status = 1' ;
+			$sql = 'SELECT count(*) FROM '.FDB::table('order').' WHERE goods_status = 1' ;
 			$count = FDB::resultFirst($sql);
 			return $count;
 		}else{
-			$sql = 'SELECT count(*) FROM '.FDB::table('order').' WHERE status = 1 AND uid = '.$uid ;
+			$sql = 'SELECT count(*) FROM '.FDB::table('order').' WHERE goods_status = 1 AND uid = '.$uid ;
 			$count = FDB::resultFirst($sql);
 			return $count;
 		}
@@ -161,11 +161,8 @@ class ExchangeService
 	
 	public function setApplyCache($id)
 	{
-		$sql = 'SELECT o.uid,u.user_name,u.avatar 
-				FROM '.FDB::table('order').' AS o 
-				INNER JOIN '.FDB::table('user').' AS u ON u.uid = o.uid 
-				WHERE o.rec_id = '.$id.' 
-				ORDER BY o.id DESC LIMIT 0,20';
+		$sql = 'SELECT o.uid,o.user_name FROM '.FDB::table('order').' AS o 
+				WHERE o.rec_id = '.$id.' ORDER BY o.id DESC LIMIT 0,20';
 		
 		$list = array();
 		$query = FDB::query($sql);

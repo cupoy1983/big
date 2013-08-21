@@ -1,20 +1,18 @@
 <?php
 class ExchangeModule
 {
-	public function index()
-	{
+	public function index(){
 		global $_FANWE;
 		$page = $_FANWE['page'];
 		$order = ' ORDER BY sort ASC,end_time ASC,id DESC';
-		$where = ' WHERE status = 1 AND (begin_time < '.TIME_UTC.' OR begin_time = 0) AND (end_time > '.TIME_UTC.' OR end_time = 0)';
-		if($page == 1)
-		{
+		$where = '';
+		//首页提前预告以及推荐商品展示
+		if($page == 1){
 			$notice_list = array();
 			$best_ids = array();
 			$sql = 'SELECT * FROM '.FDB::table('exchange_goods').' WHERE status = 1 AND begin_time > '.TIME_UTC.$order;
 			$res = FDB::query($sql);
-			while($data = FDB::fetch($res))
-			{
+			while($data = FDB::fetch($res)){
 				$data['price_format'] = priceFormat($data['price']);
 				$notice_list[] = $data;
 				$best_ids[] = $data['id'];
@@ -23,8 +21,7 @@ class ExchangeModule
 			$best_list = array();
 			$sql = 'SELECT * FROM '.FDB::table('exchange_goods').' WHERE status = 1 AND is_best = 1 AND (begin_time < '.TIME_UTC.' OR begin_time = 0) AND (end_time > '.TIME_UTC.' OR end_time = 0)'.$order;
 			$res = FDB::query($sql);
-			while($data = FDB::fetch($res))
-			{
+			while($data = FDB::fetch($res)){
 				$data['num'] = $data['stock'] - $data['buy_count'];
 				$data['url'] = FU('exchange/info',array('id'=>$data['id']));
 				$data['price_format'] = priceFormat($data['price']);
@@ -33,14 +30,13 @@ class ExchangeModule
 				$best_list[] = $data;
 				$best_ids[] = $data['id'];
 			}
-			
-			if(count($best_ids) > 0)
-			{
-				$best_ids = implode(',',$best_ids);
-				$where.= ' AND id NOT IN ('.$best_ids.')';
-			}
 		}
-		
+
+		if(count($best_ids) > 0){
+			$best_ids = implode(',',$best_ids);
+			$where.= ' WHERE id NOT IN ('.$best_ids.')';
+		}
+		//超时商品及下架商品也需要展示
 		$sql = 'SELECT COUNT(id) FROM '.FDB::table('exchange_goods').$where;
 		$goods_count = FDB::resultFirst($sql);
 		
@@ -50,14 +46,18 @@ class ExchangeModule
 		$sql = 'SELECT * FROM '.FDB::table('exchange_goods').$where.$order.' LIMIT '.$pager['limit'];
 		$goods_list = array();
 		$res = FDB::query($sql);
-		while($data = FDB::fetch($res))
-		{
+		while($data = FDB::fetch($res)){
 			$data['apply_user'] = fStripslashes(unserialize($data['apply_cache']));
 			unset($data['apply_cache']);
 			$data['price_format'] = '¥'.floatval(round($data['price'] * 100) / 100);
 			$data['num'] = $data['stock'] - $data['buy_count'];
 			$data['apply_count'] = $data['apply_count'] + $data['buy_count'];
 			$data['url'] = FU('exchange/info',array('id'=>$data['id']));
+			//超时而未下架的商品，进行下架处理
+			if($data['end_time'] != 0 && $data['end_time'] < TIME_UTC && $data['status']==1){
+				$data['status'] = 0;
+				FDB::query('UPDATE '.FDB::table("exchange_goods").' SET status =  0 WHERE id = '.$data['id']);
+			}
 			$goods_list[] = $data;
 		}
 		

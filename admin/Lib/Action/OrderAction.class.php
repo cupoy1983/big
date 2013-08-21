@@ -88,10 +88,23 @@ class OrderAction extends CommonAction
 	{
 		$id = intval($_REQUEST['id']);
 		$status = intval($_REQUEST['status']);
+		
 		$order = D("Order")->where("id = $id")->find();
+		
+		//库存不足不允许通过申请请求
+		$goods = D("ExchangeGoods")->where("id = ".$order['rec_id'])->find();
+		if($goods['stock'] <= $goods['buy_count']){
+			$this->error("库存不足，不允许通过申请请求");
+		}
+		
 		$order['adm_memo'] = trim($_REQUEST['adm_memo']);
 		$order['goods_status'] = $status;
 		D("Order")->save($order);
+		
+		//状态为审核通过，并且为申请试用订单，并进行库存操作
+		if($status == 1 && $order["order_type"] == 1){
+			D("ExchangeGoods")->where("id = ".$order['rec_id'])->setInc("buy_count");
+		}
 		$this->success (L('EDIT_SUCCESS'));
 	}
 }

@@ -238,6 +238,25 @@ class ExchangeGoodsAction extends CommonAction
 		
 		die(json_encode($result));
 	}
+	
+	public function toggleStatus(){
+		vendor("common");
+		$id = intval($_REQUEST['id']);
+		$val = intval($_REQUEST['val']) == 0 ? 1 : 0;
+		if(empty($id)){
+			exit;
+		}
+		if($val==1){
+			//零库存的商品不允许恢复正常状态
+			$goods = FS("Exchange")->getById($id);
+			if($goods["buy_count"]>=$goods["stock"]){
+				$result = array('isErr'=>1,'content'=>'库存不足，不允许上架');
+				die(json_encode($result));
+			}
+		}
+		
+		parent::toggleStatus();
+	}
 }
 
 function getTypeName($type)

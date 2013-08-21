@@ -63,17 +63,22 @@
 		<th>&nbsp;</th>
 		<td>
 			<if condition="$order.goods_status eq 0">
-			<input type="submit" class="submit_btn" value="{$Think.lang.SUBMIT}" />&nbsp;&nbsp;
-			<input type="hidden" name="status" value="1" />
-			<input type="hidden" name="id" value="{$order.id}" />
-			</if>
-			<if condition="$order.goods_status eq 1">
-			<input type="submit" class="submit_btn" value="{$Think.lang.CLEAR}" />
-			<input type="hidden" name="status" value="2" />
+			<input type="submit" class="submit_btn" value="{$Think.lang.SUBMIT}" id="J_agree"/>&nbsp;&nbsp;
+			
+			<input type="submit" class="submit_btn" value="{$Think.lang.CLEAR}" id="J_refuse"/>
+			<input type="hidden" name="status" value="1" id="J_order_status" />
 			<input type="hidden" name="id" value="{$order.id}" />
 			</if>
 		</td>
 	</tr>
 </table>
 </form>
+<script type="text/javascript">
+	$("#J_agree").click(function(){
+		$("#J_order_status").val(1);
+	});
+	$("#J_refuse").click(function(){
+		$("#J_order_status").val(2);
+	});
+</script>
 <include file="Public:footer" />

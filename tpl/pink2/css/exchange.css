@@ -51,9 +51,14 @@
 .tblb_apply_box .tblbab_userimg img{width:48px; height:48px;}
 .tblb_apply_box .tblbab_username{display: block;width: 48px;height: 26px;line-height: 26px;text-align: center;white-space: nowrap;overflow: hidden;}
 
+.apply_gray,
+.exchange_gray{background:url(../images/exchange/btns-gray.png) no-repeat;display:block;height:44px;margin-top:10px;margin-bottom:16px;overflow:hidden;width:173px;}
+.apply_gray{background-position:0 -141px;}
+.exchange_gray{background-position:0 -141px;}
+
 .trial_apply,
 .exchange_apply,
-.detail_btn{background:url(../images/exchange/btns.gif) no-repeat;display:block;height:44px;margin-top:10px;margin-bottom:16px;overflow:hidden;width:173px;}
+.detail_btn{background:url(../images/exchange/btns.png) no-repeat;display:block;height:44px;margin-top:10px;margin-bottom:16px;overflow:hidden;width:173px;}
 .trial_apply{background-position:0 -46px;}
 .exchange_apply{background-position:0 -141px;}
 .trial_btn{background:url(../images/exchange/trial.png) no-repeat;display:block;height:44px;margin-top:10px;margin-bottom:16px;overflow:hidden;width:139px; float:left;}
