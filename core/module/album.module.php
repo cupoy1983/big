@@ -405,7 +405,7 @@ class AlbumModule
 				$data['share_id'] = $share['share_id'];
 				$data['create_day'] = getTodayTime();
 				$data['create_time'] = TIME_UTC;
-				$date['img'] = $img['id'];
+				$data['img'] = $img['id'];
 				$aid = FDB::insert('album',$data,true);
 					
 				FS("Album")->saveTags($aid,$tags);

@@ -9,7 +9,7 @@
 		<div class="piece1_bd">
 			<div id="content" style="width:960px;">
 				<div class="album_create">
-					<h1 class="new_album">创建新{lang common/album}</h1>
+					<h1 class="new_album">创建新{lang common/album} <b style="color:blue;">(请将上传图片的分辨率设置为930*200！！)</b></h1>
 					<div class="album_box">
 						<form id="albumForm" method="post" action="{u album/save}">
 							<dl class="pl30">
@@ -27,6 +27,14 @@
 										<option value="{$category['id']}">{$category['name']}</option>
 										<!--{/loop}-->
 									</select>
+								</dd>
+								<dt>上传图片：</dt>
+								<dd style="position:relative;">
+									<!--{if IS_UPYUN || !FS('Image')->getIsServer()}-->
+									<input type="hidden" id="viewAlbum" name="album_img" />
+									<input type="file" class="tfile" id="uploadAlbum" name="album" onchange="UploadAlbum();" style="border:solid 1px #999; font-size:16px; padding:3px;"/>
+									<span id="J_imageMsg"></span>
+									<!--{/if}-->
 								</dd>
 								<dt style="clear:both;">时尚元素：</dt>
 								<dd style="padding-bottom:10px">
@@ -67,5 +75,41 @@
 jQuery(function($){
 	$.Pub_Count_Bind($("#albumContent").get(0));
 });
+
+<!--{if !FS('Image')->getIsServer()}-->
+var isUpload = false;
+function UploadAlbum()
+{
+	if(isUpload){
+		return;
+	}else{
+		isUpload = true;
+	}
+	
+	$.ajaxFileUpload({
+		url:SITE_PATH + "services/service.php?m=album&a=image",
+		secureuri:false,
+		fileElementId:'uploadAlbum',
+		dataType:'json',
+		success:function(result){
+			if(result.src != '' && result.src != null){
+				$("#viewAlbum").val(result.src);
+				$("#J_imageMsg").text("上传成功");
+				$("#J_imageMsg").css("color","green");
+
+			}else{
+				$("#J_imageMsg").text("上传失败");
+				$("#J_imageMsg").css("color","red");
+			}
+			
+			isUpload = false;
+		},
+		error:function (data, status, e){
+			$("#J_imageMsg").text("上传失败");
+			$("#J_imageMsg").css("color","red");
+		}
+	});
+}
+<!--{/if}-->
 </script>
 <!--{template inc/footer}-->
