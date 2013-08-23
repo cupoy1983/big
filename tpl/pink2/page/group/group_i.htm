@@ -112,7 +112,7 @@
 					<ul class="group_daren_list" >
 						<!--{loop $group_darens $daren}-->
 						<li>
-							<a href="{u u/index uid=$daren['uid']}" target="_blank"><img class="fl avatar r3 lazyload" original="{getimg $daren['img'] 100 100 1}"  height="80"  src="./tpl/images/lazyload.gif" /></a>
+							<!--{getuser $daren['uid'] 0 'm,80' ',u_name fl'}-->
 							<div class="daren_info">
 								<!--{getuser $daren['uid'] 0 '' '' 'inc/getuser/group_daren'}-->
 							</div>

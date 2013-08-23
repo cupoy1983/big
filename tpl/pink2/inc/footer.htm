@@ -13,7 +13,7 @@
 					<!--{eval $first_nav_cate = '';}-->
 					<!--{if $titleCounter == 2}-->
 					<ul class="n1">
-						<li class="title title_{$titleCounter}">{$nav_cate['name']}</li>
+						<li class="foot_title foot_title_{$titleCounter}">{$nav_cate['name']}</li>
 						<!--{loop $nav_cate['navs'] $nav_id}-->
 						<!--{eval $nav = $_FANWE['cache']['navs']['navs'][$nav_id];}-->
 						<li class="content"><a href="{$nav['url']}"{if $nav['target'] == 1} target="_blank"{/if}>{$nav['name']}</a></li>
@@ -24,7 +24,7 @@
         			</ul>
 					<!--{else}-->
 					<ul class="n1">
-						<li class="title title_{$titleCounter}">{$nav_cate['name']}</li>
+						<li class="foot_title foot_title_{$titleCounter}">{$nav_cate['name']}</li>
 						<!--{loop $nav_cate['navs'] $nav_id}-->
 						<!--{eval $nav = $_FANWE['cache']['navs']['navs'][$nav_id];}-->
 						<li class="content"><a href="{$nav['url']}"{if $nav['target'] == 1} target="_blank"{/if}>{$nav['name']}</a></li>

@@ -5,8 +5,8 @@ class GroupModule{
 	 */
 	function i(){
 		global $_FANWE;
-		$cache_file = getTplCache('page/group/group_i',array(),1);
-		if(getCacheIsUpdate($cache_file,SHARE_CACHE_TIME,1)){
+		$cache_file = getTplCache('page/group/group_i',array("page"=>$_FANWE['page']),1);
+		if(getCacheIsUpdate($cache_file,10,1)){
 			$_FANWE['nav_title'] = lang('common','group');
 			$fid = (int)$_FANWE['request']['fid'];
 			$page_args = array();

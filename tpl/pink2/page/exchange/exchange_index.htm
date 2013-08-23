@@ -118,7 +118,7 @@
 					<span>&nbsp;&nbsp;&nbsp;&nbsp;价值&nbsp;</span><strong class="price">{$goods['price_format']}</strong>
 					<!--{/if}-->
 				</p>
-				<!--{if $goods['end_time'] > 0}-->
+				<!--{if $goods['end_time'] > 0 && $goods['status'] == 1}-->
 				<p class="time END_TIME" end-date="{date $goods['end_time'] 'r'}">
 					<span>剩余时间：</span>
 					<strong>0</strong><span>天</span>

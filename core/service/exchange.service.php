@@ -133,7 +133,7 @@ class ExchangeService
 	 */
 	public function getNewOrder($num = 10){
 		
-		$sql = 'SELECT uid, data_name, data_num, user_name, create_time FROM '.FDB::table('order').' WHERE goods_status = 1 ORDER BY id DESC LIMIT 0,'.$num;
+		$sql = 'SELECT uid, data_name, data_num, user_name, rec_id, create_time FROM '.FDB::table('order').' WHERE goods_status = 1 ORDER BY id DESC LIMIT 0,'.$num;
 		$list = array();
 		$query = FDB::query($sql);
 		while($data = FDB::fetch($query)){

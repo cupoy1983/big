@@ -103,7 +103,12 @@ class OrderAction extends CommonAction
 		
 		//状态为审核通过，并且为申请试用订单，并进行库存操作
 		if($status == 1 && $order["order_type"] == 1){
-			D("ExchangeGoods")->where("id = ".$order['rec_id'])->setInc("buy_count");
+			$data["buy_count"] = $goods['buy_count'] + 1;
+			//库存不足 下架处理 
+			if($goods['stock'] <= $goods['buy_count'] + 1){
+				$data["status"] = 0;
+			}
+			D("ExchangeGoods")->where("id = ".$order['rec_id'])->save($data);;
 		}
 		$this->success (L('EDIT_SUCCESS'));
 	}

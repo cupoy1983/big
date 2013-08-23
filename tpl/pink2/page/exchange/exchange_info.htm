@@ -26,7 +26,7 @@
 					<span>&nbsp;&nbsp;&nbsp;&nbsp;价值&nbsp;</span><strong class="price">{$info['price_format']}</strong>
 					<!--{/if}-->
 				</p>
-				<!--{if $info['end_time'] > 0}-->
+				<!--{if $info['end_time'] > 0 && $info['status'] == 1}-->
 				<p class="time END_TIME" end-date="{date $info['end_time'] 'r'}">
 					<span>剩余时间：</span>
 					<strong>0</strong><span>天</span>

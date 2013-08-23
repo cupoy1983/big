@@ -556,19 +556,19 @@ body{
 	text-indent:20px;
 	background:url(../images/foot_img2.jpg) no-repeat 3px 6px;
 }
-.foot .nav_foot ul.n1 li.title{
+.foot .nav_foot ul.n1 li.foot_title{
 	height:65px;
 	line-height:65px;
 	color:#DD2C71;
 	font-weight:bold;
 	text-indent:20px}
-.foot .nav_foot ul.n1 li.title_1{
+.foot .nav_foot ul.n1 li.foot_title_1{
 	background:url(../images/foot_img1.jpg) no-repeat left 23px;}
-.foot .nav_foot ul.n1 li.title_2{
+.foot .nav_foot ul.n1 li.foot_title_2{
 	background:url(../images/foot_img3.jpg) no-repeat left 23px;}
-.foot .nav_foot ul.n1 li.title_3{
+.foot .nav_foot ul.n1 li.foot_title_3{
 	background:url(../images/foot_img4.jpg) no-repeat left 23px;}
-.foot .nav_foot ul.n1 li.title_4{
+.foot .nav_foot ul.n1 li.foot_title_4{
 	background:url(../images/foot_img5.jpg) no-repeat left 23px;}
 
 .foot .nav_foot ul.n1 li.content a{
