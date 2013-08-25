@@ -29,6 +29,15 @@ class ShareService
 	{
 		$result = array('error_code'=>0,'error_msg'=>'');
 		$server = FS("ContentCheck");
+		preg_match_all("@https?://([-\w\.]+)@",$content,$array);
+		foreach($array[0] as $a){
+			if(strpos($a, "dadongjie.com") == false){
+				$result['error_code'] = 1;
+				$result['error_msg'] = "不允许发布外链";
+				return $result;
+			}
+		}
+		
 		if($server->check($content) > 0)
 		{
 			$words_found = implode("，", $server->words_found);
