@@ -178,7 +178,7 @@ h1,h2{font-family:"黑体", "微软雅黑", "宋体", Arial;}
 
 .hot_event li { height:50px; margin-bottom:20px; }
 .hot_pic { width:50px; height:50px; float:left; }
-.hot_title { height:50px; float:left; margin-left:6px; width:140px;}
+.hot_title { height:50px; float:left; margin-left:6px;}
 .hot_title p { height:35px; overflow:hidden; line-height:140%; }
 .hot_title a { color:#09e; overflow:hidden; }
 

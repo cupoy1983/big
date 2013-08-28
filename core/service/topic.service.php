@@ -69,9 +69,7 @@ class TopicService
 			$share_ids = array();
 			$group_ids = array();
 			$sql = 'SELECT ft.fid,ft.tid,ft.title,ft.content,ft.create_time,ft.lastpost,ft.lastposter,ft.uid,ft.post_count,ft.share_id  
-				FROM '.FDB::table('forum_thread').' AS ft
-				INNER JOIN '.FDB::table('share_images_index').' AS si ON si.share_id = ft.share_id 
-				'.$where.' ORDER BY '.$order.' LIMIT '.$begin.','.$num;
+				FROM '.FDB::table('forum_thread').' AS ft '.$where.' ORDER BY '.$order.' LIMIT '.$begin.','.$num;
 			$res = FDB::query($sql);
 			while($data = FDB::fetch($res))
 			{

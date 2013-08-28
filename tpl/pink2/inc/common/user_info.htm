@@ -4,13 +4,13 @@
 		<em class="xs"></em>
 		<a href="{u u/book}">{$_FANWE['user_name']}</a>
         <dl class="user_dl" style="display:none;position:absolute;*border:1px solid #B5B4B3; *border-top:0px;">
-			<dd><a href="/topic/detail/19">我是卖家</a></dd>
-			<dd><a href="/topic/detail/20">我要赚钱</a></dd>
 			<dd><a href="{u u/album}">我的杂志</a></dd>
-			<dd><a href="{u u/me}" class="message{if $_FANWE['user_notice']['all'] > 0} h{/if}">我的消息{if $_FANWE['user_notice']['all'] > 0}({$_FANWE['user_notice']['all']}){/if}</a></dd>
+			<dd><a href="{u u/message}" class="message{if $_FANWE['user_notice']['all'] > 0} h{/if}">我的消息{if $_FANWE['user_notice']['all'] > 0}({$_FANWE['user_notice']['all']}){/if}</a></dd>
 			<dd><a href="{u u/fav uid=$_FANWE['uid']}">我喜欢的</a></dd>
 			<dd><a href="{u invite}" target="_blank">招收徒弟</a></dd>
 			<dd><a href="{u settings/personal}">设置账号</a></dd>
+			<dd><a href="/topic/detail/19">我是卖家</a></dd>
+			<dd><a href="/topic/detail/20">我要赚钱</a></dd>
 			<dd><a href="{u user/logout}">退出</a></dd>
 		</dl>
 	</div>
