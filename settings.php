@@ -1,7 +1,7 @@
 <?php 
 define('MODULE_NAME','Settings');
 
-$actions = array('personal','savepersonal','avatar','saveavatar','password','savepassword','bind','setsyn','buyerverifier','bindbuyerverifier','unbuyerverifier');
+$actions = array('personal','savepersonal','avatar','saveavatar','password','savepassword','bind','setsyn','buyerverifier','bindbuyerverifier','unbuyerverifier','savepasswordbind');
 $action = 'personal';
 
 if(isset($_REQUEST['action']))
@@ -56,6 +56,10 @@ switch(ACTION_NAME)
 	break;
 	case 'unbuyerverifier':
 		SettingsModule::unBuyerVerifier();
+	break;
+	//2013.3 第三方登录不绑定
+	case 'savepasswordbind':
+		SettingsModule::savePasswordBind();
 	break;
 }
 ?>

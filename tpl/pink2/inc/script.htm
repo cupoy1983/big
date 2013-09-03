@@ -15,6 +15,14 @@ if(!empty($_FANWE['cookie']['show_zone_follow']))
 	echo 'jQuery(function($){$.Show_Zone_Follow();});';
 	fSetCookie('show_zone_follow','');
 }
+if($_FANWE['cookie']['Show_Bind_Change'] == 1)
+{
+	echo 'jQuery(function($){$.Show_Bind_Change();});';
+	setcookie('Show_Bind_Change','2');
+	fSetCookie('Show_Bind_Change','2');
+	setcookie('Is_Show_Bind_Change','1');
+	fSetCookie('Is_Show_Bind_Change','1');
+}
 ?>
 var MANAGES = "{$manages}";
 var IS_IMAGE_SERVERS = {$is_image_servers};
@@ -29,5 +37,5 @@ if(!empty($_FANWE['cookie']['dynamic_script']))
 }
 ?>
 <!--{loop $_FANWE['delay_scripts'] $delay_script}-->
-<script type="text/javascript" src="{$delay_script}" defer="true"></script>
+<script type="text/javascript" src="{$delay_script}"></script>
 <!--{/loop}-->

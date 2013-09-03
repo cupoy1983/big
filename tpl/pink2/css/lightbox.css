@@ -354,3 +354,11 @@ border: 1px solid #DDD; float: left; display: inline; height: 64px; margin: 12px
 #zone_follow .zf_b label{margin:0 0 0 200px;}
 #zone_follow .zf_b label input{margin:2px 4px 0 0;*margin:-1px 4px 0 0;}
 #zone_follow .zf_b a{margin:-4px 0 0 10px; cursor:pointer;}
+
+#bind_change{background:#fff;height:150px;width:284px; position:relative;}
+#bind_change .zf_t{padding:20px 14px 0;overflow:hidden;position:relative;}
+#bind_change .zft_close{display:block;cursor:pointer;float:right;background: url("../images/close.gif") no-repeat;height:11px; margin-top:12px;width:11px;}
+#bind_change .zft_avatar{background:url("../images/avatar.jpg") no-repeat;height:64px;width:64px;float:left;}
+#bind_change .zft_nick{font-size: 16px; line-height: 25px;margin-left:74px;}
+#bind_change .zft_txt{ font-size: 14px; margin-top: 8px; margin-left: 74px; }
+#bind_change .msg{float: left;padding-left: 20px;font-size: 14px;padding-top: 20px;}

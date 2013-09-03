@@ -1,7 +1,7 @@
 <?php 
 define('MODULE_NAME','User');
 
-$actions = array('login','logout','ajax_login','register','ajax_register','forgetpassword','resetpassword','interest','followdaren','agreement','bind','savebind','commission','sendactivatemail','verify','mailrsscancel');
+$actions = array('login','logout','ajax_login','register','ajax_register','forgetpassword','resetpassword','interest','followdaren','agreement','bind','savebind','commission','sendactivatemail','verify','mailrsscancel','bindlogin');
 
 if(isset($_REQUEST['action']))
 {
@@ -55,14 +55,18 @@ switch(ACTION_NAME)
 	case 'savebind':
 		UserModule::saveBind();
 	break;
-        case 'sendactivatemail':
-                UserModule::sendActivateMail();
-        break;
-        case 'verify':  //验证用户邮箱
-            UserModule::verifyUserMail();
-            break;
-        case 'mailrsscancel':
-            UserModule::mailRssCancel();
-            break;
-}
+	case 'sendactivatemail':
+		UserModule::sendActivateMail();
+	break;
+	case 'verify':  //验证用户邮箱
+		UserModule::verifyUserMail();
+	break;
+	case 'mailrsscancel':
+		UserModule::mailRssCancel();
+	break;
+	// 第三方登录不需要绑定
+	case 'bindlogin':
+		UserModule::bindlogin();
+	break;
+}		
 ?>

@@ -27,7 +27,7 @@ if(version_compare(PHP_VERSION,'5.4.0','<') ) {
     @set_magic_quotes_runtime (0);
     define('MAGIC_QUOTES_GPC',get_magic_quotes_gpc()?True:False);
 }
-define('IS_CGI',substr(PHP_SAPI, 0,3)=='cgi' ? 1 : 0 );
+define('IS_CGI',(substr(PHP_SAPI, 0, 3)=='cgi' || PHP_SAPI == "fpm-fcgi") ? 1 : 0 ); 
 define('IS_WIN',strstr(PHP_OS, 'WIN') ? 1 : 0 );
 define('IS_CLI',PHP_SAPI=='cli'? 1   :   0);
 

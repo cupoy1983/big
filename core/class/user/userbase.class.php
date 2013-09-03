@@ -29,19 +29,27 @@ class UserBase
 		return FDB::fetchFirst($sql);
 	}
 	
+	/*
+	 * 2013.3.15
+	* 第三方用户登录不需要绑定
+	*/
 	public function jumpUserBindReg($data,$user_name)
 	{
-		do
-		{
-			$max_count = FDB::resultFirst('SELECT COUNT(*) FROM '.FDB::table("user")." WHERE user_name = '".$user_name."'");
-			if($max_count > 0)
-				$user_name = $user_name.'_'.random(3);
+		do{
+                    $max_count = FDB::resultFirst('SELECT COUNT(*) FROM '.FDB::table("user")." WHERE user_name = '".$user_name."'");
+                    if($max_count > 0)
+                            $user_name = $user_name.'_'.random(3);
+            }while($max_count > 0);
+
+		if($data['type']=='qq'){	//2013.3无绑定路口
+			$url = FU('user/bindlogin');
+		}else{
+			$url = FU('user/bind');
 		}
-		while($max_count > 0);
 		$data['user_name'] = $user_name;
 		$data = serialize($data);
 		fSetCookie('bind_user_info',authcode($data,'ENCODE'));
-		fHeader("location:".FU('user/bind'));
+		fHeader("location:".$url);
 	}
 }
 ?>

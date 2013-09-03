@@ -112,8 +112,8 @@ class ucenter
     	}
     	    	
     	if ($this->charset == 'gbk'){
-    		$username = addslashes(gbToUTF8($username));
-    		$passwordmd5 = addslashes(gbToUTF8($passwordmd5));
+    		$username = addslashes(utf8ToGB($username));
+    		$passwordmd5 = addslashes(utf8ToGB($passwordmd5));
     	}else{
     		$username = addslashes($username);
     		$passwordmd5 = addslashes($passwordmd5);

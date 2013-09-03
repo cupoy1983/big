@@ -674,7 +674,8 @@ FANWE.WEEBOX_NOT_CLOSES = new Object();
 			var info = jQuery.parseJSON(Base64.decode(result.info));
 			
 			var isCloseBox = true;
-			if(info.item.type == 'taobao' && TAOBAO_IS_TDJ == 0 && (info.item.id == 0 || info.item.taoke_url == ''))
+			// && TAOBAO_IS_TDJ == 0 检查是否需要？
+			if(info.item.type == 'taobao' && (info.item.id == 0 || info.item.taoke_url == ''))
 			{
 				isCloseBox = false;
 				TOP.api('rest','post',{
@@ -2941,7 +2942,8 @@ FANWE.WEEBOX_NOT_CLOSES = new Object();
 					{
 						var info = jQuery.parseJSON(Base64.decode(result.info));
 						var isCloseBox = true;
-						if(info.item.type == 'taobao' && TAOBAO_IS_TDJ == 0 && (info.item.id == 0 || info.item.taoke_url == ''))
+						// && TAOBAO_IS_TDJ == 0 检查是否需要？
+						if(info.item.type == 'taobao' && (info.item.id == 0 || info.item.taoke_url == ''))
 						{
 							TOP.api('rest','post',{
 								method:'taobao.taobaoke.widget.items.convert',
@@ -3226,9 +3228,6 @@ FANWE.WEEBOX_NOT_CLOSES = new Object();
         $.Show_Bind_Change = function(){
 		$.weeboxs.open(SITE_PATH+"services/service.php?m=u&a=bind_change",{boxid:'BIND_CHANGE_WEEBOX',contentType:'ajax',draggable:false,showButton:false,showTitle:false,showHeader:false,width:300,height:150});
 	}
-        $.Hide_Registration_Tip = function(){
-            $(".registration-tip").hide();
-        }
         
 })(jQuery);
 
@@ -3518,18 +3517,21 @@ jQuery(function($){
 		{
 			$(window).scrollTop()==0 ? backtop.fadeOut() : backtop.fadeIn();
 		}
-                if($.browser.msie && $.browser.version == "6.0")
-                {
-                        //$(".HEADER_TOP_SCROLL").css({"position":"absolute","z-index":5,'top':$(window).scrollTop(),'left':0});
-                }
-                else{
-                    if($(window).scrollTop() > HEADER_TOP_HEIGHT)
-                    {
-                        $(".HEADER_TOP_SCROLL").css({"position":"fixed","z-index":5,"left":0});
-                    }
-                    else
-                        $(".HEADER_TOP_SCROLL").css({"position":"relative",'top':0,"z-index":5});
-               }
+		if($(window).scrollTop() > HEADER_TOP_HEIGHT)
+		{
+			if($.browser.msie && $.browser.version == "6.0")
+			{
+				$(".HEADER_TOP_SCROLL").css({"position":"absolute","z-index":5,'top':$(window).scrollTop(),'left':0});
+			}
+			else
+				$(".HEADER_TOP_SCROLL").css({"position":"fixed","z-index":5,"left":0});
+
+
+			if(USER_ID > 0)
+				$(".login_scroll").hide();
+		}
+		else
+			$(".HEADER_TOP_SCROLL").css({"position":"relative",'top':0,"z-index":5});
 		
 	});
 	

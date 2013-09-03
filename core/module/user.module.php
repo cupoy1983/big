@@ -591,5 +591,78 @@ class UserModule
             include template('page/user/mail_rss_cancel');
             display();
         }
+        
+
+        /**
+         * 2013-3-15
+         * 第三方用户不需要绑定直接登录
+         */
+        function bindlogin(){
+        	global $_FANWE;
+        	if(empty($_FANWE['cookie']['bind_user_info'])){
+        		fHeader("location: ".FU('user/register'));
+        	}
+        
+        	$bind_info = unserialize(authcode($_FANWE['cookie']['bind_user_info'], 'DECODE'));
+        
+        	//系统随机生成参数   以sys_开头的 邮箱和密码为 系统生成的，用户第一次登陆提示修改
+        	$random_mail = 'sys_'.$bind_info['type'].'_'.random(3).'@'.$bind_info['type'].'.com';
+        	$random_pwd = 'sys_'.substr(strtolower(md5($bind_info['user']['openid'])), 0,6);
+        
+        	if(empty($bind_info)){
+        		fHeader("location: ".FU('user/register'));
+        	}
+        	$user = array(
+        			'email' => $random_mail,
+        			'user_name' => $bind_info['user_name'],
+        			'password'  => $random_pwd,
+        			'invite_id' => FS('User')->getReferrals()
+        	);
+        
+        
+        	//================uc 整合  =======================
+        	$user_field = $_FANWE['setting']['integrate_field_id'];
+        
+        	$integrate_id = FS("Integrate")->addUser($user['user_name'],$user['password'],$user['email']);
+        	if ($integrate_id < 0)
+        	{
+        		$info = FS("Integrate")->getInfo();
+        		showError('注册失败',$info,-1);
+        	};
+        	//================add by chenfq 2011-10-14=======================
+        
+        	$user[$user_field] = $integrate_id;
+        
+        	$uid = FS('User')->createUser($user); //第二个参数 false 明文密码写入数据库
+        	if($uid > 0)
+        	{
+        		$_FANWE['uid'] = $uid;
+        		$user = array(
+        				'uid'=>$uid,
+        				'password'=>md5($random_pwd),
+        		);
+        
+        		fSetCookie('last_request', authcode(TIME_UTC - 10, 'ENCODE'), TIME_UTC + 816400, 1, true);
+        		FS('User')->setSession($user);
+        			
+        		$syslogin_js = FS("Integrate")->synLogin($integrate_id);//js 需要在前台执行 add by chenfq 2011-10-15
+        		//$result['syslogin_js'] = $integrate_id.';'.$syslogin_js;
+        		if (!empty($syslogin_js))
+        			fSetCookie("dynamic_script",$syslogin_js);
+        
+        		if(intval($_FANWE['setting']['is_show_follow']) > 0 && intval($_FANWE['setting']['is_mail_activate']) != 1)
+        			fSetCookie("show_zone_follow",1);
+        			
+        		require_once FANWE_ROOT."core/class/user/".$bind_info['type'].".class.php";
+        		$class = ucfirst($bind_info['type']).'User';
+        		$class = new $class();
+        		$class->bindByData($bind_info);
+        		fHeader("location:".FU('u/index'));
+        	}
+        	else
+        	{
+        		showError('注册失败',lang('user','register_error'),-1);
+        	}
+        }
 }
 ?>
