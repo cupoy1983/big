@@ -10,7 +10,7 @@
 	<div class="main" >
 		<div class="fun_link"> 
 			<ul>
-		    	<li class="fun1"><a href="#"><p>本季大家淘到的33966件精品</p></a></li>
+		    	<li class="fun5" id="J_checkin"><a href="/checkin" target="_blank"><p>坚持-每月送100+集分宝</p></a></li>
 		    	<li class="fun2"><a href="#"><p>汇聚800家B2C商城商品</p></a></li>
 		    	<li class="fun3"><a href="#"><p>有77家商城在搞活动啦</p></a></li>
 		    	<li class="fun4"><a href="#"><p>ios/android客户端下载 </p></a></li>
@@ -53,18 +53,53 @@
 </div>
 <script type="text/javascript"> 
 	$(document).ready(function(){
-		$("#photos").galleryView({
-			panel_width: 972,
-			panel_height: 300,
-			frame_width:162,
-			frame_height: 50
+		
+		$.post(SITE_URL+"checkin.php?action=checkin_ajax",{type:1}, function(msg) {
+			var stdata = jQuery.parseJSON(msg);
+			if(stdata.ret == 'success'){
+				$("#J_checkin").attr("class","fun5");
+				$("#J_checkin").html("<a href=\"javascript:;\" onclick=\"$.Show_qiandao_Form();\"><p>坚持-每月送100+集分宝</p></a>");
+			}else{
+				$("#J_checkin").attr("class","fun6");
+				$("#J_checkin").html("<a href=\"/checkin\" target=\"_blank\"><p>坚持-每月送100+集分宝</p></a>");
+			}
 		});
+		
 		$(".fun_link ul li").hover(function(){
 			$(this).css("background-image","url(/tpl/pink2/images/fun-bg1.png)");
 		}, function() {
 			$(this).css("background-image","url(/tpl/pink2/images/fun-bg2.png)");
 		});
+		
+		$.Show_qiandao_Form = function() {
+			$.weeboxs.close();
+			if (USER_ID == 0) {
+				$.Show_Login_Form();
+				return false;
+			} else {
+				var nows = new Date();
+				$.post(SITE_URL + "checkin.php?action=checkin_ajax", {type: 2, year: nows.getFullYear(), month: (parseInt(nows.getMonth()) + 1).toString()
+				},
+				function(msg) {
+					var stdata = jQuery.parseJSON(msg);
+					if (stdata.ret == 'success') {
+						$("#J_checkin").attr("class","fun6");
+						$("#J_checkin").html("<a href=\"/checkin\" target=\"_blank\"><p>坚持-每月送100+集分宝</p></a>");
+						$.Show_Tooltip("签到成功获得 " + stdata.getjifen + " 积分！共有 " + stdata.upoints + " 积分！");
+					} else if (stdata.ret == 'nologin') {
+						$.Show_Tooltip(stdata.tip);
+						$.Show_Login_Form();
+						return false;
+					} else {
+						//$.Show_Tooltip(stdata.tip);
+						window.location.href = '/checkin/index';
+					}
+				});
+				return true;
+			}
+		}
 	});
+	
 </script>
 <!--{if $forbidden }-->
 <script type="text/javascript">

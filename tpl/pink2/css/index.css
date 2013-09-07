@@ -13,10 +13,12 @@
 	padding:0px;
 	background:url(../images/fun-bg2.png) no-repeat}
 	
-.fun_link  ul li p{
+.fun_link ul li p{
 	text-indent:72px;
 	padding-top:48px;}
-	
+#J_checkin p{
+	text-indent:108px;
+}
 .fun_link  ul li a{
 	color:#F7B8C9;
 	font-weight:bold;
@@ -36,6 +38,11 @@
 .fun_link  ul li.fun4{background-position:-750px 0px;}
 .fun_link  ul li.fun4 a{color:#0EA9D6;}	
 	
+.fun_link  ul li.fun5{background-position:-1000px 0px;}
+.fun_link  ul li.fun5 a{color:#0EA9D6;}	
+	
+.fun_link  ul li.fun6{background-position:-1250px 0px;}
+.fun_link  ul li.fun6 a{color:#0EA9D6;}	
 .box_row{
 	width:972px;
 	height:225px;
