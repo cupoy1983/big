@@ -18,7 +18,7 @@
 <div class="wbto_signi2 r fonp">
 <p id="chinkindays" class="tur"></p>
 <p class="tur1">
-今天已有<b>{$tdcount}</b>人签到，并领取积分
+今天已有<b>{$tdcount}</b>人签到，并领取集分宝
 </p>
 </div>
 </div>
@@ -55,12 +55,12 @@
 <div class="clear8"></div>
 <div class="wbto_signi13">
 <p class="tit"><b>每天来签到，领取礼品大奖！</b></p>
-<span class="tit"><p class="text l">签到条件：</p><p class="text1 l">已登录会员每天可签到一次。每月签到{$lianxumonth}次就可获得满勤奖({$lianxumonthjf}积分)！
+<span class="tit"><p class="text l">签到条件：</p><p class="text1 l">已登录会员每天可签到一次。每月满勤签到就可获得(100集分宝满勤奖)！
 </p></span>
 <div class="clear"></div>
-<span class="tit" style="padding-top:10px;"><p class="text l">任务描述：</p><p class="text1 l">1，签到奖励（{$qiandao_jifen}积分）<br>
-2，连续签到{$lianxux}天奖励签到勋章并额外奖励{$lianxuxjf}个积分<br>
-3，连续签到一个月({$lianxumonth}天)即可额外奖励{$lianxumonthjf}个积分
+<span class="tit" style="padding-top:10px;"><p class="text l">任务描述：</p><p class="text1 l">1，签到奖励1集分宝<br>
+2，第一次连续签到10天，奖励签到勋章并额外奖励50个集分宝。<br>
+3，满勤签到，每月奖励100个集分宝。
 </p></span>
 </div>
 </div>
@@ -94,7 +94,7 @@ function usercheckin(){
             if(stdata.ret == 'success'){
                     $("#checkinbuttonhtml").html("<a href=\"javascript:void(null);\" class=\"over\"></a>");    
                     HS_calender(new Date()); 
-                    tips(stdata.getjifen,stdata.upoints,stdata.tip);                                
+                    tips(stdata.getjifen,stdata.upoints,stdata.tip,stdata.totalPoints);                                
              }else if(stdata.ret == 'nologin'){
                     ye_msg.open(stdata.tip, 2, 2);
                     location.href = siteurl+"/user.php?action=login&url="+document.URL;
@@ -106,14 +106,14 @@ function usercheckin(){
 
     });
 }
-function tips(getjifen,upoints,downstr){
+function tips(getjifen,upoints,downstr,totalPoints){
     var html =  '<table border="0"><tbody><tr><td valign="top" height="auto">'+
                 '<div class="wbto_signi14">'+
                 '<p class="text l"></p>'+
-                '<div class="l"><span class="text">恭喜您成功获得<b>'+getjifen+'</b>积分！</span>'+
+                '<div class="l"><span class="text">恭喜您成功获得<b>'+getjifen+'</b>集分宝！</span>'+
                 '<span class="text1">'+
-                '明天再来还可以领取<font style="color:#f00">5</font>积分，别忘记哦~<br>'+
-                '您的积分总计：<font style="color:#f00">'+upoints+'</font> &nbsp;<a href="'+siteurl+'u.php?action=me" target="_blank">查看我的积分</a>'+
+                '明天再来还可以领取<font style="color:#f00">1</font>集分宝，别忘记哦~<br>'+
+                '您当月签到获得集分宝总计：<font style="color:#f00">'+upoints+'</font> </br> 您共获签到集分宝：<font style="color:#f00">'+totalPoints+'</font>'+
                 '</span>'+
                 '</div>'+
                 '<div class="clear"></div>'+
@@ -236,7 +236,6 @@ function HS_calender(){
             }
             }
     });
-    //$("#week_"+now.getDay()).addClass("text").siblings().removeClass("text");
     
 }
 function _selectThisDay(d){

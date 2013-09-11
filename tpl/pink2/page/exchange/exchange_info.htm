@@ -20,7 +20,7 @@
 					<span>&nbsp;&nbsp;&nbsp;&nbsp;已兑&nbsp;</span><strong>{$info['buy_count']}</strong><span>&nbsp;份</span>
 					<!--{/if}-->
 					<!--{if $info['apply_type'] >0}-->
-					<span>&nbsp;&nbsp;&nbsp;&nbsp;积分&nbsp;</span><strong>{$info['integral']}</strong>
+					<span>&nbsp;&nbsp;&nbsp;&nbsp;集分宝&nbsp;</span><strong>{$info['integral']}</strong>
 					<!--{/if}-->
 					<!--{if $info['price'] > 0}-->
 					<span>&nbsp;&nbsp;&nbsp;&nbsp;价值&nbsp;</span><strong class="price">{$info['price_format']}</strong>
@@ -113,8 +113,8 @@
 			<dd class="content">
 				<!--{if $_FANWE['uid'] > 0}-->
 				<div class="er_info">
-					<span class="fl">&nbsp;&nbsp;当前积分：<b class="red">$_FANWE['user']['credits']</b></span>
-					<span class="fr"><a href="{u exchange/rule}" target="_blank">如何赚取积分？</a></span>
+					<span class="fl">&nbsp;&nbsp;当前集分宝：<b class="red">$_FANWE['user']['credits']</b></span>
+					<span class="fr"><a href="{u exchange/rule}" target="_blank">如何赚取集分宝？</a></span>
 				</div>
 				<div class="er_link">
 					<a href="{u u/exchange}"><img src="./tpl/images/exchange.jpg" /></a>
@@ -123,7 +123,7 @@
 				<div class="er_link">
 					<a href="{u user/login}"><img src="./tpl/images/login.jpg" /></a>
 				</div>
-				<div class="er_rule"><a href="{u exchange/rule}" target="_blank">如何赚取积分？</a></div>
+				<div class="er_rule"><a href="{u exchange/rule}" target="_blank">如何赚取集分宝？</a></div>
 				<!--{/if}-->
 			</dd>
 		</dl>
@@ -167,13 +167,13 @@
 		</dl>
 		<div class="blank12"></div>
 		<dl>
-			<dt><strong>积分TOP10</strong></dt>
+			<dt><strong>集分宝TOP10</strong></dt>
 			<dd class="top">
 				<!--{if count($score_list) > 0}-->
 				<ul>
 					<!--{eval $index = 1;}-->
 					<!--{loop $score_list $score_item}-->
-					<li><span class="i{if $index < 4} t{/if}">{if $index < 10}0{/if}{$index}</span><span class="u">{getuser $score_item['uid'] 0}</span><span class="j">积分：$score_item[credits]</span></li>
+					<li><span class="i{if $index < 4} t{/if}">{if $index < 10}0{/if}{$index}</span><span class="u">{getuser $score_item['uid'] 0}</span><span class="j">集分宝：$score_item[credits]</span></li>
 					<!--{eval $index++;}-->
 					<!--{/loop}-->
 				</ul>

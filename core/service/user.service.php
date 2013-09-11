@@ -1019,7 +1019,7 @@ class UserService
 				if($today_score > $setting_max_score)
 				{
 					$score = 0;
-					$msg .= ' （超过每天最多积分'.$setting_max_score.'限定）';
+					$msg .= ' （超过每天最多集分宝'.$setting_max_score.'限定）';
 				}
 			}
 			

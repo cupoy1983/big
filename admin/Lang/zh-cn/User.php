@@ -24,7 +24,7 @@ $array = array(
 	
 	'LAST_TIME'=>'上次访问时间',
 	'LAST_IP'=>'上次访问IP',
-	'CREDITS'=>'积分',
+	'CREDITS'=>'集分宝',
 	
 	'SHARES'=>'分享',
 	'PHOTOS'=>'分享图片',

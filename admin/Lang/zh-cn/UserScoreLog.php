@@ -1,7 +1,7 @@
 <?php
 $array = array(
-	'USERSCORELOG'=>'会员积分日志',
-	'USERSCORELOG_INDEX'=>'积分日志',
+	'USERSCORELOG'=>'会员集分宝日志',
+	'USERSCORELOG_INDEX'=>'集分宝日志',
 	'NAME'=>'分类名称',
 	
 	'CONTENT'=>'因由',

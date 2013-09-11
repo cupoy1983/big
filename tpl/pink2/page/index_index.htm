@@ -85,7 +85,7 @@
 					if (stdata.ret == 'success') {
 						$("#J_checkin").attr("class","fun6");
 						$("#J_checkin").html("<a href=\"/checkin\" target=\"_blank\"><p>坚持-每月送100+集分宝</p></a>");
-						$.Show_Tooltip("签到成功获得 " + stdata.getjifen + " 积分！共有 " + stdata.upoints + " 积分！");
+						$.Show_Tooltip("签到成功获得 " + stdata.getjifen + " 集分宝！共有 " + stdata.upoints + " 集分宝！");
 					} else if (stdata.ret == 'nologin') {
 						$.Show_Tooltip(stdata.tip);
 						$.Show_Login_Form();

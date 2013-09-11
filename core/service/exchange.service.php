@@ -8,7 +8,7 @@
 /**  
  * exchange.service.php
  *
- * 积分兑换服务
+ * 集分宝兑换服务
  *
  * @package service
  * @author awfigq <awfigq@qq.com>
@@ -77,7 +77,7 @@ class ExchangeService
 	}
 	
 	/**
-	 * 积分排行
+	 * 集分宝排行
 	*/
 	public function getScoreTop($num = 10)
 	{

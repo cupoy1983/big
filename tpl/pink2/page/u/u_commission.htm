@@ -7,9 +7,9 @@
 <div class="wrapper">
 	<div class="zone_head clearfix">
 		<div class="fleft zh_cat">
-			<a href="{u u/commission}"{if $type == 0} class="c"{/if}>返积分列表</a>
+			<a href="{u u/commission}"{if $type == 0} class="c"{/if}>返集分宝列表</a>
                         <span>|</span>
-			<a href="{u user/commission}">返积分说明</a>
+			<a href="{u user/commission}">返集分宝说明</a>
 		</div>
 	</div>
 </div>
@@ -19,8 +19,8 @@
 		<tbody>
 			<tr class="lt-title">
 				<th class="first" width="110">订单编号</th>
-				<th>返积分类型</th>
-				<th>所得积分</th>
+				<th>返集分宝类型</th>
+				<th>所得集分宝</th>
 				<th>支付状态</th>
 				<th>支付/取消时间</th>
 				<th width="80">结算时间</th>
@@ -29,7 +29,7 @@
 			<!--{loop $order_list $order}-->
 			<tr>
 				<td class="lt-td first" style="text-align:center; vertical-align:middle;" rowspan="2">o{$order['order_id']}</td>
-				<td class="lt-td tl" style="text-align:center;">{if $order['type'] == 0}佣金返积分{else}购买返积分{/if}</td>
+				<td class="lt-td tl" style="text-align:center;">{if $order['type'] == 0}佣金返集分宝{else}购买返集分宝{/if}</td>
 				<td class="lt-td" style="text-align:center;">{if $order['score'] > 0}{$order['score']}{else}<span style="color:#ccc;">获取中</span>{/if}</td>
 				<td class="lt-td" style="text-align:center;">{if $order['pay_time'] > 0}{if $order['is_pay'] == 1}已支付{else}取消支付{/if}{else}未支付{/if}</td>
 				<td class="lt-td" style="text-align:center;">{if $order['pay_time'] > 0}{$order['pay_time_format']}{/if}</td>

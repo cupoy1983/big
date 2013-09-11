@@ -202,7 +202,7 @@ RewriteRule ^{SHOP}{SHOP_SHOW}/s(\d+)/(\d+)$  shop\.php\?action=show&id=$1&page=
 RewriteRule ^{SHOP}{SHOP_SHOW}/s(\d+)$  shop\.php\?action=show&id=$1 [QSA,L]
 RewriteRule ^{SHOP}$   shop\.php [QSA,L]
 
-#积分兑换
+#集分宝兑换
 RewriteRule ^{EXCHANGE}{EXCHANGE_INFO}/(\d+)/(\d+)$  exchange\.php\?action=info&id=$1&page=$2 [QSA,L]
 RewriteRule ^{EXCHANGE}{EXCHANGE_INFO}/(\d+)$  exchange\.php\?action=info&id=$1 [QSA,L]
 RewriteRule ^{EXCHANGE}/(\d+)$  exchange\.php\?action=index&page=$1 [QSA,L]

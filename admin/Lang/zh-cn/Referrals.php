@@ -6,8 +6,8 @@ $array = array(
 	
 	'RUSER_NAME'=>'邀请人',
 	'USER_NAME'=>'被邀请人',
-	'IS_PAY'=>'发放积分',
-	'SCORE'=>'积分',
+	'IS_PAY'=>'发放集分宝',
+	'SCORE'=>'集分宝',
 	'DAY_TIME'=>'时间范围',
 );
 return $array;

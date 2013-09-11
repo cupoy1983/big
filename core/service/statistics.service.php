@@ -180,7 +180,7 @@ class StatisticsService
 	 */
 	public function getTypes()
 	{
-		//编号7已经使用为今日会员积分
+		//编号7已经使用为今日会员集分宝
 		return array(
 			'1' => 'continue_login',
 			'2' => 'continue_share',

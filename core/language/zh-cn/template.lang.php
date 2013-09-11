@@ -224,7 +224,7 @@ $lang = array(
 	'manage_flash_0'=>'轮播',
 	'manage_flash_1'=>'取消轮播',
 	
-	'buy_commission'=>'积分',
+	'buy_commission'=>'集分宝',
 
 	//模板JS
 	'js_login'=>'会员登录',

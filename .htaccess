@@ -205,7 +205,7 @@ RewriteRule ^shop/show/s(\d+)/(\d+)$  shop\.php\?action=show&id=$1&page=$2 [QSA,
 RewriteRule ^shop/show/s(\d+)$  shop\.php\?action=show&id=$1 [QSA,L]
 RewriteRule ^shop$   shop\.php [QSA,L]
 
-#积分兑换
+#集分宝兑换
 RewriteRule ^exchange/info/(\d+)/(\d+)$  exchange\.php\?action=info&id=$1&page=$2 [QSA,L]
 RewriteRule ^exchange/info/(\d+)$  exchange\.php\?action=info&id=$1 [QSA,L]
 RewriteRule ^exchange/(\d+)$  exchange\.php\?action=index&page=$1 [QSA,L]
