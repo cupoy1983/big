@@ -25,13 +25,13 @@ class AlbumModule
 			$order = '';
 			switch($sort)
 			{
-				case 'new':
-					$page_args['sort'] = 'new';
+				case 'hot':
+					$page_args['sort'] = 'hot';
 					$order = " ORDER BY id DESC";
 				break;
 				default:
-					$sort = 'hot';
-					$page_args['sort'] = 'hot';
+					$sort = 'new';
+					$page_args['sort'] = 'new';
 					$order = " ORDER BY collect_count DESC,id DESC";
 				break;
 			}
@@ -202,13 +202,13 @@ class AlbumModule
 			$order = '';
 			switch($sort)
 			{
-				case 'new':
-					$page_args['sort'] = 'new';
+				case 'hot':
+					$page_args['sort'] = 'hot';
 					$order = " ORDER BY id DESC";
 				break;
 				default:
-					$sort = 'hot';
-					$page_args['sort'] = 'hot';
+					$sort = 'new';
+					$page_args['sort'] = 'new';
 					$order = " ORDER BY collect_count DESC,id DESC";
 				break;
 			}

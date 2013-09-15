@@ -5,22 +5,24 @@ class GroupModule{
 	 */
 	function i(){
 		global $_FANWE;
-		$cache_file = getTplCache('page/group/group_i',array("page"=>$_FANWE['page']),1);
+		$type = $_FANWE['request']['type'];
+		$cache_file = getTplCache('page/group/group_i',array("page"=>$_FANWE['page'],"type"=>$type),1);
 		if(getCacheIsUpdate($cache_file,10,1)){
 			$_FANWE['nav_title'] = lang('common','group');
 			$fid = (int)$_FANWE['request']['fid'];
 			$page_args = array();
 			$page_type = 0;
 			$where = '';
-			
-			$type = $_FANWE['request']['type'];
-			if($type == 'best'){
+			if(empty($type)){
+				$type = "all";
+			}
+			elseif($type == 'best'){
 				$page_type = 1;
 				$where .= ' WHERE ft.is_best = 1';
 				$page_args['type'] = $type;
 			}else if($type == 'top'){
 				$page_type = 2;
-				$where .= ' WHERE ft.is_best = 1';
+				$where .= ' WHERE ft.is_top = 1';
 				$page_args['type'] = $type;
 			}
 			

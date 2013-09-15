@@ -52,9 +52,9 @@
 				<div class="topic-oper">
 			        <dl>
 			          <dt></dt>
-			          <dd class="current"><a>全部</a>-</dd>
-			          <dd><a href="/group/i-b1">精华</a>-</dd>
-			          <dd><a href="/group/i-t1">置顶</a></dd>
+			          <dd {if $type == 'all'}class="current"{/if}><a href="/group/i">全部</a>-</dd>
+			          <dd {if $type == 'best'}class="current"{/if}><a href="/group/i-b1">精华</a>-</dd>
+			          <dd {if $type == 'top'}class="current"{/if}><a href="/group/i-t1">置顶</a></dd>
 			        </dl>
 			        <form action="/search.php?action=topic" class="search-forum">
 			          	<input type="text" value="" class="txt" name="keyword" tooltip="搜小组主题">
