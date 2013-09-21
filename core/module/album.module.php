@@ -204,12 +204,12 @@ class AlbumModule
 			{
 				case 'hot':
 					$page_args['sort'] = 'hot';
-					$order = " ORDER BY id DESC";
+					$order = " ORDER BY collect_count DESC,id DESC";
 				break;
 				default:
 					$sort = 'new';
 					$page_args['sort'] = 'new';
-					$order = " ORDER BY collect_count DESC,id DESC";
+					$order = " ORDER BY id DESC";
 				break;
 			}
 			
