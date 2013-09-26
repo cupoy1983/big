@@ -10,7 +10,10 @@
 		<!--{/loop}-->
   	</ul>
 </div>
+<div class="ad_goods">
+<h3>热门商品</h3>
 {advlayout id=11}
+</div>
 <?php
 $hot_topics = FS('Topic')->getImgTopic('hot',6);
 ?>
@@ -18,12 +21,15 @@ $hot_topics = FS('Topic')->getImgTopic('hot',6);
 	<h3>热门主题</h3>
 	<div class="blank9"></div>
 	<ul>
+		<!--{eval $counter = 1;}-->
 		<!--{loop $hot_topics $topic}-->
 		<li>
 			<div class="hot_title">
-				<p><a target="_blank" href="{$topic['url']}">{cutstr $topic['title'] 46}</a></p>
-				{$topic['post_count']}回应 
+				<p class="order_num fl no_{$counter}"></p>
+				<p class="tc"><a target="_blank" href="{$topic['url']}">{cutstr $topic['title'] 45}</a></p>
+				<div class="pl15">{$topic['post_count']}回应 </div>
 			</div>
+			<!--{eval $counter++;}-->
 		</li>
 		<!--{/loop}-->
 	</ul>

@@ -190,5 +190,17 @@ class DarenService
 		else
 			return false;
 	}
+	
+	/**
+	 * 判断用户是否为达人
+	 */
+	public function isDaren($uid){
+		$counter = FDB::resultFirst("select COUNT(*) from ".FDB::table("user_daren")." WHERE uid = ".$uid);
+		if( $counter > 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }
 ?>

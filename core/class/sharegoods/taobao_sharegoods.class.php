@@ -63,7 +63,8 @@ class taobao_sharegoods implements interface_sharegoods
 				if(!isset($goods['detail_url']) || !isset($goods['pic_url']))
 					return false;
 				
-				if(!FS("Goods")->getIsDisableByCid('taobao',$goods['cid']))
+				//用户不为达人 并且 分享类目不符合 则不进行分享
+				if(!FS("Daren")->isDaren($_FANWE['uid']) && !FS("Goods")->getIsDisableByCid('taobao',$goods['cid']))
 				{
 					$result['status'] = -4;
 					return $result;

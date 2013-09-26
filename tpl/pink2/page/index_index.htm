@@ -30,7 +30,7 @@
 	          <a href="{$album['url']}">{cutstr $album['title'] 25}</a>
 	        </ul>
 	        <ul class="content">
-	          <li class="c1"><a href="{$album['url']}"><img scaleSrc="{getimg $album['img']['img'] 468 468}" scaleType="3" scaleWidth="160" scaleHeight="160" src="./tpl/images/lazyload.gif" class="LOAD_SCALE_IMG"></a></li>
+	          <li class="c1"><a href="{$album['url']}"><img alt="{cutstr $album['title'] 25}" scaleSrc="{getimg $album['img']['img'] 468 468}" scaleType="3" scaleWidth="160" scaleHeight="160" src="./tpl/images/lazyload.gif" class="LOAD_SCALE_IMG"></a></li>
 	          <li class="c2">
 	            <p  style="font-weight:bold">杂志简介:</p>
 	            <p class="p2">{cutstr $album['content'] 60}</p>
