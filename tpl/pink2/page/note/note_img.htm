@@ -16,7 +16,7 @@
 	</div>
 	<div class="note_imgs">
 		<div class="ni_big">
-			<a href="{if $current_type == 'bao'}$current_obj['to_url']{else}{$current_obj['img']}{/if}" rel="nofollow" target="_blank" class="show_big"><img src="{getimg $current_obj['img'] 468 468}" alt="{$share_user['user_name']}分享_{$current_obj['name']}"width="440"/></a>
+			<a href="{if $current_type == 'bao'}$current_obj['to_url']{else}{$current_obj['img']}{/if}" rel="nofollow" target="_blank" class="show_big to_url"><img src="{getimg $current_obj['img'] 468 468}" alt="{$share_user['user_name']}分享_{$current_obj['name']}"width="440"/></a>
 			
 			<!--{if $current_type == 'bao'}-->
 			<a class="add_to_album_btn" href="javascript:;" style="display: none;" onclick="$.Show_Rel_Album($current_obj['id'],'goods');"></a>
@@ -68,10 +68,10 @@
 			<!--{eval $index = 1;}-->
 			<!--{if $current_type == 'bao'}-->
 			<!--{eval $goods_id = $current_obj['id'];}-->
-			<a href="{$current_obj['to_url']}" rel="nofollow" class="nig_c" target="_blank"><img src="./tpl/images/buy.gif" /><span>{$current_obj['name']}{if $current_obj['commission'] > 0}{/if}</span></a>
+			<a class="to_url" href="{$current_obj['to_url']}" rel="nofollow" class="nig_c" target="_blank"><img src="./tpl/images/buy.gif" /><span>{$current_obj['name']}{if $current_obj['commission'] > 0}{/if}</span></a>
 			<!--{eval $index++;}-->
 			<span id="J_price">原价：<b>￥123</b> </span>
-			<a id="J_promotion_price" href="{$current_obj['to_url']}" class="nig_btn" target="_blank"><span>{$current_obj['price_format']}</span></a>
+			<a id="J_promotion_price" href="{$current_obj['to_url']}" rel="nofollow" class="nig_btn to_url" target="_blank"><span>{$current_obj['price_format']}</span></a>
 			<!--{/if}-->
 			<!--{loop $share_detail['goods_imgs'] $goods}-->
 			<!--{if $goods['id'] != $goods_id}-->

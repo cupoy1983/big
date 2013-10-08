@@ -209,16 +209,18 @@ function CommentInit()
 function ItemsConvert(iids) {
 	TOP.api({
 		method : 'taobao.taobaoke.widget.items.convert',
-		fields : 'price,promotion_price',
+		fields : 'price,promotion_price,click_url',
 		num_iids : iids
 		}, function(resp) {
 		if (resp.taobaoke_items) {
 			var result = resp.taobaoke_items.taobaoke_item[0];
 			var price = result.price;
 			var pprice = result.promotion_price;
+			var url = result.click_url;
 			$("#J_price b").text("￥" + price);
 			$("#J_price").css("display","block");
 			$("#J_promotion_price span").text("优惠：￥" + pprice);
+			$(".to_url").attr("href", url);
 		}else{
 			return false;
 		}
