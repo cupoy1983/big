@@ -1,0 +1,50 @@
+<tagLib name="fanwe" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Static/Js/dataList.js"></script>
+<div class="handle-btns">
+	<fanwe:imageBtn id="addData" name="addData" value="添加达人" click="addData(this,'checkList')" />
+	<form action="__APP__">
+		<small></small>
+		<span>用户名</span>
+		<input class="textinput" type="text" value="{$nick}" name="nick" id="nick" size="8" />
+		<small></small>
+		<span>伙伴</span>
+		<select name="pid">
+			<option value="1">蘑菇街</option>
+		</select>
+		<input class="submit_btn" type="submit" value="{$Think.lang.SEARCH}" />
+		<input type="hidden" name="{:c('VAR_MODULE')}" value="{$module_name}" />
+		<input type="hidden" name="{:c('VAR_ACTION')}" value="index" />
+	</form>
+</div>
+
+
+<table cellspacing="0" cellpadding="0" border="0" class="table-list list" id="checkList" style="width:100%">
+<thead>
+<tr>
+<th width="50" class="first"><a>编号</a></th>
+<th width="100"><a>用户ID</a></th>
+<th width="100"><a>用户昵称</a></th>
+<th width="50"><a>合作</a></th>
+<th width="400"><a>采集链接</a></th>
+<th width="120"><a>建立日期</a></th>
+<th width="120"><a>采集日期</a></th>
+<th width="100">操作</th>
+</tr>
+</thead>
+<tbody>
+<volist name="list" id="data" mod="2">
+<tr <eq name="mod" value="0"> class="even" </eq> >
+	<td class="first">{$data.id}</td>
+	<td>{$data.uid}</td><td>{$data.nick}</td>
+	<td>{$data.partner}</td>
+	<td>{$data.url}</td>
+	<td>{:toDate($data["gmt_create"],'Y-m-d H:i')}</td>
+	<td>{:toDate($data["gmt_modified"],'Y-m-d H:i')}</td>
+	<td><a onclick="removeData(this,'1','id')" href="javascript:;">删除</a>&nbsp;&nbsp;<a href="/admin/index.php?a=albumCollect&m=DarenCollection&id={$data.id}">采集</a>&nbsp;&nbsp;<a href="/admin/index.php?a=albumList&m=DarenCollection&nick={$data.nick}&pid={$data.partner_id}">详情</a></td></tr>
+</volist>
+</tbody>
+</table>
+
+<div class="pager">{$page}</div>
+<include file="Public:footer" />

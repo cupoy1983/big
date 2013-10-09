@@ -71,6 +71,15 @@ function fimport($file_name, $folder = '')
 }
 
 /**
+ * 引用三方库
+ * @param $file_name
+ * @param $folder
+ */
+function thirdParty($file_name, $folder = ''){
+	return FANWE_ROOT.'common/thirdparty/'.$folder."/".$file_name .".php";
+}
+
+/**
  * 获取页面显示操作类
  * @param string $module 类名
  * @return object

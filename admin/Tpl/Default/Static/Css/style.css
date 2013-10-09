@@ -150,7 +150,7 @@ input.resetbutton{border-top:#ebebeb 1px solid;border-left: #ebebeb 1px solid;wi
 .img-button{float:left; height:26px; padding:0 0 0 6px; background:url(../Images/b9.gif) no-repeat 0 0; display:inline; overflow:hidden;}
 .img-button p{float:left; height:26px; padding:0 12px 0px 6px; background:url(../Images/b9.gif) no-repeat right 0;}
 .img-button input{float:left; border:none; background:transparent; color:#4b4c47; margin:0; cursor:pointer; padding:5px 0 0 0;padding:7px 0 0 0\9;*padding:5px 0 0 0;}
-
+.img-button a{float:left; border:none; background:transparent; color:#4b4c47; margin:0; cursor:pointer; padding:5px 0 0 0;padding:7px 0 0 0\9;*padding:5px 0 0 0;}
 .link-button{float:left; height:26px; padding:0 0 0 6px; background:url(../Images/b9.gif) no-repeat 0 0; display:inline; overflow:hidden;}
 .link-button p{float:left; height:26px; padding:0 12px 0 6px; background:url(../Images/b9.gif) no-repeat right 0;}
 .link-button a{float:left; color:#4b4c47; line-height:28px; display:block; padding:0 5px; text-decoration:none;}

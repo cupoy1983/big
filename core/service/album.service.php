@@ -523,5 +523,49 @@ class AlbumService
 		$cache_data = addslashes(serialize($cache_data));
 		FDB::update('user_status',array('cache_data'=>$cache_data),'uid = '.$uid);
 	}
+	
+	/**
+	 * 采集专辑
+	 * @param $data
+	 * $data = array(
+	 *		'uid'        => trim($_FANWE['request']['uid']),
+	 *		'title'        => trim($_FANWE['request']['title']),
+	 *		'content'      => trim($_FANWE['request']['content']),
+	 *		'cid'          => (int)$_FANWE['request']['cid'],
+	 *		'show_type'    => (int)$_FANWE['request']['show_type'],
+	 *		'tags'         => trim($_FANWE['request']['tags']),
+	 *	);
+	 */
+	public function collectAlbum($data){
+		global $_FANWE;
+	
+		$_FANWE['request']['uid'] = $data['uid'];
+		$_FANWE['request']['type'] = 'album';
+		$_FANWE['request']['title'] = $data['title'];
+		$_FANWE['request']['content'] = $data['content'];
+		$share = FS('Share')->submit($_FANWE['request']);
+	
+		if($share['status']){
+			$data['title'] = htmlspecialchars($data['title']);
+			$data['content'] = htmlspecialchars($data['content']);
+			$data['uid'] = $data['uid'];
+			$data['share_id'] = $share['share_id'];
+			$data['create_day'] = getTodayTime();
+			$data['create_time'] = TIME_UTC;
+			$aid = FDB::insert('album',$data,true);
+				
+			$content_match = trim($data['title'].' '.$data['tags']);
+			$content_match = FS('Words')->segmentToUnicode($content_match);
+			FDB::insert("album_match",array('id'=>$aid,'content'=>$content_match),false,true);
+				
+			FDB::query('UPDATE '.FDB::table('share').' SET rec_id = '.$aid.' WHERE share_id = '.$share['share_id']);
+			FDB::query("update ".FDB::table("user_count")." set albums = albums + 1 where uid = ".$_FANWE['uid']);
+			FS('Medal')->runAuto($_FANWE['uid'],'albums');
+			return $aid;
+		}else{
+			return false;
+		}
+	}
+	
 }
 ?>

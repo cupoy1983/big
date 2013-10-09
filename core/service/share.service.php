@@ -67,7 +67,7 @@ class ShareService
 		$share_content = ltrim(strip_tags($post['content']));
 		$share_data = array();
 		$share_data['content'] = $share_content;
-		$share_data['uid'] = intval($_FANWE['uid']);
+		$share_data['uid'] = $post['uid']?$post['uid']:intval($_FANWE['uid']);
 		$share_data['cid'] = intval($post['cid']);
 		$share_data['parent_id'] = intval($post['parent_id']); //分享的转发
 		$share_data['rec_id'] = intval($post['rec_id']); //关联的编号

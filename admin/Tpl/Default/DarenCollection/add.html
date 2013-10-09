@@ -1,0 +1,41 @@
+<tagLib name="fanwe" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Static/Js/user.js"></script>
+<div class="handle-btns">
+	<fanwe:linkBtn text="{$Think.lang.RETURN_LIST}" href="{:U(MODULE_NAME.'/index')}" />
+</div>
+<form method='post' id="form" name="form" action="{:U(MODULE_NAME.'/insert')}" enctype="multipart/form-data">
+<table cellpadding="4" cellspacing="0" border="0" class="table-form">
+	<tr>
+		<th width="150">用户名</th>
+		<td><input type="text" class="textinput" size="12" id="nick" name="nick" value=""/></td>
+	</tr>
+	<tr>
+		<th>用户ID</th>
+		<td>
+			<input type="text" class="textinput" size="12" id="uid" name="uid" />
+		</td>
+	</tr>
+	<tr>
+		<th>URL</th>
+		<td><input type="text" class="textinput" id="url" name="url" style="width:400px;" /></td>
+	</tr>
+	<tr>
+		<th>合作者</th>
+		<td>
+			<select name="partner_id">
+				<option value="1">蘑菇街</option>
+			</select>
+		</td>
+	</tr>
+	<tr class="act">
+		<th>&nbsp;</th>
+		<td>
+			<input type="submit" class="submit_btn" value="{$Think.lang.SUBMIT}" />&nbsp;&nbsp;
+			<input type="reset" class="reset_btn" value="{$Think.lang.RESET}" />
+		</td>
+	</tr>
+</table>
+</form>
+
+<include file="Public:footer" />
