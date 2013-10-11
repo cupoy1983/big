@@ -64,10 +64,21 @@ class ShareService
 	{
 		//创建分享数据
 		global $_FANWE;
+		$data = array();
+		
+		//$post['uid'] > 0 表示 采集商品
+		if($post['uid'] > 0){
+			$uid = $post['uid'];
+			$data["uid"] = $uid;
+		}else{
+			$uid = intval($_FANWE['uid']);
+		}
+		
+		
 		$share_content = ltrim(strip_tags($post['content']));
 		$share_data = array();
 		$share_data['content'] = $share_content;
-		$share_data['uid'] = $post['uid']?$post['uid']:intval($_FANWE['uid']);
+		$share_data['uid'] = $uid;
 		$share_data['cid'] = intval($post['cid']);
 		$share_data['parent_id'] = intval($post['parent_id']); //分享的转发
 		$share_data['rec_id'] = intval($post['rec_id']); //关联的编号
@@ -254,6 +265,12 @@ class ShareService
 	{
 		global $_FANWE;
 		setTimeLimit(300);
+		
+		if($data["uid"] > 0){
+			$uid = $data["uid"];
+		}else{
+			$uid = $_FANWE['uid'];
+		}
 		//保存分享数据
 		$share_data = $data['share'];
 		$share_album_id = (int)$share_data['albumid'];
@@ -316,7 +333,7 @@ class ShareService
 						$weibo_img_sort = $share_photo_data['sort'];
 					}
 					
-					$share_photo_data['uid'] = $_FANWE['uid'];
+					$share_photo_data['uid'] = $uid;
 					$share_photo_data['share_id'] = $share_id;
 					FDB::insert('share_photo',$share_photo_data,true);
 					$photo_count++;
@@ -341,7 +358,7 @@ class ShareService
 						$weibo_img_sort = $share_goods_data['sort'];
 					}
 					
-					$share_goods_data['uid'] = $_FANWE['uid'];
+					$share_goods_data['uid'] = $uid;
 					$share_goods_data['share_id'] = $share_id;
 					FDB::insert('share_goods',$share_goods_data,true);
 					$goods_count++;
@@ -380,7 +397,7 @@ class ShareService
 						$weibo_img_sort = $photo['sort'];
 					}
 					
-					$share_photo_data['uid'] = $_FANWE['uid'];
+					$share_photo_data['uid'] = $uid;
 					$share_photo_data['share_id'] = $share_id;
 					$share_photo_data['img_id'] =  $photo['img_id'];
 					$share_photo_data['type'] =  $photo['type'];
@@ -517,7 +534,7 @@ class ShareService
 					if($goods['goods_id'] > 0)
 					{
 						$is_rel_share = false;
-						$share_goods_data['uid'] = $_FANWE['uid'];
+						$share_goods_data['uid'] = $uid;
 						$share_goods_data['share_id'] = $share_id;
 						$share_goods_data['shop_id'] = $shop_id;
 						$share_goods_data['goods_id'] =  $goods['goods_id'];
@@ -670,7 +687,7 @@ class ShareService
 			if($share_data_status == 1)
 				FS('Event')->saveEvent($share_id);
 			else
-				FDB::insert("share_check",array('share_id'=>$share_id,'uid'=>$_FANWE['uid']));
+				FDB::insert("share_check",array('share_id'=>$share_id,'uid'=>$uid));
 
 			if(in_array($share_data_type,array('goods','photo','goods_photo')))
 			{
@@ -692,7 +709,7 @@ class ShareService
 				}
 				
 				$imags_index = array();
-				$imags_index['uid'] = $_FANWE['uid'];
+				$imags_index['uid'] = $uid;
 				$imags_index['share_id'] = $share_id;
 				$imags_index['status'] = $share_data_status;
 				FDB::insert("share_user_images",$imags_index);
@@ -718,7 +735,7 @@ class ShareService
 						$cate_data = array();
 						$cate_data['share_id'] = $share_id;
 						$cate_data['cate_id'] = $cid;
-						$cate_data['uid'] = $_FANWE['uid'];
+						$cate_data['uid'] = $uid;
 						FDB::insert('share_category',$cate_data);
 					}
 					
@@ -728,7 +745,7 @@ class ShareService
 						$cate_data = array();
 						$cate_data['share_id'] = $share_id;
 						$cate_data['color_id'] = $cid;
-						$cate_data['uid'] = $_FANWE['uid'];
+						$cate_data['uid'] = $uid;
 						FDB::insert('share_color',$cate_data);
 					}
 					
@@ -761,7 +778,7 @@ class ShareService
 						FDB::insert("share_match",$share_match);
 		
 						$imags_index = array();
-						$imags_index['uid'] = $_FANWE['uid'];
+						$imags_index['uid'] = $uid;
 						$imags_index['share_id'] = $share_id;
 						FDB::insert("share_images_index",$imags_index);
 					}
@@ -770,7 +787,7 @@ class ShareService
 				if($goods_count > 0)
 				{
 					$goods_index = array();
-					$goods_index['uid'] = $_FANWE['uid'];
+					$goods_index['uid'] = $uid;
 					$goods_index['share_id'] = $share_id;
 					$goods_index['status'] = $share_data_status;
 					FDB::insert("share_user_goods",$goods_index);
@@ -779,7 +796,7 @@ class ShareService
 						FDB::insert("share_goods_match",$share_match);
 						sort($goods_prices);
 						$goods_index = array();
-						$goods_index['uid'] = $_FANWE['uid'];
+						$goods_index['uid'] = $uid;
 						$goods_index['share_id'] = $share_id;
 						$goods_index['min_price'] = current($goods_prices);
 						$goods_index['max_price'] = end($goods_prices);
@@ -790,7 +807,7 @@ class ShareService
 				if($photo_count > 0)
 				{
 					$photo_index = array();
-					$photo_index['uid'] = $_FANWE['uid'];
+					$photo_index['uid'] = $uid;
 					$photo_index['share_id'] = $share_id;
 					$photo_index['status'] = $share_data_status;
 					FDB::insert("share_user_photo",$photo_index);
@@ -828,7 +845,7 @@ class ShareService
 			{
 				if($share_data_status == 1)
 				{
-					FDB::insert("share_text_index",array('share_id'=>$share_id,'uid'=>$_FANWE['uid']));
+					FDB::insert("share_text_index",array('share_id'=>$share_id,'uid'=>$uid));
 					
 					//保存匹配查询
 					$share_match['share_id'] = $share_id;
@@ -852,21 +869,21 @@ class ShareService
 
 				FS('Album')->updateAlbumByShare($share_data_rec_id,$share_id);
 				FS('Album')->updateAlbum($share_data_rec_id);
-				FS('Album')->setUserCache($_FANWE['uid']);
+				FS('Album')->setUserCache($uid);
 			}
 			
 			if($share_data_status == 1 && !$is_rel_share)
 			{
 				if(isset($photo_types['look']))
-					FS('Look')->setUserCache($_FANWE['uid']);
+					FS('Look')->setUserCache($uid);
 
 				if(isset($photo_types['dapei']))
-					FS('Dapei')->setUserCache($_FANWE['uid']);
+					FS('Dapei')->setUserCache($uid);
 			}
 
 			if(count($shop_ids) > 0 && $share_data_status == 1)
 			{
-				FS("Shop")->saveShopShare($shop_ids,$share_id,$_FANWE['uid']);
+				FS("Shop")->saveShopShare($shop_ids,$share_id,$uid);
 				FS("Shop")->updateShopStatistic($shop_ids);
 			}
 			
@@ -923,7 +940,7 @@ class ShareService
 					$share_data['type'] = 'default';
 				
 				//转发到外部微博
-				$uid = $_FANWE['uid'];
+				$uid = $uid;
 				$user_binds = FS("User")->getUserBindList($uid);
 				$is_open = false;
 				foreach($user_binds as $class => $bind)

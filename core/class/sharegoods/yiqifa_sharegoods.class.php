@@ -2,7 +2,7 @@
 include_once FANWE_ROOT."sdks/yiqifa/YiqifaOpen.php";
 class yiqifa_sharegoods implements interface_sharegoods
 {
-	public function fetch($url)
+	public function fetch($url, $uid)
 	{
         global $_FANWE;
 		

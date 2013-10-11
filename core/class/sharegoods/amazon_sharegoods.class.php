@@ -1,7 +1,7 @@
 <?php
 class amazon_sharegoods implements interface_sharegoods
 {
-	public function fetch($url)
+	public function fetch($url, $uid)
 	{
         global $_FANWE;
 

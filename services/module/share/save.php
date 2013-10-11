@@ -1,15 +1,19 @@
 <?php
-$_FANWE['request']['uid'] = $_FANWE['uid'];
+if(empty($_FANWE['request']['uid'])){
+	$uid = $_FANWE['uid'];
+}else{
+	$isCollect = true;
+}
 
-$result = array();
-if(!checkIpOperation("add_share",SHARE_INTERVAL_TIME))
+//isCollect表示为采集动作
+if(!$isCollect && !checkIpOperation("add_share",SHARE_INTERVAL_TIME))
 {
 	$result['status'] = 0;
 	$result['error_msg'] = lang('share','interval_tips');
 	outputJson($result);
 }
 
-if(empty($_FANWE['request']['content']))
+if(!$isCollect && empty($_FANWE['request']['content']))
 	exit;
 
 $goods_count = 0;
@@ -20,7 +24,7 @@ if(isset($_FANWE['request']['goods']) && is_array($_FANWE['request']['goods']))
 if(isset($_FANWE['request']['pics']) && is_array($_FANWE['request']['pics']))
 	$photo_count = count($_FANWE['request']['pics']);
 	
-if((int)$_FANWE['request']['albumid'] > 0 && $goods_count == 0 && $photo_count == 0)
+if(!$isCollect && (int)$_FANWE['request']['albumid'] > 0 && $goods_count == 0 && $photo_count == 0)
 	exit;
 
 $share_type = $_FANWE['request']['share_type'];
@@ -120,13 +124,14 @@ if($share['status'])
 	);
 	
 	$result['html'] = tplFetch('services/share/u_share_item',$args);
-}
-else
-{
+	$result['success'] = true;
+}else{
 	$result['status'] = 0;
 	$result['error_code'] = $share['error_code'];
 	$result['error_msg'] = $share['error_msg'];
 }
 
-outputJson($result);
+if(!$isReturn){
+	outputJson($result);
+}
 ?>

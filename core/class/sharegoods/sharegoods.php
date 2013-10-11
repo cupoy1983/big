@@ -8,6 +8,7 @@ interface interface_sharegoods{
 	/**
 	 * 处理URL，采集
 	 * @param $url
+	 * @param $uid 用户uid，供采集使用
 	 * 返回结果：
 	 * key => 当前商品的唯一标识，不同的模型可根据实际返回唯一的ID
 	 * item=> 包含
@@ -22,7 +23,7 @@ interface interface_sharegoods{
 	 * shop_id: 商铺的ID，该ID为在相关站点下的可识别主键
 	 * 
 	 */
-	function fetch($url);
+	function fetch($url, $uid);
 	
 	/**
 	 * 获取该商品的标识，用于检测是否已经采集

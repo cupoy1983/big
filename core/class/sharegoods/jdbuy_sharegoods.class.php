@@ -1,7 +1,7 @@
 <?php
 class jdbuy_sharegoods implements interface_sharegoods
 {
-	public function fetch($url)
+	public function fetch($url, $uid)
 	{
         global $_FANWE;
 		$id = $this->getID($url);

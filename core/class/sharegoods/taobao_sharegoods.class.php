@@ -7,10 +7,15 @@ include_once FANWE_ROOT.'sdks/taobao/request/TaobaokeItemsConvertRequest.php';
 
 class taobao_sharegoods implements interface_sharegoods
 {
-	public function fetch($url)
+	public function fetch($url, $uid)
 	{
         global $_FANWE;
-
+        //非采集用户，则将uid赋值，否则设置采集标志
+		if(empty($uid)){
+			$uid = $_FANWE['uid'];
+		}else{
+			$collect = true;
+		}
 		$id = $this->getID($url);             
 		if($id == 0)
 			return false;
@@ -25,10 +30,10 @@ class taobao_sharegoods implements interface_sharegoods
 		}
 		
 		$share_goods = FDB::fetchFirst('SELECT * FROM '.FDB::table('goods')." WHERE keyid = '$key'");
-		if($share_goods && $_FANWE['uid'] > 0)
+		if($share_goods && $uid > 0)
 		{
 			$user_goods = (int)FDB::fetchFirst('SELECT * FROM '.FDB::table('share_goods').' 
-				WHERE uid = '.$_FANWE['uid'].' AND goods_id = '.$share_goods['id']);
+				WHERE uid = '.$uid.' AND goods_id = '.$share_goods['id']);
 			if($user_goods)
 			{
 				$result['status'] = -1;
@@ -63,8 +68,11 @@ class taobao_sharegoods implements interface_sharegoods
 				if(!isset($goods['detail_url']) || !isset($goods['pic_url']))
 					return false;
 				
-				//用户不为达人 并且 分享类目不符合 则不进行分享
-				if(!FS("Daren")->isDaren($_FANWE['uid']) && !FS("Goods")->getIsDisableByCid('taobao',$goods['cid']))
+				//1.非采集
+				//2.用户不为达人
+				//3.分享类目不符合
+				//    则不进行分享
+				if(!$collect && !FS("Daren")->isDaren($uid) && !FS("Goods")->getIsDisableByCid('taobao',$goods['cid']))
 				{
 					$result['status'] = -4;
 					return $result;

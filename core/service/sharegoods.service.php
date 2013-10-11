@@ -52,11 +52,11 @@ class SharegoodsService{
 	/**
 	 * 返回结果为false时采集失败
 	 */
-	public function fetch()
+	public function fetch($uid)
 	{
 		if($this->share_module)
 		{
-			return $this->share_module->fetch($this->url);
+			return $this->share_module->fetch($this->url, $uid);
 		}
 		else
 			return false;

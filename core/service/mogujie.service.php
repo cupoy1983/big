@@ -13,8 +13,8 @@
  * @package service
  * @author frankie
  */
-require fimport('service/collect');
-require thirdParty("phpQuery","phpQuery");
+require_once fimport('service/collect');
+require_once thirdParty("phpQuery","phpQuery");
 
 class MogujieService extends CollectService{
 	
@@ -249,7 +249,10 @@ class MogujieService extends CollectService{
 		$uid = $data["uid"];
 		$albumId = $data["album_id"];
 		
-		$url = "http://www.mogujie.com/note/1ia1wxe?showtype=good&goodsid=1bf1nwk#content_top";
+// 		$url = "http://www.mogujie.com/note/1ia1wxe?showtype=good&goodsid=1bf1nwk#content_top";
+// 		$url = "http://www.mogujie.com/note/1iadyp2?showtype=image&imageid=156pf5c#content_top";
+// 		$url = "http://www.mogujie.com/note/1ib0x32?showtype=image&imageid=1570d8s#content_top";
+		
 		$d = parse_url($url);
 		$url = $d["scheme"]."://".$d["host"].$d["path"];
 
@@ -265,11 +268,71 @@ class MogujieService extends CollectService{
 			CURLOPT_RETURNTRANSFER => true
 		);
 		$c = $webCrawler->getUrlContent($options, false);
-		
 		$doc = phpQuery::newDocument($c);
-		
-		var_dump($c);
 		unset($c);
+		
+		$goodsUrl = pq('#private_content .shop_link')->attr("href");
+		
+		if(!empty($goodsUrl)){
+			$status = self::publishSingles($goodsUrl, $uid, $albumId);
+		}else{
+			foreach(pq('#img_show_wrap .img_show img') as $key => $element){
+				$imgs[$key] = $element->getAttribute("src");
+			}
+			
+			foreach(pq('#note_info_show .goods_list li a') as $key => $element){
+				$goods[$key] = $element->getAttribute("href");
+			}
+			$status = self::publishOthers($imgs, $goods);
+		}
+		
+		//修改item_collection的状态
+		FDB::query("UPDATE ".FDB::table('item_collection')." SET status=".$status." WHERE id=".$data["id"]);
+	}
+	
+	/**
+	 * 发表单品
+	 * @param $url
+	 */
+	private function publishSingles($url, $uid, $albumId){
+		$webCrawler = WebCrawler::getInstance();
+		$options = array(
+				// 设置url
+				CURLOPT_URL => $url,
+				// 设置header
+				CURLOPT_HEADER => false,
+				// 设置http header
+				CURLOPT_HTTPHEADER =>array("User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:24.0) Gecko/20100101 Firefox/24.0" ),
+				// 返回字符串
+				CURLOPT_RETURNTRANSFER => true
+		);
+		
+		$c = $webCrawler->getUrlContent($options, false);
+		if(empty($c)){
+			//FIXME ex: paipai do something
+			$result["status"] = 5;
+		}else{
+			$arr=explode("'",$c);
+			//数组长度大于3，说明该url经过js加密，标记状态为6
+			if(count($arr) > 3){
+				$result["status"] = 6;
+			}else{
+				$result = parent::taobaoCollect($arr[1], $uid, $albumId);
+			}
+		}
+		
+		return $result["status"];
+	}
+	
+	/**
+	 * 发表搭配、晒货、图片
+	 * @param $imgs
+	 * @param $goods
+	 */
+	private function publishOthers($imgs, $goods){
+	
+		//FIXME frankie nothing to do here
+			return 2;
 	}
 	
 }

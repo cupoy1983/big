@@ -23,11 +23,9 @@ class DarenCollectionAction extends CommonAction{
 		
 		// 当前页数据查询
 		$list = $model->where($where)->limit($p->firstRow.','.$p->listRows)->select();
-		
+		vendor('common');
 		foreach($list as $k => $v){
-			if($v["partner_id"] == 1){
-				$list[$k]["partner"] = "蘑菇街";
-			}
+			$list[$k]["partner"] = FS("Collect")->getPartnerById($v["partner_id"]);
 		}
 		$this->assign('page', $page);
 		$this->assign('list', $list);
@@ -86,6 +84,8 @@ class DarenCollectionAction extends CommonAction{
 	}
 	
 	public function albumList(){
+		vendor('common');
+		
 		$nick = $_REQUEST['nick'];
 		$pid = $_REQUEST['pid'];
 		
@@ -108,9 +108,7 @@ class DarenCollectionAction extends CommonAction{
 		$list = $model->where($where)->limit($p->firstRow.','.$p->listRows)->select();
 		
 		foreach($list as $k => $v){
-			if($v["partner_id"] == 1){
-				$list[$k]["partner"] = "蘑菇街";
-			}
+			$list[$k]["partner"] = FS("Collect")->getPartnerById($v["partner_id"]);
 		}
 		
 		$this->assign('count', $count);

@@ -3,7 +3,7 @@ require_once FANWE_ROOT.'sdks/paipai/PaiPaiOpenApiOauth.php';
 require_once FANWE_ROOT.'sdks/paipai/Util.php';
 class paipai_sharegoods implements interface_sharegoods
 {
-	public function fetch($url)
+	public function fetch($url, $uid)
 	{
         global $_FANWE;
 		
