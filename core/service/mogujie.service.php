@@ -288,6 +288,8 @@ class MogujieService extends CollectService{
 		
 		//修改item_collection的状态
 		FDB::query("UPDATE ".FDB::table('item_collection')." SET status=".$status." WHERE id=".$data["id"]);
+		
+		return $status;
 	}
 	
 	/**

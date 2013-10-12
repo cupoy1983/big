@@ -33,7 +33,7 @@ class CronService{
 					}elseif($cserver == 'darencollect'){
 						//达人采集时间程序10分钟运行一次
 						CronService::createRequest(array('m'=>'daren','a'=>'collect'),true);
-						FDB::insert('cron',array('server'=>'darencollect','run_time'=>TIME_UTC + 600));
+						FDB::insert('cron',array('server'=>'darencollect','run_time'=>TIME_UTC + 30));
 					}else{
 						//其他采集时间程序，基本暂未使用
 						FS($cserver)->runCron($cron_list);

@@ -15,6 +15,10 @@ define('ACTION_NAME',$action);
 
 require dirname(__FILE__).'/core/fanwe.php';
 $fanwe = &FanweService::instance();
+if(ACTION_NAME != "index"){
+	$fanwe->is_cron = false;
+}
+
 $fanwe->cache_list[] = 'checkin';
 $fanwe->initialize();
 require fimport('module/checkin');
