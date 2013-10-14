@@ -559,8 +559,8 @@ class AlbumService
 			FDB::insert("album_match",array('id'=>$aid,'content'=>$content_match),false,true);
 				
 			FDB::query('UPDATE '.FDB::table('share').' SET rec_id = '.$aid.' WHERE share_id = '.$share['share_id']);
-			FDB::query("update ".FDB::table("user_count")." set albums = albums + 1 where uid = ".$_FANWE['uid']);
-			FS('Medal')->runAuto($_FANWE['uid'],'albums');
+			FDB::query("update ".FDB::table("user_count")." set albums = albums + 1 where uid = ".$data['uid']);
+			FS('Medal')->runAuto($data['uid'],'albums');
 			return $aid;
 		}else{
 			return false;
