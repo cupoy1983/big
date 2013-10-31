@@ -237,8 +237,8 @@ function FU($type,$args = array(),$is_full = false)
 						$args['aid'] = $args['id'];
 						unset($args['id']);
 						$params = array('aid'=>0);
-						$search = array('aid');
-						$replace = array('detail');
+						$search = array('aid','page-');
+						$replace = array('detail','');
 					break;
 		
 					case 'edit':
