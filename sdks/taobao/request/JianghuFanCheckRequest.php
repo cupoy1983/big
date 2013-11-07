@@ -13,7 +13,7 @@ class JianghuFanCheckRequest
 	private $followerId;
 	
 	/** 
-	 * 达人的id值
+	 * 选款师的id值
 	 **/
 	private $userId;
 	

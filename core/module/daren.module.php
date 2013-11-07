@@ -7,55 +7,13 @@ class DarenModule
 		$cache_file = getTplCache('page/daren',$_FANWE['request'],2);
 		if(getCacheIsUpdate($cache_file,SHARE_CACHE_TIME,1))
 		{
-			$is_best = true;
-			$is_all = false;
 			$_FANWE['nav_title'] = lang('common','daren');
-			
-			$today_daren = FS('Daren')->getIndexTodayDaren();
-			$best_darens = FS('Daren')->getBestDarens();
-			$look_darens = FS('Daren')->getDarensByType(1,10);
-			$look_darens_t = $look_darens_b = array();
-			if(count($look_darens) > 0)
-			{
-				$look_darens_t = array_slice($look_darens,0,3);
-				if(count($look_darens) > 3)
-					$look_darens_b = array_slice($look_darens,3,7);
-			}
-			unset($look_darens);
-	
-			$dapei_darens = FS('Daren')->getDarensByType(2,10);
-			$dapei_darens_t = $dapei_darens_b = array();
-			if(count($dapei_darens) > 0)
-			{
-				$dapei_darens_t = array_slice($dapei_darens,0,3);
-				if(count($dapei_darens) > 3)
-					$dapei_darens_b = array_slice($dapei_darens,3,7);
-			}
-			unset($dapei_darens);
-	
-			$album_darens = FS('Daren')->getDarensByType(3,10);
-			$album_darens_t = $album_darens_b = array();
-			if(count($album_darens) > 0)
-			{
-				$album_darens_t = array_slice($album_darens,0,3);
-				if(count($album_darens) > 3)
-					$album_darens_b = array_slice($album_darens,3,7);
-			}
-			unset($album_darens);
-	
-			$group_darens = FS('Daren')->getDarensByType(4,10);
-			$group_darens_t = $group_darens_b = array();
-			if(count($group_darens) > 0)
-			{
-				$group_darens_t = array_slice($group_darens,0,3);
-				if(count($group_darens) > 3)
-					$group_darens_b = array_slice($group_darens,3,7);
-			}
-			unset($group_darens);
-	
+			$filter = FS('Daren')->getDarensByType(1,10);
 			$new_darens = FS('Daren')->getNewDarens(5);
 			$top_darens = FS('Daren')->getTopDarens(9);
-			
+			foreach ($filter as $k => $v){
+				$filter[$k]["dapei"] = FS("Dapei")->getUserDapeiImage($v["uid"],8);
+			}
 			include template('page/daren');
 			display($cache_file); 
 			exit;
@@ -206,9 +164,9 @@ class DarenModule
 		
 		$id = FDB::insert('user_daren',$daren,true,false,true);
 		if($id > 0)
-			showSuccess('提交申请成功','你的达人申请已经成功提交，我们会尽快处理你的达人申请！',FU('daren/index'));
+			showSuccess('提交申请成功','你的选款师申请已经成功提交，我们会尽快处理你的选款师申请！',FU('daren/index'));
 		else
-			showError('提交申请失败','你的达人申请提交失败，请重新提交达人申请',-1);
+			showError('提交申请失败','你的选款师申请提交失败，请重新提交选款师申请',-1);
 	}
 }
 ?>

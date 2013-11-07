@@ -7,7 +7,7 @@ $lang = array(
 	'manage_unbest_success'=>'取消推荐成功',
 	'manage_delete_success'=>'删除成功',
 	'manage_edit_success'=>'编辑成功',
-	'manage_is_daren_success'=>'取消达人成功',
+	'manage_is_daren_success'=>'取消选款师成功',
 	
 	'manage_status_success'=>'审核成功',
 	'manage_unstatus_success'=>'取消审核成功',
@@ -21,6 +21,6 @@ $lang = array(
 	'manage_unshare_best_success'=>'取消精选搭配成功',
 	'manage_flash_success'=>'设为轮播成功',
 	'manage_unflash_success'=>'取消轮播成功',
-	'manage_undanren_success'=>'取消达人成功',
+	'manage_undanren_success'=>'取消选款师成功',
 );
 ?>

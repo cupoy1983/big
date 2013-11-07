@@ -1255,7 +1255,7 @@ class ShareService
 	 * @param int $share_id 分享编号
 	 * @return array
 	 */
-	public function getShareDetail($share_id,$is_collect = false,$is_tag = false,$collect_count = 20)
+	public function getShareDetail($share_id)
 	{
 		$share = ShareService::getShareById($share_id);
 		if($share)

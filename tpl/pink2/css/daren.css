@@ -45,6 +45,7 @@
 	color:#e8876d;
 }
 .dapei_daren_list li .top_icon {
+	padding-right:5px;
 	height:23px;
 	position:absolute;
 	right:0;
@@ -275,7 +276,6 @@
 .dapei_bd {
 	background-color:#fff;
 	overflow:hidden;
-	padding-left:13px;
 }
 .dapei_bd h1 {
 	text-indent:-9999px;

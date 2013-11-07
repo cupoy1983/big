@@ -4,7 +4,7 @@ $lang = array(
 	'ta_0' => '她',
 	'ta_1' => '他',
 	
-	'daren_alt' => '%s达人',
+	'daren_alt' => '%s选款师',
 	'buyer_alt' => '认证买家',
 
 	'login_tit' => '登 陆',

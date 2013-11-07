@@ -175,7 +175,7 @@ RewriteRule ^medal/index/type/(\d+)$  medal\.php\?action=index&type=$1 [QSA,L]
 RewriteRule ^medal/index/uid/(\d+)$  medal\.php\?action=index&uid=$1 [QSA,L]
 RewriteRule ^medal$  medal\.php\?action=index [QSA,L]
 
-#达人
+#选款师
 RewriteRule ^daren/(look|dapei|group|album)/(\d+)$  daren\.php\?action=$1&page=$2 [QSA,L]
 RewriteRule ^daren/(look|dapei|group|album)$  daren\.php\?action=$1 [QSA,L]
 RewriteRule ^daren/apply$  daren\.php\?action=apply [QSA,L]

@@ -8,7 +8,7 @@
 /**  
  * daren.service.php
  *
- * 达人服务类
+ * 选款师服务类
  *
  * @package service
  * @author awfigq <awfigq@qq.com>
@@ -21,7 +21,7 @@ class DarenService
 	}
 	
 	/**  
-	 * 获取首页今日达人
+	 * 获取首页今日选款师
 	 * @param int $num 数量
 	 * @return array
 	 */
@@ -60,7 +60,7 @@ class DarenService
 	}
 	
 	/**  
-	 * 获取推荐达人
+	 * 获取推荐选款师
 	 * @return array
 	 */
 	public function getBestDarens($num = 4)
@@ -92,12 +92,16 @@ class DarenService
 	}
 
 	/**  
-	 * 根据类型获取达人列表
-	 * $cid(固定) 1:晒货达人 2:搭配达人 3:杂志社作家 4:优秀小组长 
+	 * 根据类型获取选款师列表
+	 * $cid(固定) 1:晒货选款师 2:搭配选款师 3:杂志社作家 4:优秀小组长 
 	 * @return array
 	 */
 	public function getDarensByType($cid = 0,$num = 8)
 	{
+		//不区分搭配和晒货选款师
+		if($cid == 1){
+			$cid = 2;
+		}
 		$key = 'daren/'.$cid.'/'.$num;
 		$list = getCache($key);
 		if($list === NULL)
@@ -147,7 +151,7 @@ class DarenService
 	}
 	
 	/**  
-	 * 获取达人列表
+	 * 获取选款师列表
 	 * @return array
 	 */
 	public function getDarens($limit = '0,15')
@@ -170,7 +174,7 @@ class DarenService
 	}
 	
 	/**
-	 * 取消达人
+	 * 取消选款师
 	 * @return bool
 	 * */
 	public function removeDaren($uid)
@@ -192,7 +196,7 @@ class DarenService
 	}
 	
 	/**
-	 * 判断用户是否为达人
+	 * 判断用户是否为选款师
 	 */
 	public function isDaren($uid){
 		$counter = FDB::resultFirst("select COUNT(*) from ".FDB::table("user_daren")." WHERE uid = ".$uid);

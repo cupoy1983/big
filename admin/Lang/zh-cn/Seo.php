@@ -25,7 +25,7 @@ $array = array(
 	'DAPEI'=>'搭配',
 	'GROUP'=>'小组',
 	'TOPIC'=>'主题',
-	'DAREN'=>'达人',
+	'DAREN'=>'选款师',
 	'SHOP'=>'好店',
 	'EXCHANGE'=>'试用',
 	
@@ -132,11 +132,11 @@ $array = array(
 	'DAREN_INDEX_TIPS'=>'',
 	'DAREN_INDEX_REWRITE'=>'重写对应页面 %sdaren.php?action=index',
 	
-	'DAREN_CATE_TIPS'=>'<span style="color:#ff0000">{NAME}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;表示达人分类&nbsp;分类名称；<br/>
-		<span style="color:#ff0000">{CONTENT}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;表示达人分类&nbsp;分类说明；<br/>
-		<span style="color:#ff0000">{SEO_TITLE}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;表示达人分类&nbsp;SEO标题；<br/>
-		<span style="color:#ff0000">{SEO_KEYWORDS}</span>&nbsp;&nbsp;&nbsp;&nbsp;表示达人分类&nbsp;SEO关键字；<br/>
-		<span style="color:#ff0000">{SEO_DESCRIPTION}</span>&nbsp;表示达人分类&nbsp;SEO描述；',
+	'DAREN_CATE_TIPS'=>'<span style="color:#ff0000">{NAME}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;表示选款师分类&nbsp;分类名称；<br/>
+		<span style="color:#ff0000">{CONTENT}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;表示选款师分类&nbsp;分类说明；<br/>
+		<span style="color:#ff0000">{SEO_TITLE}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;表示选款师分类&nbsp;SEO标题；<br/>
+		<span style="color:#ff0000">{SEO_KEYWORDS}</span>&nbsp;&nbsp;&nbsp;&nbsp;表示选款师分类&nbsp;SEO关键字；<br/>
+		<span style="color:#ff0000">{SEO_DESCRIPTION}</span>&nbsp;表示选款师分类&nbsp;SEO描述；',
 	'DAREN_CATE_REWRITE'=>'重写对应页面 %sdaren.php?action=cate&id=xxx',
 	
 	'SHOP_GREWRITE'=>'重写对应页面 %sshop.php',

@@ -20,8 +20,8 @@ class MogujieService extends CollectService{
 	
 	
 	/**
-	 * 根据分页，遍历蘑菇街达人专辑的信息并处理，为商品、图片的采集做前期准备：
-	 * @param $url 达人专辑当页url
+	 * 根据分页，遍历蘑菇街选款师专辑的信息并处理，为商品、图片的采集做前期准备：
+	 * @param $url 选款师专辑当页url
 	 */
 	public function collectDarenAlbumInfo($url, $uid){
 // 		$url = "http://www.mogujie.com/seerita/album";
@@ -235,8 +235,8 @@ class MogujieService extends CollectService{
 	}
 	
 	/**
-	 * 采集蘑菇街达人分享
-	 * @param $url 达人产品url
+	 * 采集蘑菇街选款师分享
+	 * @param $url 选款师产品url
 	 * 模式链接：
 	 * 单品 http://www.mogujie.com/note/1hp6tku
 	 * 搭配 http://www.mogujie.com/note/1i9bivu

@@ -11,7 +11,7 @@ return array(
 	'ACTION_STATUS'=>'审核',
 	'ACTION_DELETE'=>'删除',
 	'ACTION_INDEX'=>'首页显示',
-	'ACTION_DAREN'=>'取消达人'
+	'ACTION_DAREN'=>'取消选款师'
 	,
 	'ACTION_HOT'=>'热门',
 	'ACTION_EVENT'=>'活动',

@@ -10,7 +10,7 @@ $array = array(
 
 	'IS_SHOW_FOLLOW'=>'注册完后弹出关注方式',
 	'IS_SHOW_FOLLOW_0'=>'不弹出',
-	'IS_SHOW_FOLLOW_1'=>'弹出最新达人列表',
+	'IS_SHOW_FOLLOW_1'=>'弹出最新选款师列表',
 	'IS_SHOW_FOLLOW_2'=>'弹出最新会员列表',
 
 	'BIND_PUSH_WEIBO'=>'账号绑定后推送网站信息',

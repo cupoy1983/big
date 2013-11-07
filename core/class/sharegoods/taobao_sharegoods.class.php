@@ -69,7 +69,7 @@ class taobao_sharegoods implements interface_sharegoods
 					return false;
 				
 				//1.非采集
-				//2.用户不为达人
+				//2.用户不为选款师
 				//3.分享类目不符合
 				//    则不进行分享
 				if(!$collect && !FS("Daren")->isDaren($uid) && !FS("Goods")->getIsDisableByCid('taobao',$goods['cid']))

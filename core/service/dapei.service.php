@@ -64,5 +64,49 @@ class DapeiService
 		}
 		return $list;
 	}
+	
+	/**
+	 * 获取用户搭配的图片(第一张)
+	 * @param $uid 用户Id
+	 * @param $num 获取搭配数目
+	 * @param $sort best, new, recommend
+	 */
+	public function getUserDapeiImage($uid, $num, $sort){
+		$where = " WHERE uid= " . $uid;
+		$limit = " limit 0, ".$num;
+		switch($sort){
+			//24小时最热 24小时喜欢人数
+			case 'hot1':
+				$sort = " ORDER BY collect_1count DESC,share_id DESC ";
+				break;
+			//1周最热 1周喜欢人数
+			case 'hot7':
+				$sort = " ORDER BY collect_7count DESC,share_id DESC ";
+				break;
+			//最新
+			case 'new':
+				$sort = " ORDER BY share_id DESC ";
+				break;
+			default:
+				$sort = '';
+				break;
+		}
+		$sql = 'SELECT DISTINCT(share_id) FROM '.FDB::table('share_dapei_index').$where.$sort.$limit;
+		$res = FDB::query($sql);
+		while($data = FDB::fetch($res)){
+			$shareList[$data['share_id']] = false;
+		}
+		if(count($shareList) > 0){
+			$shareIds = array_keys($shareList);
+			$sql = 'SELECT share_id,uid,content,collect_count,comment_count,create_time,cache_data
+					FROM '.FDB::table('share').' WHERE share_id IN ('.implode(',',$shareIds).')';
+			$res = FDB::query($sql);
+			while($data = FDB::fetch($res)){
+				$img = fStripslashes(unserialize($data['cache_data']));
+				$shareList[$data['share_id']] = current($img["imgs"]["all"]);
+			}
+			return $shareList;
+		}
+	}
 }
 ?>
