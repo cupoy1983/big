@@ -864,3 +864,190 @@
 .da_item input{float:left;}
 .da_item .da_file{border:solid 1px #ccc; padding:3px;} 
 .da_item textarea{float:left; border:solid 1px #ccc;}
+
+
+
+/*达人->选款师改造*/
+.star {
+    background: none repeat scroll 0 0 #FFFFFF;
+    box-shadow: 0 0 1px rgba(34, 25, 25, 0.1);
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    width: 948px;
+}
+.star .ranking {
+    float: left;
+    margin-top: 10px;
+    padding-left: 13px;
+    width: 282px;
+}
+.star .ranking .items_pop {
+    margin-top: 10px;
+}
+.star .ranking .items_pop li {
+    height: 20px;
+    line-height: 20px;
+    margin-top: 5px;
+    overflow: hidden;
+    padding-right: 10px;
+}
+.star .ranking .items_pop li a {
+    display: block;
+}
+.star .ranking .items_pop li .num1 {
+    border-radius: 2px;
+    color: #FFFFFF;
+    display: inline;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 8px;
+    text-align: center;
+    width: 20px;
+}
+.star .ranking .items_pop li .num1:hover {
+    color: #FFFFFF;
+}
+.star .ranking .items_pop li .num1 {
+    background: none repeat scroll 0 0 #FF6699;
+}
+.star .ranking .items_pop .odd_num {
+    background: none repeat scroll 0 0 #F2F0F0;
+}
+.star .ranking .items_pop li a .num1 {
+    font-weight: normal;
+    width: 40px;
+}
+.more {
+    float: right;
+    font-size: 12px;
+    font-weight: normal;
+}
+.daren_bnr {
+    float: left;
+    height: 240px;
+    overflow: hidden;
+    position: relative;
+    width: 640px;
+}
+.apply {
+    background-color: #F2F0F0;
+    height: 76px;
+    line-height: 18px;
+    margin-top: 5px;
+    overflow: hidden;
+    padding: 10px;
+    width: 262px;
+}
+.f14_f {
+    font-size: 14px;
+}
+
+.qqland_info {
+    padding: 20px 10px 16px;
+    width: 180px;
+}
+.qqland_info .portrait {
+    height: 210px;
+}
+.qqland_info .name {
+    color: #666666;
+    font-size: 18px;
+    line-height: 35px;
+}
+.qqland_info .name span {
+    color: #00BAF2;
+    margin-left: 5px;
+}
+.qqland_info .beGood {
+    border-top: 1px dotted #DDDDDD;
+    color: #999999;
+    font-size: 18px;
+    line-height: 30px;
+    padding-top: 16px;
+}
+.qqland_info .beGoodP {
+    color: #F2D0E1;
+    font-size: 16px;
+    line-height: 30px;
+}
+.qqland_info .beGoodP span {
+    margin-right: 15px;
+}
+.qqland_con {
+    padding-bottom: 18px;
+    width: 485px;
+}
+.guide_tit {
+    font-weight: normal;
+    height: 50px;
+    padding: 18px 0 0 28px;
+}
+.guide_tit span {
+    border-bottom: 2px solid #FF89A7;
+    color: #17BAF2;
+    display: inline-block;
+    font-size: 22px;
+    line-height: 28px;
+}
+.guide_tit span em {
+    font-size: 18px;
+    margin-left: 2px;
+	color:#666666;
+    vertical-align: middle;
+}
+.qqland_imgBox {
+    height: 434px;
+    margin-left: 28px;
+    overflow: hidden;
+    position: relative;
+    width: 435px;
+}
+.qqland_img_list {
+    left: 0;
+    position: absolute;
+    top: 0;
+}
+.qqland_img_list li {
+    float: left;
+    height: 434px;
+    overflow: hidden;
+    width: 435px;
+}
+.qqland_img_list li dl {
+    margin-right: -16px;
+}
+.qqland_img_list li dl dd {
+    display: inline;
+    float: left;
+    height: 210px;
+    margin: 0 15px 14px 0;
+    width: 210px;
+}
+.qqland_img{
+	position:relative;
+}
+.qqland_img .next, .qqland_img .prev {
+	background: url(/tpl/pink2/images/qqland.png) no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background-position: left -189px;
+    cursor: pointer;
+    height: 54px;
+    position: absolute;
+    text-indent: -999em;
+    top: 191px;
+    width: 24px;
+}
+.qqland_img .next {
+    left: 0px;
+}
+.qqland_img .prev {
+    background-position: -25px -189px;
+    right: 0px;
+}
+.qqland_right {
+    height: 248px;
+    right: 1px;
+    top: 134px;
+    width: 232px;
+}

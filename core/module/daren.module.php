@@ -5,7 +5,8 @@ class DarenModule
 	{			
 		global $_FANWE;
 		$cache_file = getTplCache('page/daren',$_FANWE['request'],2);
-		if(getCacheIsUpdate($cache_file,SHARE_CACHE_TIME,1))
+		//FIXME getCacheIsUpdate($cache_file,SHARE_CACHE_TIME,1)
+		if(true)
 		{
 			$_FANWE['nav_title'] = lang('common','daren');
 			$filter = FS('Daren')->getDarensByType(1,10);
