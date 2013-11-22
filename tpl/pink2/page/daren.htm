@@ -1,12 +1,7 @@
 <?php
 	$css_list[0]['url'] = './tpl/css/daren.css';
 ?>
-<style>
-<!--
-
--->
-</style>
-<!--{subtemplate inc/header}-->
+<!--{template inc/header}-->
 <div id="body" class="fm960">
 	
 	<div class="piece1 daren_hd mt20">
@@ -84,8 +79,10 @@
                                     <ul class="qqland_img_list">
                                         <li>
                                             <dl>
+                                            	<!--{eval $index = 1;}-->
                                             	<!--{loop $daren['dapei'] $share}-->
-                                                <dd><a href="{u note/m id=$share['img_id'],sid=$share['share_id']}" target="_blank"><img class="book_img lazyload" original="{getimgbyid $share['img_id'] 200 999}" width="200" src="./tpl/images/lazyload.gif" alt="{$share['alt']}"/></a></dd>
+                                                <dd {if $index%2 == 0}class="even"{/if}><a href="{u note/m id=$share['img_id'],sid=$share['share_id']}" target="_blank"><img class="book_img lazyload" original="{getimgbyid $share['img_id'] 200 999}" width="200" src="./tpl/images/lazyload.gif" alt="{$share['alt']}"/></a></dd>
+                                             	<!--{eval $index++;}-->
                                              	<!--{/loop}-->
                                              </dl>
                                         </li>
@@ -168,4 +165,4 @@ jQuery(function($){
 });
 </script>
 <!--{/if}-->
-<!--{subtemplate inc/footer}-->
+<!--{template inc/footer}-->

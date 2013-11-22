@@ -675,7 +675,7 @@ FANWE.WEEBOX_NOT_CLOSES = new Object();
 			
 			var isCloseBox = true;
 			// && TAOBAO_IS_TDJ == 0 检查是否需要？
-			if(info.item.type == 'taobao' && (info.item.id == 0 || info.item.taoke_url == ''))
+			if(info.item.type == 'taobao' && TAOBAO_IS_TDJ == 0 && (info.item.id == 0 || info.item.taoke_url == ''))
 			{
 				isCloseBox = false;
 				TOP.api('rest','post',{
@@ -2943,7 +2943,7 @@ FANWE.WEEBOX_NOT_CLOSES = new Object();
 						var info = jQuery.parseJSON(Base64.decode(result.info));
 						var isCloseBox = true;
 						// && TAOBAO_IS_TDJ == 0 检查是否需要？
-						if(info.item.type == 'taobao' && (info.item.id == 0 || info.item.taoke_url == ''))
+						if(info.item.type == 'taobao' && TAOBAO_IS_TDJ == 0 && (info.item.id == 0 || info.item.taoke_url == ''))
 						{
 							TOP.api('rest','post',{
 								method:'taobao.taobaoke.widget.items.convert',

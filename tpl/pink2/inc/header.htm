@@ -39,29 +39,33 @@
 	</script>
 	<!--{if isset($_FANWE['cache']['business']['taobao'])}-->
 	<!--{if $_FANWE['cache']['business']['taobao']['is_tdj'] == 0}-->
-	<script src="http://a.tbcdn.cn/apps/top/x/sdk.js?appkey={$_FANWE['cache']['business']['taobao']['app_key']}"></script>
-	<style>
-		#top-xdr{position:absolute;top:-2000;left:-2000;};
-	</style>
+		<!-- api start -->
+		<script src="http://a.tbcdn.cn/apps/top/x/sdk.js?appkey={$_FANWE['cache']['business']['taobao']['app_key']}"></script>
+		<style>
+			#top-xdr{position:absolute;top:-2000;left:-2000;};
+		</style>
+		<!-- api end -->
 	<!--{else}-->
-	<script type="text/javascript">
-		(function(win,doc){
-			var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0];
-			if (!win.alimamatk_show) {
-				s.charset = 'utf-8';
-				s.async = true;
-				s.src = "http://a.alimama.cn/tkapi.js";
-				s.kslite = "";
-				h.insertBefore(s, h.firstChild);
-			}
-			var o = {
-				pid: "{$_FANWE['cache']['business']['taobao']['tk_pid']}",
-				appkey:"{$_FANWE['cache']['business']['taobao']['app_key']}"
-			}
-			win.alimamatk_onload = win.alimamatk_onload || [];
-			win.alimamatk_onload.push(o);
-		})(window,document);
-	</script>
+		<!-- 淘点金start -->
+		<script type="text/javascript">
+			(function(win,doc){
+				var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0];
+				if (!win.alimamatk_show) {
+					s.charset = 'utf-8';
+					s.async = true;
+					s.src = "http://a.alimama.cn/tkapi.js";
+					s.kslite = "";
+					h.insertBefore(s, h.firstChild);
+				}
+				var o = {
+					pid: "{$_FANWE['cache']['business']['taobao']['tk_pid']}",
+					appkey:"{$_FANWE['cache']['business']['taobao']['app_key']}"
+				}
+				win.alimamatk_onload = win.alimamatk_onload || [];
+				win.alimamatk_onload.push(o);
+			})(window,document);
+		</script>
+		<!-- 淘点金end -->
 	<!--{/if}-->
 	<!--{/if}-->
 

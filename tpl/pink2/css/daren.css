@@ -1011,7 +1011,7 @@
 }
 .qqland_img_list li {
     float: left;
-    height: 434px;
+    height: 435px;
     overflow: hidden;
     width: 435px;
 }
@@ -1024,6 +1024,9 @@
     height: 210px;
     margin: 0 15px 14px 0;
     width: 210px;
+}
+.qqland_img_list li dl dd.even {
+    margin-right: 0;
 }
 .qqland_img{
 	position:relative;
