@@ -370,8 +370,8 @@ class ShareService
 			$photo_types = array();
 			foreach($share_photo as $k=>$photo)
 			{
-				if($photo_count >= $_FANWE['setting']['share_pic_count'])
-					break;
+// 				if($photo_count >= $_FANWE['setting']['share_pic_count'])
+// 					break;
 				
 				if(!isset($photo['img_id']))
 				{

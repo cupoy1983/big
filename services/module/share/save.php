@@ -35,7 +35,7 @@ switch($share_type)
 			exit;
 	break;
 	case "dapei":
-		if($photo_count == 0)
+		if($photo_count == 0 && $goods_count == 0)
 			exit;
 	break;
 	case "activity":

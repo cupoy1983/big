@@ -276,6 +276,10 @@ class MogujieService extends CollectService{
 		if(!empty($goodsUrl)){
 			$status = self::publishSingles($goodsUrl, $uid, $albumId);
 		}else{
+			pq(".share_content")->find('a')->remove();
+			pq(".share_content")->find('span')->remove();
+			$content = trim(pq(".share_content")->text());
+			
 			foreach(pq('#img_show_wrap .img_show img') as $key => $element){
 				$imgs[$key] = $element->getAttribute("src");
 			}
@@ -283,8 +287,9 @@ class MogujieService extends CollectService{
 			foreach(pq('#note_info_show .goods_list li a') as $key => $element){
 				$goods[$key] = $element->getAttribute("href");
 			}
-			$status = self::publishOthers($imgs, $goods);
+			$status = self::publishOthers($imgs, $goods, $content, $uid, $albumId);
 		}
+		$doc->unloadDocument();
 		
 		//修改item_collection的状态
 		FDB::query("UPDATE ".FDB::table('item_collection')." SET status=".$status." WHERE id=".$data["id"]);
@@ -297,6 +302,40 @@ class MogujieService extends CollectService{
 	 * @param $url
 	 */
 	private function publishSingles($url, $uid, $albumId){
+		$result = self::getTaobaoItemUrl($url);
+		if(!empty($result["itemUrl"])){
+			$result = parent::taobaoCollect($result["itemUrl"], $uid, $albumId);
+		}
+		return $result["status"];
+	}
+	
+	/**
+	 * 发表搭配、晒货、图片
+	 * @param $imgs
+	 * @param $goods
+	 * $param $content
+	 */
+	private function publishOthers($imgs, $goods, $content, $uid, $albumId){
+		
+		$urls = array();
+		//遍历获取淘宝url，并存入数组
+		foreach($goods as $k => $v){
+			$url = self::getTaobaoItemUrl($v);
+			if(!empty($url["itemUrl"])){
+				$urls[$k] = $url["itemUrl"];
+			}
+		}
+		
+		if(empty($urls) && empty($imgs)){
+			return 8;
+		}else{
+			$result = parent::collocationCollect($urls, $imgs, $content, $uid, $albumId);
+		}
+		return $result["status"];
+		
+	}
+	
+	private function getTaobaoItemUrl($url){
 		$webCrawler = WebCrawler::getInstance();
 		$options = array(
 				// 设置url
@@ -310,31 +349,36 @@ class MogujieService extends CollectService{
 		);
 		
 		$c = $webCrawler->getUrlContent($options, false);
-		if(empty($c)){
-			//FIXME ex: paipai do something
-			$result["status"] = 5;
-		}else{
+		if($c){
 			$arr=explode("'",$c);
 			//数组长度大于3，说明该url经过js加密，标记状态为6
 			if(count($arr) > 3){
 				$result["status"] = 6;
 			}else{
-				$result = parent::taobaoCollect($arr[1], $uid, $albumId);
+				$itemUrl = $arr[1];
+			}
+		}else{
+			$options[CURLOPT_HEADER] = true;
+			$c = $webCrawler->getUrlContent($options, false);
+				
+			$headers = explode("\n", $c);
+			foreach($headers as $h){
+				$h = explode(": ", $h);
+				if($h[0]=="Location"){
+					$u = explode("link=", $h[1]);
+					$itemUrl = $u[1];
+				}
+			}
+			if(empty($u[1])){
+				//paipai's goods status = 5
+				$result["status"] = 5;
 			}
 		}
 		
-		return $result["status"];
-	}
-	
-	/**
-	 * 发表搭配、晒货、图片
-	 * @param $imgs
-	 * @param $goods
-	 */
-	private function publishOthers($imgs, $goods){
-	
-		//FIXME frankie nothing to do here
-			return 2;
+		if(!empty($itemUrl)){
+			$result["itemUrl"] = trim($itemUrl);
+		}
+		return $result;
 	}
 	
 }

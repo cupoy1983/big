@@ -103,6 +103,58 @@ class Image
 		}
 		return false;
 	}
+	
+	/**
+	 * 保存远程图片文件
+	 * @return bool
+	 */
+	function saveRemote($url){
+		
+		$a = parse_url($url);
+		$suffix = substr($a["path"], strrpos($a["path"], "."));
+		$file["file_dir"] = $this->getTargetDir("temp");
+		$file["prefix"] = md5(microtime(true)).random("6");
+		$file["target"] = $file['file_dir']."/".$file["prefix"].$suffix;
+		$file["local_target"] = FANWE_ROOT.$file["target"];
+		
+		require_once fimport('class/webcrawler');
+		$options = array(
+				// 设置url
+				CURLOPT_URL => $url,
+				//设置header
+				CURLOPT_HEADER => false,
+				//返回字符串
+				CURLOPT_RETURNTRANSFER => true
+		);
+		$webCrawler = WebCrawler::getInstance();
+		$content = $webCrawler->getUrlContent($options, false);
+		
+		$succeed = self::build_file($content, $file["local_target"]);
+		if($succeed){
+			@chmod($file["local_target"], 0644);
+			list($width, $height, $type, $attr) = getimagesize($file["local_target"]);
+			$file["width"] = $width;
+			$file["height"] = $height;
+			$this->file = &$file;
+		}
+		
+		return $succeed;
+	}
+	
+	//将数据生成文件
+	private static function build_file($file, $filename){
+		$write = @fopen($filename, "w");
+		if($write == false){
+			return false;
+		}
+		if(fwrite($write, $file) == false){
+			return false;
+		}
+		if(fclose($write) == false){
+			return false;
+		}
+		return true;
+	}
 
 	/**
 	 * 获取错误代码
@@ -207,17 +259,17 @@ class Image
 	 * @param string $target 目录文件路径
 	 * @return bool
 	 */
-	private function saveFile($source, $target,$is_convert = false)
+	private function saveFile($source, $target, $is_convert)
 	{
-		if(!Image::isUploadFile($source))
+		if(!Image::isUploadFile($source)){
 			$succeed = false;
-		elseif($is_convert && $this->convertType($source,$target))
+		}elseif($is_convert && $this->convertType($source,$target)){
 			$succeed = true;
-		elseif(@copy($source, $target))
+		}elseif(@copy($source, $target)){
 			$succeed = true;
-		elseif(function_exists('move_uploaded_file') && @move_uploaded_file($source, $target))
+		}elseif(function_exists('move_uploaded_file') && @move_uploaded_file($source, $target)){
 			$succeed = true;
-		elseif (@is_readable($source) && (@$fp_s = fopen($source, 'rb')) && (@$fp_t = fopen($target, 'wb')))
+		}elseif (@is_readable($source) && (@$fp_s = fopen($source, 'rb')) && (@$fp_t = fopen($target, 'wb')))
 		{
 			while (!feof($fp_s))
 			{

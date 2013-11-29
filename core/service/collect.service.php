@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * 商品采集状态码：0初始化 1成功 2搭配产品 3商品不存在(下架怎么处理？) 4该用户已分享 5paipai 6提取url有js加密 7其他错误 8搭配不存在(不存在商品和图片)
+ */
 require_once fimport('class/webcrawler');
 class CollectService{
 	
@@ -68,17 +70,19 @@ class CollectService{
 	 */
 	public function taobaoCollect($url, $uid, $albumId){
 		
-		if(empty($url) || empty($url)){
-			exit;
+		$result = array();
+		$result['success'] = false;
+		if(empty($url) || empty($uid) || empty($albumId)){
+			$result["status"] = 7;
+			return $result;
 		}
 		
 		require fimport('service/sharegoods');
 		$shareGoods = new SharegoodsService($url, $uid);
 		$goods = $shareGoods->fetch($uid);
-		$result = array();
-		$result['success'] = false;
+		
 		//无该产品
-		if(empty($result)){
+		if(empty($goods)){
 			$result["status"] = 3;
 			return $result;
 		}
@@ -111,11 +115,77 @@ class CollectService{
 		}elseif($goods["status"] == -1){
 			$result["status"] = 4;
 		}else{
-			$result["status"] = 5;
+			$result["status"] = 7;
 		}
-		//$result["status"]=0时，将状态设为其他错误$result["status"]=5
+		//$result["status"]=0时，将状态设为其他错误$result["status"]=7
 		if($result["status"] == 0){
-			$result["status"] = 5;
+			$result["status"] = 7;
+		}
+		return $result;
+	}
+	
+	/**
+	 * 淘宝宝贝及图片的搭配采集(存入杂志社)
+	 */
+	public function collocationCollect($urls, $imgs, $content, $uid, $albumId){
+	
+		$result = array();
+		$result['success'] = false;
+		if((empty($urls) && empty($imgs)) || empty($uid) || empty($albumId)){
+			$result["status"] = 7;
+			return $result;
+		}
+		
+		require fimport('service/sharegoods');
+		$sort = 1;
+		foreach($urls as $url){
+			$shareGoods = new SharegoodsService($url, $uid);
+			$item = $shareGoods->fetch($uid);
+			
+			if(!empty($item) && $item["status"] == 1){
+				$goodsInfo = base64_encode(json_encode($item));
+				$itemKey = $item['item']['key'];
+				$goods[$itemKey] = $goodsInfo;
+				$goods_tags[$itemKey] = implode(' ', FS('Words')->segment($item['item']['name'], $_FANWE['setting']['share_tag_count']));
+				$goods_sort[$itemKey] = $sort;
+				$sort ++;
+			}
+		}
+		
+		include_once fimport('class/image');
+		$image = new Image();
+		foreach($imgs as $k => $img){
+			$imgInfo = $image->saveRemote($img);
+			$picInfo = array('path'=>$image->file['local_target'],'url'=>$image->file['target'],'type'=>"undefined",'server_code'=>'','image_width'=>$image->file["width"],'image_height'=>$image->file["height"]);
+			$pics[$k] = base64_encode(json_encode($picInfo));
+			$pics_sort[$k] = $sort;
+			$sort ++;
+		}
+		
+		$_FANWE['request']['uid'] = $uid;
+		$_FANWE['request']['share_type'] = "dapei";
+		$_FANWE['request']['goods'] = $goods;
+		$_FANWE['request']['goods_sort'] = $goods_sort;
+		$_FANWE['request']['goods_tags'] = $goods_tags;
+		
+		$_FANWE['request']['pics'] = $pics;
+		$_FANWE['request']['pics_sort'] = $pics_sort;
+		
+		$_FANWE['request']['tags'] = "";
+		$_FANWE['request']['content'] = $content;
+		$_FANWE['request']['albumid'] = $albumId;
+		$_FANWE['request']['pub_out_check'] = 1;
+		$_FANWE['request']['isajax'] = 1;
+		
+		$file = $_SERVER['DOCUMENT_ROOT'] . '/services/module/share/save.php';
+		$isReturn = true;
+		if(file_exists($file)){
+			include $file;
+		}
+		
+		//$result["status"]=0时，将状态设为其他错误$result["status"]=7
+		if($result["status"] == 0){
+			$result["status"] = 7;
 		}
 		return $result;
 	}
