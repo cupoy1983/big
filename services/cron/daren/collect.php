@@ -19,6 +19,6 @@ echo str_repeat(' ',4096);
 $sql = "SELECT * FROM ".FDB::table('item_collection')." WHERE status=0 ORDER BY gmt_create ASC";
 $item = FDB::fetchFirst($sql);
 $service = FS("Collect")->getPartnerServiceById($item["partner_id"]);
-$status = FS("Mogujie")->publishShares($item);
+$status = FS($service)->publishShares($item);
 outputJson($status);
 ?>

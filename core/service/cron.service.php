@@ -12,6 +12,17 @@
  *
  * @package class
  * @author awfigq <awfigq@qq.com>
+ * 
+	+--------------+------+------------+------+
+	| server       | type | run_time   | data |
+	+--------------+------+------------+------+
+	| sessionkey   |      | 1385838309 | NULL |
+	| commission   |      | 1385884800 | NULL |
+	| share        |      | 1385884800 | NULL |
+	| darencollect |      | 1385837741 | NULL |
+	| collect      |      | 1385837741 | NULL |
+	+--------------+------+------------+------+
+ * 
  */
 class CronService{
 	
@@ -22,22 +33,21 @@ class CronService{
 			$crons[$data['server']][] = $data;
 		}
 		
+		FDB::query("DELETE FROM ".FDB::table('cron')." WHERE run_time <= '".TIME_UTC."'");
+		
 		if(count($crons) > 0){
-			$query = FDB::query("DELETE FROM ".FDB::table('cron')." WHERE run_time <= '".TIME_UTC."'");
-			if($query !== FALSE && FDB::affectedRows() > 0){
-				foreach($crons as $cserver => $cron_list){
-					if($cserver == 'collect'){
-						//采集时间程序，暂未使用
-						CronService::createRequest(array('m'=>'collect','a'=>'init'),true);
-						FDB::insert('cron',array('server'=>'collect','run_time'=>TIME_UTC + 86400));
-					}elseif($cserver == 'darencollect'){
-						//选款师采集时间程序10分钟运行一次
-						CronService::createRequest(array('m'=>'daren','a'=>'collect'),true);
-						FDB::insert('cron',array('server'=>'darencollect','run_time'=>TIME_UTC + 30));
-					}else{
-						//其他采集时间程序，基本暂未使用
-						FS($cserver)->runCron($cron_list);
-					}
+			foreach($crons as $cserver => $cron_list){
+				if($cserver == 'collect'){
+					//采集时间程序，暂未使用
+					CronService::createRequest(array('m'=>'collect','a'=>'init'),true);
+					FDB::insert('cron',array('server'=>'collect','run_time'=>TIME_UTC + 86400));
+				}elseif($cserver == 'darencollect'){
+					//选款师采集时间程序10分钟运行一次
+					CronService::createRequest(array('m'=>'daren','a'=>'collect'),true);
+					FDB::insert('cron',array('server'=>'darencollect','run_time'=>TIME_UTC + 30));
+				}else{
+					//其他采集时间程序，基本暂未使用
+					FS($cserver)->runCron($cron_list);
 				}
 			}
 		}
@@ -57,10 +67,11 @@ class CronService{
 		$args = rawurlencode(authcode($args,'ENCODE',$authkey));
 		$args = 'args='.$args;
 		
+		$key = md5($args);
 		if($is_script)
 		{
 			$url = SITE_URL.'services/cron.php?'.$args;
-			$_FANWE['delay_scripts'][] = $url;
+			$_FANWE['delay_scripts'][$key] = $url;
 			return $url;
 		}
 		else
