@@ -27,6 +27,11 @@
 class CronService{
 	
 	public function run(){
+		$send_time = (int)@file_get_contents(FANWE_ROOT.'public/records/sync_send.time.php');
+		if(TIMESTAMP - $send_time > 300){
+			CronService::createRequest(array('m'=>'share','a'=>'sync_send'),true);
+		}
+		
 		$crons = array();
 		$res = FDB::query("SELECT * FROM ".FDB::table('cron')." WHERE run_time <= '".TIME_UTC."' ORDER BY run_time DESC");
 		while($data = FDB::fetch($res)){
@@ -50,11 +55,6 @@ class CronService{
 					FS($cserver)->runCron($cron_list);
 				}
 			}
-		}
-		
-		$send_time = (int)@file_get_contents(FANWE_ROOT.'public/records/sync_send.time.php');
-		if(TIMESTAMP - $send_time > 300){
-			CronService::createRequest(array('m'=>'share','a'=>'sync_send'),true);
 		}
 	}
 	
