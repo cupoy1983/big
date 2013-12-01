@@ -104,19 +104,21 @@ class MogujieService extends CollectService{
 				//将该专辑采集入库
 				$albumId = FS("Album")->collectAlbum($data);
 				
-				//将该专辑信息采集入库
-				$data = array(
-					'uid'        => $uid,
-					'title'      => $title,
-					'out_id'     => $outId,
-					'partner_id' => parent::PARTNER_MOGUJIE,
-					'url'        => trim($url),
-					'album_id'   => $albumId,
-					'gmt_create' => TIME_UTC,
-					'gmt_modified' => TIME_UTC,
-				);
-				
-				parent::saveAlbumInfo($data);
+				if($albumId > 0){
+					//将该专辑信息采集入库
+					$data = array(
+							'uid'        => $uid,
+							'title'      => $title,
+							'out_id'     => $outId,
+							'partner_id' => parent::PARTNER_MOGUJIE,
+							'url'        => trim($url),
+							'album_id'   => $albumId,
+							'gmt_create' => TIME_UTC,
+							'gmt_modified' => TIME_UTC,
+					);
+					
+					parent::saveAlbumInfo($data);
+				}
 				
 				//释放document内存
 				$doc->unloadDocument();

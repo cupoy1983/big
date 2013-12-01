@@ -1,6 +1,6 @@
 <?php
 /**
- * 商品采集状态码：0初始化 1成功 2搭配产品 3商品不存在(下架怎么处理？) 4该用户已分享 5paipai 6提取url有js加密 7其他错误 8搭配不存在(不存在商品和图片)
+ * 商品采集状态码：0初始化 1成功 2搭配产品 3商品不存在(下架怎么处理？) 4该用户已分享 5paipai 6提取url有js加密 7其他错误(无album_id或) 8搭配不存在(不存在商品和图片)
  */
 require_once fimport('class/webcrawler');
 class CollectService{
