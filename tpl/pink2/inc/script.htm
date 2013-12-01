@@ -39,3 +39,6 @@ if(!empty($_FANWE['cookie']['dynamic_script']))
 <!--{loop $_FANWE['delay_scripts'] $delay_script}-->
 <script type="text/javascript" src="{$delay_script}"></script>
 <!--{/loop}-->
+<!--{loop $_FANWE['timetask'] $from $time_script}-->
+<script data="$from" type="text/javascript" src="{$time_script}"></script>
+<!--{/loop}-->

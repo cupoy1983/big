@@ -44,11 +44,11 @@ class CronService{
 			foreach($crons as $cserver => $cron_list){
 				if($cserver == 'collect'){
 					//采集时间程序，暂未使用
-					CronService::createRequest(array('m'=>'collect','a'=>'init'),true);
+					self::createRequest(array('m'=>'collect','a'=>'init'));
 					FDB::insert('cron',array('server'=>'collect','run_time'=>TIME_UTC + 86400));
 				}elseif($cserver == 'darencollect'){
 					//选款师采集时间程序10分钟运行一次
-					CronService::createRequest(array('m'=>'daren','a'=>'collect'),true);
+					CronService::request(array('m'=>'daren','a'=>'collect'),"darencollect");
 					FDB::insert('cron',array('server'=>'darencollect','run_time'=>TIME_UTC + 30));
 				}else{
 					//其他采集时间程序，基本暂未使用
@@ -84,6 +84,19 @@ class CronService{
 			curl_exec($ch);
 			curl_close($ch);
 		}
+	}
+	
+	public function request($args = array(),$from){
+		global $_FANWE;
+		$args['request_time'] = TIMESTAMP;
+		$args = serialize($args);
+		$authkey = md5($_FANWE['config']['security']['authkey']);
+		$args = rawurlencode(authcode($args,'ENCODE',$authkey));
+		$args = 'args='.$args;
+		
+		$url = SITE_URL.'services/cron.php?'.$args;
+		$_FANWE['timetask'][$from] = $url;
+		return $url;
 	}
 }
 ?>
