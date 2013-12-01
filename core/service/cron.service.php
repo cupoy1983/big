@@ -31,7 +31,9 @@ class CronService{
 		if(TIMESTAMP - $send_time > 300){
 			CronService::createRequest(array('m'=>'share','a'=>'sync_send'),true);
 		}
-		
+	
+		 CronService::request(array('m'=>'daren','a'=>'collect'),"darencollect");
+			
 		$crons = array();
 		$res = FDB::query("SELECT * FROM ".FDB::table('cron')." WHERE run_time <= '".TIME_UTC."' ORDER BY run_time DESC");
 		while($data = FDB::fetch($res)){
